@@ -40,7 +40,7 @@ export const Navbar = () => {
           <img
             src={scrolled ? logo : logoWhite}
             alt="Tretra Wear"
-            className="h-9 md:h-11 w-auto transition-all duration-300"
+            className="h-14 md:h-16 w-auto transition-all duration-300"
           />
         </Link>
 
