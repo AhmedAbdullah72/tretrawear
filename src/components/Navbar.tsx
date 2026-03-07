@@ -38,11 +38,9 @@ export const Navbar = () => {
         {/* Logo */}
         <Link to="/" className="flex-shrink-0">
           <img
-            src={logo}
+            src={scrolled ? logo : logoWhite}
             alt="Tretra Wear"
-            className={`h-8 md:h-10 w-auto transition-all duration-300 ${
-              scrolled ? "" : "brightness-0 invert"
-            }`}
+            className="h-9 md:h-11 w-auto transition-all duration-300"
           />
         </Link>
 
