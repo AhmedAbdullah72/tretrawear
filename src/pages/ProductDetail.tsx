@@ -166,8 +166,9 @@ const ProductDetail = () => {
                       </button>
                     );
                   })}
-                </div>
               </div>
+              <SizeGuide />
+            </div>
             ))}
 
             {/* Quantity */}
