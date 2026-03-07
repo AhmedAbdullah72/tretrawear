@@ -5,6 +5,7 @@ import { CartDrawer } from "./CartDrawer";
 import { motion, AnimatePresence } from "framer-motion";
 import logo from "@/assets/logo.png";
 
+
 const navLinks = [
   { label: "Home", path: "/" },
   { label: "Shop", path: "/shop" },
