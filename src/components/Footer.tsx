@@ -14,50 +14,66 @@ export const Footer = () => {
               Bold streetwear for the fearless. Born in Egypt, made for the world. Every piece tells a story of rebellion, comfort, and uncompromising quality.
             </p>
             <div className="flex gap-4 mt-6">
-              {["Instagram", "TikTok", "Facebook"].map((social) => (
-                <a
-                  key={social}
-                  href="#"
-                  className="font-body text-xs tracking-wider uppercase text-muted-foreground hover:text-primary transition-colors duration-300 px-3 py-1.5 rounded-full bg-secondary hover:bg-primary/10"
-                >
-                  {social}
-                </a>
-              ))}
+              <a
+                href="https://instagram.com/tretra.wear"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-body text-xs tracking-wider uppercase text-muted-foreground hover:text-primary transition-colors duration-300 px-3 py-1.5 rounded-full bg-secondary hover:bg-primary/10"
+              >
+                Instagram
+              </a>
+              <a
+                href="https://tiktok.com/@tretra.wear"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-body text-xs tracking-wider uppercase text-muted-foreground hover:text-primary transition-colors duration-300 px-3 py-1.5 rounded-full bg-secondary hover:bg-primary/10"
+              >
+                TikTok
+              </a>
+              <a
+                href="https://facebook.com/tretra.wear"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-body text-xs tracking-wider uppercase text-muted-foreground hover:text-primary transition-colors duration-300 px-3 py-1.5 rounded-full bg-secondary hover:bg-primary/10"
+              >
+                Facebook
+              </a>
             </div>
           </div>
 
           <div>
             <h4 className="font-heading text-sm text-foreground mb-5">Quick Links</h4>
             <div className="space-y-3">
-              {[
-                { label: "Shop All", path: "/shop" },
-                { label: "About Us", path: "/about" },
-                { label: "Size Guide", path: "/shop" },
-                { label: "Contact", path: "/about" },
-              ].map((link) => (
-                <Link
-                  key={link.label}
-                  to={link.path}
-                  className="block font-body text-sm text-muted-foreground hover:text-primary transition-colors duration-300"
-                >
-                  {link.label}
-                </Link>
-              ))}
+              <Link to="/shop" className="block font-body text-sm text-muted-foreground hover:text-primary transition-colors duration-300">
+                Shop All
+              </Link>
+              <Link to="/about" className="block font-body text-sm text-muted-foreground hover:text-primary transition-colors duration-300">
+                About Us
+              </Link>
+              <Link to="/shop" className="block font-body text-sm text-muted-foreground hover:text-primary transition-colors duration-300">
+                Size Guide
+              </Link>
+              <Link to="/about" className="block font-body text-sm text-muted-foreground hover:text-primary transition-colors duration-300">
+                Contact
+              </Link>
             </div>
           </div>
 
           <div>
             <h4 className="font-heading text-sm text-foreground mb-5">Support</h4>
             <div className="space-y-3">
-              {["Shipping Info", "Returns", "FAQ", "Track Order"].map((item) => (
-                <a
-                  key={item}
-                  href="#"
-                  className="block font-body text-sm text-muted-foreground hover:text-primary transition-colors duration-300"
-                >
-                  {item}
-                </a>
-              ))}
+              <Link to="/shipping" className="block font-body text-sm text-muted-foreground hover:text-primary transition-colors duration-300">
+                Shipping Info
+              </Link>
+              <Link to="/returns" className="block font-body text-sm text-muted-foreground hover:text-primary transition-colors duration-300">
+                Returns
+              </Link>
+              <Link to="/faq" className="block font-body text-sm text-muted-foreground hover:text-primary transition-colors duration-300">
+                FAQ
+              </Link>
+              <Link to="/privacy" className="block font-body text-sm text-muted-foreground hover:text-primary transition-colors duration-300">
+                Privacy Policy
+              </Link>
             </div>
           </div>
         </div>
@@ -67,15 +83,12 @@ export const Footer = () => {
             © {new Date().getFullYear()} TRETRA Wear. All rights reserved.
           </p>
           <div className="flex gap-6">
-            {["Privacy Policy", "Terms of Service"].map((link) => (
-              <a
-                key={link}
-                href="#"
-                className="font-body text-xs text-muted-foreground hover:text-primary transition-colors"
-              >
-                {link}
-              </a>
-            ))}
+            <Link to="/privacy" className="font-body text-xs text-muted-foreground hover:text-primary transition-colors">
+              Privacy Policy
+            </Link>
+            <Link to="/terms" className="font-body text-xs text-muted-foreground hover:text-primary transition-colors">
+              Terms of Service
+            </Link>
           </div>
         </div>
       </div>
