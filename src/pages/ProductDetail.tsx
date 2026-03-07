@@ -10,6 +10,8 @@ import { SizeGuide } from "@/components/SizeGuide";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
+import { getProductCopy } from "@/lib/productCopy";
+import { ProductBenefits, ProductSpecsTable, ProductFAQs } from "@/components/ProductCopySections";
 
 const ProductDetail = () => {
   const { handle } = useParams<{ handle: string }>();
@@ -34,6 +36,15 @@ const ProductDetail = () => {
     };
     if (handle) fetchProduct();
   }, [handle]);
+
+  // SEO: update document title & meta
+  useEffect(() => {
+    if (!product) return;
+    const copy = getProductCopy(product.title, product.handle);
+    document.title = copy.seo.title;
+    const meta = document.querySelector('meta[name="description"]');
+    if (meta) meta.setAttribute("content", copy.seo.metaDescription);
+  }, [product]);
 
   const handleAddToCart = async () => {
     if (!product) return;
@@ -73,6 +84,7 @@ const ProductDetail = () => {
 
   const selectedVariant = product.variants.edges[selectedVariantIdx]?.node;
   const images = product.images.edges;
+  const copy = getProductCopy(product.title, product.handle);
 
   return (
     <div className="min-h-screen bg-background">
@@ -102,7 +114,7 @@ const ProductDetail = () => {
               {images[selectedImage]?.node ? (
                 <img
                   src={images[selectedImage].node.url}
-                  alt={images[selectedImage].node.altText || product.title}
+                  alt={copy.imageAlts[selectedImage] || images[selectedImage].node.altText || product.title}
                   className="w-full h-full object-cover"
                 />
               ) : (
@@ -119,7 +131,7 @@ const ProductDetail = () => {
                       idx === selectedImage ? "border-primary shadow-sm" : "border-transparent opacity-60 hover:opacity-100"
                     }`}
                   >
-                    <img src={img.node.url} alt="" className="w-full h-full object-cover" />
+                    <img src={img.node.url} alt={copy.imageAlts[idx] || ""} className="w-full h-full object-cover" />
                   </button>
                 ))}
               </div>
@@ -139,6 +151,9 @@ const ProductDetail = () => {
                 {selectedVariant?.price.currencyCode} {parseFloat(selectedVariant?.price.amount || "0").toFixed(2)}
               </p>
             </div>
+
+            {/* Benefits */}
+            <ProductBenefits copy={copy} />
 
             {/* Options */}
             {product.options.map((option) => (
@@ -166,26 +181,20 @@ const ProductDetail = () => {
                       </button>
                     );
                   })}
+                </div>
+                <SizeGuide />
               </div>
-              <SizeGuide />
-            </div>
             ))}
 
             {/* Quantity */}
             <div>
               <label className="font-heading text-xs tracking-wider text-foreground block mb-2">Quantity</label>
               <div className="inline-flex items-center border border-border rounded-lg">
-                <button
-                  onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                  className="p-2.5 text-muted-foreground hover:text-foreground transition-colors"
-                >
+                <button onClick={() => setQuantity(Math.max(1, quantity - 1))} className="p-2.5 text-muted-foreground hover:text-foreground transition-colors">
                   <Minus className="h-4 w-4" />
                 </button>
                 <span className="w-10 text-center font-body text-sm text-foreground">{quantity}</span>
-                <button
-                  onClick={() => setQuantity(quantity + 1)}
-                  className="p-2.5 text-muted-foreground hover:text-foreground transition-colors"
-                >
+                <button onClick={() => setQuantity(quantity + 1)} className="p-2.5 text-muted-foreground hover:text-foreground transition-colors">
                   <Plus className="h-4 w-4" />
                 </button>
               </div>
@@ -206,12 +215,19 @@ const ProductDetail = () => {
               )}
             </Button>
 
+            {/* Specs Table */}
+            <ProductSpecsTable copy={copy} />
+
+            {/* Description */}
             {product.description && (
               <div className="bg-card rounded-xl p-5 border border-border">
                 <h3 className="font-heading text-xs tracking-wider text-foreground mb-2">Description</h3>
                 <p className="font-body text-sm text-muted-foreground leading-relaxed">{product.description}</p>
               </div>
             )}
+
+            {/* FAQs */}
+            <ProductFAQs copy={copy} />
 
             <div className="space-y-2">
               {[
