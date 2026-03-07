@@ -4,7 +4,6 @@ import { Menu, X, Search } from "lucide-react";
 import { CartDrawer } from "./CartDrawer";
 import { motion, AnimatePresence } from "framer-motion";
 import logo from "@/assets/logo.png";
-import logoWhite from "@/assets/logo-white.png";
 
 const navLinks = [
   { label: "Home", path: "/" },
@@ -38,9 +37,11 @@ export const Navbar = () => {
         {/* Logo */}
         <Link to="/" className="flex-shrink-0">
           <img
-            src={scrolled ? logo : logoWhite}
+            src={logo}
             alt="Tretra Wear"
-            className="h-14 md:h-16 w-auto transition-all duration-300"
+            className={`h-10 md:h-12 w-auto transition-all duration-300 ${
+              scrolled ? "" : "brightness-0 invert"
+            }`}
           />
         </Link>
 
