@@ -4,6 +4,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { motion } from "framer-motion";
 
 const faqs = [
   { q: "What sizes do you offer?", a: "We offer sizes S through 3XL. All our pieces feature an oversized fit, so we recommend sizing down if you prefer a more fitted look. Check our size guide on each product page for exact measurements." },
@@ -18,28 +19,41 @@ export const FAQSection = () => {
   return (
     <section className="section-padding bg-background">
       <div className="container max-w-3xl">
-        <div className="text-center mb-12">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-12"
+        >
           <p className="font-body text-xs tracking-[0.3em] uppercase text-primary mb-3">Got Questions?</p>
           <h2 className="font-heading text-4xl md:text-5xl text-foreground">
             FREQUENTLY <span className="text-primary">ASKED</span>
           </h2>
-        </div>
-        <Accordion type="single" collapsible className="space-y-2">
-          {faqs.map((faq, i) => (
-            <AccordionItem
-              key={i}
-              value={`faq-${i}`}
-              className="border border-border bg-card px-6 data-[state=open]:border-primary/40 transition-colors"
-            >
-              <AccordionTrigger className="font-heading text-sm md:text-base text-foreground hover:no-underline hover:text-primary transition-colors">
-                {faq.q}
-              </AccordionTrigger>
-              <AccordionContent className="font-body text-sm text-muted-foreground leading-relaxed">
-                {faq.a}
-              </AccordionContent>
-            </AccordionItem>
-          ))}
-        </Accordion>
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
+          <Accordion type="single" collapsible className="space-y-3">
+            {faqs.map((faq, i) => (
+              <AccordionItem
+                key={i}
+                value={`faq-${i}`}
+                className="border border-border bg-card rounded-xl px-6 data-[state=open]:border-primary/30 data-[state=open]:shadow-sm transition-all"
+              >
+                <AccordionTrigger className="font-heading text-sm md:text-base text-foreground hover:no-underline hover:text-primary transition-colors">
+                  {faq.q}
+                </AccordionTrigger>
+                <AccordionContent className="font-body text-sm text-muted-foreground leading-relaxed">
+                  {faq.a}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </motion.div>
       </div>
     </section>
   );

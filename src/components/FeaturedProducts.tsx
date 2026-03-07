@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { storefrontApiRequest, PRODUCTS_QUERY, type ShopifyProduct } from "@/lib/shopify";
 import { ProductCard } from "./ProductCard";
 import { Loader2, ArrowRight } from "lucide-react";
+import { motion } from "framer-motion";
 
 export const FeaturedProducts = () => {
   const [products, setProducts] = useState<ShopifyProduct[]>([]);
@@ -23,9 +24,15 @@ export const FeaturedProducts = () => {
   }, []);
 
   return (
-    <section className="section-padding">
+    <section className="section-padding bg-background">
       <div className="container">
-        <div className="flex items-end justify-between mb-12">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="flex items-end justify-between mb-12"
+        >
           <div>
             <p className="font-body text-xs tracking-[0.3em] uppercase text-primary mb-3">Our Collection</p>
             <h2 className="font-heading text-4xl md:text-5xl text-foreground">
@@ -39,14 +46,14 @@ export const FeaturedProducts = () => {
             View All
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
           </Link>
-        </div>
+        </motion.div>
 
         {loading ? (
           <div className="flex justify-center py-20">
             <Loader2 className="h-8 w-8 animate-spin text-primary" />
           </div>
         ) : products.length === 0 ? (
-          <div className="text-center py-20 border border-border bg-card">
+          <div className="text-center py-20 border border-border rounded-xl bg-card">
             <p className="font-heading text-2xl text-muted-foreground/30 mb-2">NO PRODUCTS YET</p>
             <p className="text-muted-foreground font-body text-sm">
               Add products to your Shopify store to display them here.
@@ -54,8 +61,16 @@ export const FeaturedProducts = () => {
           </div>
         ) : (
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-            {products.map((product) => (
-              <ProductCard key={product.node.id} product={product} />
+            {products.map((product, i) => (
+              <motion.div
+                key={product.node.id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1, duration: 0.5 }}
+              >
+                <ProductCard product={product} />
+              </motion.div>
             ))}
           </div>
         )}

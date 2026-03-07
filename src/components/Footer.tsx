@@ -5,7 +5,6 @@ export const Footer = () => {
     <footer className="border-t border-border bg-card">
       <div className="container py-16">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
-          {/* Brand */}
           <div className="md:col-span-2">
             <Link to="/" className="font-heading text-3xl text-foreground">
               TRETRA<span className="text-primary">.</span>
@@ -18,7 +17,7 @@ export const Footer = () => {
                 <a
                   key={social}
                   href="#"
-                  className="font-body text-xs tracking-wider uppercase text-muted-foreground hover:text-primary transition-colors duration-300"
+                  className="font-body text-xs tracking-wider uppercase text-muted-foreground hover:text-primary transition-colors duration-300 px-3 py-1.5 rounded-full bg-secondary hover:bg-primary/10"
                 >
                   {social}
                 </a>
@@ -26,7 +25,6 @@ export const Footer = () => {
             </div>
           </div>
 
-          {/* Quick Links */}
           <div>
             <h4 className="font-heading text-sm text-foreground mb-5">Quick Links</h4>
             <div className="space-y-3">
@@ -47,7 +45,6 @@ export const Footer = () => {
             </div>
           </div>
 
-          {/* Support */}
           <div>
             <h4 className="font-heading text-sm text-foreground mb-5">Support</h4>
             <div className="space-y-3">
