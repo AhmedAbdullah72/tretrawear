@@ -8,7 +8,7 @@ export const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
           <div className="md:col-span-2">
             <Link to="/" className="inline-block">
-              <img src={logo} alt="Tretra Wear" className="h-10 w-auto" />
+              <img src={logo} alt="Tretra Wear" className="h-14 w-auto" />
             </Link>
             <p className="font-body text-sm text-muted-foreground mt-4 max-w-sm leading-relaxed">
               Bold streetwear for the fearless. Born in Egypt, made for the world. Every piece tells a story of rebellion, comfort, and uncompromising quality.
