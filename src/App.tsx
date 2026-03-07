@@ -33,6 +33,7 @@ const AppContent = () => {
         <Route path="/terms" element={<Terms />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
+      <WhatsAppButton />
     </BrowserRouter>
   );
 };
