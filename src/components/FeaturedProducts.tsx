@@ -27,9 +27,9 @@ export const FeaturedProducts = () => {
     <section className="section-padding bg-background">
       <div className="container">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.6 }}
           className="flex items-end justify-between mb-12"
         >
@@ -64,10 +64,10 @@ export const FeaturedProducts = () => {
             {products.map((product, i) => (
               <motion.div
                 key={product.node.id}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1, duration: 0.5 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ delay: i * 0.08, duration: 0.5, ease: "easeOut" }}
               >
                 <ProductCard product={product} />
               </motion.div>

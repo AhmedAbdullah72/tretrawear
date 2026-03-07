@@ -1,5 +1,7 @@
 import { Check } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
+import shadowHoodie from "@/assets/shadow-hoodie.jpg";
 
 const features = [
   "Heavy-weight 380gsm premium cotton",
@@ -11,14 +13,22 @@ const features = [
 ];
 
 export const ProductShowcase = () => {
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+
+  const imageY = useTransform(scrollYProgress, [0, 1], ["8%", "-8%"]);
+
   return (
-    <section className="section-padding bg-card">
+    <section ref={sectionRef} className="section-padding bg-card overflow-hidden">
       <div className="container">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <motion.div
-            initial={{ opacity: 0, x: -40 }}
+            initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.7 }}
           >
             <p className="font-body text-xs tracking-[0.3em] uppercase text-primary mb-3">Product Details</p>
@@ -36,10 +46,10 @@ export const ProductShowcase = () => {
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: i * 0.08, duration: 0.4 }}
+                  transition={{ delay: i * 0.06, duration: 0.4 }}
                   className="flex items-center gap-2"
                 >
-                  <div className="w-6 h-6 flex items-center justify-center bg-primary/10 rounded-full">
+                  <div className="w-6 h-6 flex items-center justify-center bg-primary/10 rounded-full flex-shrink-0">
                     <Check className="h-3.5 w-3.5 text-primary" />
                   </div>
                   <span className="font-body text-sm text-foreground">{f}</span>
@@ -49,19 +59,20 @@ export const ProductShowcase = () => {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, x: 40 }}
+            initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.7 }}
             className="relative"
           >
             <div className="aspect-[4/5] bg-secondary rounded-2xl overflow-hidden shadow-xl">
-              <div className="w-full h-full flex items-center justify-center">
-                <div className="text-center p-8">
-                  <p className="font-heading text-2xl text-muted-foreground/30 mb-2">PRODUCT IMAGE</p>
-                  <p className="font-body text-sm text-muted-foreground">Add products to your store to see them here</p>
-                </div>
-              </div>
+              <motion.img
+                src={shadowHoodie}
+                alt="TRETRA Shadow Hoodie detail"
+                className="w-full h-full object-cover"
+                style={{ y: imageY }}
+                loading="lazy"
+              />
             </div>
             <div className="absolute -bottom-4 -right-4 w-24 h-24 border-2 border-primary/20 rounded-2xl -z-10" />
             <div className="absolute -top-4 -left-4 w-16 h-16 bg-primary/10 rounded-2xl -z-10" />

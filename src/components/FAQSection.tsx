@@ -7,12 +7,12 @@ import {
 import { motion } from "framer-motion";
 
 const faqs = [
-  { q: "What sizes do you offer?", a: "We offer sizes S through 3XL. All our pieces feature an oversized fit, so we recommend sizing down if you prefer a more fitted look. Check our size guide on each product page for exact measurements." },
-  { q: "How long does shipping take?", a: "Domestic orders (Egypt) ship within 2-4 business days. International orders typically arrive within 7-14 business days depending on your location." },
-  { q: "What is your return policy?", a: "We accept returns within 14 days of delivery for unworn items with original tags attached. Exchanges are processed within 3-5 business days after we receive your return." },
-  { q: "How do I track my order?", a: "Once your order ships, you'll receive an email with a tracking number. You can use this to track your package on our shipping partner's website." },
-  { q: "Are your products true to size?", a: "Our pieces are designed with an oversized, drop-shoulder fit. For our intended silhouette, order your regular size. For a more fitted look, size down one." },
-  { q: "Do you offer international shipping?", a: "Yes! We ship worldwide. Shipping costs and delivery times vary by region. Free shipping is available on domestic orders over 500 EGP." },
+  { q: "What sizes do you offer?", a: "We offer sizes S through 3XL. All our pieces feature an oversized fit, so we recommend sizing down if you prefer a more fitted look." },
+  { q: "How long does shipping take?", a: "Domestic orders (Egypt) ship within 2-4 business days. International orders typically arrive within 7-14 business days." },
+  { q: "What is your return policy?", a: "We accept returns within 14 days of delivery for unworn items with original tags attached." },
+  { q: "How do I track my order?", a: "Once your order ships, you'll receive an email with a tracking number." },
+  { q: "Are your products true to size?", a: "Our pieces are designed with an oversized, drop-shoulder fit. For a more fitted look, size down one." },
+  { q: "Do you offer international shipping?", a: "Yes! We ship worldwide. Free shipping is available on domestic orders over 500 EGP." },
 ];
 
 export const FAQSection = () => {
@@ -20,9 +20,9 @@ export const FAQSection = () => {
     <section className="section-padding bg-background">
       <div className="container max-w-3xl">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
@@ -32,10 +32,10 @@ export const FAQSection = () => {
           </h2>
         </motion.div>
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.6, delay: 0.15 }}
         >
           <Accordion type="single" collapsible className="space-y-3">
             {faqs.map((faq, i) => (

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Search } from "lucide-react";
 import { CartDrawer } from "./CartDrawer";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -16,30 +16,40 @@ export const Navbar = () => {
   const location = useLocation();
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", handleScroll);
+    const handleScroll = () => setScrolled(window.scrollY > 30);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Close mobile menu on route change
+  useEffect(() => { setIsOpen(false); }, [location.pathname]);
+
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-400 ${
         scrolled
-          ? "bg-card/95 backdrop-blur-md shadow-sm border-b border-border"
-          : "bg-transparent"
+          ? "bg-card/98 backdrop-blur-xl shadow-sm border-b border-border py-0"
+          : "bg-transparent py-1"
       }`}
     >
-      <div className="container flex items-center justify-between h-16 md:h-20">
-        <Link to="/" className={`font-heading text-2xl md:text-3xl tracking-tight transition-colors duration-300 ${scrolled ? "text-foreground" : "text-primary-foreground"}`}>
+      <div className="container flex items-center justify-between h-16 md:h-18">
+        {/* Logo */}
+        <Link
+          to="/"
+          className={`font-heading text-2xl md:text-3xl tracking-tight transition-colors duration-300 ${
+            scrolled ? "text-foreground" : "text-primary-foreground"
+          }`}
+        >
           TRETRA<span className="text-primary">.</span>
         </Link>
 
-        <div className="hidden md:flex items-center gap-8">
+        {/* Desktop Nav */}
+        <div className="hidden md:flex items-center gap-10">
           {navLinks.map((link) => (
             <Link
               key={link.path}
               to={link.path}
-              className={`font-body text-sm tracking-wider uppercase transition-colors duration-300 relative ${
+              className={`font-body text-xs tracking-[0.15em] uppercase transition-colors duration-300 relative py-1 ${
                 location.pathname === link.path
                   ? "text-primary"
                   : scrolled
@@ -51,49 +61,52 @@ export const Navbar = () => {
               {location.pathname === link.path && (
                 <motion.div
                   layoutId="nav-indicator"
-                  className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary rounded-full"
+                  className="absolute -bottom-0.5 left-0 right-0 h-0.5 bg-primary rounded-full"
+                  transition={{ type: "spring", stiffness: 400, damping: 30 }}
                 />
               )}
             </Link>
           ))}
         </div>
 
-        <div className="flex items-center gap-4">
-          <div className={scrolled ? "text-foreground" : "text-primary-foreground"}>
+        {/* Right actions */}
+        <div className="flex items-center gap-3">
+          <div className={`transition-colors duration-300 ${scrolled ? "text-foreground" : "text-primary-foreground"}`}>
             <CartDrawer />
           </div>
           <button
             className={`md:hidden p-2 transition-colors ${scrolled ? "text-foreground" : "text-primary-foreground"}`}
             onClick={() => setIsOpen(!isOpen)}
+            aria-label="Toggle menu"
           >
             {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
         </div>
       </div>
 
+      {/* Mobile Menu */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
             className="md:hidden bg-card border-t border-border overflow-hidden"
           >
-            <div className="container py-6 space-y-4">
+            <div className="container py-6 space-y-1">
               {navLinks.map((link, i) => (
                 <motion.div
                   key={link.path}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.1 }}
+                  transition={{ delay: i * 0.07 }}
                 >
                   <Link
                     to={link.path}
                     onClick={() => setIsOpen(false)}
-                    className={`block font-heading text-2xl py-2 transition-colors ${
-                      location.pathname === link.path
-                        ? "text-primary"
-                        : "text-foreground/70"
+                    className={`block font-heading text-2xl py-3 transition-colors ${
+                      location.pathname === link.path ? "text-primary" : "text-foreground/70"
                     }`}
                   >
                     {link.label}
