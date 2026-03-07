@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { toast } from "sonner";
+import { motion } from "framer-motion";
+import { Send } from "lucide-react";
 
 export const Newsletter = () => {
   const [email, setEmail] = useState("");
@@ -13,13 +15,19 @@ export const Newsletter = () => {
   };
 
   return (
-    <section className="py-20 md:py-28 bg-card">
-      <div className="container max-w-xl text-center">
-        <p className="font-body text-xs tracking-[0.3em] uppercase text-muted-foreground mb-4">Stay Connected</p>
-        <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-3">
+    <section className="py-20 md:py-28 bg-foreground text-background">
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+        className="container max-w-xl text-center"
+      >
+        <p className="font-body text-xs tracking-[0.3em] uppercase text-background/50 mb-4">Stay Connected</p>
+        <h2 className="font-heading text-3xl md:text-4xl text-background mb-3">
           Join the Movement
         </h2>
-        <p className="font-body text-sm text-muted-foreground mb-8">
+        <p className="font-body text-sm text-background/60 mb-8">
           Get early access to new drops, exclusive offers, and street culture content.
         </p>
         <form onSubmit={handleSubmit} className="flex gap-0">
@@ -29,16 +37,17 @@ export const Newsletter = () => {
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Your email"
             required
-            className="flex-1 bg-background border border-border px-4 py-3 font-body text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
+            className="flex-1 bg-background/10 border border-background/20 rounded-l-lg px-4 py-3 font-body text-sm text-background placeholder:text-background/40 focus:outline-none focus:border-primary transition-colors"
           />
           <button
             type="submit"
-            className="bg-primary text-primary-foreground font-heading font-semibold text-sm tracking-wider uppercase px-6 py-3 hover:bg-primary/90 transition-colors"
+            className="bg-primary text-primary-foreground font-heading font-semibold text-sm tracking-wider uppercase px-6 py-3 rounded-r-lg hover:bg-primary/90 transition-colors flex items-center gap-2"
           >
+            <Send className="h-4 w-4" />
             Subscribe
           </button>
         </form>
-      </div>
+      </motion.div>
     </section>
   );
 };

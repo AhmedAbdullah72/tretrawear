@@ -47,13 +47,13 @@ export const UrgencyBanner = () => {
         <div className="container flex items-center justify-center gap-6">
           <Clock className="h-5 w-5" />
           <p className="font-body text-sm font-semibold tracking-wide">OFFER ENDS IN:</p>
-          <div className="flex gap-2">
+          <div className="flex gap-3">
             {[
               { val: timeLeft.hours, label: "HRS" },
               { val: timeLeft.minutes, label: "MIN" },
               { val: timeLeft.seconds, label: "SEC" },
             ].map((t) => (
-              <div key={t.label} className="flex items-center gap-1">
+              <div key={t.label} className="flex items-center gap-1 bg-primary-foreground/10 rounded-lg px-3 py-1">
                 <span className="font-heading text-2xl tabular-nums">{pad(t.val)}</span>
                 <span className="font-body text-[10px] tracking-wider opacity-70">{t.label}</span>
               </div>

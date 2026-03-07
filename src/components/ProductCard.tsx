@@ -32,12 +32,12 @@ export const ProductCard = ({ product }: ProductCardProps) => {
 
   return (
     <Link to={`/product/${node.handle}`} className="group block">
-      <div className="relative aspect-[3/4] bg-card border border-border overflow-hidden mb-3 group-hover:border-primary/40 transition-all duration-500">
+      <div className="relative aspect-[3/4] bg-secondary rounded-xl overflow-hidden mb-3 shadow-sm group-hover:shadow-lg transition-all duration-500">
         {image ? (
           <img
             src={image.url}
             alt={image.altText || node.title}
-            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
             loading="lazy"
           />
         ) : (
@@ -46,19 +46,18 @@ export const ProductCard = ({ product }: ProductCardProps) => {
           </div>
         )}
 
-        {/* Hover overlay */}
-        <div className="absolute inset-0 bg-background/0 group-hover:bg-background/20 transition-all duration-500" />
+        <div className="absolute inset-0 bg-foreground/0 group-hover:bg-foreground/5 transition-all duration-500" />
 
         <button
           onClick={handleAddToCart}
           disabled={isLoading || !firstVariant?.availableForSale}
-          className="absolute bottom-3 right-3 bg-primary text-primary-foreground p-3 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 hover:bg-primary/90 disabled:opacity-50"
+          className="absolute bottom-3 right-3 bg-primary text-primary-foreground p-3 rounded-full opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 hover:bg-primary/90 disabled:opacity-50 shadow-lg"
         >
           {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <ShoppingCart className="h-4 w-4" />}
         </button>
 
         {!firstVariant?.availableForSale && (
-          <div className="absolute top-3 left-3 bg-primary text-primary-foreground text-xs font-heading px-3 py-1">
+          <div className="absolute top-3 left-3 bg-foreground text-background text-xs font-heading px-3 py-1 rounded-full">
             SOLD OUT
           </div>
         )}
