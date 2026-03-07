@@ -32,7 +32,7 @@ export const HeroSection = () => {
       <div className="absolute inset-0 bg-gradient-to-t from-foreground/70 via-transparent to-foreground/10" />
 
       <div className="relative container z-10">
-        <motion.div className="max-w-2xl" style={{ y: textY }}>
+        <motion.div className="max-w-2xl pt-20 md:pt-24" style={{ y: textY }}>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
