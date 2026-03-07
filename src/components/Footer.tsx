@@ -13,9 +13,17 @@ export const Footer = () => {
             <p className="font-body text-sm text-muted-foreground mt-4 max-w-sm leading-relaxed">
               Bold streetwear for the fearless. Born in Egypt, made for the world. Every piece tells a story of rebellion, comfort, and uncompromising quality.
             </p>
+            <div className="space-y-2 mt-4">
+              <a href="tel:+201024888818" className="block font-body text-sm text-muted-foreground hover:text-primary transition-colors duration-300">
+                +20 102 488 8818
+              </a>
+              <a href="mailto:info@tretrawear.com" className="block font-body text-sm text-muted-foreground hover:text-primary transition-colors duration-300">
+                info@tretrawear.com
+              </a>
+            </div>
             <div className="flex gap-4 mt-6">
               <a
-                href="https://instagram.com/tretra.wear"
+                href="https://www.instagram.com/tretra.wear/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="font-body text-xs tracking-wider uppercase text-muted-foreground hover:text-primary transition-colors duration-300 px-3 py-1.5 rounded-full bg-secondary hover:bg-primary/10"
@@ -23,7 +31,7 @@ export const Footer = () => {
                 Instagram
               </a>
               <a
-                href="https://tiktok.com/@tretra.wear"
+                href="https://www.tiktok.com/@tretra.wear"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="font-body text-xs tracking-wider uppercase text-muted-foreground hover:text-primary transition-colors duration-300 px-3 py-1.5 rounded-full bg-secondary hover:bg-primary/10"
@@ -31,7 +39,7 @@ export const Footer = () => {
                 TikTok
               </a>
               <a
-                href="https://facebook.com/tretra.wear"
+                href="https://www.facebook.com/Tretra.wear/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="font-body text-xs tracking-wider uppercase text-muted-foreground hover:text-primary transition-colors duration-300 px-3 py-1.5 rounded-full bg-secondary hover:bg-primary/10"
