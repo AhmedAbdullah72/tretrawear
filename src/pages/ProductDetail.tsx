@@ -6,6 +6,7 @@ import { Marquee } from "@/components/Marquee";
 import { storefrontApiRequest, PRODUCT_BY_HANDLE_QUERY } from "@/lib/shopify";
 import { useCartStore, type ShopifyProduct } from "@/stores/cartStore";
 import { Loader2, ChevronLeft, Truck, RefreshCw, ShieldCheck, Minus, Plus } from "lucide-react";
+import { SizeGuide } from "@/components/SizeGuide";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
