@@ -3,12 +3,10 @@ import { Link } from "react-router-dom";
 import { storefrontApiRequest, PRODUCTS_QUERY, type ShopifyProduct } from "@/lib/shopify";
 import { ProductCard } from "./ProductCard";
 import { Loader2, ArrowRight } from "lucide-react";
-import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 export const FeaturedProducts = () => {
   const [products, setProducts] = useState<ShopifyProduct[]>([]);
   const [loading, setLoading] = useState(true);
-  const ref = useScrollAnimation();
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -25,9 +23,9 @@ export const FeaturedProducts = () => {
   }, []);
 
   return (
-    <section className="section-padding" ref={ref}>
+    <section className="section-padding">
       <div className="container">
-        <div className="flex items-end justify-between mb-12 animate-on-scroll">
+        <div className="flex items-end justify-between mb-12">
           <div>
             <p className="font-body text-xs tracking-[0.3em] uppercase text-primary mb-3">Our Collection</p>
             <h2 className="font-heading text-4xl md:text-5xl text-foreground">
@@ -55,7 +53,7 @@ export const FeaturedProducts = () => {
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 animate-on-scroll">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
             {products.map((product) => (
               <ProductCard key={product.node.id} product={product} />
             ))}
