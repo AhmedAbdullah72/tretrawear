@@ -4,6 +4,7 @@ import { Menu, X, Search } from "lucide-react";
 import { CartDrawer } from "./CartDrawer";
 import { motion, AnimatePresence } from "framer-motion";
 import logo from "@/assets/logo.png";
+import logoWhite from "@/assets/logo-white.png";
 
 const navLinks = [
   { label: "Home", path: "/" },
