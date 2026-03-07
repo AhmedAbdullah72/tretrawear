@@ -1,26 +1,18 @@
-import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { Star, MessageSquare } from "lucide-react";
 
 export const SocialProof = () => {
-  const ref = useScrollAnimation();
-
   return (
-    <section className="section-padding bg-card" ref={ref}>
+    <section className="section-padding bg-card">
       <div className="container">
-        <div className="text-center mb-12 animate-on-scroll">
+        <div className="text-center mb-12">
           <p className="font-body text-xs tracking-[0.3em] uppercase text-primary mb-3">Customer Love</p>
           <h2 className="font-heading text-4xl md:text-5xl text-foreground">
             WHAT THEY <span className="text-primary">SAY</span>
           </h2>
         </div>
-
-        {/* Empty review structure — no fake reviews per policy */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {[1, 2, 3].map((i) => (
-            <div
-              key={i}
-              className="animate-on-scroll p-6 bg-background border border-border hover:border-primary/30 transition-all duration-500"
-            >
+            <div key={i} className="p-6 bg-background border border-border hover:border-primary/30 transition-all duration-500">
               <div className="flex gap-1 mb-4">
                 {[...Array(5)].map((_, j) => (
                   <Star key={j} className="h-4 w-4 text-muted-foreground/30" />
