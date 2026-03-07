@@ -32,34 +32,42 @@ export const ProductCard = ({ product }: ProductCardProps) => {
 
   return (
     <Link to={`/product/${node.handle}`} className="group block">
-      <div className="relative aspect-[3/4] bg-card rounded-lg overflow-hidden mb-3">
+      <div className="relative aspect-[3/4] bg-card border border-border overflow-hidden mb-3 group-hover:border-primary/40 transition-all duration-500">
         {image ? (
           <img
             src={image.url}
             alt={image.altText || node.title}
-            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
             loading="lazy"
           />
         ) : (
-          <div className="w-full h-full flex items-center justify-center text-muted-foreground">
+          <div className="w-full h-full flex items-center justify-center text-muted-foreground font-body text-sm">
             No image
           </div>
         )}
+
+        {/* Hover overlay */}
+        <div className="absolute inset-0 bg-background/0 group-hover:bg-background/20 transition-all duration-500" />
+
         <button
           onClick={handleAddToCart}
           disabled={isLoading || !firstVariant?.availableForSale}
-          className="absolute bottom-3 right-3 bg-primary text-primary-foreground p-3 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-primary/90 disabled:opacity-50"
+          className="absolute bottom-3 right-3 bg-primary text-primary-foreground p-3 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 hover:bg-primary/90 disabled:opacity-50"
         >
           {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <ShoppingCart className="h-4 w-4" />}
         </button>
+
         {!firstVariant?.availableForSale && (
-          <div className="absolute top-3 left-3 bg-muted text-muted-foreground text-xs font-heading font-semibold px-3 py-1 rounded">
-            Sold Out
+          <div className="absolute top-3 left-3 bg-primary text-primary-foreground text-xs font-heading px-3 py-1">
+            SOLD OUT
           </div>
         )}
       </div>
-      <h3 className="font-heading font-medium text-sm text-foreground truncate">{node.title}</h3>
-      <p className="font-heading text-sm text-muted-foreground mt-1">
+
+      <h3 className="font-heading text-sm text-foreground group-hover:text-primary transition-colors duration-300 truncate">
+        {node.title}
+      </h3>
+      <p className="font-body text-sm text-muted-foreground mt-1">
         {price.currencyCode} {parseFloat(price.amount).toFixed(2)}
       </p>
     </Link>
