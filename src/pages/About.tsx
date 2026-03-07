@@ -1,11 +1,19 @@
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Newsletter } from "@/components/Newsletter";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 import lifestyle1 from "@/assets/lifestyle-1.jpg";
 import lifestyle2 from "@/assets/lifestyle-2.jpg";
 
 const About = () => {
+  const img1Ref = useRef<HTMLDivElement>(null);
+  const img2Ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress: img1Progress } = useScroll({ target: img1Ref, offset: ["start end", "end start"] });
+  const { scrollYProgress: img2Progress } = useScroll({ target: img2Ref, offset: ["start end", "end start"] });
+  const img1Y = useTransform(img1Progress, [0, 1], ["6%", "-6%"]);
+  const img2Y = useTransform(img2Progress, [0, 1], ["6%", "-6%"]);
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
@@ -15,7 +23,7 @@ const About = () => {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.5 }}
           className="container max-w-3xl text-center py-12"
         >
           <p className="font-body text-xs tracking-[0.3em] uppercase text-background/50 mb-4">About Us</p>
@@ -23,28 +31,29 @@ const About = () => {
             We Are Tretra<span className="text-primary">.</span>
           </h1>
           <p className="font-body text-base md:text-lg text-background/60 leading-relaxed">
-            A streetwear brand born in Egypt, designed for the bold and fearless youth of the MENA region and beyond.
+            A streetwear brand born in Egypt, designed for the bold and fearless.
           </p>
         </motion.div>
       </section>
 
       {/* Mission */}
-      <section className="py-16 bg-background">
+      <section className="py-16 bg-background overflow-hidden">
         <div className="container">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <motion.div
-              initial={{ opacity: 0, x: -30 }}
+              ref={img1Ref}
+              initial={{ opacity: 0, x: -40 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.6 }}
               className="aspect-square rounded-2xl overflow-hidden shadow-lg"
             >
-              <img src={lifestyle1} alt="Our mission" className="w-full h-full object-cover" />
+              <motion.img src={lifestyle1} alt="Our mission" className="w-full h-full object-cover" style={{ y: img1Y }} />
             </motion.div>
             <motion.div
-              initial={{ opacity: 0, x: 30 }}
+              initial={{ opacity: 0, x: 40 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.6 }}
             >
               <p className="font-body text-xs tracking-[0.3em] uppercase text-primary mb-3">Our Mission</p>
@@ -61,13 +70,13 @@ const About = () => {
       </section>
 
       {/* Culture */}
-      <section className="py-16 bg-card">
+      <section className="py-16 bg-card overflow-hidden">
         <div className="container">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <motion.div
-              initial={{ opacity: 0, x: -30 }}
+              initial={{ opacity: 0, x: -40 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.6 }}
               className="order-2 md:order-1"
             >
@@ -81,13 +90,14 @@ const About = () => {
               </p>
             </motion.div>
             <motion.div
-              initial={{ opacity: 0, x: 30 }}
+              ref={img2Ref}
+              initial={{ opacity: 0, x: 40 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.6 }}
               className="order-1 md:order-2 aspect-square rounded-2xl overflow-hidden shadow-lg"
             >
-              <img src={lifestyle2} alt="Our community" className="w-full h-full object-cover" />
+              <motion.img src={lifestyle2} alt="Our community" className="w-full h-full object-cover" style={{ y: img2Y }} />
             </motion.div>
           </div>
         </div>

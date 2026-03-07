@@ -2,20 +2,20 @@ import { ShieldCheck, Award, Leaf, Lock } from "lucide-react";
 import { motion } from "framer-motion";
 
 const trustItems = [
-  { icon: ShieldCheck, title: "Quality Guaranteed", desc: "Every piece undergoes rigorous quality testing before it reaches you." },
-  { icon: Award, title: "Premium Materials", desc: "Heavy-weight cotton blends engineered for comfort and durability." },
-  { icon: Leaf, title: "Ethically Made", desc: "Fair labor practices and sustainable manufacturing processes." },
-  { icon: Lock, title: "Secure Checkout", desc: "Your payment data is protected with industry-standard encryption." },
+  { icon: ShieldCheck, title: "Quality Guaranteed", desc: "Rigorous quality testing on every piece." },
+  { icon: Award, title: "Premium Materials", desc: "Heavy-weight cotton engineered for comfort." },
+  { icon: Leaf, title: "Ethically Made", desc: "Sustainable manufacturing processes." },
+  { icon: Lock, title: "Secure Checkout", desc: "Industry-standard payment encryption." },
 ];
 
 export const TrustSection = () => {
   return (
-    <section className="section-padding bg-background">
+    <section className="section-padding bg-background overflow-hidden">
       <div className="container">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
@@ -24,21 +24,21 @@ export const TrustSection = () => {
             BUILT ON <span className="text-primary">TRUST</span>
           </h2>
         </motion.div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
           {trustItems.map((item, i) => (
             <motion.div
               key={item.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              initial={{ opacity: 0, y: 40, scale: 0.95 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: true, margin: "-50px" }}
               transition={{ delay: i * 0.1, duration: 0.5 }}
-              className="group text-center p-8 bg-card rounded-xl border border-border hover:border-primary/30 hover:shadow-lg transition-all duration-500"
+              className="group text-center p-6 md:p-8 bg-card rounded-xl border border-border hover:border-primary/30 hover:shadow-lg transition-all duration-500"
             >
-              <div className="w-14 h-14 mx-auto mb-4 flex items-center justify-center bg-primary/10 rounded-xl group-hover:bg-primary/20 transition-colors">
-                <item.icon className="h-6 w-6 text-primary" />
+              <div className="w-12 h-12 mx-auto mb-4 flex items-center justify-center bg-primary/10 rounded-xl group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-500">
+                <item.icon className="h-5 w-5 text-primary group-hover:text-primary-foreground transition-colors duration-500" />
               </div>
-              <h3 className="font-heading text-lg text-foreground mb-2">{item.title}</h3>
-              <p className="font-body text-sm text-muted-foreground">{item.desc}</p>
+              <h3 className="font-heading text-base text-foreground mb-1">{item.title}</h3>
+              <p className="font-body text-xs text-muted-foreground">{item.desc}</p>
             </motion.div>
           ))}
         </div>

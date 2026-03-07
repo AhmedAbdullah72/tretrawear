@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { Marquee } from "@/components/Marquee";
 import { storefrontApiRequest, PRODUCT_BY_HANDLE_QUERY } from "@/lib/shopify";
 import { useCartStore, type ShopifyProduct } from "@/stores/cartStore";
-import { Loader2, ChevronLeft, Truck, RefreshCw, ShieldCheck } from "lucide-react";
+import { Loader2, ChevronLeft, Truck, RefreshCw, ShieldCheck, Minus, Plus } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
@@ -15,6 +16,7 @@ const ProductDetail = () => {
   const [loading, setLoading] = useState(true);
   const [selectedImage, setSelectedImage] = useState(0);
   const [selectedVariantIdx, setSelectedVariantIdx] = useState(0);
+  const [quantity, setQuantity] = useState(1);
   const addItem = useCartStore(state => state.addItem);
   const isLoading = useCartStore(state => state.isLoading);
 
@@ -41,7 +43,7 @@ const ProductDetail = () => {
       variantId: variant.id,
       variantTitle: variant.title,
       price: variant.price,
-      quantity: 1,
+      quantity,
       selectedOptions: variant.selectedOptions || [],
     });
     toast.success("Added to cart", { description: product.title, position: "top-center" });
@@ -74,17 +76,25 @@ const ProductDetail = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
-      <div className="container pt-24 pb-12">
-        <Link to="/shop" className="inline-flex items-center gap-1 font-body text-sm text-muted-foreground hover:text-primary transition-colors mb-8">
+
+      {/* Top marquee */}
+      <div className="pt-16 md:pt-18 bg-primary text-primary-foreground">
+        <div className="py-2">
+          <Marquee items={["FREE SHIPPING OVER 500 EGP", "14-DAY RETURNS", "PREMIUM QUALITY"]} speed="slow" />
+        </div>
+      </div>
+
+      <div className="container py-8 md:py-12">
+        <Link to="/shop" className="inline-flex items-center gap-1 font-body text-sm text-muted-foreground hover:text-primary transition-colors mb-6">
           <ChevronLeft className="h-4 w-4" /> Back to Shop
         </Link>
 
-        <div className="grid md:grid-cols-2 gap-8 md:gap-12">
+        <div className="grid md:grid-cols-2 gap-6 md:gap-12">
           {/* Images */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.5 }}
             className="space-y-3"
           >
             <div className="aspect-[3/4] bg-secondary rounded-2xl overflow-hidden shadow-sm">
@@ -99,13 +109,13 @@ const ProductDetail = () => {
               )}
             </div>
             {images.length > 1 && (
-              <div className="flex gap-2 overflow-x-auto">
+              <div className="flex gap-2 overflow-x-auto pb-1">
                 {images.map((img, idx) => (
                   <button
                     key={idx}
                     onClick={() => setSelectedImage(idx)}
-                    className={`w-16 h-20 rounded-lg overflow-hidden flex-shrink-0 border-2 transition-colors ${
-                      idx === selectedImage ? "border-primary" : "border-transparent"
+                    className={`w-16 h-20 rounded-lg overflow-hidden flex-shrink-0 border-2 transition-all duration-200 ${
+                      idx === selectedImage ? "border-primary shadow-sm" : "border-transparent opacity-60 hover:opacity-100"
                     }`}
                   >
                     <img src={img.node.url} alt="" className="w-full h-full object-cover" />
@@ -119,8 +129,8 @@ const ProductDetail = () => {
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="space-y-6"
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="space-y-5"
           >
             <div>
               <h1 className="font-heading text-3xl md:text-4xl text-foreground mb-2">{product.title}</h1>
@@ -132,7 +142,7 @@ const ProductDetail = () => {
             {/* Options */}
             {product.options.map((option) => (
               <div key={option.name}>
-                <label className="font-heading text-sm text-foreground block mb-3">{option.name}</label>
+                <label className="font-heading text-xs tracking-wider text-foreground block mb-2">{option.name}</label>
                 <div className="flex flex-wrap gap-2">
                   {option.values.map((value) => {
                     const variantIdx = product.variants.edges.findIndex(v =>
@@ -145,10 +155,10 @@ const ProductDetail = () => {
                       <button
                         key={value}
                         onClick={() => variantIdx >= 0 && setSelectedVariantIdx(variantIdx)}
-                        className={`px-5 py-2.5 text-sm font-body rounded-lg border-2 transition-all duration-300 ${
+                        className={`px-4 py-2 text-sm font-body rounded-lg border-2 transition-all duration-200 ${
                           isSelected
-                            ? "border-primary bg-primary text-primary-foreground shadow-sm"
-                            : "border-border text-foreground hover:border-primary/50 bg-card"
+                            ? "border-primary bg-primary text-primary-foreground"
+                            : "border-border text-foreground hover:border-primary/40 bg-card"
                         }`}
                       >
                         {value}
@@ -159,30 +169,56 @@ const ProductDetail = () => {
               </div>
             ))}
 
+            {/* Quantity */}
+            <div>
+              <label className="font-heading text-xs tracking-wider text-foreground block mb-2">Quantity</label>
+              <div className="inline-flex items-center border border-border rounded-lg">
+                <button
+                  onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                  className="p-2.5 text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  <Minus className="h-4 w-4" />
+                </button>
+                <span className="w-10 text-center font-body text-sm text-foreground">{quantity}</span>
+                <button
+                  onClick={() => setQuantity(quantity + 1)}
+                  className="p-2.5 text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  <Plus className="h-4 w-4" />
+                </button>
+              </div>
+            </div>
+
             <Button
               onClick={handleAddToCart}
               disabled={isLoading || !selectedVariant?.availableForSale}
-              className="w-full bg-primary text-primary-foreground font-heading text-sm tracking-wider uppercase py-6 rounded-xl hover:bg-primary/90 shadow-lg shadow-primary/20"
+              className="w-full bg-primary text-primary-foreground font-heading text-sm tracking-wider uppercase py-6 rounded-xl hover:bg-primary/90 shadow-lg shadow-primary/20 transition-all duration-300"
               size="lg"
             >
-              {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : !selectedVariant?.availableForSale ? "Sold Out" : "Add to Cart"}
+              {isLoading ? (
+                <Loader2 className="h-4 w-4 animate-spin" />
+              ) : !selectedVariant?.availableForSale ? (
+                "Sold Out"
+              ) : (
+                "Add to Cart"
+              )}
             </Button>
 
             {product.description && (
-              <div className="bg-card rounded-xl p-6 border border-border">
-                <h3 className="font-heading text-sm text-foreground mb-2">Description</h3>
+              <div className="bg-card rounded-xl p-5 border border-border">
+                <h3 className="font-heading text-xs tracking-wider text-foreground mb-2">Description</h3>
                 <p className="font-body text-sm text-muted-foreground leading-relaxed">{product.description}</p>
               </div>
             )}
 
-            <div className="space-y-3">
+            <div className="space-y-2">
               {[
                 { icon: Truck, text: "Free shipping on orders over 500 EGP" },
                 { icon: RefreshCw, text: "14-day return policy" },
                 { icon: ShieldCheck, text: "Premium quality materials" },
               ].map((item) => (
                 <div key={item.text} className="flex items-center gap-3 p-3 bg-card rounded-lg border border-border">
-                  <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
+                  <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
                     <item.icon className="h-4 w-4 text-primary" />
                   </div>
                   <p className="font-body text-sm text-muted-foreground">{item.text}</p>

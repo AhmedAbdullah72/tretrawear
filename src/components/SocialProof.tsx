@@ -3,12 +3,12 @@ import { motion } from "framer-motion";
 
 export const SocialProof = () => {
   return (
-    <section className="section-padding bg-card">
+    <section className="section-padding bg-card overflow-hidden">
       <div className="container">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
@@ -21,9 +21,9 @@ export const SocialProof = () => {
           {[1, 2, 3].map((i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, margin: "-50px" }}
               transition={{ delay: i * 0.1, duration: 0.5 }}
               className="p-6 bg-background rounded-xl border border-border hover:border-primary/20 hover:shadow-md transition-all duration-500"
             >

@@ -1,26 +1,43 @@
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 import heroImage from "@/assets/hero-streetwear.jpg";
 
 export const HeroSection = () => {
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"],
+  });
+
+  const imageY = useTransform(scrollYProgress, [0, 1], ["0%", "25%"]);
+  const imageScale = useTransform(scrollYProgress, [0, 1], [1, 1.15]);
+  const textY = useTransform(scrollYProgress, [0, 1], ["0%", "40%"]);
+  const overlayOpacity = useTransform(scrollYProgress, [0, 0.5], [0.55, 0.85]);
+
   return (
-    <section className="relative min-h-[90vh] flex items-center overflow-hidden bg-foreground">
-      <img
+    <section ref={ref} className="relative min-h-screen flex items-center overflow-hidden bg-foreground">
+      <motion.img
         src={heroImage}
         alt="TRETRA Wear streetwear collection"
-        className="absolute inset-0 w-full h-full object-cover opacity-60"
+        className="absolute inset-0 w-full h-full object-cover"
+        style={{ y: imageY, scale: imageScale }}
       />
-      <div className="absolute inset-0 bg-gradient-to-r from-foreground/80 via-foreground/50 to-transparent" />
-      <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 via-transparent to-foreground/20" />
+      <motion.div
+        className="absolute inset-0 bg-foreground"
+        style={{ opacity: overlayOpacity }}
+      />
+      <div className="absolute inset-0 bg-gradient-to-r from-foreground/40 via-transparent to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-t from-foreground/70 via-transparent to-foreground/10" />
 
       <div className="relative container z-10">
-        <div className="max-w-2xl">
+        <motion.div className="max-w-2xl" style={{ y: textY }}>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="inline-block bg-primary/20 backdrop-blur-sm border border-primary/40 px-4 py-1.5 rounded-full mb-6"
+            transition={{ duration: 0.5 }}
+            className="inline-block bg-primary/20 backdrop-blur-sm border border-primary/30 px-4 py-1.5 rounded-full mb-6"
           >
             <span className="font-body text-xs tracking-[0.3em] uppercase text-primary-foreground font-semibold">
               New Collection 2026
@@ -28,9 +45,9 @@ export const HeroSection = () => {
           </motion.div>
 
           <motion.h1
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.1 }}
+            transition={{ duration: 0.7, delay: 0.1 }}
             className="font-heading text-6xl md:text-8xl lg:text-9xl text-primary-foreground leading-[0.85] mb-6"
           >
             WEAR<br />
@@ -41,16 +58,16 @@ export const HeroSection = () => {
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
             className="font-body text-base md:text-lg text-primary-foreground/70 max-w-md mb-8"
           >
-            Bold streetwear engineered for those who refuse to blend in. Premium quality. Unapologetic style.
+            Bold streetwear engineered for those who refuse to blend in.
           </motion.p>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.5 }}
+            transition={{ duration: 0.5, delay: 0.45 }}
             className="flex flex-col sm:flex-row gap-4"
           >
             <Link
@@ -67,7 +84,7 @@ export const HeroSection = () => {
               Our Story
             </Link>
           </motion.div>
-        </div>
+        </motion.div>
       </div>
 
       {/* Scroll indicator */}

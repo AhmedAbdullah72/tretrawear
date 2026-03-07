@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { Flame, Clock } from "lucide-react";
+import { Clock } from "lucide-react";
+import { Marquee } from "./Marquee";
 
 export const UrgencyBanner = () => {
   const [timeLeft, setTimeLeft] = useState({ hours: 23, minutes: 59, seconds: 59 });
@@ -29,17 +30,16 @@ export const UrgencyBanner = () => {
   return (
     <section className="bg-primary text-primary-foreground overflow-hidden">
       {/* Marquee */}
-      <div className="py-3 overflow-hidden">
-        <div className="flex animate-marquee whitespace-nowrap">
-          {[...Array(10)].map((_, i) => (
-            <span key={i} className="flex items-center gap-2 mx-8 font-heading text-sm tracking-wider">
-              <Flame className="h-4 w-4" />
-              LIMITED TIME OFFER — BUY 1 GET 1 FREE
-              <span className="mx-4">•</span>
-              USE CODE: BUY1GET1
-            </span>
-          ))}
-        </div>
+      <div className="py-3">
+        <Marquee
+          items={[
+            "LIMITED TIME OFFER — BUY 1 GET 1 FREE",
+            "USE CODE: BUY1GET1",
+            "FREE SHIPPING OVER 500 EGP",
+            "PREMIUM QUALITY STREETWEAR",
+          ]}
+          speed="normal"
+        />
       </div>
 
       {/* Countdown */}

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { ProductCard } from "@/components/ProductCard";
+import { Marquee } from "@/components/Marquee";
 import { storefrontApiRequest, PRODUCTS_QUERY, type ShopifyProduct } from "@/lib/shopify";
 import { Loader2 } from "lucide-react";
 import { motion } from "framer-motion";
@@ -28,12 +29,15 @@ const Shop = () => {
     <div className="min-h-screen bg-background">
       <Navbar />
       {/* Shop Hero */}
-      <section className="pt-24 pb-12 bg-foreground text-background">
-        <div className="container">
+      <section className="pt-16 md:pt-18 bg-foreground text-background">
+        <div className="py-2 bg-primary text-primary-foreground">
+          <Marquee items={["FREE SHIPPING OVER 500 EGP", "NEW ARRIVALS", "PREMIUM STREETWEAR"]} speed="slow" />
+        </div>
+        <div className="container py-12 md:py-16">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.5 }}
           >
             <p className="font-body text-xs tracking-[0.3em] uppercase text-background/50 mb-2">Browse</p>
             <h1 className="font-heading text-5xl md:text-6xl text-background">
@@ -59,9 +63,9 @@ const Shop = () => {
               {products.map((product, i) => (
                 <motion.div
                   key={product.node.id}
-                  initial={{ opacity: 0, y: 30 }}
+                  initial={{ opacity: 0, y: 40 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.08, duration: 0.5 }}
+                  transition={{ delay: i * 0.06, duration: 0.5 }}
                 >
                   <ProductCard product={product} />
                 </motion.div>
