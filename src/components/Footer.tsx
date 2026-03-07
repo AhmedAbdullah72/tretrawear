@@ -2,48 +2,83 @@ import { Link } from "react-router-dom";
 
 export const Footer = () => {
   return (
-    <footer className="border-t border-border bg-background">
-      <div className="container py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div>
-            <Link to="/" className="font-heading text-lg font-bold text-foreground">
+    <footer className="border-t border-border bg-card">
+      <div className="container py-16">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
+          {/* Brand */}
+          <div className="md:col-span-2">
+            <Link to="/" className="font-heading text-3xl text-foreground">
               TRETRA<span className="text-primary">.</span>
             </Link>
-            <p className="font-body text-sm text-muted-foreground mt-3 max-w-xs">
-              Bold streetwear for the fearless. Born in Egypt, made for the world.
+            <p className="font-body text-sm text-muted-foreground mt-4 max-w-sm leading-relaxed">
+              Bold streetwear for the fearless. Born in Egypt, made for the world. Every piece tells a story of rebellion, comfort, and uncompromising quality.
             </p>
+            <div className="flex gap-4 mt-6">
+              {["Instagram", "TikTok", "Facebook"].map((social) => (
+                <a
+                  key={social}
+                  href="#"
+                  className="font-body text-xs tracking-wider uppercase text-muted-foreground hover:text-primary transition-colors duration-300"
+                >
+                  {social}
+                </a>
+              ))}
+            </div>
           </div>
 
+          {/* Quick Links */}
           <div>
-            <h4 className="font-heading text-sm font-semibold text-foreground mb-4">Quick Links</h4>
-            <div className="space-y-2">
+            <h4 className="font-heading text-sm text-foreground mb-5">Quick Links</h4>
+            <div className="space-y-3">
               {[
-                { label: "Shop", path: "/shop" },
-                { label: "About", path: "/about" },
+                { label: "Shop All", path: "/shop" },
+                { label: "About Us", path: "/about" },
+                { label: "Size Guide", path: "/shop" },
+                { label: "Contact", path: "/about" },
               ].map((link) => (
-                <Link key={link.path} to={link.path} className="block font-body text-sm text-muted-foreground hover:text-foreground transition-colors">
+                <Link
+                  key={link.label}
+                  to={link.path}
+                  className="block font-body text-sm text-muted-foreground hover:text-primary transition-colors duration-300"
+                >
                   {link.label}
                 </Link>
               ))}
             </div>
           </div>
 
+          {/* Support */}
           <div>
-            <h4 className="font-heading text-sm font-semibold text-foreground mb-4">Follow Us</h4>
-            <div className="flex gap-4">
-              {["Instagram", "TikTok", "Facebook"].map((social) => (
-                <a key={social} href="#" className="font-body text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  {social}
+            <h4 className="font-heading text-sm text-foreground mb-5">Support</h4>
+            <div className="space-y-3">
+              {["Shipping Info", "Returns", "FAQ", "Track Order"].map((item) => (
+                <a
+                  key={item}
+                  href="#"
+                  className="block font-body text-sm text-muted-foreground hover:text-primary transition-colors duration-300"
+                >
+                  {item}
                 </a>
               ))}
             </div>
           </div>
         </div>
 
-        <div className="border-t border-border mt-8 pt-8 text-center">
+        <div className="border-t border-border mt-12 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="font-body text-xs text-muted-foreground">
-            © {new Date().getFullYear()} Tretra Wear. All rights reserved.
+            © {new Date().getFullYear()} TRETRA Wear. All rights reserved.
           </p>
+          <div className="flex gap-6">
+            {["Privacy Policy", "Terms of Service"].map((link) => (
+              <a
+                key={link}
+                href="#"
+                className="font-body text-xs text-muted-foreground hover:text-primary transition-colors"
+              >
+                {link}
+              </a>
+            ))}
+          </div>
         </div>
       </div>
     </footer>
