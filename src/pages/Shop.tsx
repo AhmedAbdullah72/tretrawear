@@ -1,15 +1,44 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { ProductCard } from "@/components/ProductCard";
 import { Marquee } from "@/components/Marquee";
 import { storefrontApiRequest, PRODUCTS_QUERY, type ShopifyProduct } from "@/lib/shopify";
-import { Loader2 } from "lucide-react";
-import { motion } from "framer-motion";
+import { Loader2, SlidersHorizontal, X } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+
+type Category = "all" | "half-zip" | "fur-lined" | "dtf-printed";
+type SortOption = "default" | "price-asc" | "price-desc" | "name-asc";
+
+const CATEGORIES: { value: Category; label: string }[] = [
+  { value: "all", label: "All" },
+  { value: "half-zip", label: "Half-Zip" },
+  { value: "fur-lined", label: "Fur-Lined" },
+  { value: "dtf-printed", label: "DTF Printed" },
+];
+
+const SORT_OPTIONS: { value: SortOption; label: string }[] = [
+  { value: "default", label: "Featured" },
+  { value: "price-asc", label: "Price: Low → High" },
+  { value: "price-desc", label: "Price: High → Low" },
+  { value: "name-asc", label: "A → Z" },
+];
+
+function categorize(title: string): Category[] {
+  const t = title.toLowerCase();
+  const cats: Category[] = [];
+  if (t.includes("half-zip") || t.includes("half zip")) cats.push("half-zip");
+  if (t.includes("fur-lined") || t.includes("fur lined") || t.includes("fur ")) cats.push("fur-lined");
+  if (t.includes("dtf")) cats.push("dtf-printed");
+  return cats;
+}
 
 const Shop = () => {
   const [products, setProducts] = useState<ShopifyProduct[]>([]);
   const [loading, setLoading] = useState(true);
+  const [category, setCategory] = useState<Category>("all");
+  const [sort, setSort] = useState<SortOption>("default");
+  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -24,6 +53,30 @@ const Shop = () => {
     };
     fetchProducts();
   }, []);
+
+  const filtered = useMemo(() => {
+    let result = [...products];
+
+    if (category !== "all") {
+      result = result.filter((p) => categorize(p.node.title).includes(category));
+    }
+
+    switch (sort) {
+      case "price-asc":
+        result.sort((a, b) => parseFloat(a.node.priceRange.minVariantPrice.amount) - parseFloat(b.node.priceRange.minVariantPrice.amount));
+        break;
+      case "price-desc":
+        result.sort((a, b) => parseFloat(b.node.priceRange.minVariantPrice.amount) - parseFloat(a.node.priceRange.minVariantPrice.amount));
+        break;
+      case "name-asc":
+        result.sort((a, b) => a.node.title.localeCompare(b.node.title));
+        break;
+    }
+
+    return result;
+  }, [products, category, sort]);
+
+  const activeFilterCount = (category !== "all" ? 1 : 0) + (sort !== "default" ? 1 : 0);
 
   return (
     <div className="min-h-screen bg-background">
@@ -49,18 +102,164 @@ const Shop = () => {
 
       <section className="py-12">
         <div className="container">
+          {/* Filter Bar */}
+          <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
+            {/* Desktop Categories */}
+            <div className="hidden md:flex items-center gap-2">
+              {CATEGORIES.map((cat) => (
+                <button
+                  key={cat.value}
+                  onClick={() => setCategory(cat.value)}
+                  className={`font-body text-xs tracking-wider uppercase px-4 py-2 rounded-full border transition-all duration-300 ${
+                    category === cat.value
+                      ? "bg-foreground text-background border-foreground"
+                      : "bg-transparent text-muted-foreground border-border hover:border-foreground hover:text-foreground"
+                  }`}
+                >
+                  {cat.label}
+                </button>
+              ))}
+            </div>
+
+            {/* Mobile Filter Toggle */}
+            <button
+              onClick={() => setMobileFiltersOpen(!mobileFiltersOpen)}
+              className="md:hidden flex items-center gap-2 font-body text-xs tracking-wider uppercase px-4 py-2 rounded-full border border-border text-foreground"
+            >
+              <SlidersHorizontal size={14} />
+              Filters
+              {activeFilterCount > 0 && (
+                <span className="bg-primary text-primary-foreground text-[10px] w-5 h-5 rounded-full flex items-center justify-center">
+                  {activeFilterCount}
+                </span>
+              )}
+            </button>
+
+            {/* Sort Dropdown */}
+            <div className="hidden md:flex items-center gap-2">
+              <span className="font-body text-xs text-muted-foreground uppercase tracking-wider">Sort:</span>
+              <select
+                value={sort}
+                onChange={(e) => setSort(e.target.value as SortOption)}
+                className="font-body text-xs bg-transparent border border-border rounded-full px-4 py-2 text-foreground focus:outline-none focus:border-foreground cursor-pointer"
+              >
+                {SORT_OPTIONS.map((opt) => (
+                  <option key={opt.value} value={opt.value}>
+                    {opt.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          {/* Mobile Filters Panel */}
+          <AnimatePresence>
+            {mobileFiltersOpen && (
+              <motion.div
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: "auto", opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.3 }}
+                className="md:hidden overflow-hidden mb-6"
+              >
+                <div className="bg-card border border-border rounded-xl p-5 space-y-5">
+                  <div className="flex items-center justify-between">
+                    <span className="font-heading text-sm">Filters</span>
+                    <button onClick={() => setMobileFiltersOpen(false)}>
+                      <X size={18} className="text-muted-foreground" />
+                    </button>
+                  </div>
+
+                  <div>
+                    <p className="font-body text-xs text-muted-foreground uppercase tracking-wider mb-3">Category</p>
+                    <div className="flex flex-wrap gap-2">
+                      {CATEGORIES.map((cat) => (
+                        <button
+                          key={cat.value}
+                          onClick={() => setCategory(cat.value)}
+                          className={`font-body text-xs tracking-wider uppercase px-3 py-1.5 rounded-full border transition-all duration-300 ${
+                            category === cat.value
+                              ? "bg-foreground text-background border-foreground"
+                              : "bg-transparent text-muted-foreground border-border"
+                          }`}
+                        >
+                          {cat.label}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div>
+                    <p className="font-body text-xs text-muted-foreground uppercase tracking-wider mb-3">Sort By</p>
+                    <div className="flex flex-wrap gap-2">
+                      {SORT_OPTIONS.map((opt) => (
+                        <button
+                          key={opt.value}
+                          onClick={() => setSort(opt.value)}
+                          className={`font-body text-xs tracking-wider px-3 py-1.5 rounded-full border transition-all duration-300 ${
+                            sort === opt.value
+                              ? "bg-foreground text-background border-foreground"
+                              : "bg-transparent text-muted-foreground border-border"
+                          }`}
+                        >
+                          {opt.label}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {activeFilterCount > 0 && (
+                    <button
+                      onClick={() => { setCategory("all"); setSort("default"); }}
+                      className="font-body text-xs text-primary underline"
+                    >
+                      Clear all filters
+                    </button>
+                  )}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {/* Results count */}
+          {!loading && (
+            <p className="font-body text-xs text-muted-foreground mb-6">
+              {filtered.length} product{filtered.length !== 1 ? "s" : ""}
+              {category !== "all" && (
+                <span className="inline-flex items-center gap-1 ml-2 bg-secondary text-foreground px-2 py-0.5 rounded-full">
+                  {CATEGORIES.find((c) => c.value === category)?.label}
+                  <button onClick={() => setCategory("all")}>
+                    <X size={12} />
+                  </button>
+                </span>
+              )}
+            </p>
+          )}
+
           {loading ? (
             <div className="flex justify-center py-20">
               <Loader2 className="h-8 w-8 animate-spin text-primary" />
             </div>
-          ) : products.length === 0 ? (
+          ) : filtered.length === 0 ? (
             <div className="text-center py-20 bg-card rounded-xl border border-border">
               <p className="font-heading text-lg text-foreground mb-2">No products found</p>
-              <p className="font-body text-sm text-muted-foreground">Add products to your store to see them here.</p>
+              <p className="font-body text-sm text-muted-foreground">
+                {category !== "all"
+                  ? "Try a different category or clear filters."
+                  : "Add products to your store to see them here."}
+              </p>
+              {category !== "all" && (
+                <button
+                  onClick={() => setCategory("all")}
+                  className="mt-4 font-body text-sm text-primary underline"
+                >
+                  Show all products
+                </button>
+              )}
             </div>
           ) : (
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-              {products.map((product, i) => (
+              {filtered.map((product, i) => (
                 <motion.div
                   key={product.node.id}
                   initial={{ opacity: 0, y: 40 }}
