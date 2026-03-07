@@ -1,3 +1,4 @@
+import { forwardRef } from "react";
 import { Link } from "react-router-dom";
 import { ShoppingCart, Loader2 } from "lucide-react";
 import { useCartStore, type ShopifyProduct } from "@/stores/cartStore";
@@ -7,7 +8,7 @@ interface ProductCardProps {
   product: ShopifyProduct;
 }
 
-export const ProductCard = ({ product }: ProductCardProps) => {
+export const ProductCard = forwardRef<HTMLAnchorElement, ProductCardProps>(({ product }, ref) => {
   const addItem = useCartStore(state => state.addItem);
   const isLoading = useCartStore(state => state.isLoading);
   const { node } = product;
@@ -31,7 +32,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
   };
 
   return (
-    <Link to={`/product/${node.handle}`} className="group block">
+    <Link ref={ref} to={`/product/${node.handle}`} className="group block">
       <div className="relative aspect-[3/4] bg-secondary rounded-xl overflow-hidden mb-3 shadow-sm group-hover:shadow-lg transition-all duration-500">
         {image ? (
           <img
@@ -63,7 +64,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
         )}
       </div>
 
-      <h3 className="font-heading text-sm text-foreground group-hover:text-primary transition-colors duration-300 truncate">
+      <h3 className="font-heading text-sm text-foreground group-hover:text-primary transition-colors duration-300 line-clamp-2 leading-tight">
         {node.title}
       </h3>
       <p className="font-body text-sm text-muted-foreground mt-1">
@@ -71,4 +72,6 @@ export const ProductCard = ({ product }: ProductCardProps) => {
       </p>
     </Link>
   );
-};
+});
+
+ProductCard.displayName = "ProductCard";
