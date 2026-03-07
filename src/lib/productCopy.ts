@@ -1,0 +1,136 @@
+// Premium DTC copy for TRETRA product categories
+// Voice: Premium — elevated, confident, luxury-adjacent
+
+export interface ProductCopy {
+  hook: string;
+  benefits: string[];
+  specs: { material: string; size: string; care: string; shipping: string };
+  faqs: Array<{ q: string; a: string }>;
+  seo: { title: string; metaDescription: string };
+  imageAlts: string[];
+  collectionIntro: string;
+}
+
+type CategoryKey = "half-zip" | "fur-lined" | "dtf-printed" | "default";
+
+function detectCategory(title: string, handle: string): CategoryKey {
+  const lower = (title + " " + handle).toLowerCase();
+  if (lower.includes("half-zip")) return "half-zip";
+  if (lower.includes("fur-lined") || lower.includes("fur lined") || lower.includes("miu miu")) return "fur-lined";
+  if (lower.includes("dtf") || lower.includes("edition") || lower.includes("embroidered")) return "dtf-printed";
+  return "default";
+}
+
+const categoryData: Record<CategoryKey, Omit<ProductCopy, "seo" | "imageAlts">> = {
+  "half-zip": {
+    hook: "The hoodie that turns heads before you even speak.",
+    benefits: [
+      "380gsm heavy-weight cotton that drapes with authority",
+      "Half-zip closure for effortless layering versatility",
+      "Oversized drop-shoulder cut — moves with you, never against",
+      "Pre-shrunk fabric that holds its shape wash after wash",
+      "Reinforced double-stitched seams built for years, not seasons",
+    ],
+    specs: {
+      material: "100% Premium Heavy Cotton, 380gsm",
+      size: "S – 3XL · Oversized drop-shoulder fit (size down for fitted)",
+      care: "Machine wash cold · Tumble dry low · Do not bleach",
+      shipping: "Free shipping over 500 EGP · 2–4 days domestic · 7–14 days international",
+    },
+    faqs: [
+      { q: "Will this shrink after washing?", a: "No. Every piece is pre-shrunk before it reaches you. The fit you try on is the fit you keep — wash after wash, guaranteed." },
+      { q: "Is the oversized fit too baggy?", a: "Our drop-shoulder silhouette is engineered, not accidental. It's relaxed through the body with a structured shoulder line that keeps you looking intentional, never sloppy." },
+      { q: "How does the half-zip compare to a full hoodie?", a: "The half-zip gives you range — layer it over a tee, pop the collar for edge, or zip it down for a relaxed look. It's three silhouettes in one piece." },
+    ],
+    collectionIntro: "The Half-Zip Collection is where function meets refined streetwear. Crafted from 380gsm heavy cotton with a precision-cut oversized silhouette, each piece delivers the weight and presence of luxury outerwear — without the pretense. Designed for those who dress with intention, not trend. Available in a curated palette that pairs back to everything in your rotation.",
+  },
+  "fur-lined": {
+    hook: "Luxury you can feel before you even put it on.",
+    benefits: [
+      "Plush fur-lined interior for unmatched warmth and comfort",
+      "Premium heavy cotton exterior with a refined drape",
+      "Oversized silhouette that elevates any cold-weather fit",
+      "Statement-level design rooted in everyday wearability",
+      "Double-stitched construction for enduring quality",
+    ],
+    specs: {
+      material: "Heavy Cotton Shell · Faux Fur Lining · 380gsm+",
+      size: "S – 3XL · Oversized fit (size down for fitted)",
+      care: "Machine wash cold inside-out · Hang dry recommended · Do not iron fur lining",
+      shipping: "Free shipping over 500 EGP · 2–4 days domestic · 7–14 days international",
+    },
+    faqs: [
+      { q: "Is the fur lining real or faux?", a: "We use premium faux fur — ethically crafted, impossibly soft. You get the luxury feel without compromise." },
+      { q: "Will it be too warm for mild weather?", a: "The breathable cotton shell balances the fur interior. It's your ideal layer for cool-to-cold temperatures — not a furnace, just perfectly insulated." },
+      { q: "How do I maintain the fur lining?", a: "Wash inside-out on cold, hang dry. The fur is engineered to stay plush and pill-free through regular wear. Avoid direct heat or ironing the interior." },
+    ],
+    collectionIntro: "The Fur-Lined Collection redefines winter streetwear. Each hoodie pairs a heavy cotton exterior with a sumptuous faux-fur interior — delivering warmth that feels like an indulgence, not a necessity. Bold enough to make a statement, refined enough for every day. This is cold-weather dressing elevated to its highest form.",
+  },
+  "dtf-printed": {
+    hook: "Wearable art that refuses to fade into the background.",
+    benefits: [
+      "DTF-printed graphics with razor-sharp detail and zero cracking",
+      "380gsm heavy cotton base for a premium, weighted feel",
+      "Vibrant prints engineered to outlast 100+ washes",
+      "Oversized drop-shoulder fit for effortless street presence",
+      "Limited-edition designs — once they're gone, they're gone",
+    ],
+    specs: {
+      material: "100% Premium Heavy Cotton, 380gsm · DTF Transfer Print",
+      size: "S – 3XL · Oversized drop-shoulder fit (size down for fitted)",
+      care: "Machine wash cold inside-out · Tumble dry low · Do not iron over print",
+      shipping: "Free shipping over 500 EGP · 2–4 days domestic · 7–14 days international",
+    },
+    faqs: [
+      { q: "Will the print crack or peel over time?", a: "Never. Our DTF transfer technology bonds at the fiber level — it flexes with the fabric, doesn't sit on top. No cracking, no peeling, period." },
+      { q: "Are these truly limited edition?", a: "Yes. Each edition has a finite production run. When a design sells out, it doesn't come back. What you're buying is exclusivity." },
+      { q: "How vibrant will the colors stay after washing?", a: "Our prints are tested to 100+ wash cycles with zero color degradation. Wash inside-out on cold for best results, but even without that — these colors hold." },
+    ],
+    collectionIntro: "The DTF Printed Collection is where streetwear meets collectible art. Each edition features meticulously crafted graphics on our signature 380gsm heavy cotton canvas — bold, vivid, and built to last. These aren't mass-produced prints. They're limited runs designed for individuals who wear their identity, not follow it.",
+  },
+  default: {
+    hook: "Engineered for those who refuse to blend in.",
+    benefits: [
+      "380gsm heavy-weight premium cotton construction",
+      "Oversized drop-shoulder silhouette for effortless presence",
+      "Pre-shrunk & colorfast — built to endure",
+      "Reinforced double-stitched seams throughout",
+      "Unisex fit across sizes S to 3XL",
+    ],
+    specs: {
+      material: "100% Premium Heavy Cotton, 380gsm",
+      size: "S – 3XL · Oversized fit (size down for fitted)",
+      care: "Machine wash cold · Tumble dry low · Do not bleach",
+      shipping: "Free shipping over 500 EGP · 2–4 days domestic · 7–14 days international",
+    },
+    faqs: [
+      { q: "Will this shrink after washing?", a: "No. Every piece is pre-shrunk before shipping. The fit you receive is the fit you keep." },
+      { q: "Is the oversized fit too baggy?", a: "Our silhouette is engineered — relaxed body, structured shoulders. Intentional, never sloppy." },
+      { q: "What's your return policy?", a: "14-day returns on unworn items with tags attached. We want you confident in every purchase." },
+    ],
+    collectionIntro: "TRETRA is premium streetwear for the self-assured. Crafted from 380gsm heavy cotton with obsessive attention to fit, fabric, and finish. Every piece is designed to be worn with conviction — season after season.",
+  },
+};
+
+export function getProductCopy(title: string, handle: string): ProductCopy {
+  const category = detectCategory(title, handle);
+  const data = categoryData[category];
+
+  // Extract color/edition from title for SEO
+  const cleanTitle = title.replace(/^Oversized Heavy Cotton Hoodie – DTF Printed – /, "").replace(/ Edition$/, "");
+  const seoKeyword = cleanTitle.length < 40 ? cleanTitle : title.split(" ").slice(0, 5).join(" ");
+
+  return {
+    ...data,
+    seo: {
+      title: `${seoKeyword} | TRETRA Premium Streetwear`.slice(0, 60),
+      metaDescription: `Shop the ${cleanTitle} from TRETRA. ${data.hook} 380gsm heavy cotton, oversized fit, free shipping over 500 EGP. Premium Egyptian streetwear.`.slice(0, 155),
+    },
+    imageAlts: [
+      `${title} - Front view | TRETRA Streetwear`,
+      `${title} - Detail shot | Premium heavy cotton`,
+      `${title} - Side angle | Oversized drop-shoulder fit`,
+      `${title} - Lifestyle | TRETRA ${category === "half-zip" ? "Half-Zip" : "Hoodie"} Collection`,
+    ],
+  };
+}
