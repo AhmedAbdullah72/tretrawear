@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Menu, X, Search } from "lucide-react";
 import { CartDrawer } from "./CartDrawer";
 import { motion, AnimatePresence } from "framer-motion";
+import logo from "@/assets/logo.png";
 
 const navLinks = [
   { label: "Home", path: "/" },
@@ -34,13 +35,14 @@ export const Navbar = () => {
     >
       <div className="container flex items-center justify-between h-16 md:h-18">
         {/* Logo */}
-        <Link
-          to="/"
-          className={`font-heading text-2xl md:text-3xl tracking-tight transition-colors duration-300 ${
-            scrolled ? "text-foreground" : "text-primary-foreground"
-          }`}
-        >
-          TRETRA<span className="text-primary">.</span>
+        <Link to="/" className="flex-shrink-0">
+          <img
+            src={logo}
+            alt="Tretra Wear"
+            className={`h-8 md:h-10 w-auto transition-all duration-300 ${
+              scrolled ? "" : "brightness-0 invert"
+            }`}
+          />
         </Link>
 
         {/* Desktop Nav */}
