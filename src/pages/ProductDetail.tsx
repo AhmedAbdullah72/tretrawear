@@ -272,9 +272,9 @@ const ProductDetail = () => {
         </div>
       </div>
 
-      <div className="container py-12 md:py-16 border-t border-border">
+      <section className="max-w-7xl mx-auto px-4 py-12 md:py-16 border-t border-border">
         <ProductReviews handle={handle || ""} />
-      </div>
+      </section>
 
       {/* Related Products */}
       <RelatedProducts currentHandle={handle || ""} />
