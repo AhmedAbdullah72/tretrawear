@@ -6,7 +6,7 @@ const collections = [
   {
     title: "Wide-Leg Sweatpants",
     subtitle: "From 550 EGP",
-    image: "/products/beige-wide-leg-sweatpants.png",
+    image: "/products/beige-wide-leg-sweatpants.webp",
     link: "/shop",
     bgClass: "bg-secondary",
   },
