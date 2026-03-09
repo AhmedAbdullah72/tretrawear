@@ -220,6 +220,12 @@ const ProductDetail = () => {
               </div>
             </div>
 
+            <StockUrgencyBadge
+              handle={product.handle}
+              availableForSale={selectedVariant?.availableForSale}
+              variant="pdp"
+            />
+
             <Button
               id="main-add-to-cart"
               onClick={handleAddToCart}
