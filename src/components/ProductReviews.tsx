@@ -155,7 +155,6 @@ export const ProductReviews = ({ handle }: ProductReviewsProps) => {
               key={review.name}
               className="py-6 first:pt-0"
             >
-            >
               <div className="flex gap-4">
                 <div className="w-12 h-12 rounded-full overflow-hidden flex-shrink-0 ring-2 ring-border">
                   <img
