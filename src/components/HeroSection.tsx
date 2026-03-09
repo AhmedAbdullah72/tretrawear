@@ -21,7 +21,7 @@ export const HeroSection = () => {
       <motion.img
         src={heroImage}
         alt="TRETRA Wear summer collection – oversized tees and wide-leg sweatpants"
-        className="absolute inset-0 w-full h-full object-cover object-[center_0%]"
+        className="absolute inset-0 w-full h-full object-cover object-[center_15%]"
         style={{ y: imageY, scale: imageScale, transformOrigin: "50% 15%" }}
         fetchPriority="high"
         loading="eager"
