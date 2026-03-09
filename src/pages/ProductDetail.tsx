@@ -38,7 +38,7 @@ const ProductDetail = () => {
       }
     };
     if (handle) fetchProduct();
-    setSelectedImage(0);
+    
     setSelectedVariantIdx(0);
     setQuantity(1);
   }, [handle]);
