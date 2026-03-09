@@ -28,6 +28,7 @@ export const Navbar = () => {
 
   return (
     <nav
+      aria-label="Main navigation"
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-400 ${
         scrolled
           ? "bg-card/98 backdrop-blur-xl shadow-sm border-b border-border py-0"

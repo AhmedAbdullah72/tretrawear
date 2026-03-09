@@ -86,7 +86,9 @@ const Shop = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <a href="#main-content" className="skip-to-content">Skip to content</a>
       <Navbar />
+      <main id="main-content" role="main">
       {/* Shop Hero */}
       <section className="pt-16 md:pt-18 bg-foreground text-background">
         <div className="py-2 bg-primary text-primary-foreground">
@@ -279,6 +281,7 @@ const Shop = () => {
           )}
         </div>
       </section>
+      </main>
       <Footer />
     </div>
   );

@@ -42,7 +42,9 @@ const Index = () => {
         <IntroAnimation onComplete={handleIntroComplete} />
       )}
       <div className="min-h-screen bg-background">
+        <a href="#main-content" className="skip-to-content">Skip to content</a>
         <Navbar />
+        <main id="main-content" role="main">
         <HeroSection />
         <BenefitsBar />
         <SummerCollection />
@@ -58,6 +60,7 @@ const Index = () => {
         <CustomerReviews />
         <FAQSection />
         <Newsletter />
+        </main>
         <Footer />
       </div>
     </>
