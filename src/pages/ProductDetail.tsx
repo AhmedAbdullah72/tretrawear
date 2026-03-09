@@ -140,7 +140,7 @@ const ProductDetail = () => {
 
       <div className="pt-16 md:pt-18 bg-primary text-primary-foreground">
         <div className="py-2">
-          <Marquee items={["FREE SHIPPING OVER 500 EGP", "14-DAY RETURNS", "PREMIUM QUALITY"]} speed="slow" />
+          <Marquee items={["FREE SHIPPING OVER 1,500 EGP", "14-DAY RETURNS", "PREMIUM QUALITY"]} speed="slow" />
         </div>
       </div>
 
