@@ -22,8 +22,6 @@ export default defineConfig(({ mode }) => ({
     rollupOptions: {
       output: {
         manualChunks: {
-          // Isolate heavy Three.js bundle (~500KB)
-          'three': ['three', '@react-three/fiber', '@react-three/drei'],
           // Isolate animation library
           'framer': ['framer-motion'],
           // Isolate UI primitives (shared across pages)
