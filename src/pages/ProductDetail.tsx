@@ -14,6 +14,7 @@ import { getProductCopy } from "@/lib/productCopy";
 import { ProductBenefits, ProductSpecsTable, ProductFAQs } from "@/components/ProductCopySections";
 import { ProductImageGallery } from "@/components/ProductImageGallery";
 import { StockUrgencyBadge } from "@/components/StockUrgencyBadge";
+import { ProductReviews } from "@/components/ProductReviews";
 import { RelatedProducts } from "@/components/RelatedProducts";
 
 const ProductDetail = () => {
@@ -270,6 +271,9 @@ const ProductDetail = () => {
           </motion.div>
         </div>
       </div>
+
+      {/* Product Reviews */}
+      <ProductReviews handle={handle || ""} />
 
       {/* Related Products */}
       <RelatedProducts currentHandle={handle || ""} />
