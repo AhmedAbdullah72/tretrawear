@@ -192,7 +192,6 @@ export const ProductReviews = ({ handle }: ProductReviewsProps) => {
             </div>
           ))}
         </div>
-      </div>
-    </section>
+    </div>
   );
 };
