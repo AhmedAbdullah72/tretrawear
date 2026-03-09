@@ -13,7 +13,7 @@ const collections = [
   {
     title: "Oversized T-Shirts",
     subtitle: "From 450 EGP",
-    image: "/products/off-white-oversized-tee.png",
+    image: "/products/off-white-oversized-tee.webp",
     link: "/shop",
     bgClass: "bg-muted",
   },
