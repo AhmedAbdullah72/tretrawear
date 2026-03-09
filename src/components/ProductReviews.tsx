@@ -109,12 +109,7 @@ export const ProductReviews = ({ handle }: ProductReviewsProps) => {
 
   return (
     <section className="container py-12 md:py-16 border-t border-border">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-50px" }}
-        transition={{ duration: 0.5 }}
-      >
+      <div>
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-8 mb-10">
           <div>
