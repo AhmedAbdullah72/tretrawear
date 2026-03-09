@@ -82,8 +82,42 @@ export const CartDrawer = () => {
                   ))}
                 </div>
               </div>
-              <div className="flex-shrink-0 space-y-4 pt-4 border-t border-border">
-                <div className="flex justify-between items-center">
+              <div className="flex-shrink-0 space-y-3 pt-4 border-t border-border">
+                {/* Free shipping threshold */}
+                {(() => {
+                  const FREE_SHIPPING_THRESHOLD = 500;
+                  const remaining = FREE_SHIPPING_THRESHOLD - totalPrice;
+                  const progress = Math.min((totalPrice / FREE_SHIPPING_THRESHOLD) * 100, 100);
+                  return (
+                    <div className="space-y-1.5">
+                      <div className="h-1.5 rounded-full bg-secondary overflow-hidden">
+                        <div
+                          className="h-full rounded-full bg-primary transition-all duration-500"
+                          style={{ width: `${progress}%` }}
+                        />
+                      </div>
+                      <p className="font-body text-xs text-muted-foreground text-center">
+                        {remaining > 0
+                          ? <>Add <span className="font-semibold text-foreground">EGP {remaining.toFixed(0)}</span> more for free shipping</>
+                          : <span className="text-primary font-semibold">🎉 You qualify for free shipping!</span>
+                        }
+                      </p>
+                    </div>
+                  );
+                })()}
+
+                <div className="space-y-1">
+                  <div className="flex justify-between items-center text-sm">
+                    <span className="font-body text-muted-foreground">Subtotal</span>
+                    <span className="font-body text-foreground">{items[0]?.price.currencyCode} {totalPrice.toFixed(2)}</span>
+                  </div>
+                  <div className="flex justify-between items-center text-sm">
+                    <span className="font-body text-muted-foreground">Shipping</span>
+                    <span className="font-body text-muted-foreground">{totalPrice >= 500 ? "Free" : "Calculated at checkout"}</span>
+                  </div>
+                </div>
+
+                <div className="flex justify-between items-center pt-2 border-t border-border">
                   <span className="font-heading text-lg font-semibold text-foreground">Total</span>
                   <span className="font-heading text-xl font-bold text-foreground">{items[0]?.price.currencyCode} {totalPrice.toFixed(2)}</span>
                 </div>
