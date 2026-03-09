@@ -45,7 +45,7 @@ const categoryData: Record<CategoryKey, Omit<ProductCopy, "seo" | "imageAlts">> 
       { q: "Is the oversized fit too baggy?", a: "Our drop-shoulder silhouette is engineered, not accidental. It's relaxed through the body with a structured shoulder line that keeps you looking intentional, never sloppy." },
       { q: "How does the half-zip compare to a full hoodie?", a: "The half-zip gives you range — layer it over a tee, pop the collar for edge, or zip it down for a relaxed look. It's three silhouettes in one piece." },
     ],
-    collectionIntro: "The Half-Zip Collection is where function meets refined streetwear. Crafted from 380gsm heavy cotton with a precision-cut oversized silhouette, each piece delivers the weight and presence of luxury outerwear — without the pretense. Designed for those who dress with intention, not trend. Available in a curated palette that pairs back to everything in your rotation.",
+    collectionIntro: "The Half-Zip Collection is where function meets refined fashion. Crafted from 380gsm heavy cotton with a precision-cut oversized silhouette, each piece delivers the weight and presence of luxury outerwear — without the pretense. Designed for those who dress with intention, not trend. Available in a curated palette that pairs back to everything in your rotation.",
   },
   "fur-lined": {
     hook: "Luxury you can feel before you even put it on.",
