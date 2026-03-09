@@ -41,6 +41,8 @@ export const Navbar = () => {
           <img
             src={logo}
             alt="Tretra Wear"
+            width={192}
+            height={48}
             className={`h-10 md:h-12 w-auto transition-all duration-300 ${
               scrolled ? "" : "brightness-0 invert"
             }`}
