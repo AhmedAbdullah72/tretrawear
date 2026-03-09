@@ -11,13 +11,16 @@ export interface ProductCopy {
   collectionIntro: string;
 }
 
-type CategoryKey = "half-zip" | "fur-lined" | "dtf-printed" | "default";
+type CategoryKey = "half-zip" | "fur-lined" | "dtf-printed" | "sweatpants" | "oversized-tee" | "basic-tee" | "default";
 
 function detectCategory(title: string, handle: string): CategoryKey {
   const lower = (title + " " + handle).toLowerCase();
   if (lower.includes("half-zip")) return "half-zip";
   if (lower.includes("fur-lined") || lower.includes("fur lined") || lower.includes("miu miu")) return "fur-lined";
   if (lower.includes("dtf") || lower.includes("edition") || lower.includes("embroidered")) return "dtf-printed";
+  if (lower.includes("sweatpants") || lower.includes("wide-leg")) return "sweatpants";
+  if (lower.includes("oversized") && (lower.includes("t-shirt") || lower.includes("tee"))) return "oversized-tee";
+  if (lower.includes("basic") && (lower.includes("t-shirt") || lower.includes("tee"))) return "basic-tee";
   return "default";
 }
 
