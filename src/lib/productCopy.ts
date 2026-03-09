@@ -104,7 +104,7 @@ const categoryData: Record<CategoryKey, Omit<ProductCopy, "seo" | "imageAlts">> 
       material: "100% Premium Heavy Cotton Fleece, 380gsm",
       size: "M – 2XL · Relaxed wide-leg fit",
       care: "Machine wash cold · Tumble dry low · Do not bleach",
-      shipping: "Free shipping over 500 EGP · 2–4 days domestic · 7–14 days international",
+      shipping: "Free shipping over 1,500 EGP · 2–4 days domestic · 7–14 days international",
     },
     faqs: [
       { q: "Are these too warm for summer?", a: "The cotton fleece is breathable despite its weight. They're perfect for cool evenings and air-conditioned spaces — plus the wide leg allows maximum airflow." },
