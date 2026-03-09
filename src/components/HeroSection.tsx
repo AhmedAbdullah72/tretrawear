@@ -1,105 +1,8 @@
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef, useMemo } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
-import { Float, MeshDistortMaterial } from "@react-three/drei";
-import * as THREE from "three";
+import { useRef } from "react";
 import heroImage from "@/assets/hero-streetwear.jpg";
-
-function Particles({ count = 50 }: { count?: number }) {
-  const mesh = useRef<THREE.Points>(null);
-  
-  const particles = useMemo(() => {
-    const positions = new Float32Array(count * 3);
-    const sizes = new Float32Array(count);
-    
-    for (let i = 0; i < count; i++) {
-      positions[i * 3] = (Math.random() - 0.5) * 20;
-      positions[i * 3 + 1] = (Math.random() - 0.5) * 20;
-      positions[i * 3 + 2] = (Math.random() - 0.5) * 10 - 5;
-      sizes[i] = Math.random() * 0.5 + 0.1;
-    }
-    
-    return { positions, sizes };
-  }, [count]);
-
-  useFrame((state) => {
-    if (mesh.current) {
-      mesh.current.rotation.y = state.clock.elapsedTime * 0.02;
-      mesh.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.1) * 0.1;
-    }
-  });
-
-  return (
-    <points ref={mesh}>
-      <bufferGeometry>
-        <bufferAttribute
-          attach="attributes-position"
-          count={particles.positions.length / 3}
-          array={particles.positions}
-          itemSize={3}
-        />
-      </bufferGeometry>
-      <pointsMaterial
-        size={0.08}
-        color="#a80f2d"
-        transparent
-        opacity={0.6}
-        sizeAttenuation
-      />
-    </points>
-  );
-}
-
-function FloatingOrb({ position, scale, speed }: { 
-  position: [number, number, number]; 
-  scale: number; 
-  speed: number;
-}) {
-  const meshRef = useRef<THREE.Mesh>(null);
-  
-  useFrame((state) => {
-    if (meshRef.current) {
-      meshRef.current.rotation.x = state.clock.elapsedTime * speed * 0.3;
-      meshRef.current.rotation.y = state.clock.elapsedTime * speed * 0.2;
-    }
-  });
-
-  return (
-    <Float speed={speed} rotationIntensity={0.3} floatIntensity={0.8}>
-      <mesh ref={meshRef} position={position} scale={scale}>
-        <icosahedronGeometry args={[1, 1]} />
-        <MeshDistortMaterial
-          color="#a80f2d"
-          roughness={0.3}
-          metalness={0.7}
-          distort={0.3}
-          speed={1.5}
-          transparent
-          opacity={0.4}
-        />
-      </mesh>
-    </Float>
-  );
-}
-
-function HeroScene() {
-  return (
-    <>
-      <ambientLight intensity={0.3} />
-      <pointLight position={[10, 10, 10]} intensity={0.5} color="#a80f2d" />
-      <pointLight position={[-10, -10, -10]} intensity={0.3} color="#ffffff" />
-      
-      <Particles count={80} />
-      
-      <FloatingOrb position={[-6, 3, -4]} scale={1.5} speed={1} />
-      <FloatingOrb position={[7, -2, -6]} scale={2} speed={0.8} />
-      <FloatingOrb position={[-4, -4, -3]} scale={0.8} speed={1.5} />
-      <FloatingOrb position={[5, 4, -5]} scale={1.2} speed={1.2} />
-    </>
-  );
-}
 
 export const HeroSection = () => {
   const ref = useRef<HTMLElement>(null);
@@ -127,13 +30,6 @@ export const HeroSection = () => {
       />
       <div className="absolute inset-0 bg-gradient-to-r from-foreground/40 via-transparent to-transparent" />
       <div className="absolute inset-0 bg-gradient-to-t from-foreground/70 via-transparent to-foreground/10" />
-
-      {/* 3D Canvas Layer */}
-      <div className="absolute inset-0 z-[1] pointer-events-none">
-        <Canvas camera={{ position: [0, 0, 10], fov: 60 }}>
-          <HeroScene />
-        </Canvas>
-      </div>
 
       <div className="relative container z-10">
         <motion.div className="max-w-2xl pt-20 md:pt-24" style={{ y: textY }}>
@@ -196,7 +92,7 @@ export const HeroSection = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1, duration: 0.6 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-10"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
       >
         <span className="font-body text-xs tracking-[0.2em] uppercase text-primary-foreground/50">Scroll</span>
         <motion.div
