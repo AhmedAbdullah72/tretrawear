@@ -15,9 +15,9 @@ const AnimatedText = ({ text, className, delay = 0 }: { text: string; className?
           initial={{ opacity: 0, y: 50, rotateX: -90 }}
           animate={{ opacity: 1, y: 0, rotateX: 0 }}
           transition={{
-            duration: 0.5,
-            delay: delay + i * 0.04,
-            ease: [0.215, 0.61, 0.355, 1],
+            duration: 0.8,
+            delay: delay + i * 0.08,
+            ease: [0.165, 0.84, 0.44, 1],
           }}
           className="inline-block"
           style={{ transformOrigin: "bottom" }}
@@ -34,9 +34,9 @@ const FloatingWord = ({ children, delay = 0 }: { children: React.ReactNode; dela
     initial={{ opacity: 0, y: 80 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{
-      duration: 0.8,
+      duration: 1.2,
       delay,
-      ease: [0.215, 0.61, 0.355, 1],
+      ease: [0.165, 0.84, 0.44, 1],
     }}
     className="inline-block"
   >
@@ -99,18 +99,18 @@ export const HeroSection = () => {
 
           <h1 className="font-heading text-6xl md:text-8xl lg:text-9xl text-primary-foreground leading-[0.85] mb-6 overflow-hidden">
             <span className="block overflow-hidden">
-              <FloatingWord delay={0.1}>
-                <AnimatedText text="OWN" delay={0.1} />
+              <FloatingWord delay={0.2}>
+                <AnimatedText text="OWN" delay={0.2} />
               </FloatingWord>
             </span>
             <span className="block overflow-hidden">
-              <FloatingWord delay={0.25}>
-                <AnimatedText text="THE" delay={0.25} />
+              <FloatingWord delay={0.5}>
+                <AnimatedText text="THE" delay={0.5} />
               </FloatingWord>
             </span>
             <span className="block overflow-hidden">
-              <FloatingWord delay={0.4}>
-                <AnimatedText text="HEAT" delay={0.4} className="text-primary" />
+              <FloatingWord delay={0.8}>
+                <AnimatedText text="HEAT" delay={0.8} className="text-primary" />
               </FloatingWord>
             </span>
           </h1>
@@ -118,7 +118,7 @@ export const HeroSection = () => {
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.7 }}
+            transition={{ duration: 0.6, delay: 1.3 }}
             className="font-body text-base md:text-lg text-primary-foreground/70 max-w-md mb-8"
           >
             Wide-leg sweatpants, oversized tees & essentials — built for summer streets.
@@ -127,7 +127,7 @@ export const HeroSection = () => {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.85 }}
+            transition={{ duration: 0.6, delay: 1.5 }}
             className="flex flex-col sm:flex-row gap-4"
           >
             <Link
