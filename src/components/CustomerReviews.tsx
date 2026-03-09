@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Star, ChevronLeft, ChevronRight, Quote } from "lucide-react";
-import customer1 from "@/assets/review-customer-1.jpg";
-import customer2 from "@/assets/review-customer-2.jpg";
-import customer3 from "@/assets/review-customer-3.jpg";
-import customer4 from "@/assets/review-customer-4.jpg";
+import customer1 from "@/assets/review-customer-1.webp";
+import customer2 from "@/assets/review-customer-2.webp";
+import customer3 from "@/assets/review-customer-3.webp";
+import customer4 from "@/assets/review-customer-4.webp";
 
 const reviews = [
   {

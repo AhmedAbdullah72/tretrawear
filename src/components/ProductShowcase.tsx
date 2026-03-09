@@ -1,8 +1,8 @@
 import { Check } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-import detailFabric from "@/assets/detail-fabric.jpg";
-import shadowHoodie from "@/assets/shadow-hoodie.jpg";
+import detailFabric from "@/assets/detail-fabric.webp";
+import shadowHoodie from "@/assets/shadow-hoodie.webp";
 
 const features = [
   "380gsm heavy-weight premium cotton",

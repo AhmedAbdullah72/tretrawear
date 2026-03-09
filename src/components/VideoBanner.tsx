@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { useRef } from "react";
 import { ArrowRight, Play, X } from "lucide-react";
-import lifestyleBg from "@/assets/lifestyle-summer-2.jpg";
+import lifestyleBg from "@/assets/lifestyle-summer-2.webp";
 
 export const VideoBanner = () => {
   const [isOpen, setIsOpen] = useState(false);
