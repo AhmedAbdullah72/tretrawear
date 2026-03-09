@@ -1,15 +1,16 @@
 import { Check } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
+import detailFabric from "@/assets/detail-fabric.jpg";
 import shadowHoodie from "@/assets/shadow-hoodie.jpg";
 
 const features = [
-  "Heavy-weight 380gsm premium cotton",
-  "Oversized drop-shoulder silhouette",
-  "Custom embroidered branding",
-  "Reinforced double-stitched seams",
+  "380gsm heavy-weight premium cotton",
+  "Wide-leg & oversized silhouettes",
   "Pre-shrunk & colorfast fabric",
-  "Unisex fit — sizes S to 3XL",
+  "Reinforced double-stitched seams",
+  "Elastic waistbands with drawstring",
+  "Unisex fit — sizes M to 2XL",
 ];
 
 export const ProductShowcase = () => {
@@ -65,14 +66,24 @@ export const ProductShowcase = () => {
             transition={{ duration: 0.7 }}
             className="relative"
           >
-            <div className="aspect-[4/5] bg-secondary rounded-2xl overflow-hidden shadow-xl">
-              <motion.img
-                src={shadowHoodie}
-                alt="TRETRA Shadow Hoodie detail"
-                className="w-full h-full object-cover"
-                style={{ y: imageY }}
-                loading="lazy"
-              />
+            <div className="grid grid-cols-2 gap-3">
+              <div className="aspect-[3/4] bg-secondary rounded-2xl overflow-hidden shadow-xl">
+                <motion.img
+                  src={shadowHoodie}
+                  alt="TRETRA hoodie detail"
+                  className="w-full h-full object-cover"
+                  style={{ y: imageY }}
+                  loading="lazy"
+                />
+              </div>
+              <div className="aspect-[3/4] bg-secondary rounded-2xl overflow-hidden shadow-xl mt-8">
+                <img
+                  src={detailFabric}
+                  alt="Premium cotton fabric texture close-up"
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                />
+              </div>
             </div>
             <div className="absolute -bottom-4 -right-4 w-24 h-24 border-2 border-primary/20 rounded-2xl -z-10" />
             <div className="absolute -top-4 -left-4 w-16 h-16 bg-primary/10 rounded-2xl -z-10" />
