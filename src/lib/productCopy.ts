@@ -45,7 +45,7 @@ const categoryData: Record<CategoryKey, Omit<ProductCopy, "seo" | "imageAlts">> 
       { q: "Is the oversized fit too baggy?", a: "Our drop-shoulder silhouette is engineered, not accidental. It's relaxed through the body with a structured shoulder line that keeps you looking intentional, never sloppy." },
       { q: "How does the half-zip compare to a full hoodie?", a: "The half-zip gives you range — layer it over a tee, pop the collar for edge, or zip it down for a relaxed look. It's three silhouettes in one piece." },
     ],
-    collectionIntro: "The Half-Zip Collection is where function meets refined fashion. Crafted from 380gsm heavy cotton with a precision-cut oversized silhouette, each piece delivers the weight and presence of luxury outerwear — without the pretense. Designed for those who dress with intention, not trend. Available in a curated palette that pairs back to everything in your rotation.",
+    collectionIntro: "The Half-Zip Collection is where function meets refined fashionrafted from 380gsm heavy cotton with a precision-cut oversized silhouette, each piece delivers the weight and presence of luxury outerwear — without the pretense. Designed for those who dress with intention, not trend. Available in a curated palette that pairs back to everything in your rotation.",
   },
   "fur-lined": {
     hook: "Luxury you can feel before you even put it on.",
@@ -67,7 +67,7 @@ const categoryData: Record<CategoryKey, Omit<ProductCopy, "seo" | "imageAlts">> 
       { q: "Will it be too warm for mild weather?", a: "The breathable cotton shell balances the fur interior. It's your ideal layer for cool-to-cold temperatures — not a furnace, just perfectly insulated." },
       { q: "How do I maintain the fur lining?", a: "Wash inside-out on cold, hang dry. The fur is engineered to stay plush and pill-free through regular wear. Avoid direct heat or ironing the interior." },
     ],
-    collectionIntro: "The Fur-Lined Collection redefines winter streetwear. Each hoodie pairs a heavy cotton exterior with a sumptuous faux-fur interior — delivering warmth that feels like an indulgence, not a necessity. Bold enough to make a statement, refined enough for every day. This is cold-weather dressing elevated to its highest form.",
+    collectionIntro: "The Fur-Lined Collection redefines winter strfashionach hoodie pairs a heavy cotton exterior with a sumptuous faux-fur interior — delivering warmth that feels like an indulgence, not a necessity. Bold enough to make a statement, refined enough for every day. This is cold-weather dressing elevated to its highest form.",
   },
   "dtf-printed": {
     hook: "Wearable art that refuses to fade into the background.",
