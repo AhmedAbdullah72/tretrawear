@@ -60,6 +60,7 @@ const Index = () => {
         <CustomerReviews />
         <FAQSection />
         <Newsletter />
+        </main>
         <Footer />
       </div>
     </>
