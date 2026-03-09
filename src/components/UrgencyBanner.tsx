@@ -36,7 +36,7 @@ export const UrgencyBanner = () => {
             "SUMMER COLLECTION NOW LIVE",
             "LIMITED TIME OFFER — BUY 1 GET 1 FREE",
             "USE CODE: BUY1GET1",
-            "FREE SHIPPING OVER 500 EGP",
+            "FREE SHIPPING OVER 1,500 EGP",
             "WIDE-LEG SWEATPANTS • OVERSIZED TEES • BASICS",
           ]}
           speed="normal"

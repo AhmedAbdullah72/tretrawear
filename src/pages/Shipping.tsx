@@ -15,7 +15,7 @@ const Shipping = () => (
       <div className="container max-w-3xl space-y-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {[
-            { icon: Truck, title: "Free Domestic Shipping", desc: "Orders over 500 EGP ship free within Egypt." },
+            { icon: Truck, title: "Free Domestic Shipping", desc: "Orders over 1,500 EGP ship free within Egypt." },
             { icon: Clock, title: "2–4 Business Days", desc: "Domestic delivery within Egypt." },
             { icon: Globe, title: "International Shipping", desc: "7–14 business days worldwide." },
             { icon: Package, title: "Order Tracking", desc: "Tracking number sent via email once shipped." },

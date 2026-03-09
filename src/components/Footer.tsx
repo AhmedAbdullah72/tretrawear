@@ -39,7 +39,7 @@ export const Footer = () => {
               READY TO LEVEL UP YOUR WARDROBE?
             </h3>
             <p className="font-body text-sm text-primary-foreground/70 mt-1">
-              Explore the full collection — free shipping over 500 EGP.
+              Explore the full collection — free shipping over 1,500 EGP.
             </p>
           </div>
           <Link

@@ -92,7 +92,7 @@ const Shop = () => {
       {/* Shop Hero */}
       <section className="pt-16 md:pt-18 bg-foreground text-background">
         <div className="py-2 bg-primary text-primary-foreground">
-          <Marquee items={["FREE SHIPPING OVER 500 EGP", "NEW ARRIVALS", "PREMIUM FASHION"]} speed="slow" />
+          <Marquee items={["FREE SHIPPING OVER 1,500 EGP", "NEW ARRIVALS", "PREMIUM FASHION"]} speed="slow" />
         </div>
         <div className="container py-12 md:py-16">
           <motion.div

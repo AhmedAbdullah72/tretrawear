@@ -14,7 +14,7 @@ export const BenefitsBar = () => {
       {/* Top marquee strip */}
       <div className="py-2 bg-foreground text-background">
         <Marquee
-          items={["FREE SHIPPING OVER 500 EGP", "NEW COLLECTION 2026", "PREMIUM QUALITY", "14-DAY RETURNS"]}
+          items={["FREE SHIPPING OVER 1,500 EGP", "NEW COLLECTION 2026", "PREMIUM QUALITY", "14-DAY RETURNS"]}
           speed="slow"
         />
       </div>

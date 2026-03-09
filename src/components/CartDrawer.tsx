@@ -113,7 +113,7 @@ export const CartDrawer = () => {
                   </div>
                   <div className="flex justify-between items-center text-sm">
                     <span className="font-body text-muted-foreground">Shipping</span>
-                    <span className="font-body text-muted-foreground">{totalPrice >= 500 ? "Free" : "Calculated at checkout"}</span>
+                    <span className="font-body text-muted-foreground">{totalPrice >= 1500 ? "Free" : "Calculated at checkout"}</span>
                   </div>
                 </div>
 

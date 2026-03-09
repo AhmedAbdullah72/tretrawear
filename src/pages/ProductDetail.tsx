@@ -256,7 +256,7 @@ const ProductDetail = () => {
 
             <div className="space-y-2">
               {[
-                { icon: Truck, text: "Free shipping on orders over 500 EGP" },
+                { icon: Truck, text: "Free shipping on orders over 1,500 EGP" },
                 { icon: RefreshCw, text: "14-day return policy" },
                 { icon: ShieldCheck, text: "Premium quality materials" },
               ].map((item) => (

@@ -9,7 +9,7 @@ interface MarqueeProps {
 export const Marquee = ({
   items = [
     "NEW COLLECTION 2026",
-    "FREE SHIPPING OVER 500 EGP",
+    "FREE SHIPPING OVER 1,500 EGP",
     "PREMIUM QUALITY",
     "14-DAY RETURNS",
     "BUY 1 GET 1 FREE — CODE: BUY1GET1",

@@ -193,7 +193,7 @@ export function getProductCopy(title: string, handle: string): ProductCopy {
     ...data,
     seo: {
       title: `${seoKeyword} | TRETRA Premium Fashion`.slice(0, 60),
-      metaDescription: `Shop the ${cleanTitle} from TRETRA. ${data.hook} 380gsm heavy cotton, oversized fit, free shipping over 500 EGP. Premium Egyptian fashion.`.slice(0, 155),
+      metaDescription: `Shop the ${cleanTitle} from TRETRA. ${data.hook} 380gsm heavy cotton, oversized fit, free shipping over 1,500 EGP. Premium Egyptian fashion.`.slice(0, 155),
     },
     imageAlts: [
       `${title} - Front view | TRETRA`,
