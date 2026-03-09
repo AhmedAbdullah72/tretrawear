@@ -2,7 +2,7 @@ import { Truck, RefreshCw, Shield, Headphones } from "lucide-react";
 import { Marquee } from "./Marquee";
 
 const benefits = [
-  { icon: Truck, label: "Free Shipping", desc: "Orders over 500 EGP" },
+  { icon: Truck, label: "Free Shipping", desc: "Orders over 1,500 EGP" },
   { icon: RefreshCw, label: "Easy Returns", desc: "14-day policy" },
   { icon: Shield, label: "Secure Payment", desc: "SSL encrypted" },
   { icon: Headphones, label: "24/7 Support", desc: "Always here" },
