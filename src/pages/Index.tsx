@@ -1,22 +1,27 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import { Navbar } from "@/components/Navbar";
 import { HeroSection } from "@/components/HeroSection";
 import { BenefitsBar } from "@/components/BenefitsBar";
-import { SummerCollection } from "@/components/SummerCollection";
-import { ShopByCategory } from "@/components/ShopByCategory";
-import { LifestyleLookbook } from "@/components/LifestyleLookbook";
-
-import { PromoBanner } from "@/components/PromoBanner";
-import { FeaturedProducts } from "@/components/FeaturedProducts";
-import { UrgencyBanner } from "@/components/UrgencyBanner";
-import { ProductShowcase } from "@/components/ProductShowcase";
-import { TrustSection } from "@/components/TrustSection";
-import { SocialProof } from "@/components/SocialProof";
-import { CustomerReviews } from "@/components/CustomerReviews";
-import { FAQSection } from "@/components/FAQSection";
-import { Newsletter } from "@/components/Newsletter";
 import { Footer } from "@/components/Footer";
-import { IntroAnimation } from "@/components/IntroAnimation";
+
+// Lazy load below-fold sections
+const SummerCollection = lazy(() => import("@/components/SummerCollection").then(m => ({ default: m.SummerCollection })));
+const ShopByCategory = lazy(() => import("@/components/ShopByCategory").then(m => ({ default: m.ShopByCategory })));
+const LifestyleLookbook = lazy(() => import("@/components/LifestyleLookbook").then(m => ({ default: m.LifestyleLookbook })));
+const PromoBanner = lazy(() => import("@/components/PromoBanner").then(m => ({ default: m.PromoBanner })));
+const FeaturedProducts = lazy(() => import("@/components/FeaturedProducts").then(m => ({ default: m.FeaturedProducts })));
+const UrgencyBanner = lazy(() => import("@/components/UrgencyBanner").then(m => ({ default: m.UrgencyBanner })));
+const ProductShowcase = lazy(() => import("@/components/ProductShowcase").then(m => ({ default: m.ProductShowcase })));
+const TrustSection = lazy(() => import("@/components/TrustSection").then(m => ({ default: m.TrustSection })));
+const SocialProof = lazy(() => import("@/components/SocialProof").then(m => ({ default: m.SocialProof })));
+const CustomerReviews = lazy(() => import("@/components/CustomerReviews").then(m => ({ default: m.CustomerReviews })));
+const FAQSection = lazy(() => import("@/components/FAQSection").then(m => ({ default: m.FAQSection })));
+const Newsletter = lazy(() => import("@/components/Newsletter").then(m => ({ default: m.Newsletter })));
+
+// Lazy load heavy Three.js intro
+const IntroAnimation = lazy(() => import("@/components/IntroAnimation").then(m => ({ default: m.IntroAnimation })));
+
+const SectionFallback = () => <div className="min-h-[200px]" />;
 
 const Index = () => {
   const [showIntro, setShowIntro] = useState(true);
@@ -39,27 +44,30 @@ const Index = () => {
   return (
     <>
       {showIntro && !hasSeenIntro && (
-        <IntroAnimation onComplete={handleIntroComplete} />
+        <Suspense fallback={<div className="fixed inset-0 z-[100] bg-foreground" />}>
+          <IntroAnimation onComplete={handleIntroComplete} />
+        </Suspense>
       )}
       <div className="min-h-screen bg-background">
         <a href="#main-content" className="skip-to-content">Skip to content</a>
         <Navbar />
         <main id="main-content" role="main">
-        <HeroSection />
-        <BenefitsBar />
-        <SummerCollection />
-        <ShopByCategory />
-        <LifestyleLookbook />
-        <PromoBanner />
-        <FeaturedProducts />
-        
-        <UrgencyBanner />
-        <ProductShowcase />
-        <TrustSection />
-        <SocialProof />
-        <CustomerReviews />
-        <FAQSection />
-        <Newsletter />
+          <HeroSection />
+          <BenefitsBar />
+          <Suspense fallback={<SectionFallback />}>
+            <SummerCollection />
+            <ShopByCategory />
+            <LifestyleLookbook />
+            <PromoBanner />
+            <FeaturedProducts />
+            <UrgencyBanner />
+            <ProductShowcase />
+            <TrustSection />
+            <SocialProof />
+            <CustomerReviews />
+            <FAQSection />
+            <Newsletter />
+          </Suspense>
         </main>
         <Footer />
       </div>
