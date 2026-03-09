@@ -60,10 +60,12 @@ export const ProductCard = forwardRef<HTMLAnchorElement, ProductCardProps>(({ pr
           {isLoading ? <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" /> : <ShoppingCart className="h-4 w-4" aria-hidden="true" />}
         </button>
 
-        {!firstVariant?.availableForSale && (
+        {!firstVariant?.availableForSale ? (
           <div className="absolute top-3 left-3 bg-foreground text-background text-xs font-heading px-3 py-1 rounded-full">
             SOLD OUT
           </div>
+        ) : (
+          <StockUrgencyBadge handle={node.handle} variant="card" />
         )}
       </div>
 
