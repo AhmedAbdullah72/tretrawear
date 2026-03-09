@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { toast } from "sonner";
 import { motion } from "framer-motion";
-import { Send } from "lucide-react";
+import { Send, Gift } from "lucide-react";
 
 export const Newsletter = () => {
   const [email, setEmail] = useState("");
@@ -9,7 +9,7 @@ export const Newsletter = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (email) {
-      toast.success("Welcome to the crew!", { position: "top-center" });
+      toast.success("Welcome to the crew! Check your inbox for 10% off.", { position: "top-center" });
       setEmail("");
     }
   };
@@ -23,12 +23,17 @@ export const Newsletter = () => {
         transition={{ duration: 0.6 }}
         className="container max-w-xl text-center"
       >
-        <p className="font-body text-xs tracking-[0.3em] uppercase text-background/50 mb-4">Stay Connected</p>
+        <div className="inline-flex items-center gap-2 bg-primary/20 border border-primary/30 rounded-full px-4 py-1.5 mb-6">
+          <Gift className="h-3.5 w-3.5 text-primary" />
+          <span className="font-body text-xs tracking-[0.2em] uppercase text-primary font-semibold">
+            Get 10% Off
+          </span>
+        </div>
         <h2 className="font-heading text-3xl md:text-4xl text-background mb-3">
           Join the Movement
         </h2>
         <p className="font-body text-sm text-background/60 mb-8">
-          Get early access to new drops, exclusive offers, and street culture content.
+          Subscribe for early access to new drops, exclusive offers, and 10% off your first order.
         </p>
         <form onSubmit={handleSubmit} className="flex gap-0">
           <input
@@ -47,6 +52,9 @@ export const Newsletter = () => {
             Subscribe
           </button>
         </form>
+        <p className="font-body text-[11px] text-background/30 mt-3">
+          No spam. Unsubscribe anytime. By subscribing you agree to our privacy policy.
+        </p>
       </motion.div>
     </section>
   );

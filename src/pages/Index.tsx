@@ -3,6 +3,10 @@ import { Navbar } from "@/components/Navbar";
 import { HeroSection } from "@/components/HeroSection";
 import { BenefitsBar } from "@/components/BenefitsBar";
 import { SummerCollection } from "@/components/SummerCollection";
+import { ShopByCategory } from "@/components/ShopByCategory";
+import { LifestyleLookbook } from "@/components/LifestyleLookbook";
+import { VideoBanner } from "@/components/VideoBanner";
+import { PromoBanner } from "@/components/PromoBanner";
 import { FeaturedProducts } from "@/components/FeaturedProducts";
 import { UrgencyBanner } from "@/components/UrgencyBanner";
 import { ProductShowcase } from "@/components/ProductShowcase";
@@ -41,7 +45,11 @@ const Index = () => {
         <HeroSection />
         <BenefitsBar />
         <SummerCollection />
+        <ShopByCategory />
+        <LifestyleLookbook />
+        <PromoBanner />
         <FeaturedProducts />
+        <VideoBanner />
         <UrgencyBanner />
         <ProductShowcase />
         <TrustSection />
