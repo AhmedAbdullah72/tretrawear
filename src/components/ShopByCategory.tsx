@@ -64,7 +64,7 @@ export const ShopByCategory = () => {
                     loading="lazy"
                   />
                 </div>
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-foreground/80 via-foreground/40 to-transparent p-6 pt-20">
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-foreground/95 via-foreground/60 to-transparent p-6 pt-24">
                   <h3 className="font-heading text-xl text-primary-foreground mb-1">{col.title}</h3>
                   <div className="flex items-center justify-between">
                     <p className="font-body text-xs text-primary-foreground/60">{col.subtitle}</p>
