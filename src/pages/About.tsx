@@ -3,8 +3,8 @@ import { Footer } from "@/components/Footer";
 import { Newsletter } from "@/components/Newsletter";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-import lifestyle1 from "@/assets/lifestyle-1.jpg";
-import lifestyle2 from "@/assets/lifestyle-2.jpg";
+import lifestyle1 from "@/assets/lifestyle-1.webp";
+import lifestyle2 from "@/assets/lifestyle-2.webp";
 
 const About = () => {
   const img1Ref = useRef<HTMLDivElement>(null);

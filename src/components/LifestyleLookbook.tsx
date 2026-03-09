@@ -2,10 +2,10 @@ import { Link } from "react-router-dom";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { ArrowRight } from "lucide-react";
-import lifestyleImg1 from "@/assets/lifestyle-summer-1.jpg";
-import lifestyleImg2 from "@/assets/lifestyle-summer-2.jpg";
-import detailImg from "@/assets/detail-fabric.jpg";
-import flatlayImg from "@/assets/flatlay-summer.jpg";
+import lifestyleImg1 from "@/assets/lifestyle-summer-1.webp";
+import lifestyleImg2 from "@/assets/lifestyle-summer-2.webp";
+import detailImg from "@/assets/detail-fabric.webp";
+import flatlayImg from "@/assets/flatlay-summer.webp";
 
 export const LifestyleLookbook = () => {
   const sectionRef = useRef<HTMLElement>(null);
