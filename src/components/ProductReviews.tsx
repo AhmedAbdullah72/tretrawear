@@ -108,7 +108,7 @@ export const ProductReviews = ({ handle }: ProductReviewsProps) => {
   ];
 
   return (
-    <section className="py-12 md:py-16 border-t border-border">
+    <section className="py-12 md:py-16 border-t border-border" style={{ minHeight: '400px' }}>
       <div className="container">
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-8 mb-10">
