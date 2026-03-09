@@ -27,12 +27,16 @@ const SORT_OPTIONS: { value: SortOption; label: string }[] = [
   { value: "name-asc", label: "A → Z" },
 ];
 
-function categorize(title: string): Category[] {
+function categorize(title: string, productType: string): Category[] {
   const t = title.toLowerCase();
+  const pt = productType.toLowerCase();
   const cats: Category[] = [];
   if (t.includes("half-zip") || t.includes("half zip")) cats.push("half-zip");
   if (t.includes("fur-lined") || t.includes("fur lined") || t.includes("fur ")) cats.push("fur-lined");
   if (t.includes("dtf")) cats.push("dtf-printed");
+  if (pt === "sweatpants" || t.includes("sweatpants") || t.includes("wide-leg")) cats.push("sweatpants");
+  if (pt === "t-shirt" || t.includes("t-shirt") || t.includes("tee")) cats.push("t-shirt");
+  if (t.includes("basic") || t.includes("essential")) cats.push("basic");
   return cats;
 }
 
