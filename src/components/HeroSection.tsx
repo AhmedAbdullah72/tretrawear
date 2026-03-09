@@ -12,7 +12,7 @@ export const HeroSection = () => {
   });
 
   const imageY = useTransform(scrollYProgress, [0, 1], ["0%", "25%"]);
-  const imageScale = useTransform(scrollYProgress, [0, 1], [1, 1.15]);
+  const imageScale = useTransform(scrollYProgress, [0, 1], [1, 1.08]);
   const textY = useTransform(scrollYProgress, [0, 1], ["0%", "40%"]);
   const overlayOpacity = useTransform(scrollYProgress, [0, 0.5], [0.45, 0.8]);
 
