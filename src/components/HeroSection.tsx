@@ -100,29 +100,17 @@ export const HeroSection = () => {
           <h1 className="font-heading text-6xl md:text-8xl lg:text-9xl text-primary-foreground leading-[0.85] mb-6 overflow-hidden">
             <span className="block overflow-hidden">
               <FloatingWord delay={0.1}>
-                <AnimatedText 
-                  text="OWN" 
-                  delay={0.1} 
-                  className="drop-shadow-[0_0_25px_rgba(255,255,255,0.3)]"
-                />
+                <AnimatedText text="OWN" delay={0.1} />
               </FloatingWord>
             </span>
             <span className="block overflow-hidden">
               <FloatingWord delay={0.25}>
-                <AnimatedText 
-                  text="THE" 
-                  delay={0.25}
-                  className="drop-shadow-[0_0_25px_rgba(255,255,255,0.3)]"
-                />
+                <AnimatedText text="THE" delay={0.25} />
               </FloatingWord>
             </span>
             <span className="block overflow-hidden">
               <FloatingWord delay={0.4}>
-                <AnimatedText 
-                  text="HEAT" 
-                  delay={0.4} 
-                  className="text-primary drop-shadow-[0_0_35px_hsl(355,100%,33%)] [text-shadow:0_0_40px_hsl(355_100%_33%/0.6),0_0_80px_hsl(355_100%_33%/0.4)]"
-                />
+                <AnimatedText text="HEAT" delay={0.4} className="text-primary" />
               </FloatingWord>
             </span>
           </h1>
