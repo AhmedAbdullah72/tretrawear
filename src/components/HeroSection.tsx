@@ -22,7 +22,7 @@ export const HeroSection = () => {
         src={heroImage}
         alt="TRETRA Wear summer collection – oversized tees and wide-leg sweatpants"
         className="absolute inset-0 w-full h-full object-cover object-top"
-        style={{ y: imageY, scale: imageScale }}
+        style={{ y: imageY, scale: imageScale, transformOrigin: "50% 15%" }}
         fetchPriority="high"
         loading="eager"
         decoding="async"
