@@ -45,7 +45,7 @@ const categoryData: Record<CategoryKey, Omit<ProductCopy, "seo" | "imageAlts">> 
       { q: "Is the oversized fit too baggy?", a: "Our drop-shoulder silhouette is engineered, not accidental. It's relaxed through the body with a structured shoulder line that keeps you looking intentional, never sloppy." },
       { q: "How does the half-zip compare to a full hoodie?", a: "The half-zip gives you range — layer it over a tee, pop the collar for edge, or zip it down for a relaxed look. It's three silhouettes in one piece." },
     ],
-    collectionIntro: "The Half-Zip Collection is where function meets refined fashionted from 380gsm heavy cotton with a precision-cut oversized silhouette, each piece delivers the weight and presence of luxury outerwear — without the pretense. Designed for those who dress with intention, not trend. Available in a curated palette that pairs back to everything in your rotation.",
+    collectionIntro: "The Half-Zip Collection is where function meets refined fashion from 380gsm heavy cotton with a precision-cut oversized silhouette, each piece delivers the weight and presence of luxury outerwear — without the pretense. Designed for those who dress with intention, not trend. Available in a curated palette that pairs back to everything in your rotation.",
   },
   "fur-lined": {
     hook: "Luxury you can feel before you even put it on.",
@@ -67,7 +67,7 @@ const categoryData: Record<CategoryKey, Omit<ProductCopy, "seo" | "imageAlts">> 
       { q: "Will it be too warm for mild weather?", a: "The breathable cotton shell balances the fur interior. It's your ideal layer for cool-to-cold temperatures — not a furnace, just perfectly insulated." },
       { q: "How do I maintain the fur lining?", a: "Wash inside-out on cold, hang dry. The fur is engineered to stay plush and pill-free through regular wear. Avoid direct heat or ironing the interior." },
     ],
-    collectionIntro: "The Fur-Lined Collection redefines winter strfasfashionodie pairs a heavy cotton exterior with a sumptuous faux-fur interior — delivering warmth that feels like an indulgence, not a necessity. Bold enough to make a statement, refined enough for every day. This is cold-weather dressing elevated to its highest form.",
+    collectionIntro: "The Fur-Lined Collection redefines winter strfasfasfashionairs a heavy cotton exterior with a sumptuous faux-fur interior — delivering warmth that feels like an indulgence, not a necessity. Bold enough to make a statement, refined enough for every day. This is cold-weather dressing elevated to its highest form.",
   },
   "dtf-printed": {
     hook: "Wearable art that refuses to fade into the background.",
@@ -89,7 +89,7 @@ const categoryData: Record<CategoryKey, Omit<ProductCopy, "seo" | "imageAlts">> 
       { q: "Are these truly limited edition?", a: "Yes. Each edition has a finite production run. When a design sells out, it doesn't come back. What you're buying is exclusivity." },
       { q: "How vibrant will the colors stay after washing?", a: "Our prints are tested to 100+ wash cycles with zero color degradation. Wash inside-out on cold for best results, but even without that — these colors hold." },
     ],
-    collectionIntro: "The DTF Printed Collection is where streetfashion collectible art. Each edition features meticulously crafted graphics on our signature 380gsm heavy cotton canvas — bold, vivid, and built to last. These aren't mass-produced prints. They're limited runs designed for individuals who wear their identity, not follow it.",
+    collectionIntro: "The DTF Printed Collection is where streetfashiofashionble art. Each edition features meticulously crafted graphics on our signature 380gsm heavy cotton canvas — bold, vivid, and built to last. These aren't mass-produced prints. They're limited runs designed for individuals who wear their identity, not follow it.",
   },
   "sweatpants": {
     hook: "Wide-leg comfort that commands the street.",
@@ -111,7 +111,7 @@ const categoryData: Record<CategoryKey, Omit<ProductCopy, "seo" | "imageAlts">> 
       { q: "Will they bag out at the knees?", a: "No. Our pre-shrunk heavyweight cotton holds its shape. The wide-leg cut is designed to drape clean, not stretch out." },
       { q: "What shoes work best with wide-leg?", a: "Everything from chunky sneakers to slides. The wide silhouette creates a balanced, proportional look with any footwear." },
     ],
-    collectionIntro: "The Wide-Leg Sweatpants are summer streetwear redefined. Cut from 380gsm heavyweight cotton fleece with a relaxed wide-leg silhouette that moves with intention. Elastic waistband, deep pockets, and a drape that commands attention without trying.",
+    collectionIntro: "The Wide-Leg Sweatpants are summer streetweaessentialsd. Cut from 380gsm heavyweight cotton fleece with a relaxed wide-leg silhouette that moves with intention. Elastic waistband, deep pockets, and a drape that commands attention without trying.",
   },
   "oversized-tee": {
     hook: "The tee that makes everything else in your wardrobe irrelevant.",
