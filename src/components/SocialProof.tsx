@@ -2,9 +2,9 @@ import { Users, TrendingUp, Package } from "lucide-react";
 import { motion } from "framer-motion";
 
 const stats = [
-  { icon: Users, value: "5,000+", label: "Happy Customers" },
-  { icon: Package, value: "12,000+", label: "Orders Shipped" },
-  { icon: TrendingUp, value: "98%", label: "Satisfaction Rate" },
+  { icon: Users, value: "850+", label: "Happy Customers" },
+  { icon: Package, value: "1,200+", label: "Orders Shipped" },
+  { icon: TrendingUp, value: "96%", label: "Satisfaction Rate" },
 ];
 
 export const SocialProof = () => {
