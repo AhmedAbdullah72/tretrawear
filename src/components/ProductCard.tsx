@@ -40,6 +40,7 @@ export const ProductCard = forwardRef<HTMLAnchorElement, ProductCardProps>(({ pr
             alt={image.altText || node.title}
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
             loading="lazy"
+            decoding="async"
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center text-muted-foreground font-body text-sm">
@@ -52,9 +53,10 @@ export const ProductCard = forwardRef<HTMLAnchorElement, ProductCardProps>(({ pr
         <button
           onClick={handleAddToCart}
           disabled={isLoading || !firstVariant?.availableForSale}
+          aria-label={`Add ${node.title} to cart`}
           className="absolute bottom-3 right-3 bg-primary text-primary-foreground p-3 rounded-full opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 hover:bg-primary/90 disabled:opacity-50 shadow-lg"
         >
-          {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <ShoppingCart className="h-4 w-4" />}
+          {isLoading ? <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" /> : <ShoppingCart className="h-4 w-4" aria-hidden="true" />}
         </button>
 
         {!firstVariant?.availableForSale && (

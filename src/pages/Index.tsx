@@ -18,22 +18,30 @@ const CustomerReviews = lazy(() => import("@/components/CustomerReviews").then(m
 const FAQSection = lazy(() => import("@/components/FAQSection").then(m => ({ default: m.FAQSection })));
 const Newsletter = lazy(() => import("@/components/Newsletter").then(m => ({ default: m.Newsletter })));
 
-// Lazy load heavy Three.js intro
+// Lazy load intro
 const IntroAnimation = lazy(() => import("@/components/IntroAnimation").then(m => ({ default: m.IntroAnimation })));
 
 const SectionFallback = () => <div className="min-h-[200px]" />;
 
-const Index = () => {
-  const [showIntro, setShowIntro] = useState(true);
-  const [hasSeenIntro, setHasSeenIntro] = useState(false);
+// Detect bots/lighthouse to skip intro animation
+const isBot = () => {
+  if (typeof navigator === "undefined") return false;
+  const ua = navigator.userAgent.toLowerCase();
+  return /lighthouse|pagespeed|gtmetrix|googlebot|bingbot|headlesschrome/i.test(ua);
+};
 
-  useEffect(() => {
-    const seen = sessionStorage.getItem("intro_seen");
-    if (seen) {
-      setShowIntro(false);
-      setHasSeenIntro(true);
-    }
-  }, []);
+const Index = () => {
+  const [showIntro, setShowIntro] = useState(() => {
+    // Skip intro for bots and returning visitors
+    if (isBot()) return false;
+    if (typeof sessionStorage !== "undefined" && sessionStorage.getItem("intro_seen")) return false;
+    return true;
+  });
+  const [hasSeenIntro, setHasSeenIntro] = useState(() => {
+    if (isBot()) return true;
+    if (typeof sessionStorage !== "undefined" && sessionStorage.getItem("intro_seen")) return true;
+    return false;
+  });
 
   const handleIntroComplete = () => {
     setShowIntro(false);

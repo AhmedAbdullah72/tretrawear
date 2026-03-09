@@ -3,12 +3,12 @@ import logo from "@/assets/logo.png";
 
 export const Footer = () => {
   return (
-    <footer className="border-t border-border bg-card">
+    <footer className="border-t border-border bg-card" role="contentinfo">
       <div className="container py-16">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
           <div className="md:col-span-2">
             <Link to="/" className="inline-block">
-              <img src={logo} alt="Tretra Wear" className="h-14 w-auto" />
+              <img src={logo} alt="Tretra Wear — Go to homepage" className="h-14 w-auto" loading="lazy" decoding="async" />
             </Link>
             <p className="font-body text-sm text-muted-foreground mt-4 max-w-sm leading-relaxed">
               Bold fashion for the fearless. Born in Egypt, made for the world. Every piece tells a story of rebellion, comfort, and uncompromising quality.
@@ -26,6 +26,7 @@ export const Footer = () => {
                 href="https://www.instagram.com/tretra.wear/"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="Follow TRETRA Wear on Instagram"
                 className="font-body text-xs tracking-wider uppercase text-muted-foreground hover:text-primary transition-colors duration-300 px-3 py-1.5 rounded-full bg-secondary hover:bg-primary/10"
               >
                 Instagram
@@ -34,6 +35,7 @@ export const Footer = () => {
                 href="https://www.tiktok.com/@tretra.wear"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="Follow TRETRA Wear on TikTok"
                 className="font-body text-xs tracking-wider uppercase text-muted-foreground hover:text-primary transition-colors duration-300 px-3 py-1.5 rounded-full bg-secondary hover:bg-primary/10"
               >
                 TikTok
@@ -42,6 +44,7 @@ export const Footer = () => {
                 href="https://www.facebook.com/Tretra.wear/"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="Follow TRETRA Wear on Facebook"
                 className="font-body text-xs tracking-wider uppercase text-muted-foreground hover:text-primary transition-colors duration-300 px-3 py-1.5 rounded-full bg-secondary hover:bg-primary/10"
               >
                 Facebook
@@ -49,7 +52,7 @@ export const Footer = () => {
             </div>
           </div>
 
-          <div>
+          <nav aria-label="Quick links">
             <h4 className="font-heading text-sm text-foreground mb-5">Quick Links</h4>
             <div className="space-y-3">
               <Link to="/shop" className="block font-body text-sm text-muted-foreground hover:text-primary transition-colors duration-300">
@@ -65,9 +68,9 @@ export const Footer = () => {
                 Contact
               </Link>
             </div>
-          </div>
+          </nav>
 
-          <div>
+          <nav aria-label="Support links">
             <h4 className="font-heading text-sm text-foreground mb-5">Support</h4>
             <div className="space-y-3">
               <Link to="/shipping" className="block font-body text-sm text-muted-foreground hover:text-primary transition-colors duration-300">
@@ -83,7 +86,7 @@ export const Footer = () => {
                 Privacy Policy
               </Link>
             </div>
-          </div>
+          </nav>
         </div>
 
         <div className="border-t border-border mt-12 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">

@@ -8,27 +8,27 @@ const collections = [
     subtitle: "From 550 EGP",
     image: "/products/beige-wide-leg-sweatpants.png",
     link: "/shop",
-    bgClass: "bg-[hsl(30,20%,90%)]",
+    bgClass: "bg-secondary",
   },
   {
     title: "Oversized T-Shirts",
     subtitle: "From 450 EGP",
     image: "/products/off-white-oversized-tee.png",
     link: "/shop",
-    bgClass: "bg-[hsl(0,0%,93%)]",
+    bgClass: "bg-muted",
   },
   {
     title: "Basic Essentials",
     subtitle: "From 350 EGP",
     image: "/products/black-basic-tee.png",
     link: "/shop",
-    bgClass: "bg-[hsl(0,0%,88%)]",
+    bgClass: "bg-surface",
   },
 ];
 
 export const ShopByCategory = () => {
   return (
-    <section className="section-padding bg-card overflow-hidden">
+    <section className="section-padding bg-card overflow-hidden" aria-labelledby="category-heading">
       <div className="container">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -38,7 +38,7 @@ export const ShopByCategory = () => {
           className="text-center mb-12"
         >
           <p className="font-body text-xs tracking-[0.3em] uppercase text-primary mb-3">Collections</p>
-          <h2 className="font-heading text-4xl md:text-5xl text-foreground">
+          <h2 id="category-heading" className="font-heading text-4xl md:text-5xl text-foreground">
             SHOP BY <span className="text-primary">CATEGORY</span>
           </h2>
         </motion.div>
@@ -55,6 +55,7 @@ export const ShopByCategory = () => {
               <Link
                 to={col.link}
                 className="group block rounded-2xl overflow-hidden relative"
+                aria-label={`Shop ${col.title} — ${col.subtitle}`}
               >
                 <div className={`${col.bgClass} aspect-[3/4] flex items-center justify-center p-8 transition-all duration-500`}>
                   <img
@@ -62,13 +63,14 @@ export const ShopByCategory = () => {
                     alt={col.title}
                     className="w-3/4 h-auto object-contain drop-shadow-xl transition-transform duration-700 group-hover:scale-110 group-hover:-translate-y-2"
                     loading="lazy"
+                    decoding="async"
                   />
                 </div>
                 <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-foreground/95 via-foreground/60 to-transparent p-6 pt-24">
                   <h3 className="font-heading text-xl text-primary-foreground mb-1">{col.title}</h3>
                   <div className="flex items-center justify-between">
                     <p className="font-body text-xs text-primary-foreground/60">{col.subtitle}</p>
-                    <span className="bg-primary text-primary-foreground font-heading text-[10px] tracking-wider uppercase px-3 py-1.5 rounded-full flex items-center gap-1 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-400">
+                    <span className="bg-primary text-primary-foreground font-heading text-[10px] tracking-wider uppercase px-3 py-1.5 rounded-full flex items-center gap-1 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-400" aria-hidden="true">
                       Shop
                       <ArrowRight className="h-3 w-3" />
                     </span>
