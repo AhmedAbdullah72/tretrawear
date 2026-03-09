@@ -197,9 +197,9 @@ export function getProductCopy(title: string, handle: string): ProductCopy {
     },
     imageAlts: [
       `${title} - Front view | TRETRA Streetwear`,
-      `${title} - Detail shot | Premium heavy cotton`,
-      `${title} - Side angle | Oversized drop-shoulder fit`,
-      `${title} - Lifestyle | TRETRA ${category === "half-zip" ? "Half-Zip" : "Hoodie"} Collection`,
+      `${title} - Detail shot | Premium cotton`,
+      `${title} - Side angle | ${category === "sweatpants" ? "Wide-leg fit" : category === "oversized-tee" ? "Oversized drop-shoulder" : "Oversized fit"}`,
+      `${title} - Lifestyle | TRETRA ${category === "half-zip" ? "Half-Zip" : category === "sweatpants" ? "Sweatpants" : category.includes("tee") ? "T-Shirt" : "Hoodie"} Collection`,
     ],
   };
 }
