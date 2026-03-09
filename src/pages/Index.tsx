@@ -65,7 +65,7 @@ const Index = () => {
           <Suspense fallback={<SectionFallback />}>
             <SummerCollection />
             <ShopByCategory />
-            <LifestyleLookbook />
+            {/* LifestyleLookbook removed */}
             <PromoBanner />
             <FeaturedProducts />
             <UrgencyBanner />
