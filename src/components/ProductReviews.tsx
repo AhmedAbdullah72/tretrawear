@@ -197,7 +197,7 @@ export const ProductReviews = ({ handle }: ProductReviewsProps) => {
             </motion.div>
           ))}
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 };
