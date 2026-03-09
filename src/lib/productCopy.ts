@@ -196,7 +196,7 @@ export function getProductCopy(title: string, handle: string): ProductCopy {
       metaDescription: `Shop the ${cleanTitle} from TRETRA. ${data.hook} 380gsm heavy cotton, oversized fit, free shipping over 500 EGP. Premium Egyptian fashion.`.slice(0, 155),
     },
     imageAlts: [
-      `${title} - Front view | TRETRA Streetwear`,
+      `${title} - Front view | TRETRA`,
       `${title} - Detail shot | Premium cotton`,
       `${title} - Side angle | ${category === "sweatpants" ? "Wide-leg fit" : category === "oversized-tee" ? "Oversized drop-shoulder" : "Oversized fit"}`,
       `${title} - Lifestyle | TRETRA ${category === "half-zip" ? "Half-Zip" : category === "sweatpants" ? "Sweatpants" : category.includes("tee") ? "T-Shirt" : "Hoodie"} Collection`,
