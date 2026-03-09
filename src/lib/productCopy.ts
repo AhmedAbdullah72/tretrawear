@@ -60,7 +60,7 @@ const categoryData: Record<CategoryKey, Omit<ProductCopy, "seo" | "imageAlts">> 
       material: "Heavy Cotton Shell · Faux Fur Lining · 380gsm+",
       size: "S – 3XL · Oversized fit (size down for fitted)",
       care: "Machine wash cold inside-out · Hang dry recommended · Do not iron fur lining",
-      shipping: "Free shipping over 500 EGP · 2–4 days domestic · 7–14 days international",
+      shipping: "Free shipping over 1,500 EGP · 2–4 days domestic · 7–14 days international",
     },
     faqs: [
       { q: "Is the fur lining real or faux?", a: "We use premium faux fur — ethically crafted, impossibly soft. You get the luxury feel without compromise." },
