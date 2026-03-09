@@ -15,9 +15,9 @@ const AnimatedText = ({ text, className, delay = 0 }: { text: string; className?
           initial={{ opacity: 0, y: 50, rotateX: -90 }}
           animate={{ opacity: 1, y: 0, rotateX: 0 }}
           transition={{
-            duration: 0.5,
-            delay: delay + i * 0.04,
-            ease: [0.215, 0.61, 0.355, 1],
+            duration: 0.8,
+            delay: delay + i * 0.08,
+            ease: [0.165, 0.84, 0.44, 1],
           }}
           className="inline-block"
           style={{ transformOrigin: "bottom" }}
