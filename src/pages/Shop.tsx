@@ -7,11 +7,14 @@ import { storefrontApiRequest, PRODUCTS_QUERY, type ShopifyProduct } from "@/lib
 import { Loader2, SlidersHorizontal, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
-type Category = "all" | "half-zip" | "fur-lined" | "dtf-printed";
+type Category = "all" | "half-zip" | "fur-lined" | "dtf-printed" | "sweatpants" | "t-shirt" | "basic";
 type SortOption = "default" | "price-asc" | "price-desc" | "name-asc";
 
 const CATEGORIES: { value: Category; label: string }[] = [
   { value: "all", label: "All" },
+  { value: "sweatpants", label: "Sweatpants" },
+  { value: "t-shirt", label: "T-Shirts" },
+  { value: "basic", label: "Basics" },
   { value: "half-zip", label: "Half-Zip" },
   { value: "fur-lined", label: "Fur-Lined" },
   { value: "dtf-printed", label: "DTF Printed" },
