@@ -13,6 +13,7 @@ import { motion } from "framer-motion";
 import { getProductCopy } from "@/lib/productCopy";
 import { ProductBenefits, ProductSpecsTable, ProductFAQs } from "@/components/ProductCopySections";
 import { ProductImageGallery } from "@/components/ProductImageGallery";
+import { StockUrgencyBadge } from "@/components/StockUrgencyBadge";
 import { RelatedProducts } from "@/components/RelatedProducts";
 
 const ProductDetail = () => {
@@ -218,6 +219,12 @@ const ProductDetail = () => {
                 </button>
               </div>
             </div>
+
+            <StockUrgencyBadge
+              handle={product.handle}
+              availableForSale={selectedVariant?.availableForSale}
+              variant="pdp"
+            />
 
             <Button
               id="main-add-to-cart"
