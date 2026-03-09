@@ -20,7 +20,7 @@ const collections = [
   {
     title: "Basic Essentials",
     subtitle: "From 350 EGP",
-    image: "/products/black-basic-tee.png",
+    image: "/products/black-basic-tee.webp",
     link: "/shop",
     bgClass: "bg-surface",
   },
