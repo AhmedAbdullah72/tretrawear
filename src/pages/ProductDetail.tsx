@@ -12,13 +12,14 @@ import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { getProductCopy } from "@/lib/productCopy";
 import { ProductBenefits, ProductSpecsTable, ProductFAQs } from "@/components/ProductCopySections";
+import { ProductImageGallery } from "@/components/ProductImageGallery";
 import { RelatedProducts } from "@/components/RelatedProducts";
 
 const ProductDetail = () => {
   const { handle } = useParams<{ handle: string }>();
   const [product, setProduct] = useState<ShopifyProduct["node"] | null>(null);
   const [loading, setLoading] = useState(true);
-  const [selectedImage, setSelectedImage] = useState(0);
+  
   const [selectedVariantIdx, setSelectedVariantIdx] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [showStickyBar, setShowStickyBar] = useState(false);
@@ -37,7 +38,7 @@ const ProductDetail = () => {
       }
     };
     if (handle) fetchProduct();
-    setSelectedImage(0);
+    
     setSelectedVariantIdx(0);
     setQuantity(1);
   }, [handle]);
@@ -147,39 +148,16 @@ const ProductDetail = () => {
         </Link>
 
         <div className="grid md:grid-cols-2 gap-6 md:gap-12">
-          {/* Images */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
-            className="space-y-3"
           >
-            <div className="aspect-[3/4] bg-secondary rounded-2xl overflow-hidden shadow-sm">
-              {images[selectedImage]?.node ? (
-                <img
-                  src={images[selectedImage].node.url}
-                  alt={copy.imageAlts[selectedImage] || images[selectedImage].node.altText || product.title}
-                  className="w-full h-full object-cover"
-                />
-              ) : (
-                <div className="w-full h-full flex items-center justify-center text-muted-foreground">No image</div>
-              )}
-            </div>
-            {images.length > 1 && (
-              <div className="flex gap-2 overflow-x-auto pb-1">
-                {images.map((img, idx) => (
-                  <button
-                    key={idx}
-                    onClick={() => setSelectedImage(idx)}
-                    className={`w-16 h-20 rounded-lg overflow-hidden flex-shrink-0 border-2 transition-all duration-200 ${
-                      idx === selectedImage ? "border-primary shadow-sm" : "border-transparent opacity-60 hover:opacity-100"
-                    }`}
-                  >
-                    <img src={img.node.url} alt={copy.imageAlts[idx] || ""} className="w-full h-full object-cover" />
-                  </button>
-                ))}
-              </div>
-            )}
+            <ProductImageGallery
+              images={images}
+              imageAlts={copy.imageAlts}
+              productTitle={product.title}
+            />
           </motion.div>
 
           {/* Info */}
