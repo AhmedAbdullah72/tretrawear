@@ -38,7 +38,7 @@ const categoryData: Record<CategoryKey, Omit<ProductCopy, "seo" | "imageAlts">> 
       material: "100% Premium Heavy Cotton, 380gsm",
       size: "S – 3XL · Oversized drop-shoulder fit (size down for fitted)",
       care: "Machine wash cold · Tumble dry low · Do not bleach",
-      shipping: "Free shipping over 500 EGP · 2–4 days domestic · 7–14 days international",
+      shipping: "Free shipping over 1,500 EGP · 2–4 days domestic · 7–14 days international",
     },
     faqs: [
       { q: "Will this shrink after washing?", a: "No. Every piece is pre-shrunk before it reaches you. The fit you try on is the fit you keep — wash after wash, guaranteed." },
