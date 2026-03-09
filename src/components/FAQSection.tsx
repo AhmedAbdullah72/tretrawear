@@ -12,7 +12,7 @@ const faqs = [
   { q: "What is your return policy?", a: "We accept returns within 14 days of delivery for unworn items with original tags attached." },
   { q: "How do I track my order?", a: "Once your order ships, you'll receive an email with a tracking number." },
   { q: "Are your products true to size?", a: "Our pieces are designed with an oversized, drop-shoulder fit. For a more fitted look, size down one." },
-  { q: "Do you offer international shipping?", a: "Yes! We ship worldwide. Free shipping is available on domestic orders over 500 EGP." },
+  { q: "Do you offer international shipping?", a: "Yes! We ship worldwide. Free shipping is available on domestic orders over 1,500 EGP." },
 ];
 
 export const FAQSection = () => {

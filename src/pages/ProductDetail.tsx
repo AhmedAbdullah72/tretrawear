@@ -140,7 +140,7 @@ const ProductDetail = () => {
 
       <div className="pt-16 md:pt-18 bg-primary text-primary-foreground">
         <div className="py-2">
-          <Marquee items={["FREE SHIPPING OVER 500 EGP", "14-DAY RETURNS", "PREMIUM QUALITY"]} speed="slow" />
+          <Marquee items={["FREE SHIPPING OVER 1,500 EGP", "14-DAY RETURNS", "PREMIUM QUALITY"]} speed="slow" />
         </div>
       </div>
 
@@ -256,7 +256,7 @@ const ProductDetail = () => {
 
             <div className="space-y-2">
               {[
-                { icon: Truck, text: "Free shipping on orders over 500 EGP" },
+                { icon: Truck, text: "Free shipping on orders over 1,500 EGP" },
                 { icon: RefreshCw, text: "14-day return policy" },
                 { icon: ShieldCheck, text: "Premium quality materials" },
               ].map((item) => (

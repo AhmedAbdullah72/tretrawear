@@ -85,7 +85,7 @@ export const CartDrawer = () => {
               <div className="flex-shrink-0 space-y-3 pt-4 border-t border-border">
                 {/* Free shipping threshold */}
                 {(() => {
-                  const FREE_SHIPPING_THRESHOLD = 500;
+                  const FREE_SHIPPING_THRESHOLD = 1500;
                   const remaining = FREE_SHIPPING_THRESHOLD - totalPrice;
                   const progress = Math.min((totalPrice / FREE_SHIPPING_THRESHOLD) * 100, 100);
                   return (
@@ -113,7 +113,7 @@ export const CartDrawer = () => {
                   </div>
                   <div className="flex justify-between items-center text-sm">
                     <span className="font-body text-muted-foreground">Shipping</span>
-                    <span className="font-body text-muted-foreground">{totalPrice >= 500 ? "Free" : "Calculated at checkout"}</span>
+                    <span className="font-body text-muted-foreground">{totalPrice >= 1500 ? "Free" : "Calculated at checkout"}</span>
                   </div>
                 </div>
 

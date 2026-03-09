@@ -38,7 +38,7 @@ const categoryData: Record<CategoryKey, Omit<ProductCopy, "seo" | "imageAlts">> 
       material: "100% Premium Heavy Cotton, 380gsm",
       size: "S – 3XL · Oversized drop-shoulder fit (size down for fitted)",
       care: "Machine wash cold · Tumble dry low · Do not bleach",
-      shipping: "Free shipping over 500 EGP · 2–4 days domestic · 7–14 days international",
+      shipping: "Free shipping over 1,500 EGP · 2–4 days domestic · 7–14 days international",
     },
     faqs: [
       { q: "Will this shrink after washing?", a: "No. Every piece is pre-shrunk before it reaches you. The fit you try on is the fit you keep — wash after wash, guaranteed." },
@@ -60,7 +60,7 @@ const categoryData: Record<CategoryKey, Omit<ProductCopy, "seo" | "imageAlts">> 
       material: "Heavy Cotton Shell · Faux Fur Lining · 380gsm+",
       size: "S – 3XL · Oversized fit (size down for fitted)",
       care: "Machine wash cold inside-out · Hang dry recommended · Do not iron fur lining",
-      shipping: "Free shipping over 500 EGP · 2–4 days domestic · 7–14 days international",
+      shipping: "Free shipping over 1,500 EGP · 2–4 days domestic · 7–14 days international",
     },
     faqs: [
       { q: "Is the fur lining real or faux?", a: "We use premium faux fur — ethically crafted, impossibly soft. You get the luxury feel without compromise." },
@@ -82,7 +82,7 @@ const categoryData: Record<CategoryKey, Omit<ProductCopy, "seo" | "imageAlts">> 
       material: "100% Premium Heavy Cotton, 380gsm · DTF Transfer Print",
       size: "S – 3XL · Oversized drop-shoulder fit (size down for fitted)",
       care: "Machine wash cold inside-out · Tumble dry low · Do not iron over print",
-      shipping: "Free shipping over 500 EGP · 2–4 days domestic · 7–14 days international",
+      shipping: "Free shipping over 1,500 EGP · 2–4 days domestic · 7–14 days international",
     },
     faqs: [
       { q: "Will the print crack or peel over time?", a: "Never. Our DTF transfer technology bonds at the fiber level — it flexes with the fabric, doesn't sit on top. No cracking, no peeling, period." },
@@ -104,7 +104,7 @@ const categoryData: Record<CategoryKey, Omit<ProductCopy, "seo" | "imageAlts">> 
       material: "100% Premium Heavy Cotton Fleece, 380gsm",
       size: "M – 2XL · Relaxed wide-leg fit",
       care: "Machine wash cold · Tumble dry low · Do not bleach",
-      shipping: "Free shipping over 500 EGP · 2–4 days domestic · 7–14 days international",
+      shipping: "Free shipping over 1,500 EGP · 2–4 days domestic · 7–14 days international",
     },
     faqs: [
       { q: "Are these too warm for summer?", a: "The cotton fleece is breathable despite its weight. They're perfect for cool evenings and air-conditioned spaces — plus the wide leg allows maximum airflow." },
@@ -126,7 +126,7 @@ const categoryData: Record<CategoryKey, Omit<ProductCopy, "seo" | "imageAlts">> 
       material: "100% Premium Heavy Cotton, 280gsm",
       size: "M – 2XL · Oversized drop-shoulder fit",
       care: "Machine wash cold · Tumble dry low · Do not bleach",
-      shipping: "Free shipping over 500 EGP · 2–4 days domestic · 7–14 days international",
+      shipping: "Free shipping over 1,500 EGP · 2–4 days domestic · 7–14 days international",
     },
     faqs: [
       { q: "How oversized is the fit?", a: "Intentionally relaxed with drop shoulders and a boxy body. If you want a more fitted look, size down one. For the street silhouette, go true to size." },
@@ -148,7 +148,7 @@ const categoryData: Record<CategoryKey, Omit<ProductCopy, "seo" | "imageAlts">> 
       material: "100% Soft Cotton, 220gsm",
       size: "M – 2XL · Classic regular fit",
       care: "Machine wash cold or warm · Tumble dry low · Iron safe",
-      shipping: "Free shipping over 500 EGP · 2–4 days domestic · 7–14 days international",
+      shipping: "Free shipping over 1,500 EGP · 2–4 days domestic · 7–14 days international",
     },
     faqs: [
       { q: "What makes this different from a regular tee?", a: "The cut, the cotton, the construction. Premium 220gsm cotton with reinforced seams and a fit that was pattern-tested dozens of times. You'll feel the difference." },
@@ -170,7 +170,7 @@ const categoryData: Record<CategoryKey, Omit<ProductCopy, "seo" | "imageAlts">> 
       material: "100% Premium Heavy Cotton, 380gsm",
       size: "S – 3XL · Oversized fit (size down for fitted)",
       care: "Machine wash cold · Tumble dry low · Do not bleach",
-      shipping: "Free shipping over 500 EGP · 2–4 days domestic · 7–14 days international",
+      shipping: "Free shipping over 1,500 EGP · 2–4 days domestic · 7–14 days international",
     },
     faqs: [
       { q: "Will this shrink after washing?", a: "No. Every piece is pre-shrunk before shipping. The fit you receive is the fit you keep." },
@@ -193,7 +193,7 @@ export function getProductCopy(title: string, handle: string): ProductCopy {
     ...data,
     seo: {
       title: `${seoKeyword} | TRETRA Premium Fashion`.slice(0, 60),
-      metaDescription: `Shop the ${cleanTitle} from TRETRA. ${data.hook} 380gsm heavy cotton, oversized fit, free shipping over 500 EGP. Premium Egyptian fashion.`.slice(0, 155),
+      metaDescription: `Shop the ${cleanTitle} from TRETRA. ${data.hook} 380gsm heavy cotton, oversized fit, free shipping over 1,500 EGP. Premium Egyptian fashion.`.slice(0, 155),
     },
     imageAlts: [
       `${title} - Front view | TRETRA`,
