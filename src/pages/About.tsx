@@ -31,7 +31,7 @@ const About = () => {
             We Are Tretra<span className="text-primary">.</span>
           </h1>
           <p className="font-body text-base md:text-lg text-background/60 leading-relaxed">
-            A streetwear brand born in Egypt, designed for the bold and fearless.
+            A fashion brand born in Egypt, designed for the bold and fearless.
           </p>
         </motion.div>
       </section>
