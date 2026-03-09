@@ -5,7 +5,7 @@ import { BenefitsBar } from "@/components/BenefitsBar";
 import { SummerCollection } from "@/components/SummerCollection";
 import { ShopByCategory } from "@/components/ShopByCategory";
 import { LifestyleLookbook } from "@/components/LifestyleLookbook";
-import { VideoBanner } from "@/components/VideoBanner";
+
 import { PromoBanner } from "@/components/PromoBanner";
 import { FeaturedProducts } from "@/components/FeaturedProducts";
 import { UrgencyBanner } from "@/components/UrgencyBanner";
