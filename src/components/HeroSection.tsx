@@ -25,6 +25,9 @@ export const HeroSection = () => {
         style={{ y: imageY, scale: imageScale }}
         fetchPriority="high"
         loading="eager"
+        decoding="async"
+        width={1920}
+        height={1080}
       />
       <motion.div
         className="absolute inset-0 bg-foreground"

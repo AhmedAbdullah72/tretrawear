@@ -23,7 +23,7 @@ export const ProductShowcase = () => {
   const imageY = useTransform(scrollYProgress, [0, 1], ["8%", "-8%"]);
 
   return (
-    <section ref={sectionRef} className="section-padding bg-card overflow-hidden">
+    <section ref={sectionRef} className="section-padding bg-card overflow-hidden" aria-labelledby="showcase-heading">
       <div className="container">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <motion.div
@@ -33,16 +33,16 @@ export const ProductShowcase = () => {
             transition={{ duration: 0.7 }}
           >
             <p className="font-body text-xs tracking-[0.3em] uppercase text-primary mb-3">Product Details</p>
-            <h2 className="font-heading text-4xl md:text-5xl text-foreground mb-6">
+            <h2 id="showcase-heading" className="font-heading text-4xl md:text-5xl text-foreground mb-6">
               CRAFTED FOR<br />
               <span className="text-primary">PERFECTION</span>
             </h2>
             <p className="font-body text-muted-foreground mb-8 max-w-md">
               Every TRETRA piece is designed with obsessive attention to detail. From fabric selection to final stitch — no compromise.
             </p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3" aria-label="Product features">
               {features.map((f, i) => (
-                <motion.div
+                <motion.li
                   key={f}
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
@@ -50,13 +50,13 @@ export const ProductShowcase = () => {
                   transition={{ delay: i * 0.06, duration: 0.4 }}
                   className="flex items-center gap-2"
                 >
-                  <div className="w-6 h-6 flex items-center justify-center bg-primary/10 rounded-full flex-shrink-0">
+                  <div className="w-6 h-6 flex items-center justify-center bg-primary/10 rounded-full flex-shrink-0" aria-hidden="true">
                     <Check className="h-3.5 w-3.5 text-primary" />
                   </div>
                   <span className="font-body text-sm text-foreground">{f}</span>
-                </motion.div>
+                </motion.li>
               ))}
-            </div>
+            </ul>
           </motion.div>
 
           <motion.div
@@ -70,23 +70,25 @@ export const ProductShowcase = () => {
               <div className="aspect-[3/4] bg-secondary rounded-2xl overflow-hidden shadow-xl">
                 <motion.img
                   src={shadowHoodie}
-                  alt="TRETRA hoodie detail"
+                  alt="TRETRA hoodie detail showing premium stitching and fabric quality"
                   className="w-full h-full object-cover"
                   style={{ y: imageY }}
                   loading="lazy"
+                  decoding="async"
                 />
               </div>
               <div className="aspect-[3/4] bg-secondary rounded-2xl overflow-hidden shadow-xl mt-8">
                 <img
                   src={detailFabric}
-                  alt="Premium cotton fabric texture close-up"
+                  alt="Premium 380GSM cotton fabric texture close-up"
                   className="w-full h-full object-cover"
                   loading="lazy"
+                  decoding="async"
                 />
               </div>
             </div>
-            <div className="absolute -bottom-4 -right-4 w-24 h-24 border-2 border-primary/20 rounded-2xl -z-10" />
-            <div className="absolute -top-4 -left-4 w-16 h-16 bg-primary/10 rounded-2xl -z-10" />
+            <div className="absolute -bottom-4 -right-4 w-24 h-24 border-2 border-primary/20 rounded-2xl -z-10" aria-hidden="true" />
+            <div className="absolute -top-4 -left-4 w-16 h-16 bg-primary/10 rounded-2xl -z-10" aria-hidden="true" />
           </motion.div>
         </div>
       </div>

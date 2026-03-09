@@ -46,11 +46,12 @@ const reviews = [
 ];
 
 const StarRating = ({ rating }: { rating: number }) => (
-  <div className="flex gap-0.5">
+  <div className="flex gap-0.5" role="img" aria-label={`${rating} out of 5 stars`}>
     {Array.from({ length: 5 }).map((_, i) => (
       <Star
         key={i}
         className={`h-4 w-4 ${i < rating ? "text-yellow-400 fill-yellow-400" : "text-muted-foreground/30"}`}
+        aria-hidden="true"
       />
     ))}
   </div>
@@ -63,7 +64,7 @@ export const CustomerReviews = () => {
   const prev = () => setActiveIndex((i) => (i - 1 + reviews.length) % reviews.length);
 
   return (
-    <section className="section-padding bg-background overflow-hidden">
+    <section className="section-padding bg-background overflow-hidden" aria-labelledby="reviews-heading">
       <div className="container">
         {/* Header */}
         <motion.div
@@ -76,13 +77,13 @@ export const CustomerReviews = () => {
           <p className="font-body text-xs tracking-[0.3em] uppercase text-primary mb-3">
             Real Customers
           </p>
-          <h2 className="font-heading text-4xl md:text-5xl text-foreground">
+          <h2 id="reviews-heading" className="font-heading text-4xl md:text-5xl text-foreground">
             WHAT THEY <span className="text-primary">SAY</span>
           </h2>
           <div className="flex items-center justify-center gap-2 mt-4">
-            <div className="flex gap-0.5">
+            <div className="flex gap-0.5" role="img" aria-label="4.9 out of 5 stars average rating">
               {Array.from({ length: 5 }).map((_, i) => (
-                <Star key={i} className="h-5 w-5 text-yellow-400 fill-yellow-400" />
+                <Star key={i} className="h-5 w-5 text-yellow-400 fill-yellow-400" aria-hidden="true" />
               ))}
             </div>
             <span className="font-body text-sm text-muted-foreground">
@@ -92,7 +93,7 @@ export const CustomerReviews = () => {
         </motion.div>
 
         {/* Featured review — large */}
-        <div className="relative max-w-5xl mx-auto">
+        <div className="relative max-w-5xl mx-auto" role="region" aria-label="Customer reviews carousel" aria-live="polite">
           <AnimatePresence mode="wait">
             <motion.div
               key={activeIndex}
@@ -102,20 +103,23 @@ export const CustomerReviews = () => {
               transition={{ duration: 0.4 }}
               className="max-w-2xl mx-auto"
             >
-
               {/* Review content */}
               <div className="flex flex-col justify-center">
-                <Quote className="h-10 w-10 text-primary/20 mb-4 rotate-180" />
+                <Quote className="h-10 w-10 text-primary/20 mb-4 rotate-180" aria-hidden="true" />
                 <StarRating rating={reviews[activeIndex].rating} />
-                <p className="font-body text-lg md:text-xl text-foreground leading-relaxed mt-4 mb-6">
+                <blockquote className="font-body text-lg md:text-xl text-foreground leading-relaxed mt-4 mb-6">
                   "{reviews[activeIndex].text}"
-                </p>
+                </blockquote>
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-primary/30">
                     <img
                       src={reviews[activeIndex].image}
-                      alt={reviews[activeIndex].name}
+                      alt={`Photo of ${reviews[activeIndex].name}`}
                       className="w-full h-full object-cover"
+                      loading="lazy"
+                      decoding="async"
+                      width={40}
+                      height={40}
                     />
                   </div>
                   <div>
@@ -137,13 +141,13 @@ export const CustomerReviews = () => {
           </AnimatePresence>
 
           {/* Navigation */}
-          <div className="flex items-center justify-center gap-4 mt-10">
+          <div className="flex items-center justify-center gap-4 mt-10" role="navigation" aria-label="Review navigation">
             <button
               onClick={prev}
               className="w-10 h-10 rounded-full border border-border flex items-center justify-center hover:bg-muted transition-colors"
               aria-label="Previous review"
             >
-              <ChevronLeft className="h-4 w-4 text-foreground" />
+              <ChevronLeft className="h-4 w-4 text-foreground" aria-hidden="true" />
             </button>
             <div className="flex gap-2">
               {reviews.map((_, i) => (
@@ -155,7 +159,8 @@ export const CustomerReviews = () => {
                       ? "w-8 bg-primary"
                       : "w-2 bg-muted-foreground/30 hover:bg-muted-foreground/50"
                   }`}
-                  aria-label={`Go to review ${i + 1}`}
+                  aria-label={`Go to review ${i + 1} by ${reviews[i].name}`}
+                  aria-current={i === activeIndex ? "true" : undefined}
                 />
               ))}
             </div>
@@ -164,7 +169,7 @@ export const CustomerReviews = () => {
               className="w-10 h-10 rounded-full border border-border flex items-center justify-center hover:bg-muted transition-colors"
               aria-label="Next review"
             >
-              <ChevronRight className="h-4 w-4 text-foreground" />
+              <ChevronRight className="h-4 w-4 text-foreground" aria-hidden="true" />
             </button>
           </div>
         </div>
@@ -181,6 +186,7 @@ export const CustomerReviews = () => {
             <button
               key={review.name}
               onClick={() => setActiveIndex(i)}
+              aria-label={`Read review by ${review.name}: ${review.rating} stars`}
               className={`text-left p-5 rounded-xl border transition-all duration-300 ${
                 i === activeIndex
                   ? "border-primary bg-primary/5"
@@ -195,8 +201,12 @@ export const CustomerReviews = () => {
                 <div className="w-6 h-6 rounded-full overflow-hidden">
                   <img
                     src={review.image}
-                    alt={review.name}
+                    alt={`Photo of ${review.name}`}
                     className="w-full h-full object-cover"
+                    loading="lazy"
+                    decoding="async"
+                    width={24}
+                    height={24}
                   />
                 </div>
                 <span className="font-body text-xs text-muted-foreground">{review.name}</span>

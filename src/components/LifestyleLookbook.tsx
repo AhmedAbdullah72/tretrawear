@@ -17,7 +17,7 @@ export const LifestyleLookbook = () => {
   const parallax2 = useTransform(scrollYProgress, [0, 1], ["-3%", "3%"]);
 
   return (
-    <section ref={sectionRef} className="section-padding bg-background overflow-hidden">
+    <section ref={sectionRef} className="section-padding bg-background overflow-hidden" aria-labelledby="lookbook-heading">
       <div className="container">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -27,7 +27,7 @@ export const LifestyleLookbook = () => {
           className="text-center mb-14"
         >
           <p className="font-body text-xs tracking-[0.3em] uppercase text-primary mb-3">The Lookbook</p>
-          <h2 className="font-heading text-4xl md:text-5xl text-foreground">
+          <h2 id="lookbook-heading" className="font-heading text-4xl md:text-5xl text-foreground">
             STREET <span className="text-primary">STORIES</span>
           </h2>
           <p className="font-body text-sm text-muted-foreground mt-3 max-w-lg mx-auto">
@@ -52,6 +52,7 @@ export const LifestyleLookbook = () => {
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 style={{ y: parallax1 }}
                 loading="lazy"
+                decoding="async"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
@@ -76,6 +77,7 @@ export const LifestyleLookbook = () => {
                 className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
                 style={{ y: parallax2 }}
                 loading="lazy"
+                decoding="async"
               />
             </div>
           </motion.div>
@@ -94,6 +96,7 @@ export const LifestyleLookbook = () => {
                 alt="TRETRA summer essentials flat lay — t-shirt, sweatpants, and sneakers"
                 className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
                 loading="lazy"
+                decoding="async"
               />
               <div className="absolute inset-0 bg-foreground/0 group-hover:bg-foreground/20 transition-all duration-500 flex items-center justify-center">
                 <Link
