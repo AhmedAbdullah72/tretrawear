@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-import heroImage from "@/assets/hero-streetwear.jpg";
+import heroImage from "@/assets/hero-summer.jpg";
 
 export const HeroSection = () => {
   const ref = useRef<HTMLElement>(null);
@@ -14,13 +14,13 @@ export const HeroSection = () => {
   const imageY = useTransform(scrollYProgress, [0, 1], ["0%", "25%"]);
   const imageScale = useTransform(scrollYProgress, [0, 1], [1, 1.15]);
   const textY = useTransform(scrollYProgress, [0, 1], ["0%", "40%"]);
-  const overlayOpacity = useTransform(scrollYProgress, [0, 0.5], [0.55, 0.85]);
+  const overlayOpacity = useTransform(scrollYProgress, [0, 0.5], [0.45, 0.8]);
 
   return (
     <section ref={ref} className="relative min-h-screen flex items-center overflow-hidden bg-foreground">
       <motion.img
         src={heroImage}
-        alt="TRETRA Wear streetwear collection"
+        alt="TRETRA Wear summer collection – oversized tees and wide-leg sweatpants"
         className="absolute inset-0 w-full h-full object-cover"
         style={{ y: imageY, scale: imageScale }}
       />
@@ -40,7 +40,7 @@ export const HeroSection = () => {
             className="inline-block bg-primary/20 backdrop-blur-sm border border-primary/30 px-4 py-1.5 rounded-full mb-6"
           >
             <span className="font-body text-xs tracking-[0.3em] uppercase text-primary-foreground font-semibold">
-              New Collection 2026
+              Summer Collection 2026
             </span>
           </motion.div>
 
@@ -50,9 +50,9 @@ export const HeroSection = () => {
             transition={{ duration: 0.7, delay: 0.1 }}
             className="font-heading text-6xl md:text-8xl lg:text-9xl text-primary-foreground leading-[0.85] mb-6"
           >
-            WEAR<br />
-            YOUR<br />
-            <span className="text-primary">IDENTITY</span>
+            OWN<br />
+            THE<br />
+            <span className="text-primary">HEAT</span>
           </motion.h1>
 
           <motion.p
@@ -61,7 +61,7 @@ export const HeroSection = () => {
             transition={{ duration: 0.5, delay: 0.3 }}
             className="font-body text-base md:text-lg text-primary-foreground/70 max-w-md mb-8"
           >
-            Bold streetwear engineered for those who refuse to blend in.
+            Wide-leg sweatpants, oversized tees & essentials — built for summer streets.
           </motion.p>
 
           <motion.div
@@ -74,7 +74,7 @@ export const HeroSection = () => {
               to="/shop"
               className="group inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground font-heading text-lg tracking-wider uppercase px-8 py-4 rounded-lg hover:bg-primary/90 transition-all duration-300 shadow-lg shadow-primary/25"
             >
-              Shop Now
+              Shop Summer
               <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
             </Link>
             <Link

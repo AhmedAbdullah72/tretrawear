@@ -11,13 +11,16 @@ export interface ProductCopy {
   collectionIntro: string;
 }
 
-type CategoryKey = "half-zip" | "fur-lined" | "dtf-printed" | "default";
+type CategoryKey = "half-zip" | "fur-lined" | "dtf-printed" | "sweatpants" | "oversized-tee" | "basic-tee" | "default";
 
 function detectCategory(title: string, handle: string): CategoryKey {
   const lower = (title + " " + handle).toLowerCase();
   if (lower.includes("half-zip")) return "half-zip";
   if (lower.includes("fur-lined") || lower.includes("fur lined") || lower.includes("miu miu")) return "fur-lined";
   if (lower.includes("dtf") || lower.includes("edition") || lower.includes("embroidered")) return "dtf-printed";
+  if (lower.includes("sweatpants") || lower.includes("wide-leg")) return "sweatpants";
+  if (lower.includes("oversized") && (lower.includes("t-shirt") || lower.includes("tee"))) return "oversized-tee";
+  if (lower.includes("basic") && (lower.includes("t-shirt") || lower.includes("tee"))) return "basic-tee";
   return "default";
 }
 
@@ -88,6 +91,72 @@ const categoryData: Record<CategoryKey, Omit<ProductCopy, "seo" | "imageAlts">> 
     ],
     collectionIntro: "The DTF Printed Collection is where streetwear meets collectible art. Each edition features meticulously crafted graphics on our signature 380gsm heavy cotton canvas — bold, vivid, and built to last. These aren't mass-produced prints. They're limited runs designed for individuals who wear their identity, not follow it.",
   },
+  "sweatpants": {
+    hook: "Wide-leg comfort that commands the street.",
+    benefits: [
+      "Wide-leg relaxed silhouette for effortless movement",
+      "380gsm heavyweight cotton fleece — substantial without bulk",
+      "Elastic waistband with drawstring for the perfect fit",
+      "Deep side pockets for everyday utility",
+      "Pre-shrunk fabric that holds its shape",
+    ],
+    specs: {
+      material: "100% Premium Heavy Cotton Fleece, 380gsm",
+      size: "M – 2XL · Relaxed wide-leg fit",
+      care: "Machine wash cold · Tumble dry low · Do not bleach",
+      shipping: "Free shipping over 500 EGP · 2–4 days domestic · 7–14 days international",
+    },
+    faqs: [
+      { q: "Are these too warm for summer?", a: "The cotton fleece is breathable despite its weight. They're perfect for cool evenings and air-conditioned spaces — plus the wide leg allows maximum airflow." },
+      { q: "Will they bag out at the knees?", a: "No. Our pre-shrunk heavyweight cotton holds its shape. The wide-leg cut is designed to drape clean, not stretch out." },
+      { q: "What shoes work best with wide-leg?", a: "Everything from chunky sneakers to slides. The wide silhouette creates a balanced, proportional look with any footwear." },
+    ],
+    collectionIntro: "The Wide-Leg Sweatpants are summer streetwear redefined. Cut from 380gsm heavyweight cotton fleece with a relaxed wide-leg silhouette that moves with intention. Elastic waistband, deep pockets, and a drape that commands attention without trying.",
+  },
+  "oversized-tee": {
+    hook: "The tee that makes everything else in your wardrobe irrelevant.",
+    benefits: [
+      "280gsm heavyweight cotton with a premium hand-feel",
+      "Drop shoulder oversized cut for street-ready presence",
+      "Pre-washed for instant softness and zero shrinkage",
+      "Ribbed crew neck that holds its shape",
+      "Slightly curved hem for a modern silhouette",
+    ],
+    specs: {
+      material: "100% Premium Heavy Cotton, 280gsm",
+      size: "M – 2XL · Oversized drop-shoulder fit",
+      care: "Machine wash cold · Tumble dry low · Do not bleach",
+      shipping: "Free shipping over 500 EGP · 2–4 days domestic · 7–14 days international",
+    },
+    faqs: [
+      { q: "How oversized is the fit?", a: "Intentionally relaxed with drop shoulders and a boxy body. If you want a more fitted look, size down one. For the street silhouette, go true to size." },
+      { q: "Is 280gsm heavy enough?", a: "For a tee, 280gsm is premium territory. It has weight and structure without being stiff — drapes beautifully while maintaining its shape all day." },
+      { q: "Will the color fade after washing?", a: "Our colorfast process locks the dye deep into the fiber. Machine wash cold and your color stays rich wash after wash." },
+    ],
+    collectionIntro: "The Oversized Tee Collection is TRETRA's answer to summer. 280gsm heavyweight cotton, drop-shoulder engineering, and a relaxed silhouette that pairs with everything. Pre-washed for day-one softness. Built for heat, styled for the street.",
+  },
+  "basic-tee": {
+    hook: "The foundation piece your wardrobe's been missing.",
+    benefits: [
+      "220gsm soft cotton for all-day breathable comfort",
+      "Classic regular fit that flatters every body type",
+      "Ribbed crew neck engineered for durability",
+      "Pre-shrunk fabric — zero surprises after washing",
+      "Versatile enough to layer or wear standalone",
+    ],
+    specs: {
+      material: "100% Soft Cotton, 220gsm",
+      size: "M – 2XL · Classic regular fit",
+      care: "Machine wash cold or warm · Tumble dry low · Iron safe",
+      shipping: "Free shipping over 500 EGP · 2–4 days domestic · 7–14 days international",
+    },
+    faqs: [
+      { q: "What makes this different from a regular tee?", a: "The cut, the cotton, the construction. Premium 220gsm cotton with reinforced seams and a fit that was pattern-tested dozens of times. You'll feel the difference." },
+      { q: "Is this see-through?", a: "No. At 220gsm, our cotton has enough weight to be fully opaque while still being breathable for summer." },
+      { q: "Can I layer this under hoodies?", a: "Absolutely. The classic fit was designed as the perfect layering base. Pair it under any TRETRA hoodie for a complete look." },
+    ],
+    collectionIntro: "The Basics Collection strips everything back to what matters — perfect fit, premium cotton, and clean construction. 220gsm soft cotton in classic silhouettes that form the foundation of any wardrobe. Simple by design, exceptional by craft.",
+  },
   default: {
     hook: "Engineered for those who refuse to blend in.",
     benefits: [
@@ -128,9 +197,9 @@ export function getProductCopy(title: string, handle: string): ProductCopy {
     },
     imageAlts: [
       `${title} - Front view | TRETRA Streetwear`,
-      `${title} - Detail shot | Premium heavy cotton`,
-      `${title} - Side angle | Oversized drop-shoulder fit`,
-      `${title} - Lifestyle | TRETRA ${category === "half-zip" ? "Half-Zip" : "Hoodie"} Collection`,
+      `${title} - Detail shot | Premium cotton`,
+      `${title} - Side angle | ${category === "sweatpants" ? "Wide-leg fit" : category === "oversized-tee" ? "Oversized drop-shoulder" : "Oversized fit"}`,
+      `${title} - Lifestyle | TRETRA ${category === "half-zip" ? "Half-Zip" : category === "sweatpants" ? "Sweatpants" : category.includes("tee") ? "T-Shirt" : "Hoodie"} Collection`,
     ],
   };
 }

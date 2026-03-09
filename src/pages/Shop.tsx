@@ -7,11 +7,14 @@ import { storefrontApiRequest, PRODUCTS_QUERY, type ShopifyProduct } from "@/lib
 import { Loader2, SlidersHorizontal, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
-type Category = "all" | "half-zip" | "fur-lined" | "dtf-printed";
+type Category = "all" | "half-zip" | "fur-lined" | "dtf-printed" | "sweatpants" | "t-shirt" | "basic";
 type SortOption = "default" | "price-asc" | "price-desc" | "name-asc";
 
 const CATEGORIES: { value: Category; label: string }[] = [
   { value: "all", label: "All" },
+  { value: "sweatpants", label: "Sweatpants" },
+  { value: "t-shirt", label: "T-Shirts" },
+  { value: "basic", label: "Basics" },
   { value: "half-zip", label: "Half-Zip" },
   { value: "fur-lined", label: "Fur-Lined" },
   { value: "dtf-printed", label: "DTF Printed" },
@@ -30,6 +33,9 @@ function categorize(title: string): Category[] {
   if (t.includes("half-zip") || t.includes("half zip")) cats.push("half-zip");
   if (t.includes("fur-lined") || t.includes("fur lined") || t.includes("fur ")) cats.push("fur-lined");
   if (t.includes("dtf")) cats.push("dtf-printed");
+  if (t.includes("sweatpants") || t.includes("wide-leg")) cats.push("sweatpants");
+  if (t.includes("t-shirt") || t.includes("tee") || t.includes("oversized t")) cats.push("t-shirt");
+  if (t.includes("basic") || t.includes("essential")) cats.push("basic");
   return cats;
 }
 
