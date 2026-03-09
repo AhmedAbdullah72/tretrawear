@@ -82,7 +82,7 @@ const categoryData: Record<CategoryKey, Omit<ProductCopy, "seo" | "imageAlts">> 
       material: "100% Premium Heavy Cotton, 380gsm · DTF Transfer Print",
       size: "S – 3XL · Oversized drop-shoulder fit (size down for fitted)",
       care: "Machine wash cold inside-out · Tumble dry low · Do not iron over print",
-      shipping: "Free shipping over 500 EGP · 2–4 days domestic · 7–14 days international",
+      shipping: "Free shipping over 1,500 EGP · 2–4 days domestic · 7–14 days international",
     },
     faqs: [
       { q: "Will the print crack or peel over time?", a: "Never. Our DTF transfer technology bonds at the fiber level — it flexes with the fabric, doesn't sit on top. No cracking, no peeling, period." },
