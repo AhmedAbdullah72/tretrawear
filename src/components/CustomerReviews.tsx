@@ -100,22 +100,8 @@ export const CustomerReviews = () => {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -40 }}
               transition={{ duration: 0.4 }}
-              className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center"
+              className="max-w-2xl mx-auto"
             >
-              {/* Customer photo */}
-              <div className="relative aspect-square rounded-2xl overflow-hidden">
-                <img
-                  src={reviews[activeIndex].image}
-                  alt={`${reviews[activeIndex].name} wearing TRETRA`}
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-foreground/40 via-transparent to-transparent" />
-                <div className="absolute bottom-4 left-4 right-4">
-                  <p className="font-body text-xs text-primary-foreground/70 bg-foreground/40 backdrop-blur-sm px-3 py-1.5 rounded-full inline-block">
-                    Purchased: {reviews[activeIndex].product}
-                  </p>
-                </div>
-              </div>
 
               {/* Review content */}
               <div className="flex flex-col justify-center">
