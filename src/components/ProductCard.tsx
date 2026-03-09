@@ -1,6 +1,7 @@
 import { forwardRef } from "react";
 import { Link } from "react-router-dom";
 import { ShoppingCart, Loader2 } from "lucide-react";
+import { StockUrgencyBadge } from "@/components/StockUrgencyBadge";
 import { useCartStore, type ShopifyProduct } from "@/stores/cartStore";
 import { toast } from "sonner";
 
