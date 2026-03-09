@@ -58,7 +58,7 @@ export const Footer = () => {
               <Link to="/about" className="block font-body text-sm text-muted-foreground hover:text-primary transition-colors duration-300">
                 About Us
               </Link>
-              <Link to="/shop" className="block font-body text-sm text-muted-foreground hover:text-primary transition-colors duration-300">
+              <Link to="/size-guide" className="block font-body text-sm text-muted-foreground hover:text-primary transition-colors duration-300">
                 Size Guide
               </Link>
               <Link to="/about" className="block font-body text-sm text-muted-foreground hover:text-primary transition-colors duration-300">
