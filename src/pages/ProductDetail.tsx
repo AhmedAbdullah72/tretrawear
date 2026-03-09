@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { getProductCopy } from "@/lib/productCopy";
 import { ProductBenefits, ProductSpecsTable, ProductFAQs } from "@/components/ProductCopySections";
+import { ProductImageGallery } from "@/components/ProductImageGallery";
 import { RelatedProducts } from "@/components/RelatedProducts";
 
 const ProductDetail = () => {
