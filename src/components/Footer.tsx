@@ -1,9 +1,56 @@
 import { Link } from "react-router-dom";
+import { ArrowRight, Gem, Heart, Leaf, Shield } from "lucide-react";
 import logo from "@/assets/logo.png";
+
+const brandValues = [
+  { icon: Gem, label: "Premium Quality", desc: "380GSM heavyweight fabrics" },
+  { icon: Heart, label: "Made with Love", desc: "Designed in Cairo, Egypt" },
+  { icon: Leaf, label: "Conscious Fashion", desc: "Durable pieces, less waste" },
+  { icon: Shield, label: "Trusted by 850+", desc: "Verified happy customers" },
+];
+
+const WHATSAPP_URL = "https://wa.me/201024888818?text=Hi%20TRETRA!%20I%20have%20a%20question";
 
 export const Footer = () => {
   return (
     <footer className="border-t border-border bg-card" role="contentinfo">
+      {/* Brand values grid */}
+      <div className="border-b border-border">
+        <div className="container py-12">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
+            {brandValues.map((v) => (
+              <div key={v.label} className="text-center">
+                <div className="w-11 h-11 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-3">
+                  <v.icon className="h-5 w-5 text-primary" />
+                </div>
+                <p className="font-heading text-xs tracking-wider text-foreground">{v.label}</p>
+                <p className="font-body text-[11px] text-muted-foreground mt-1">{v.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* CTA banner */}
+      <div className="bg-primary">
+        <div className="container py-10 md:py-12 flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
+          <div>
+            <h3 className="font-heading text-xl md:text-2xl text-primary-foreground">
+              READY TO LEVEL UP YOUR WARDROBE?
+            </h3>
+            <p className="font-body text-sm text-primary-foreground/70 mt-1">
+              Explore the full collection — free shipping over 500 EGP.
+            </p>
+          </div>
+          <Link
+            to="/shop"
+            className="inline-flex items-center gap-2 bg-primary-foreground text-primary font-heading text-sm tracking-wider uppercase px-8 py-3.5 rounded-xl hover:bg-primary-foreground/90 transition-colors duration-300 flex-shrink-0"
+          >
+            Shop Now <ArrowRight className="h-4 w-4" />
+          </Link>
+        </div>
+      </div>
+
       <div className="container py-16">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
           <div className="md:col-span-2">
@@ -64,9 +111,14 @@ export const Footer = () => {
               <Link to="/size-guide" className="block font-body text-sm text-muted-foreground hover:text-primary transition-colors duration-300">
                 Size Guide
               </Link>
-              <Link to="/about" className="block font-body text-sm text-muted-foreground hover:text-primary transition-colors duration-300">
-                Contact
-              </Link>
+              <a
+                href={WHATSAPP_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block font-body text-sm text-muted-foreground hover:text-primary transition-colors duration-300"
+              >
+                Contact Us
+              </a>
             </div>
           </nav>
 
