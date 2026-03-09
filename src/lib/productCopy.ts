@@ -177,7 +177,7 @@ const categoryData: Record<CategoryKey, Omit<ProductCopy, "seo" | "imageAlts">> 
       { q: "Is the oversized fit too baggy?", a: "Our silhouette is engineered — relaxed body, structured shoulders. Intentional, never sloppy." },
       { q: "What's your return policy?", a: "14-day returns on unworn items with tags attached. We want you confident in every purchase." },
     ],
-    collectionIntro: "TRETRA is premium streetwear for the self-assured. Crafted from 380gsm heavy cotton with obsessive attention to fit, fabric, and finish. Every piece is designed to be worn with conviction — season after season.",
+    collectionIntro: "TRETRA is premium fashion for the self-assured. Crafted from 380gsm heavy cotton with obsessive attention to fit, fabric, and finish. Every piece is designed to be worn with conviction — season after season.",
   },
 };
 

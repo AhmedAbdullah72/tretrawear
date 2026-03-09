@@ -19,7 +19,7 @@ export const VideoBanner = () => {
       <section ref={sectionRef} className="relative h-[70vh] md:h-[80vh] overflow-hidden">
         <motion.img
           src={lifestyleBg}
-          alt="TRETRA summer streetwear editorial"
+          alt="TRETRA summer fashion editorial"
           className="absolute inset-0 w-full h-full object-cover"
           style={{ y: bgY }}
         />
