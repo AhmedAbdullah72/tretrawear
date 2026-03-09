@@ -11,7 +11,7 @@ export const Footer = () => {
               <img src={logo} alt="Tretra Wear" className="h-14 w-auto" />
             </Link>
             <p className="font-body text-sm text-muted-foreground mt-4 max-w-sm leading-relaxed">
-              Bold streetwear for the fearless. Born in Egypt, made for the world. Every piece tells a story of rebellion, comfort, and uncompromising quality.
+              Bold fashion for the fearless. Born in Egypt, made for the world. Every piece tells a story of rebellion, comfort, and uncompromising quality.
             </p>
             <div className="space-y-2 mt-4">
               <a href="tel:+201024888818" className="block font-body text-sm text-muted-foreground hover:text-primary transition-colors duration-300">
