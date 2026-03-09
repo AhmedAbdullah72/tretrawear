@@ -61,6 +61,8 @@ export const ShopByCategory = () => {
                   <img
                     src={col.image}
                     alt={col.title}
+                    width={512}
+                    height={512}
                     className="w-3/4 h-auto object-contain drop-shadow-xl transition-transform duration-700 group-hover:scale-110 group-hover:-translate-y-2"
                     loading="lazy"
                     decoding="async"
