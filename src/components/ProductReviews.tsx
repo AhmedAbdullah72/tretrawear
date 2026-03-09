@@ -151,13 +151,10 @@ export const ProductReviews = ({ handle }: ProductReviewsProps) => {
         {/* Review cards */}
         <div className="space-y-0 divide-y divide-border">
           {reviews.map((review, i) => (
-            <motion.div
+            <div
               key={review.name}
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: i * 0.1 }}
               className="py-6 first:pt-0"
+            >
             >
               <div className="flex gap-4">
                 <div className="w-12 h-12 rounded-full overflow-hidden flex-shrink-0 ring-2 ring-border">
