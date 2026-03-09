@@ -4,6 +4,59 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import heroImage from "@/assets/hero-summer.jpg";
 
+const AnimatedText = ({ text, className, delay = 0 }: { text: string; className?: string; delay?: number }) => {
+  const letters = text.split("");
+  
+  return (
+    <span className={className}>
+      {letters.map((letter, i) => (
+        <motion.span
+          key={i}
+          initial={{ opacity: 0, y: 50, rotateX: -90 }}
+          animate={{ opacity: 1, y: 0, rotateX: 0 }}
+          transition={{
+            duration: 0.5,
+            delay: delay + i * 0.04,
+            ease: [0.215, 0.61, 0.355, 1],
+          }}
+          className="inline-block"
+          style={{ transformOrigin: "bottom" }}
+        >
+          {letter === " " ? "\u00A0" : letter}
+        </motion.span>
+      ))}
+    </span>
+  );
+};
+
+const FloatingWord = ({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) => (
+  <motion.span
+    initial={{ opacity: 0, y: 80 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{
+      duration: 0.8,
+      delay,
+      ease: [0.215, 0.61, 0.355, 1],
+    }}
+    className="inline-block"
+  >
+    <motion.span
+      animate={{ 
+        y: [0, -4, 0],
+      }}
+      transition={{
+        duration: 4,
+        repeat: Infinity,
+        ease: "easeInOut",
+        delay: delay * 2,
+      }}
+      className="inline-block"
+    >
+      {children}
+    </motion.span>
+  </motion.span>
+);
+
 export const HeroSection = () => {
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
@@ -44,21 +97,28 @@ export const HeroSection = () => {
             </span>
           </motion.div>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.1 }}
-            className="font-heading text-6xl md:text-8xl lg:text-9xl text-primary-foreground leading-[0.85] mb-6"
-          >
-            OWN<br />
-            THE<br />
-            <span className="text-primary">HEAT</span>
-          </motion.h1>
+          <h1 className="font-heading text-6xl md:text-8xl lg:text-9xl text-primary-foreground leading-[0.85] mb-6 overflow-hidden">
+            <span className="block overflow-hidden">
+              <FloatingWord delay={0.1}>
+                <AnimatedText text="OWN" delay={0.1} />
+              </FloatingWord>
+            </span>
+            <span className="block overflow-hidden">
+              <FloatingWord delay={0.25}>
+                <AnimatedText text="THE" delay={0.25} />
+              </FloatingWord>
+            </span>
+            <span className="block overflow-hidden text-primary">
+              <FloatingWord delay={0.4}>
+                <AnimatedText text="HEAT" delay={0.4} className="text-primary" />
+              </FloatingWord>
+            </span>
+          </h1>
 
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
+            transition={{ duration: 0.5, delay: 0.7 }}
             className="font-body text-base md:text-lg text-primary-foreground/70 max-w-md mb-8"
           >
             Wide-leg sweatpants, oversized tees & essentials — built for summer streets.
@@ -67,7 +127,7 @@ export const HeroSection = () => {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.45 }}
+            transition={{ duration: 0.5, delay: 0.85 }}
             className="flex flex-col sm:flex-row gap-4"
           >
             <Link
@@ -91,7 +151,7 @@ export const HeroSection = () => {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1, duration: 0.6 }}
+        transition={{ delay: 1.2, duration: 0.6 }}
         className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
       >
         <span className="font-body text-xs tracking-[0.2em] uppercase text-primary-foreground/50">Scroll</span>
