@@ -105,11 +105,7 @@ export const HeroSection = () => {
             </span>
             <span className="block overflow-hidden">
               <FloatingWord delay={0.25}>
-                <AnimatedText 
-                  text="THE" 
-                  delay={0.25}
-                  className="drop-shadow-[0_0_25px_rgba(255,255,255,0.3)]"
-                />
+                <AnimatedText text="THE" delay={0.25} />
               </FloatingWord>
             </span>
             <span className="block overflow-hidden">
