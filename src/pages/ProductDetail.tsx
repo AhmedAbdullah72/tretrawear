@@ -272,6 +272,9 @@ const ProductDetail = () => {
         </div>
       </div>
 
+      {/* Product Reviews */}
+      <ProductReviews handle={handle || ""} />
+
       {/* Related Products */}
       <RelatedProducts currentHandle={handle || ""} />
 
