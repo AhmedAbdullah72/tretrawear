@@ -281,6 +281,7 @@ const Shop = () => {
           )}
         </div>
       </section>
+      </main>
       <Footer />
     </div>
   );
