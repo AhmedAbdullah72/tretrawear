@@ -191,7 +191,7 @@ export const ProductReviews = ({ handle }: ProductReviewsProps) => {
                   </p>
                 </div>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>
