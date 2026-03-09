@@ -33,6 +33,7 @@ const AppContent = () => {
         <Route path="/faq" element={<FAQ />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/terms" element={<Terms />} />
+        <Route path="/size-guide" element={<SizeGuide />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <WhatsAppButton />
