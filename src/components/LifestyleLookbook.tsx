@@ -48,7 +48,7 @@ export const LifestyleLookbook = () => {
             <div className="relative aspect-[4/5] md:aspect-auto md:h-full rounded-2xl overflow-hidden group cursor-pointer">
               <motion.img
                 src={lifestyleImg1}
-                alt="Summer streetwear lifestyle — oversized tees and wide-leg sweatpants on urban streets"
+                alt="Summer lifestyle — oversized tees and wide-leg sweatpants on urban streets"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 style={{ y: parallax1 }}
                 loading="lazy"
