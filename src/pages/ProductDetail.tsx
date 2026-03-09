@@ -272,8 +272,9 @@ const ProductDetail = () => {
         </div>
       </div>
 
-      {/* Product Reviews */}
-      <ProductReviews handle={handle || ""} />
+      <div className="container py-12 md:py-16 border-t border-border">
+        <ProductReviews handle={handle || ""} />
+      </div>
 
       {/* Related Products */}
       <RelatedProducts currentHandle={handle || ""} />
