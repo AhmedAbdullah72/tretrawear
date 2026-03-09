@@ -148,7 +148,7 @@ const categoryData: Record<CategoryKey, Omit<ProductCopy, "seo" | "imageAlts">> 
       material: "100% Soft Cotton, 220gsm",
       size: "M – 2XL · Classic regular fit",
       care: "Machine wash cold or warm · Tumble dry low · Iron safe",
-      shipping: "Free shipping over 500 EGP · 2–4 days domestic · 7–14 days international",
+      shipping: "Free shipping over 1,500 EGP · 2–4 days domestic · 7–14 days international",
     },
     faqs: [
       { q: "What makes this different from a regular tee?", a: "The cut, the cotton, the construction. Premium 220gsm cotton with reinforced seams and a fit that was pattern-tested dozens of times. You'll feel the difference." },
