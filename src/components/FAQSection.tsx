@@ -58,4 +58,6 @@ export const FAQSection = forwardRef<HTMLElement>((_, ref) => {
       </div>
     </section>
   );
-};
+});
+
+FAQSection.displayName = "FAQSection";
