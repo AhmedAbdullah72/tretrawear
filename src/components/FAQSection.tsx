@@ -16,9 +16,9 @@ const faqs = [
   { q: "Do you offer international shipping?", a: "Yes! We ship worldwide. Free shipping is available on domestic orders over 1,500 EGP." },
 ];
 
-export const FAQSection = () => {
+export const FAQSection = forwardRef<HTMLElement>((_, ref) => {
   return (
-    <section className="section-padding bg-background">
+    <section ref={ref} className="section-padding bg-background">
       <div className="container max-w-3xl">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
