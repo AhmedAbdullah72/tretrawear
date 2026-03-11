@@ -85,4 +85,6 @@ export const FeaturedProducts = forwardRef<HTMLElement>((_, ref) => {
       </div>
     </section>
   );
-};
+});
+
+FeaturedProducts.displayName = "FeaturedProducts";
