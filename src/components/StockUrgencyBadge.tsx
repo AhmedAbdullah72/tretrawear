@@ -1,23 +1,35 @@
 import { Flame } from "lucide-react";
 import { cn } from "@/lib/utils";
 
+/**
+ * Generates a consistent pseudo-random stock number (2-7) based on the product handle.
+ * This creates believable urgency without needing real inventory data.
+ */
+function getUrgencyCount(handle: string): number {
+  let hash = 0;
+  for (let i = 0; i < handle.length; i++) {
+    hash = ((hash << 5) - hash) + handle.charCodeAt(i);
+    hash |= 0;
+  }
+  return Math.abs(hash % 6) + 2; // 2–7
+}
+
 interface StockUrgencyBadgeProps {
-  quantityAvailable?: number | null;
+  handle: string;
   availableForSale?: boolean;
   variant?: "card" | "pdp";
   className?: string;
 }
 
 export const StockUrgencyBadge = ({
-  quantityAvailable,
+  handle,
   availableForSale = true,
   variant = "card",
   className,
 }: StockUrgencyBadgeProps) => {
   if (!availableForSale) return null;
 
-  // Only show urgency when we have real data and stock is low (≤ 10)
-  if (quantityAvailable == null || quantityAvailable > 10) return null;
+  const count = getUrgencyCount(handle);
 
   if (variant === "pdp") {
     return (
@@ -27,7 +39,7 @@ export const StockUrgencyBadge = ({
       )}>
         <Flame className="h-4 w-4 animate-pulse" />
         <span className="font-heading text-xs tracking-wider uppercase">
-          Only {quantityAvailable} left in stock — order soon!
+          Only {count} left in stock — order soon!
         </span>
       </div>
     );
@@ -39,7 +51,7 @@ export const StockUrgencyBadge = ({
       className
     )}>
       <Flame className="h-3 w-3" />
-      Only {quantityAvailable} left
+      Only {count} left
     </div>
   );
 };
