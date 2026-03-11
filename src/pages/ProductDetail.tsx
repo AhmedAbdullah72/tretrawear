@@ -222,7 +222,7 @@ const ProductDetail = () => {
             </div>
 
             <StockUrgencyBadge
-              quantityAvailable={selectedVariant?.quantityAvailable}
+              handle={product.handle}
               availableForSale={selectedVariant?.availableForSale}
               variant="pdp"
             />
