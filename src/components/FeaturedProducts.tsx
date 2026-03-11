@@ -1,11 +1,11 @@
-import { useEffect, useState, forwardRef } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { storefrontApiRequest, PRODUCTS_QUERY, type ShopifyProduct } from "@/lib/shopify";
 import { ProductCard } from "./ProductCard";
 import { Loader2, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 
-export const FeaturedProducts = forwardRef<HTMLElement>((_, ref) => {
+export const FeaturedProducts = () => {
   const [products, setProducts] = useState<ShopifyProduct[]>([]);
   const [loading, setLoading] = useState(true);
 
