@@ -1,4 +1,3 @@
-import { forwardRef } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, Gem, Heart, Leaf, Shield } from "lucide-react";
 import logo from "@/assets/logo.png";
