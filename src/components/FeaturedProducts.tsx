@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, forwardRef } from "react";
 import { Link } from "react-router-dom";
 import { storefrontApiRequest, PRODUCTS_QUERY, type ShopifyProduct } from "@/lib/shopify";
 import { ProductCard } from "./ProductCard";
 import { Loader2, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 
-export const FeaturedProducts = () => {
+export const FeaturedProducts = forwardRef<HTMLElement>((_, ref) => {
   const [products, setProducts] = useState<ShopifyProduct[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -24,7 +24,7 @@ export const FeaturedProducts = () => {
   }, []);
 
   return (
-    <section className="section-padding bg-background">
+    <section ref={ref} className="section-padding bg-background">
       <div className="container">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -85,4 +85,6 @@ export const FeaturedProducts = () => {
       </div>
     </section>
   );
-};
+});
+
+FeaturedProducts.displayName = "FeaturedProducts";
