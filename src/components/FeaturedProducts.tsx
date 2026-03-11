@@ -24,7 +24,7 @@ export const FeaturedProducts = () => {
   }, []);
 
   return (
-    <section ref={ref} className="section-padding bg-background">
+    <section className="section-padding bg-background">
       <div className="container">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
