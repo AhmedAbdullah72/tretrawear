@@ -72,8 +72,12 @@ export async function storefrontApiRequest(query: string, variables: Record<stri
   }
 
   const data = await response.json();
-  if (data.errors) {
+  // Only throw on errors that don't include partial data (ACCESS_DENIED errors return data alongside errors)
+  if (data.errors && !data.data) {
     throw new Error(`Shopify error: ${data.errors.map((e: { message: string }) => e.message).join(', ')}`);
+  }
+  if (data.errors) {
+    console.warn('Shopify partial errors (non-fatal):', data.errors.map((e: { message: string }) => e.message).join(', '));
   }
   return data;
 }
