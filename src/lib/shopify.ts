@@ -35,7 +35,6 @@ export interface ShopifyProduct {
             currencyCode: string;
           };
           availableForSale: boolean;
-          quantityAvailable: number | null;
           selectedOptions: Array<{
             name: string;
             value: string;
