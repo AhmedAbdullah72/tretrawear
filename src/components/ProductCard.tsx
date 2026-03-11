@@ -65,7 +65,7 @@ export const ProductCard = forwardRef<HTMLAnchorElement, ProductCardProps>(({ pr
             SOLD OUT
           </div>
         ) : (
-          <StockUrgencyBadge handle={node.handle} variant="card" />
+          <StockUrgencyBadge quantityAvailable={firstVariant?.quantityAvailable} variant="card" />
         )}
       </div>
 
