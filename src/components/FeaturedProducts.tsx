@@ -85,6 +85,4 @@ export const FeaturedProducts = () => {
       </div>
     </section>
   );
-});
-
-FeaturedProducts.displayName = "FeaturedProducts";
+};

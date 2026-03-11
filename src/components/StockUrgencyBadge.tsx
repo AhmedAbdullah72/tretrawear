@@ -1,4 +1,3 @@
-import { forwardRef } from "react";
 import { Flame } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -22,19 +21,19 @@ interface StockUrgencyBadgeProps {
   className?: string;
 }
 
-export const StockUrgencyBadge = forwardRef<HTMLDivElement, StockUrgencyBadgeProps>(({
+export const StockUrgencyBadge = ({
   handle,
   availableForSale = true,
   variant = "card",
   className,
-}, ref) => {
+}: StockUrgencyBadgeProps) => {
   if (!availableForSale) return null;
 
   const count = getUrgencyCount(handle);
 
   if (variant === "pdp") {
     return (
-      <div ref={ref} className={cn(
+      <div className={cn(
         "inline-flex items-center gap-1.5 bg-primary/10 border border-primary/20 text-primary px-3 py-1.5 rounded-lg",
         className
       )}>
@@ -47,7 +46,7 @@ export const StockUrgencyBadge = forwardRef<HTMLDivElement, StockUrgencyBadgePro
   }
 
   return (
-    <div ref={ref} className={cn(
+    <div className={cn(
       "absolute top-3 left-3 inline-flex items-center gap-1 bg-primary text-primary-foreground text-[10px] font-heading tracking-wider px-2.5 py-1 rounded-full shadow-lg",
       className
     )}>
@@ -55,6 +54,4 @@ export const StockUrgencyBadge = forwardRef<HTMLDivElement, StockUrgencyBadgePro
       Only {count} left
     </div>
   );
-});
-
-StockUrgencyBadge.displayName = "StockUrgencyBadge";
+};

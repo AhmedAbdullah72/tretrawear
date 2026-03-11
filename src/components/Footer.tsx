@@ -157,6 +157,4 @@ export const Footer = () => {
       </div>
     </footer>
   );
-});
-
-Footer.displayName = "Footer";
+};

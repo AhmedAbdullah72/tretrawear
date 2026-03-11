@@ -57,6 +57,4 @@ export const FAQSection = () => {
       </div>
     </section>
   );
-});
-
-FAQSection.displayName = "FAQSection";
+};
