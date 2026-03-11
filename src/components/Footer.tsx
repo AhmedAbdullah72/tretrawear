@@ -1,4 +1,3 @@
-import { forwardRef } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, Gem, Heart, Leaf, Shield } from "lucide-react";
 import logo from "@/assets/logo.png";
@@ -12,9 +11,9 @@ const brandValues = [
 
 const WHATSAPP_URL = "https://wa.me/201024888818?text=Hi%20TRETRA!%20I%20have%20a%20question";
 
-export const Footer = forwardRef<HTMLElement>((_, ref) => {
+export const Footer = () => {
   return (
-    <footer ref={ref} className="border-t border-border bg-card" role="contentinfo">
+    <footer className="border-t border-border bg-card" role="contentinfo">
       {/* Brand values grid */}
       <div className="border-b border-border">
         <div className="container py-12">
@@ -158,6 +157,4 @@ export const Footer = forwardRef<HTMLElement>((_, ref) => {
       </div>
     </footer>
   );
-});
-
-Footer.displayName = "Footer";
+};

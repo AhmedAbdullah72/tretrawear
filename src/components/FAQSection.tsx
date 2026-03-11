@@ -1,4 +1,3 @@
-import { forwardRef } from "react";
 import {
   Accordion,
   AccordionContent,
@@ -16,9 +15,9 @@ const faqs = [
   { q: "Do you offer international shipping?", a: "Yes! We ship worldwide. Free shipping is available on domestic orders over 1,500 EGP." },
 ];
 
-export const FAQSection = forwardRef<HTMLElement>((_, ref) => {
+export const FAQSection = () => {
   return (
-    <section ref={ref} className="section-padding bg-background">
+    <section className="section-padding bg-background">
       <div className="container max-w-3xl">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -58,6 +57,4 @@ export const FAQSection = forwardRef<HTMLElement>((_, ref) => {
       </div>
     </section>
   );
-});
-
-FAQSection.displayName = "FAQSection";
+};
