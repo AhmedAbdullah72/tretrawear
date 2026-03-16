@@ -17,7 +17,7 @@ export const HeroSection = () => {
   const overlayOpacity = useTransform(scrollYProgress, [0, 0.5], [0.45, 0.8]);
 
   return (
-    <section ref={ref} className="relative min-h-[75vh] md:min-h-screen flex items-center overflow-hidden bg-foreground">
+    <section ref={ref} className="relative min-h-screen flex items-center overflow-hidden bg-foreground">
       <motion.img
         src={heroImage}
         alt="TRETRA Wear summer collection – oversized tees and wide-leg sweatpants"

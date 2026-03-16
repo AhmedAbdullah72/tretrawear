@@ -14,21 +14,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        heading: ['Oswald', 'sans-serif'],
+        heading: ['Anton', 'sans-serif'],
         body: ['Inter', 'sans-serif'],
-      },
-      fontSize: {
-        'display-lg': ['clamp(2.5rem, 5vw, 4.5rem)', { lineHeight: '1.05', letterSpacing: '0.02em' }],
-        'display': ['clamp(2rem, 4vw, 3.5rem)', { lineHeight: '1.1', letterSpacing: '0.02em' }],
-        'display-sm': ['clamp(1.5rem, 3vw, 2.5rem)', { lineHeight: '1.15', letterSpacing: '0.02em' }],
-        'title-lg': ['clamp(1.25rem, 2.5vw, 2rem)', { lineHeight: '1.2', letterSpacing: '0.01em' }],
-        'title': ['clamp(1.125rem, 2vw, 1.5rem)', { lineHeight: '1.25', letterSpacing: '0.01em' }],
-        'title-sm': ['clamp(1rem, 1.5vw, 1.25rem)', { lineHeight: '1.3', letterSpacing: '0.01em' }],
-        'body-lg': ['1.125rem', { lineHeight: '1.6' }],
-        'body': ['1rem', { lineHeight: '1.6' }],
-        'body-sm': ['0.875rem', { lineHeight: '1.5' }],
-        'caption': ['0.75rem', { lineHeight: '1.4', letterSpacing: '0.03em' }],
-        'overline': ['0.6875rem', { lineHeight: '1.4', letterSpacing: '0.15em' }],
       },
       colors: {
         border: "hsl(var(--border))",

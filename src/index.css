@@ -71,16 +71,7 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-heading uppercase font-semibold;
-  }
-
-  h1 { @apply text-display; }
-  h2 { @apply text-display-sm; }
-  h3 { @apply text-title-lg; }
-  h4 { @apply text-title; }
-
-  p, li, span {
-    @apply text-body;
+    @apply font-heading uppercase;
   }
 }
 

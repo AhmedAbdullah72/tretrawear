@@ -69,10 +69,10 @@ export const ProductCard = forwardRef<HTMLAnchorElement, ProductCardProps>(({ pr
         )}
       </div>
 
-      <h3 className="font-heading text-title-sm font-semibold text-foreground group-hover:text-primary transition-colors duration-300 line-clamp-2">
+      <h3 className="font-heading text-sm text-foreground group-hover:text-primary transition-colors duration-300 line-clamp-2 leading-tight">
         {node.title}
       </h3>
-      <p className="font-body text-body-sm text-muted-foreground mt-1 font-medium">
+      <p className="font-body text-sm text-muted-foreground mt-1">
         {price.currencyCode} {parseFloat(price.amount).toFixed(2)}
       </p>
     </Link>
