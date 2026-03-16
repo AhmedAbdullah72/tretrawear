@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Star, ChevronLeft, ChevronRight, Quote } from "lucide-react";
+import { Star, ChevronLeft, ChevronRight, Quote, Users, Package, TrendingUp } from "lucide-react";
 import customer1 from "@/assets/review-customer-1.webp";
 import customer2 from "@/assets/review-customer-2.webp";
 import customer3 from "@/assets/review-customer-3.webp";
@@ -45,6 +45,12 @@ const reviews = [
   },
 ];
 
+const stats = [
+  { icon: Users, value: "850+", label: "Happy Customers" },
+  { icon: Package, value: "1,200+", label: "Orders Shipped" },
+  { icon: TrendingUp, value: "96%", label: "Satisfaction Rate" },
+];
+
 const StarRating = ({ rating }: { rating: number }) => (
   <div className="flex gap-0.5" role="img" aria-label={`${rating} out of 5 stars`}>
     {Array.from({ length: 5 }).map((_, i) => (
@@ -66,6 +72,25 @@ export const CustomerReviews = () => {
   return (
     <section className="section-padding bg-background overflow-hidden" aria-labelledby="reviews-heading">
       <div className="container">
+        {/* Stats bar */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.5 }}
+          className="grid grid-cols-3 gap-4 max-w-lg mx-auto mb-12"
+        >
+          {stats.map((stat) => (
+            <div key={stat.label} className="text-center">
+              <div className="w-9 h-9 mx-auto mb-2 flex items-center justify-center bg-primary/10 rounded-full">
+                <stat.icon className="h-4 w-4 text-primary" />
+              </div>
+              <p className="font-heading text-2xl text-foreground">{stat.value}</p>
+              <p className="font-body text-[11px] text-muted-foreground">{stat.label}</p>
+            </div>
+          ))}
+        </motion.div>
+
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -92,7 +117,7 @@ export const CustomerReviews = () => {
           </div>
         </motion.div>
 
-        {/* Featured review — large */}
+        {/* Featured review */}
         <div className="relative max-w-5xl mx-auto" role="region" aria-label="Customer reviews carousel" aria-live="polite">
           <AnimatePresence mode="wait">
             <motion.div
@@ -103,7 +128,6 @@ export const CustomerReviews = () => {
               transition={{ duration: 0.4 }}
               className="max-w-2xl mx-auto"
             >
-              {/* Review content */}
               <div className="flex flex-col justify-center">
                 <Quote className="h-10 w-10 text-primary/20 mb-4 rotate-180" aria-hidden="true" />
                 <StarRating rating={reviews[activeIndex].rating} />
