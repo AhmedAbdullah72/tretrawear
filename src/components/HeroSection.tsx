@@ -120,19 +120,38 @@ export const HeroSection = () => {
       </div>
 
       {/* Marquee strip */}
-      <div className="py-2.5 bg-foreground border-t border-border/20 text-primary-foreground">
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5 }}
+        className="py-2.5 bg-foreground border-t border-border/20 text-primary-foreground"
+      >
         <Marquee
           items={["FREE SHIPPING OVER 1,500 EGP", "BUY 1 GET 1 FREE", "SUMMER 2026", "PREMIUM QUALITY", "14-DAY RETURNS"]}
           speed="slow"
         />
-      </div>
+      </motion.div>
 
       {/* Benefits bar integrated */}
-      <div className="bg-card border-b border-border">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{ duration: 0.5 }}
+        className="bg-card border-b border-border"
+      >
         <div className="container py-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {benefits.map((b) => (
-              <div key={b.label} className="flex items-center gap-3 py-1 px-3">
+            {benefits.map((b, i) => (
+              <motion.div
+                key={b.label}
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.08, duration: 0.4 }}
+                className="flex items-center gap-3 py-1 px-3"
+              >
                 <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
                   <b.icon className="h-3.5 w-3.5 text-primary" />
                 </div>
@@ -140,11 +159,11 @@ export const HeroSection = () => {
                   <p className="font-heading text-xs text-foreground">{b.label}</p>
                   <p className="font-body text-[11px] text-muted-foreground">{b.desc}</p>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 };
