@@ -17,6 +17,7 @@ const SocialProof = lazy(() => import("@/components/SocialProof").then(m => ({ d
 const CustomerReviews = lazy(() => import("@/components/CustomerReviews").then(m => ({ default: m.CustomerReviews })));
 const FAQSection = lazy(() => import("@/components/FAQSection").then(m => ({ default: m.FAQSection })));
 const Newsletter = lazy(() => import("@/components/Newsletter").then(m => ({ default: m.Newsletter })));
+const UGCGallery = lazy(() => import("@/components/UGCGallery").then(m => ({ default: m.UGCGallery })));
 
 // Lazy load intro
 const IntroAnimation = lazy(() => import("@/components/IntroAnimation").then(m => ({ default: m.IntroAnimation })));
@@ -73,6 +74,7 @@ const Index = () => {
             <TrustSection />
             <SocialProof />
             <CustomerReviews />
+            <UGCGallery />
             <FAQSection />
             <Newsletter />
           </Suspense>
