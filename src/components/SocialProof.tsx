@@ -36,8 +36,8 @@ export const SocialProof = () => {
               <div className="w-10 h-10 mx-auto mb-3 flex items-center justify-center bg-primary/20 rounded-xl">
                 <stat.icon className="h-4 w-4 text-primary" />
               </div>
-              <p className="font-heading text-2xl md:text-3xl text-background mb-1">{stat.value}</p>
-              <p className="font-body text-sm text-background/50">{stat.label}</p>
+              <p className="font-heading text-2xl md:text-3xl text-foreground mb-1">{stat.value}</p>
+              <p className="font-body text-sm text-muted-foreground">{stat.label}</p>
             </motion.div>
           ))}
         </div>
