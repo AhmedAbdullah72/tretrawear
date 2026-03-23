@@ -9,7 +9,7 @@ const stats = [
 
 export const SocialProof = () => {
   return (
-    <section className="py-16 bg-foreground text-background overflow-hidden">
+    <section className="py-10 bg-foreground text-background overflow-hidden">
       <div className="container">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
