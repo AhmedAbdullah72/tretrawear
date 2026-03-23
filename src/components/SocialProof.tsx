@@ -9,7 +9,7 @@ const stats = [
 
 export const SocialProof = () => {
   return (
-    <section className="py-8 md:py-12 bg-foreground text-background overflow-hidden">
+    <section className="py-8 md:py-12 bg-muted text-foreground overflow-hidden">
       <div className="container">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -18,8 +18,8 @@ export const SocialProof = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-6 md:mb-8"
         >
-          <p className="font-body text-xs tracking-[0.3em] uppercase text-background/50 mb-3">The Numbers</p>
-          <h2 className="font-heading text-2xl md:text-4xl text-background">
+          <p className="font-body text-xs tracking-[0.3em] uppercase text-muted-foreground mb-3">The Numbers</p>
+          <h2 className="font-heading text-2xl md:text-4xl text-foreground">
             TRUSTED BY <span className="text-primary">THOUSANDS</span>
           </h2>
         </motion.div>
@@ -36,8 +36,8 @@ export const SocialProof = () => {
               <div className="w-10 h-10 mx-auto mb-3 flex items-center justify-center bg-primary/20 rounded-xl">
                 <stat.icon className="h-4 w-4 text-primary" />
               </div>
-              <p className="font-heading text-2xl md:text-3xl text-background mb-1">{stat.value}</p>
-              <p className="font-body text-sm text-background/50">{stat.label}</p>
+              <p className="font-heading text-2xl md:text-3xl text-foreground mb-1">{stat.value}</p>
+              <p className="font-body text-sm text-muted-foreground">{stat.label}</p>
             </motion.div>
           ))}
         </div>
