@@ -12,7 +12,7 @@ export const FeaturedProducts = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const data = await storefrontApiRequest(PRODUCTS_QUERY, { first: 8 });
+        const data = await storefrontApiRequest(PRODUCTS_QUERY, { first: 6 });
         setProducts(data?.data?.products?.edges || []);
       } catch (error) {
         console.error("Failed to fetch products:", error);
