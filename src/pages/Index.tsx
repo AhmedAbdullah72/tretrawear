@@ -64,17 +64,15 @@ const Index = () => {
           <HeroSection />
           <BenefitsBar />
           <Suspense fallback={<SectionFallback />}>
+            <FeaturedProducts />
+            <SocialProof />
             <SummerCollection />
             <ShopByCategory />
-            {/* LifestyleLookbook removed */}
             <PromoBanner />
-            <FeaturedProducts />
-            <UrgencyBanner />
             <ProductShowcase />
-            <TrustSection />
-            <SocialProof />
             <CustomerReviews />
-            
+            <TrustSection />
+            <UrgencyBanner />
             <FAQSection />
             <Newsletter />
           </Suspense>
