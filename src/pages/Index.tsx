@@ -74,7 +74,7 @@ const Index = () => {
             <TrustSection />
             <SocialProof />
             <CustomerReviews />
-            <UGCGallery />
+            
             <FAQSection />
             <Newsletter />
           </Suspense>
