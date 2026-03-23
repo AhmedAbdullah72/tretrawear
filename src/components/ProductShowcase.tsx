@@ -25,7 +25,7 @@ export const ProductShowcase = () => {
   return (
     <section ref={sectionRef} className="section-padding bg-card overflow-hidden" aria-labelledby="showcase-heading">
       <div className="container">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -33,11 +33,11 @@ export const ProductShowcase = () => {
             transition={{ duration: 0.7 }}
           >
             <p className="font-body text-xs tracking-[0.3em] uppercase text-primary mb-3">Product Details</p>
-            <h2 id="showcase-heading" className="font-heading text-4xl md:text-5xl text-foreground mb-6">
+            <h2 id="showcase-heading" className="font-heading text-2xl md:text-4xl text-foreground mb-4">
               CRAFTED FOR<br />
               <span className="text-primary">PERFECTION</span>
             </h2>
-            <p className="font-body text-muted-foreground mb-8 max-w-md">
+            <p className="font-body text-sm text-muted-foreground mb-5 max-w-md">
               Every TRETRA piece is designed with obsessive attention to detail. From fabric selection to final stitch — no compromise.
             </p>
             <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3" aria-label="Product features">

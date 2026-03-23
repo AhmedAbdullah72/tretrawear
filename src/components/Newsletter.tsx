@@ -15,7 +15,7 @@ export const Newsletter = () => {
   };
 
   return (
-    <section className="py-14 md:py-18 bg-foreground text-background overflow-hidden" aria-labelledby="newsletter-heading">
+    <section className="py-10 md:py-14 bg-foreground text-background overflow-hidden" aria-labelledby="newsletter-heading">
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -23,16 +23,16 @@ export const Newsletter = () => {
         transition={{ duration: 0.6 }}
         className="container max-w-xl text-center"
       >
-        <div className="inline-flex items-center gap-2 bg-primary/20 border border-primary/30 rounded-full px-4 py-1.5 mb-6">
+        <div className="inline-flex items-center gap-2 bg-primary/20 border border-primary/30 rounded-full px-4 py-1.5 mb-4">
           <Gift className="h-3.5 w-3.5 text-primary" aria-hidden="true" />
           <span className="font-body text-xs tracking-[0.2em] uppercase text-primary font-semibold">
             Get 10% Off
           </span>
         </div>
-        <h2 id="newsletter-heading" className="font-heading text-3xl md:text-4xl text-background mb-3">
+        <h2 id="newsletter-heading" className="font-heading text-2xl md:text-3xl text-background mb-2">
           Join the Movement
         </h2>
-        <p className="font-body text-sm text-background/60 mb-8">
+        <p className="font-body text-sm text-background/60 mb-6">
           Subscribe for early access to new drops, exclusive offers, and 10% off your first order.
         </p>
         <form onSubmit={handleSubmit} className="flex gap-0" aria-label="Newsletter subscription">

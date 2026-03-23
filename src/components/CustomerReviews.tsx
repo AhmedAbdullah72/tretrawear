@@ -41,14 +41,14 @@ const getInitials = (name: string) => {
 
 export const CustomerReviews = () => {
   return (
-    <section className="py-10 md:py-14 bg-background overflow-hidden" aria-labelledby="reviews-heading">
+    <section className="py-8 md:py-12 bg-background overflow-hidden" aria-labelledby="reviews-heading">
       <div className="container">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-8"
+          className="text-center mb-5"
         >
           <h2 id="reviews-heading" className="font-heading text-2xl md:text-3xl text-foreground">
             WHAT THEY <span className="text-primary">SAY</span>

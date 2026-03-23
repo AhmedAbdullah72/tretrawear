@@ -33,11 +33,11 @@ export const SummerCollection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.6 }}
-          className="flex items-end justify-between mb-12"
+          className="flex items-end justify-between mb-6 md:mb-10"
         >
           <div>
             <p className="font-body text-xs tracking-[0.3em] uppercase text-primary mb-3">New Arrivals</p>
-            <h2 className="font-heading text-4xl md:text-5xl text-primary-foreground">
+            <h2 className="font-heading text-2xl md:text-4xl text-primary-foreground">
               SUMMER <span className="text-primary">2026</span>
             </h2>
             <p className="font-body text-sm text-primary-foreground/50 mt-3 max-w-md">

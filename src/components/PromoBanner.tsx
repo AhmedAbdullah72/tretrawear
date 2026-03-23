@@ -17,7 +17,7 @@ export const PromoBanner = () => {
           <div className="absolute bottom-0 right-0 w-64 h-64 bg-primary-foreground rounded-full blur-3xl translate-x-1/3 translate-y-1/3" />
         </div>
 
-        <div className="container relative z-10 py-14 md:py-20">
+        <div className="container relative z-10 py-10 md:py-14">
           <div className="flex flex-col md:flex-row items-center justify-between gap-8">
             <div className="text-center md:text-left">
               <motion.div
@@ -37,7 +37,7 @@ export const PromoBanner = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.1 }}
-                className="font-heading text-4xl md:text-5xl lg:text-6xl text-primary-foreground leading-[0.9] mb-3"
+                className="font-heading text-3xl md:text-4xl lg:text-5xl text-primary-foreground leading-[0.9] mb-3"
               >
                 20% OFF<br />NEW COLLECTION
               </motion.h2>
