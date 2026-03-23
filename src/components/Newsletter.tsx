@@ -23,7 +23,7 @@ export const Newsletter = () => {
         transition={{ duration: 0.6 }}
         className="container max-w-xl text-center"
       >
-        <div className="inline-flex items-center gap-2 bg-primary/20 border border-primary/30 rounded-full px-4 py-1.5 mb-6">
+        <div className="inline-flex items-center gap-2 bg-primary/20 border border-primary/30 rounded-full px-4 py-1.5 mb-4">
           <Gift className="h-3.5 w-3.5 text-primary" aria-hidden="true" />
           <span className="font-body text-xs tracking-[0.2em] uppercase text-primary font-semibold">
             Get 10% Off
