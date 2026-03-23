@@ -31,7 +31,7 @@ export const FeaturedProducts = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.6 }}
-          className="flex items-end justify-between mb-12"
+          className="flex items-end justify-between mb-6 md:mb-10"
         >
           <div>
             <p className="font-body text-xs tracking-[0.3em] uppercase text-primary mb-3">Our Collection</p>
