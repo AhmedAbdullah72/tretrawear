@@ -72,7 +72,7 @@ const Index = () => {
             <TrustSection />
             <ProductShowcase />
             <CustomerReviews />
-            <FAQSection />
+            
             <Newsletter />
           </Suspense>
         </main>

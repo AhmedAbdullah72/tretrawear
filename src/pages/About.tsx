@@ -167,6 +167,7 @@ const About = () => {
         </div>
       </section>
 
+      <FAQSection />
       <Newsletter />
       <Footer />
     </div>
