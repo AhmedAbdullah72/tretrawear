@@ -5,19 +5,19 @@ const reviews = [
   {
     name: "أحمد ك.",
     rating: 5,
-    text: "El quality mesh tabi3ya wallahi 🔥 El fit perfect w as7abi kollohom byes2alo mn feen.",
+    text: "The wide-leg sweatpants are unreal — comfy enough for home but I wore them out twice already. Friends keep asking where I got them 🔥",
     verified: true,
   },
   {
     name: "نور م.",
     rating: 5,
-    text: "أحسن hoodie gebtaha — الخامة سميكة وناعمة وال fit مظبوط. هشتري ألوان تاني أكيد.",
+    text: "Got my boyfriend the hoodie and honestly I'm jealous. Thick fabric, soft inside, fits exactly how it should. Ordering one for myself now.",
     verified: true,
   },
   {
     name: "عمر س.",
     rating: 5,
-    text: "Shipping fast w el packaging clean أوي. Worth every pound 💯",
+    text: "Arrived in 2 days, packaging looked premium. The sweatpants drape so well — not baggy, not tight, just right 💯",
     verified: true,
   },
 ];
