@@ -279,25 +279,45 @@ const ProductDetail = () => {
       {/* Related Products */}
       <RelatedProducts currentHandle={handle || ""} />
 
-      {/* Sticky mobile Add to Cart */}
+      {/* Sticky Add to Cart — all screen sizes */}
       {showStickyBar && selectedVariant && (
-        <div className="fixed bottom-0 left-0 right-0 z-40 md:hidden bg-card/95 backdrop-blur-lg border-t border-border p-3 safe-bottom">
-          <div className="flex items-center gap-3">
+        <motion.div
+          initial={{ y: 80, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: 80, opacity: 0 }}
+          transition={{ type: "spring", stiffness: 300, damping: 30 }}
+          className="fixed bottom-0 left-0 right-0 z-40 bg-card/95 backdrop-blur-xl border-t border-border safe-bottom"
+        >
+          <div className="container flex items-center gap-4 py-3">
+            {/* Product thumbnail — desktop only */}
+            {images[0]?.node && (
+              <div className="hidden md:block w-12 h-12 rounded-lg overflow-hidden border border-border flex-shrink-0">
+                <img src={images[0].node.url} alt="" className="w-full h-full object-cover" />
+              </div>
+            )}
             <div className="flex-1 min-w-0">
               <p className="font-heading text-sm text-foreground truncate">{product.title}</p>
               <p className="font-heading text-sm text-primary">
                 {selectedVariant.price.currencyCode} {parseFloat(selectedVariant.price.amount).toFixed(2)}
               </p>
             </div>
+            {/* Desktop variant info */}
+            <div className="hidden md:flex items-center gap-2 flex-shrink-0">
+              {selectedVariant.selectedOptions?.map(opt => (
+                <span key={opt.name} className="font-body text-xs bg-secondary text-secondary-foreground px-3 py-1 rounded-full">
+                  {opt.value}
+                </span>
+              ))}
+            </div>
             <Button
               onClick={handleAddToCart}
               disabled={isLoading || !selectedVariant.availableForSale}
-              className="bg-primary text-primary-foreground font-heading text-xs tracking-wider uppercase px-6 py-5 rounded-xl hover:bg-primary/90 flex-shrink-0"
+              className="bg-primary text-primary-foreground font-heading text-xs tracking-wider uppercase px-6 md:px-8 py-5 rounded-xl hover:bg-primary/90 flex-shrink-0 shadow-lg shadow-primary/20"
             >
               {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : !selectedVariant.availableForSale ? "Sold Out" : "Add to Cart"}
             </Button>
           </div>
-        </div>
+        </motion.div>
       )}
 
       <Footer />
