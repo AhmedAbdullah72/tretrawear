@@ -6,7 +6,7 @@ const allReviews = [
     date: "1 week ago",
     rating: 5,
     size: "L",
-    text: "Honestly didn't expect this quality at this price. The wide-leg sweatpants have a heavy feel but they're not stiff at all — relaxed fit without looking baggy. Exactly what I wanted 🔥",
+    text: "el quality di msh ma32ola bl se3r da wallahi. el wide-leg sweatpants t2eela bs msh 5ashna — relaxed fit mn 8eer ma tban wasa3. exactly eli kont 3ayzo 🔥",
     helpful: 31,
   },
   {
@@ -14,7 +14,7 @@ const allReviews = [
     date: "2 weeks ago",
     rating: 5,
     size: "M",
-    text: "Bought this for my fiancé and he literally hasn't taken it off 😂 The stitching is solid, color didn't fade after 3 washes. Looks way more expensive than it is — already ordering more.",
+    text: "جبتها لخطيبي و حرفياً مش قالعها 😂 الخياطة متينة و اللون ما بهتش بعد ٣ غسلات. شكلها أغلى بكتير من سعرها — بطلب تاني أكيد",
     helpful: 24,
   },
   {
@@ -22,7 +22,7 @@ const allReviews = [
     date: "3 weeks ago",
     rating: 5,
     size: "XL",
-    text: "I've tried so many brands in Egypt and TRETRA is easily top tier. The oversized cut on the sweatpants is perfect — not too boxy, the drape is just right. Shipped to Alex in 2 days which was a nice surprise.",
+    text: "garabet brands kteeer f masr bs TRETRA top tier bsgd. el oversized cut bta3 el sweatpants tamam — msh boxy w el drape zay ma ykoon. weslet alex f yomeen 💯",
     helpful: 19,
   },
   {
@@ -30,7 +30,7 @@ const allReviews = [
     date: "1 month ago",
     rating: 4,
     size: "2XL",
-    text: "Really solid piece. The fabric is heavy and feels premium. Only giving 4 stars because I wish the size chart was more detailed — I was between sizes and had to exchange. Customer service was super helpful though.",
+    text: "القماش تقيلة و حاسسها premium جداً. بس ٤ نجوم عشان كنت محتاج الsize chart يكون أوضح — كنت بين سايزين و اضطريت أبدل. بس خدمة العملاء كانت ممتازة",
     helpful: 14,
   },
   {
@@ -38,7 +38,7 @@ const allReviews = [
     date: "1 month ago",
     rating: 5,
     size: "M",
-    text: "Styled the wide-leg sweatpants with a cropped jacket and got so many compliments 🔥 The quality is unreal for the price — feels like something you'd pay 3x for from international brands. Packaging was clean and premium too.",
+    text: "labset el wide-leg sweatpants ma3 cropped jacket w kol el nas sa2aletni mneeen 🔥 el quality unreal bl se3r da — 7asa enha 7aga te3mel 3x aghla mn brands baranya. el packaging kan clean w premium",
     helpful: 22,
   },
 ];

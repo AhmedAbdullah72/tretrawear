@@ -5,19 +5,19 @@ const reviews = [
   {
     name: "أحمد ك.",
     rating: 5,
-    text: "The wide-leg sweatpants are unreal — comfy enough for home but I wore them out twice already. Friends keep asking where I got them 🔥",
+    text: "el wide-leg sweatpants di 7aga tanya wallahi — comfortable gdn w labsetha barra marten already. kol as7aby bys2alo mneen 🔥",
     verified: true,
   },
   {
     name: "نور م.",
     rating: 5,
-    text: "Got my boyfriend the hoodie and honestly I'm jealous. Thick fabric, soft inside, fits exactly how it should. Ordering one for myself now.",
+    text: "القماش تقيل بس ناعم جداً من جوا، مش زي أي حاجة تانية جربتها. الfit بتاع الsweatpants مظبوط أوي 💯",
     verified: true,
   },
   {
     name: "عمر س.",
     rating: 5,
-    text: "Arrived in 2 days, packaging looked premium. The sweatpants drape so well — not baggy, not tight, just right 💯",
+    text: "wasalet f yomeen w el packaging kan premium 3la el a5er. el sweatpants mesh wasa3 mesh daye2 — zay ma tkoon metfasal 3aleek 🔥",
     verified: true,
   },
 ];
