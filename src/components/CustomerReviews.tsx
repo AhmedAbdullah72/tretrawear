@@ -41,7 +41,7 @@ const getInitials = (name: string) => {
 
 export const CustomerReviews = () => {
   return (
-    <section className="py-10 md:py-14 bg-background overflow-hidden" aria-labelledby="reviews-heading">
+    <section className="py-8 md:py-12 bg-background overflow-hidden" aria-labelledby="reviews-heading">
       <div className="container">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
