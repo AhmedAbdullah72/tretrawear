@@ -15,7 +15,7 @@ export const Newsletter = () => {
   };
 
   return (
-    <section className="py-20 md:py-28 bg-foreground text-background overflow-hidden" aria-labelledby="newsletter-heading">
+    <section className="py-14 md:py-18 bg-foreground text-background overflow-hidden" aria-labelledby="newsletter-heading">
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
