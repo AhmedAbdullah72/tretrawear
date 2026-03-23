@@ -15,7 +15,7 @@ const ProductShowcase = lazy(() => import("@/components/ProductShowcase").then(m
 const TrustSection = lazy(() => import("@/components/TrustSection").then(m => ({ default: m.TrustSection })));
 const SocialProof = lazy(() => import("@/components/SocialProof").then(m => ({ default: m.SocialProof })));
 const CustomerReviews = lazy(() => import("@/components/CustomerReviews").then(m => ({ default: m.CustomerReviews })));
-const FAQSection = lazy(() => import("@/components/FAQSection").then(m => ({ default: m.FAQSection })));
+
 const Newsletter = lazy(() => import("@/components/Newsletter").then(m => ({ default: m.Newsletter })));
 
 
