@@ -10,7 +10,7 @@ const ShopByCategory = lazy(() => import("@/components/ShopByCategory").then(m =
 const LifestyleLookbook = lazy(() => import("@/components/LifestyleLookbook").then(m => ({ default: m.LifestyleLookbook })));
 const PromoBanner = lazy(() => import("@/components/PromoBanner").then(m => ({ default: m.PromoBanner })));
 const FeaturedProducts = lazy(() => import("@/components/FeaturedProducts").then(m => ({ default: m.FeaturedProducts })));
-const UrgencyBanner = lazy(() => import("@/components/UrgencyBanner").then(m => ({ default: m.UrgencyBanner })));
+
 const ProductShowcase = lazy(() => import("@/components/ProductShowcase").then(m => ({ default: m.ProductShowcase })));
 const TrustSection = lazy(() => import("@/components/TrustSection").then(m => ({ default: m.TrustSection })));
 const SocialProof = lazy(() => import("@/components/SocialProof").then(m => ({ default: m.SocialProof })));
