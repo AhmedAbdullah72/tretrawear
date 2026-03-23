@@ -1,6 +1,7 @@
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Newsletter } from "@/components/Newsletter";
+import { FAQSection } from "@/components/FAQSection";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import lifestyle1 from "@/assets/lifestyle-1.webp";
