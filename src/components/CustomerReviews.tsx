@@ -48,7 +48,7 @@ export const CustomerReviews = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-8"
+          className="text-center mb-5"
         >
           <h2 id="reviews-heading" className="font-heading text-2xl md:text-3xl text-foreground">
             WHAT THEY <span className="text-primary">SAY</span>
