@@ -13,6 +13,13 @@ export const CartDrawer = () => {
 
   useEffect(() => { if (isOpen) syncCart(); }, [isOpen, syncCart]);
 
+  // Listen for custom open-cart event (from FloatingCartButton)
+  useEffect(() => {
+    const handler = () => setIsOpen(true);
+    window.addEventListener("open-cart", handler);
+    return () => window.removeEventListener("open-cart", handler);
+  }, []);
+
   const handleCheckout = () => {
     const checkoutUrl = getCheckoutUrl();
     if (checkoutUrl) {
