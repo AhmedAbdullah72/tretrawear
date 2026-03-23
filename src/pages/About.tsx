@@ -103,6 +103,69 @@ const About = () => {
         </div>
       </section>
 
+      {/* Why TRETRA? */}
+      <section className="py-20 md:py-28 bg-background overflow-hidden">
+        <div className="container max-w-4xl">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-14"
+          >
+            <p className="font-body text-xs tracking-[0.3em] uppercase text-primary mb-3">The Real Story</p>
+            <h2 className="font-heading text-4xl md:text-5xl text-foreground">
+              Why TRETRA<span className="text-primary">?</span>
+            </h2>
+          </motion.div>
+
+          <div className="space-y-12">
+            {[
+              {
+                title: "We got tired of settling.",
+                body: "Every hoodie we bought was either overpriced and overhyped, or cheap and falling apart after two washes. We thought — what if we just made the thing we actually wanted to wear? 380gsm cotton, real construction, a fit that flatters without trying too hard. That's how TRETRA started. Not with a business plan, but with frustration.",
+              },
+              {
+                title: "We design for real life, not runways.",
+                body: "Our clothes are made for Cairo traffic, late-night cafés, early morning lectures, and everything in between. We don't chase seasonal trends or what's 'in' in Paris. We make pieces that work for your life — right here, right now. If it doesn't survive a regular rotation of wear, wash, repeat — we don't ship it.",
+              },
+              {
+                title: "Quality isn't a marketing word for us.",
+                body: "When we say 380gsm heavy cotton, we mean you'll feel the difference the second you hold it. When we say pre-shrunk, we mean you won't open the dryer to a nasty surprise. When we say double-stitched, we mean these seams aren't going anywhere. We're obsessive about this stuff because we wear it ourselves.",
+              },
+              {
+                title: "We'd rather be honest than impressive.",
+                body: "We're not the biggest brand. We don't have celebrity endorsements or billboards on the ring road. What we have is a community of people who tried one piece and kept coming back. That means more to us than any campaign ever could. Every review, every reorder, every DM saying 'bro where did you get that' — that's our proof.",
+              },
+            ].map((block, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 25 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 0.5, delay: i * 0.08 }}
+                className="relative pl-6 border-l-2 border-primary/30"
+              >
+                <h3 className="font-heading text-xl md:text-2xl text-foreground mb-3">{block.title}</h3>
+                <p className="font-body text-sm md:text-base text-muted-foreground leading-relaxed">{block.body}</p>
+              </motion.div>
+            ))}
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="mt-16 text-center"
+          >
+            <p className="font-heading text-lg md:text-xl text-foreground">
+              This isn't fast fashion. This is the stuff you keep<span className="text-primary">.</span>
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
       <Newsletter />
       <Footer />
     </div>
