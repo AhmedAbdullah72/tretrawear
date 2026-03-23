@@ -18,8 +18,8 @@ export const SocialProof = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-6 md:mb-8"
         >
-          <p className="font-body text-xs tracking-[0.3em] uppercase text-background/50 mb-3">The Numbers</p>
-          <h2 className="font-heading text-2xl md:text-4xl text-background">
+          <p className="font-body text-xs tracking-[0.3em] uppercase text-muted-foreground mb-3">The Numbers</p>
+          <h2 className="font-heading text-2xl md:text-4xl text-foreground">
             TRUSTED BY <span className="text-primary">THOUSANDS</span>
           </h2>
         </motion.div>
