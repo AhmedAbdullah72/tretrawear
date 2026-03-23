@@ -33,11 +33,10 @@ export const UrgencyBanner = () => {
       <div className="py-3">
         <Marquee
           items={[
-            "SUMMER COLLECTION NOW LIVE",
-            "LIMITED TIME OFFER — BUY 1 GET 1 FREE",
-            "USE CODE: BUY1GET1",
-            "FREE SHIPPING OVER 1,500 EGP",
+            "NEW COLLECTION NOW LIVE",
+            "20% OFF NEW COLLECTION",
             "WIDE-LEG SWEATPANTS • OVERSIZED TEES • BASICS",
+            "PAY ON DELIVERY • 2–5 DAY SHIPPING",
           ]}
           speed="normal"
         />
