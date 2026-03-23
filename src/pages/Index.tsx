@@ -62,11 +62,11 @@ const Index = () => {
         <Navbar />
         <main id="main-content" role="main">
           <HeroSection />
-          <BenefitsBar />
           <Suspense fallback={<SectionFallback />}>
             <FeaturedProducts />
-            <SocialProof />
-            <SummerCollection />
+          </Suspense>
+          <BenefitsBar />
+          <Suspense fallback={<SectionFallback />}>
             <ShopByCategory />
             <PromoBanner />
             <ProductShowcase />
