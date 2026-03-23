@@ -1,5 +1,6 @@
 import { useState, useEffect, lazy, Suspense } from "react";
 import { WelcomePopup } from "@/components/WelcomePopup";
+import { ExitIntentPopup } from "@/components/ExitIntentPopup";
 import { Navbar } from "@/components/Navbar";
 import { HeroSection } from "@/components/HeroSection";
 import { BenefitsBar } from "@/components/BenefitsBar";
@@ -59,6 +60,7 @@ const Index = () => {
         </Suspense>
       )}
       <WelcomePopup />
+      <ExitIntentPopup />
       <div className="min-h-screen bg-background">
         <a href="#main-content" className="skip-to-content">Skip to content</a>
         <Navbar />
