@@ -10,7 +10,7 @@ const trustItems = [
 
 export const TrustSection = () => {
   return (
-    <section className="py-10 md:py-14 bg-background overflow-hidden">
+    <section className="py-6 md:py-8 bg-background overflow-hidden">
       <div className="container">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
           {trustItems.map((item, i) => (
