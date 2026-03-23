@@ -1,4 +1,5 @@
 import { useState, useEffect, lazy, Suspense } from "react";
+import { WelcomePopup } from "@/components/WelcomePopup";
 import { Navbar } from "@/components/Navbar";
 import { HeroSection } from "@/components/HeroSection";
 import { BenefitsBar } from "@/components/BenefitsBar";
@@ -57,6 +58,7 @@ const Index = () => {
           <IntroAnimation onComplete={handleIntroComplete} />
         </Suspense>
       )}
+      <WelcomePopup />
       <div className="min-h-screen bg-background">
         <a href="#main-content" className="skip-to-content">Skip to content</a>
         <Navbar />
