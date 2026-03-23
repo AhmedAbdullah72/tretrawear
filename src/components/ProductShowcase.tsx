@@ -37,7 +37,7 @@ export const ProductShowcase = () => {
               CRAFTED FOR<br />
               <span className="text-primary">PERFECTION</span>
             </h2>
-            <p className="font-body text-muted-foreground mb-8 max-w-md">
+            <p className="font-body text-sm text-muted-foreground mb-5 max-w-md">
               Every TRETRA piece is designed with obsessive attention to detail. From fabric selection to final stitch — no compromise.
             </p>
             <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3" aria-label="Product features">

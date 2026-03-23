@@ -35,10 +35,10 @@ export const ShopByCategory = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-12"
+          className="text-center mb-6 md:mb-10"
         >
-          <p className="font-body text-xs tracking-[0.3em] uppercase text-primary mb-3">Collections</p>
-          <h2 id="category-heading" className="font-heading text-4xl md:text-5xl text-foreground">
+          <p className="font-body text-xs tracking-[0.3em] uppercase text-primary mb-2">Collections</p>
+          <h2 id="category-heading" className="font-heading text-2xl md:text-4xl text-foreground">
             SHOP BY <span className="text-primary">CATEGORY</span>
           </h2>
         </motion.div>

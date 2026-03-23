@@ -33,10 +33,10 @@ export const SocialProof = () => {
               transition={{ delay: i * 0.12, duration: 0.5 }}
               className="text-center p-4 md:p-6"
             >
-              <div className="w-12 h-12 mx-auto mb-4 flex items-center justify-center bg-primary/20 rounded-xl">
-                <stat.icon className="h-5 w-5 text-primary" />
+              <div className="w-10 h-10 mx-auto mb-3 flex items-center justify-center bg-primary/20 rounded-xl">
+                <stat.icon className="h-4 w-4 text-primary" />
               </div>
-              <p className="font-heading text-4xl text-background mb-1">{stat.value}</p>
+              <p className="font-heading text-2xl md:text-3xl text-background mb-1">{stat.value}</p>
               <p className="font-body text-sm text-background/50">{stat.label}</p>
             </motion.div>
           ))}

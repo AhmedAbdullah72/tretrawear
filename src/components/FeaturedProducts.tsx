@@ -35,7 +35,7 @@ export const FeaturedProducts = () => {
         >
           <div>
             <p className="font-body text-xs tracking-[0.3em] uppercase text-primary mb-3">Our Collection</p>
-            <h2 className="font-heading text-4xl md:text-5xl text-foreground">
+            <h2 className="font-heading text-2xl md:text-4xl text-foreground">
               BEST <span className="text-primary">SELLERS</span>
             </h2>
           </div>

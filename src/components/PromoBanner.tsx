@@ -37,7 +37,7 @@ export const PromoBanner = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.1 }}
-                className="font-heading text-4xl md:text-5xl lg:text-6xl text-primary-foreground leading-[0.9] mb-3"
+                className="font-heading text-3xl md:text-4xl lg:text-5xl text-primary-foreground leading-[0.9] mb-3"
               >
                 20% OFF<br />NEW COLLECTION
               </motion.h2>
