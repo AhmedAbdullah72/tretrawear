@@ -58,6 +58,7 @@ const Index = () => {
           <IntroAnimation onComplete={handleIntroComplete} />
         </Suspense>
       )}
+      <WelcomePopup />
       <div className="min-h-screen bg-background">
         <a href="#main-content" className="skip-to-content">Skip to content</a>
         <Navbar />
