@@ -33,7 +33,7 @@ export const ProductShowcase = () => {
             transition={{ duration: 0.7 }}
           >
             <p className="font-body text-xs tracking-[0.3em] uppercase text-primary mb-3">Product Details</p>
-            <h2 id="showcase-heading" className="font-heading text-4xl md:text-5xl text-foreground mb-6">
+            <h2 id="showcase-heading" className="font-heading text-2xl md:text-4xl text-foreground mb-4">
               CRAFTED FOR<br />
               <span className="text-primary">PERFECTION</span>
             </h2>
