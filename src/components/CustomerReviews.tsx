@@ -1,46 +1,38 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Star, ChevronLeft, ChevronRight, Quote } from "lucide-react";
-import customer1 from "@/assets/review-customer-1.webp";
-import customer2 from "@/assets/review-customer-2.webp";
-import customer3 from "@/assets/review-customer-3.webp";
-import customer4 from "@/assets/review-customer-4.webp";
+import { Star, ChevronLeft, ChevronRight, Quote, CheckCircle2 } from "lucide-react";
 
 const reviews = [
   {
-    name: "Ahmed K.",
-    location: "Cairo, Egypt",
+    name: "أحمد ك.",
+    location: "القاهرة",
     rating: 5,
     product: "Beige Wide-Leg Sweatpants",
-    text: "The quality is insane for the price. The 380GSM cotton feels premium, and the wide-leg fit is exactly what I've been looking for. Already ordered two more colors.",
-    image: customer1,
+    text: "El quality deh mesh tabi3ya wallahi 🔥 El oma2 te2eel w el fit oversized bas mesh baggy — exactly زي ما كنت عايز. As7abi kollohom byes2alo mn feen.",
     verified: true,
   },
   {
-    name: "Nour M.",
-    location: "Alexandria, Egypt",
+    name: "نور م.",
+    location: "الإسكندرية",
     rating: 5,
     product: "Shadow Hoodie",
-    text: "Best hoodie I've ever owned. The oversized fit is perfect and the fabric is so thick and soft. Got so many compliments the first day I wore it. Will definitely be buying more.",
-    image: customer2,
+    text: "أحسن hoodie gebtaha fi 7ayati. الخامة سميكة وناعمة وال fit مظبوط أوي. اتمدحت فيه أول يوم لبسته — هشتري ألوان تاني أكيد.",
     verified: true,
   },
   {
-    name: "Omar S.",
-    location: "Giza, Egypt",
+    name: "عمر س.",
+    location: "الجيزة",
     rating: 5,
     product: "Mint Green Fur-Lined Hoodie",
-    text: "Shipping was super fast and the packaging was clean. The hoodie exceeded my expectations — the fur lining is cozy without being too warm. Absolutely worth every pound.",
-    image: customer3,
+    text: "El shipping kan fast gidan w el packaging clean أوي. El hoodie a7san mn elli kont mtwq3o — el fur lining دافي من غير ما يحسسك بحر. Worth every pound 💯",
     verified: true,
   },
   {
-    name: "Sara A.",
-    location: "Cairo, Egypt",
+    name: "سارة أ.",
+    location: "القاهرة",
     rating: 4,
     product: "Beige Wide-Leg Sweatpants + White Tee",
-    text: "Love the whole set! The sweatpants are incredibly comfortable and the oversized tee pairs perfectly. The only reason it's not 5 stars is I wish there were more colors available.",
-    image: customer4,
+    text: "El set kolaha game 🙌 el sweatpants comfortable gidan w el oversized tee btetla3 ma3ahom perfect. بس كنت اتمنى يكون في ألوان أكتر — ده السبب الوحيد ملهاش 5 stars.",
     verified: true,
   },
 ];
@@ -56,6 +48,11 @@ const StarRating = ({ rating }: { rating: number }) => (
     ))}
   </div>
 );
+
+const getInitials = (name: string) => {
+  const parts = name.split(" ");
+  return parts.length > 1 ? parts[0][0] + parts[1][0] : parts[0][0];
+};
 
 export const CustomerReviews = () => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -92,7 +89,7 @@ export const CustomerReviews = () => {
           </div>
         </motion.div>
 
-        {/* Featured review — large */}
+        {/* Featured review */}
         <div className="relative max-w-5xl mx-auto" role="region" aria-label="Customer reviews carousel" aria-live="polite">
           <AnimatePresence mode="wait">
             <motion.div
@@ -103,31 +100,22 @@ export const CustomerReviews = () => {
               transition={{ duration: 0.4 }}
               className="max-w-2xl mx-auto"
             >
-              {/* Review content */}
               <div className="flex flex-col justify-center">
                 <Quote className="h-10 w-10 text-primary/20 mb-4 rotate-180" aria-hidden="true" />
                 <StarRating rating={reviews[activeIndex].rating} />
-                <blockquote className="font-body text-lg md:text-xl text-foreground leading-relaxed mt-4 mb-6">
+                <blockquote className="font-body text-lg md:text-xl text-foreground leading-relaxed mt-4 mb-6" dir="auto">
                   "{reviews[activeIndex].text}"
                 </blockquote>
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-primary/30">
-                    <img
-                      src={reviews[activeIndex].image}
-                      alt={`Photo of ${reviews[activeIndex].name}`}
-                      className="w-full h-full object-cover"
-                      loading="lazy"
-                      decoding="async"
-                      width={40}
-                      height={40}
-                    />
+                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 ring-2 ring-primary/20">
+                    <span className="font-heading text-sm text-primary">{getInitials(reviews[activeIndex].name)}</span>
                   </div>
                   <div>
                     <p className="font-heading text-sm text-foreground">
                       {reviews[activeIndex].name}
                       {reviews[activeIndex].verified && (
-                        <span className="ml-2 font-body text-[10px] tracking-wider uppercase text-primary font-semibold">
-                          ✓ Verified
+                        <span className="ml-2 inline-flex items-center gap-1 font-body text-[10px] tracking-wider uppercase text-primary font-semibold">
+                          <CheckCircle2 className="h-3 w-3" /> Verified
                         </span>
                       )}
                     </p>
@@ -159,7 +147,7 @@ export const CustomerReviews = () => {
                       ? "w-8 bg-primary"
                       : "w-2 bg-muted-foreground/30 hover:bg-muted-foreground/50"
                   }`}
-                  aria-label={`Go to review ${i + 1} by ${reviews[i].name}`}
+                  aria-label={`Go to review ${i + 1}`}
                   aria-current={i === activeIndex ? "true" : undefined}
                 />
               ))}
@@ -194,20 +182,12 @@ export const CustomerReviews = () => {
               }`}
             >
               <StarRating rating={review.rating} />
-              <p className="font-body text-sm text-foreground mt-3 line-clamp-2">
+              <p className="font-body text-sm text-foreground mt-3 line-clamp-2" dir="auto">
                 "{review.text}"
               </p>
               <div className="flex items-center gap-2 mt-3">
-                <div className="w-6 h-6 rounded-full overflow-hidden">
-                  <img
-                    src={review.image}
-                    alt={`Photo of ${review.name}`}
-                    className="w-full h-full object-cover"
-                    loading="lazy"
-                    decoding="async"
-                    width={24}
-                    height={24}
-                  />
+                <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center">
+                  <span className="font-heading text-[10px] text-primary">{getInitials(review.name)}</span>
                 </div>
                 <span className="font-body text-xs text-muted-foreground">{review.name}</span>
               </div>
