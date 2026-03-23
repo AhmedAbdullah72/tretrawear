@@ -64,10 +64,10 @@ const Index = () => {
           <HeroSection />
           <Suspense fallback={<SectionFallback />}>
             <FeaturedProducts />
+            <ShopByCategory />
           </Suspense>
           <BenefitsBar />
           <Suspense fallback={<SectionFallback />}>
-            <ShopByCategory />
             <PromoBanner />
             <ProductShowcase />
             <CustomerReviews />
