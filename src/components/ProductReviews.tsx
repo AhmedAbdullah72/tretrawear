@@ -1,55 +1,44 @@
 import { Star, CheckCircle2 } from "lucide-react";
-import { motion } from "framer-motion";
-import reviewer1 from "@/assets/review-pdp-1.webp";
-import reviewer2 from "@/assets/review-pdp-2.webp";
-import reviewer3 from "@/assets/review-pdp-3.webp";
-import reviewer4 from "@/assets/review-pdp-4.webp";
-import reviewer5 from "@/assets/review-pdp-5.webp";
 
 const allReviews = [
   {
-    name: "Youssef H.",
-    date: "1 week ago",
+    name: "يوسف ح.",
+    date: "من أسبوع",
     rating: 5,
     size: "L",
-    text: "Honestly wasn't expecting this quality at this price point. The fabric is heavyweight without feeling stiff and the fit is exactly how I wanted — relaxed but not baggy. My friends keep asking where I got it.",
-    image: reviewer1,
+    text: "Wallahi mesh msa2a2 en el quality deh b el se3r da. El oma2 te2eel bas mesh stiff وال fit relaxed bs mesh baggy — بالظبط اللي كنت عايزه. As7abi kollohom byes2alo mn feen 🔥",
     helpful: 31,
   },
   {
-    name: "Mariam T.",
-    date: "2 weeks ago",
+    name: "مريم ت.",
+    date: "من أسبوعين",
     rating: 5,
     size: "M",
-    text: "Bought this for my boyfriend and he literally hasn't taken it off 😂 The stitching is solid, the color hasn't faded after 3 washes, and it looks way more expensive than it is. Already ordering more.",
-    image: reviewer2,
+    text: "Gebtaha le 5atibi w literally mesh 2al3ha 😂 El stitching solid w el loun ma2le4sh ba3d 3 ghassalat. Shaklaha a8la mn se3rha b keteer — already ordering more.",
     helpful: 24,
   },
   {
-    name: "Karim E.",
-    date: "3 weeks ago",
+    name: "كريم إ.",
+    date: "من 3 أسابيع",
     rating: 5,
     size: "XL",
-    text: "I've tried a lot of Egyptian streetwear brands and TRETRA is easily top tier. The oversized cut is perfect — not too boxy, just the right drape. Shipping to Alex took 2 days which was a nice surprise.",
-    image: reviewer3,
+    text: "Garrabt brands keteer fi Egypt w TRETRA easily top tier. El oversized cut perfect — مش boxy أوي، el drape 3ala ba3do. El shipping l Alex geh fi yomain وده كان surprise لطيف.",
     helpful: 19,
   },
   {
-    name: "Ziad A.",
-    date: "1 month ago",
+    name: "زياد أ.",
+    date: "من شهر",
     rating: 4,
     size: "2XL",
-    text: "Really solid piece. The material is thick and premium feeling. Only giving 4 stars because I wish the size chart was a bit more detailed — I'm between sizes and had to exchange. Customer service was super helpful though.",
-    image: reviewer4,
+    text: "Really solid piece. الخامة تقيلة و premium feeling. بس هديها 4 stars 3ashan kont 3ayez el size chart yeb2a more detailed — ana been sizes w e7tagt ab3at exchange. Customer service كانوا helpful جداً.",
     helpful: 14,
   },
   {
-    name: "Nada M.",
-    date: "1 month ago",
+    name: "ندى م.",
+    date: "من شهر",
     rating: 5,
     size: "M",
-    text: "I styled this with a cropped jacket and it looked 🔥. The quality is unreal for the price — feels like something you'd pay 3x for from international brands. The packaging was also really clean and premium.",
-    image: reviewer5,
+    text: "Styled it with cropped jacket w tl3et na2r 🔥 El quality مش طبيعية لل price — 7assa enaha 7aga td3 3aleeha 3x mn international brands. El packaging kaman clean w premium أوي.",
     helpful: 22,
   },
 ];
@@ -90,6 +79,11 @@ const StarRating = ({ rating, size = "sm" }: { rating: number; size?: "sm" | "md
   </div>
 );
 
+const getInitials = (name: string) => {
+  const parts = name.split(" ");
+  return parts.length > 1 ? parts[0][0] + parts[1][0] : parts[0][0];
+};
+
 interface ProductReviewsProps {
   handle: string;
 }
@@ -109,89 +103,79 @@ export const ProductReviews = ({ handle }: ProductReviewsProps) => {
 
   return (
     <div>
-        {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-8 mb-10">
-          <div>
-            <h2 className="font-heading text-2xl md:text-3xl text-foreground mb-2">
-              CUSTOMER <span className="text-primary">REVIEWS</span>
-            </h2>
-            <div className="flex items-center gap-3 mt-2">
-              <div className="flex items-baseline gap-2">
-                <span className="font-heading text-4xl text-foreground">{avgRating}</span>
-                <span className="font-body text-sm text-muted-foreground">/ 5</span>
+      {/* Header */}
+      <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-8 mb-10">
+        <div>
+          <h2 className="font-heading text-2xl md:text-3xl text-foreground mb-2">
+            CUSTOMER <span className="text-primary">REVIEWS</span>
+          </h2>
+          <div className="flex items-center gap-3 mt-2">
+            <div className="flex items-baseline gap-2">
+              <span className="font-heading text-4xl text-foreground">{avgRating}</span>
+              <span className="font-body text-sm text-muted-foreground">/ 5</span>
+            </div>
+            <div>
+              <StarRating rating={Math.round(avgRating)} size="md" />
+              <p className="font-body text-xs text-muted-foreground mt-0.5">
+                Based on {totalReviews} reviews
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Rating distribution */}
+        <div className="flex flex-col gap-1.5 w-full max-w-[220px]">
+          {distribution.map((d) => (
+            <div key={d.stars} className="flex items-center gap-2">
+              <span className="font-body text-xs text-muted-foreground w-3">{d.stars}</span>
+              <Star className="h-3 w-3 text-yellow-400 fill-yellow-400 flex-shrink-0" />
+              <div className="flex-1 h-2 bg-border rounded-full overflow-hidden">
+                <div
+                  className="h-full bg-yellow-400 rounded-full"
+                  style={{ width: `${d.pct}%` }}
+                />
               </div>
-              <div>
-                <StarRating rating={Math.round(avgRating)} size="md" />
-                <p className="font-body text-xs text-muted-foreground mt-0.5">
-                  Based on {totalReviews} reviews
+              <span className="font-body text-[10px] text-muted-foreground w-7 text-right">{d.pct}%</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Review cards */}
+      <div className="space-y-0 divide-y divide-border">
+        {reviews.map((review) => (
+          <div key={review.name} className="py-6 first:pt-0">
+            <div className="flex gap-4">
+              <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 ring-2 ring-primary/20">
+                <span className="font-heading text-sm text-primary">{getInitials(review.name)}</span>
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center justify-between flex-wrap gap-2">
+                  <div className="flex items-center gap-2">
+                    <span className="font-heading text-sm text-foreground">{review.name}</span>
+                    <span className="inline-flex items-center gap-1 text-primary text-[10px] font-body tracking-wider uppercase font-semibold">
+                      <CheckCircle2 className="h-3 w-3" /> Verified Buyer
+                    </span>
+                  </div>
+                  <span className="font-body text-xs text-muted-foreground">{review.date}</span>
+                </div>
+                <div className="flex items-center gap-2 mt-1.5">
+                  <StarRating rating={review.rating} />
+                  <span className="font-body text-[11px] text-muted-foreground bg-muted px-2 py-0.5 rounded-full">
+                    Size: {review.size}
+                  </span>
+                </div>
+                <p className="font-body text-sm text-foreground/80 mt-3 leading-relaxed" dir="auto">
+                  {review.text}
+                </p>
+                <p className="font-body text-[11px] text-muted-foreground mt-3">
+                  👍 {review.helpful} people found this helpful
                 </p>
               </div>
             </div>
           </div>
-
-          {/* Rating distribution */}
-          <div className="flex flex-col gap-1.5 w-full max-w-[220px]">
-            {distribution.map((d) => (
-              <div key={d.stars} className="flex items-center gap-2">
-                <span className="font-body text-xs text-muted-foreground w-3">{d.stars}</span>
-                <Star className="h-3 w-3 text-yellow-400 fill-yellow-400 flex-shrink-0" />
-                <div className="flex-1 h-2 bg-border rounded-full overflow-hidden">
-                  <div
-                    className="h-full bg-yellow-400 rounded-full"
-                    style={{ width: `${d.pct}%` }}
-                  />
-                </div>
-                <span className="font-body text-[10px] text-muted-foreground w-7 text-right">{d.pct}%</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Review cards */}
-        <div className="space-y-0 divide-y divide-border">
-          {reviews.map((review, i) => (
-            <div
-              key={review.name}
-              className="py-6 first:pt-0"
-            >
-              <div className="flex gap-4">
-                <div className="w-12 h-12 rounded-full overflow-hidden flex-shrink-0 ring-2 ring-border">
-                  <img
-                    src={review.image}
-                    alt={review.name}
-                    className="w-full h-full object-cover"
-                    loading="lazy"
-                    width={48}
-                    height={48}
-                  />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center justify-between flex-wrap gap-2">
-                    <div className="flex items-center gap-2">
-                      <span className="font-heading text-sm text-foreground">{review.name}</span>
-                      <span className="inline-flex items-center gap-1 text-primary text-[10px] font-body tracking-wider uppercase font-semibold">
-                        <CheckCircle2 className="h-3 w-3" /> Verified Buyer
-                      </span>
-                    </div>
-                    <span className="font-body text-xs text-muted-foreground">{review.date}</span>
-                  </div>
-                  <div className="flex items-center gap-2 mt-1.5">
-                    <StarRating rating={review.rating} />
-                    <span className="font-body text-[11px] text-muted-foreground bg-muted px-2 py-0.5 rounded-full">
-                      Size: {review.size}
-                    </span>
-                  </div>
-                  <p className="font-body text-sm text-foreground/80 mt-3 leading-relaxed">
-                    {review.text}
-                  </p>
-                  <p className="font-body text-[11px] text-muted-foreground mt-3">
-                    👍 {review.helpful} people found this helpful
-                  </p>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
+        ))}
+      </div>
     </div>
   );
 };
