@@ -1,5 +1,6 @@
 import { useState, useEffect, lazy, Suspense } from "react";
 import { WelcomePopup } from "@/components/WelcomePopup";
+import { ExitIntentPopup } from "@/components/ExitIntentPopup";
 import { Navbar } from "@/components/Navbar";
 import { HeroSection } from "@/components/HeroSection";
 import { BenefitsBar } from "@/components/BenefitsBar";
