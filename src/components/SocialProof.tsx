@@ -23,7 +23,7 @@ export const SocialProof = () => {
             TRUSTED BY <span className="text-primary">THOUSANDS</span>
           </h2>
         </motion.div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl mx-auto">
+        <div className="grid grid-cols-3 gap-4 max-w-3xl mx-auto">
           {stats.map((stat, i) => (
             <motion.div
               key={stat.label}
