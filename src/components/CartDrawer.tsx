@@ -266,39 +266,23 @@ export const CartDrawer = () => {
                 )}
               </div>
 
-              {/* Footer */}
-              <div className="flex-shrink-0 px-5 pb-5 pt-3 border-t border-border bg-card space-y-3">
-                {/* Discount hint */}
-                <div className="flex items-center gap-2 bg-primary/5 border border-primary/10 rounded-lg px-3 py-2">
-                  <Tag className="h-3.5 w-3.5 text-primary flex-shrink-0" />
-                  <p className="font-body text-xs text-muted-foreground">
-                    Use code <span className="font-semibold text-primary">WELCOME20</span> for 20% off at checkout
-                  </p>
-                </div>
-
-                {/* Order summary */}
-                <div className="space-y-1.5">
-                  <div className="flex justify-between items-center text-sm">
-                    <span className="font-body text-muted-foreground">Subtotal</span>
-                    <span className="font-body text-foreground">{items[0]?.price.currencyCode} {totalPrice.toFixed(2)}</span>
-                  </div>
-                  <div className="flex justify-between items-center text-sm">
-                    <span className="font-body text-muted-foreground">Shipping</span>
-                    <span className={`font-body ${qualifiesForFreeShipping ? 'text-primary font-semibold' : 'text-muted-foreground'}`}>
-                      {qualifiesForFreeShipping ? "Free" : "Calculated at checkout"}
+              {/* Footer — clean & compact */}
+              <div className="flex-shrink-0 px-5 pb-4 pt-3 border-t border-border bg-card space-y-2.5">
+                {/* Total + discount hint inline */}
+                <div className="flex justify-between items-baseline">
+                  <div>
+                    <span className="font-heading text-sm font-semibold text-foreground">Total</span>
+                    <span className="font-body text-[10px] text-muted-foreground ml-2">
+                      Code <span className="text-primary font-medium">WELCOME20</span> at checkout
                     </span>
                   </div>
-                </div>
-
-                <div className="flex justify-between items-center pt-2 border-t border-border">
-                  <span className="font-heading text-base font-semibold text-foreground">Total</span>
-                  <span className="font-heading text-lg font-bold text-foreground">{items[0]?.price.currencyCode} {totalPrice.toFixed(2)}</span>
+                  <span className="font-heading text-base font-bold text-foreground">{items[0]?.price.currencyCode} {totalPrice.toFixed(2)}</span>
                 </div>
 
                 {/* Checkout button */}
                 <Button
                   onClick={handleCheckout}
-                  className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-full h-12 text-sm font-heading tracking-wider uppercase shadow-lg shadow-primary/20"
+                  className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-full h-11 text-sm font-heading tracking-wider uppercase"
                   size="lg"
                   disabled={items.length === 0 || isLoading || isSyncing}
                 >
@@ -306,35 +290,16 @@ export const CartDrawer = () => {
                     <Loader2 className="w-4 h-4 animate-spin" />
                   ) : (
                     <>
-                      Secure Checkout
-                      <ExternalLink className="w-3.5 h-3.5 ml-2" />
+                      Checkout
+                      <ExternalLink className="w-3.5 h-3.5 ml-1.5" />
                     </>
                   )}
                 </Button>
 
-                {/* Trust signals */}
-                <div className="flex items-center justify-center gap-4 pt-1">
-                  <div className="flex items-center gap-1 text-muted-foreground/60">
-                    <ShieldCheck className="h-3 w-3" />
-                    <span className="font-body text-[10px]">Secure</span>
-                  </div>
-                  <div className="flex items-center gap-1 text-muted-foreground/60">
-                    <Truck className="h-3 w-3" />
-                    <span className="font-body text-[10px]">2-5 Day Delivery</span>
-                  </div>
-                  <div className="flex items-center gap-1 text-muted-foreground/60">
-                    <RotateCcw className="h-3 w-3" />
-                    <span className="font-body text-[10px]">14-Day Exchange</span>
-                  </div>
-                </div>
-
-                {/* Continue shopping */}
-                <button
-                  onClick={() => setIsOpen(false)}
-                  className="w-full text-center font-body text-xs text-muted-foreground hover:text-foreground transition-colors underline underline-offset-2"
-                >
-                  Continue Shopping
-                </button>
+                {/* Trust signals — single line */}
+                <p className="text-center font-body text-[10px] text-muted-foreground/50">
+                  Secure Payment · 2-5 Day Delivery · 14-Day Exchange
+                </p>
               </div>
             </>
           )}
