@@ -91,8 +91,8 @@ export const CartDrawer = () => {
 
           {/* Free shipping progress — only when cart has items */}
           {items.length > 0 && (
-            <div className="mt-3 bg-background rounded-lg p-3">
-              <div className="h-1.5 rounded-full bg-secondary overflow-hidden">
+            <div className="mt-2">
+              <div className="h-1 rounded-full bg-secondary overflow-hidden">
                 <motion.div
                   className="h-full rounded-full bg-primary"
                   initial={{ width: 0 }}
@@ -100,11 +100,11 @@ export const CartDrawer = () => {
                   transition={{ duration: 0.6, ease: "easeOut" }}
                 />
               </div>
-              <p className="font-body text-xs text-muted-foreground text-center mt-1.5">
+              <p className="font-body text-[11px] text-muted-foreground text-center mt-1">
                 {remaining > 0 ? (
-                  <>Add <span className="font-semibold text-foreground">EGP {remaining.toFixed(0)}</span> more for <span className="font-semibold text-primary">free shipping</span></>
+                  <>Add <span className="font-semibold text-foreground">EGP {remaining.toFixed(0)}</span> for free shipping</>
                 ) : (
-                  <span className="text-primary font-semibold">🎉 You qualify for free shipping!</span>
+                  <span className="text-primary font-semibold">✓ Free shipping!</span>
                 )}
               </p>
             </div>
