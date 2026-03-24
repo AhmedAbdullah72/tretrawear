@@ -11,6 +11,26 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const FREE_SHIPPING_THRESHOLD = 1500;
 
+const useRecommendedProducts = (cartItemIds: string[]) => {
+  const [products, setProducts] = useState<ShopifyProduct[]>([]);
+
+  useEffect(() => {
+    if (cartItemIds.length === 0) return;
+    let cancelled = false;
+    storefrontApiRequest(PRODUCTS_QUERY, { first: 10 }).then((data) => {
+      if (cancelled || !data?.data?.products?.edges) return;
+      const all: ShopifyProduct[] = data.data.products.edges;
+      const filtered = all.filter(
+        (p) => !cartItemIds.includes(p.node.id)
+      );
+      setProducts(filtered.slice(0, 4));
+    }).catch(() => {});
+    return () => { cancelled = true; };
+  }, [cartItemIds.join(",")]);
+
+  return products;
+};
+
 export const CartDrawer = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { items, isLoading, isSyncing, updateQuantity, removeItem, getCheckoutUrl, syncCart } = useCartStore();
