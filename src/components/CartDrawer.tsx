@@ -219,15 +219,12 @@ export const CartDrawer = () => {
                   ))}
                 </AnimatePresence>
 
-                {/* Recommended products */}
+                {/* Recommended products — compact */}
                 {recommended.length > 0 && (
-                  <div className="mt-4 pt-4 border-t border-border">
-                    <div className="flex items-center gap-1.5 mb-3">
-                      <Sparkles className="h-3.5 w-3.5 text-primary" />
-                      <h3 className="font-heading text-xs tracking-[0.15em] uppercase text-foreground">You Might Also Like</h3>
-                    </div>
-                    <div className="flex gap-2.5 overflow-x-auto pb-1 -mx-1 px-1 scrollbar-hide">
-                      {recommended.map((product) => {
+                  <div className="mt-3 pt-3 border-t border-border/50">
+                    <h3 className="font-heading text-[10px] tracking-[0.15em] uppercase text-muted-foreground mb-2">Complete Your Look</h3>
+                    <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
+                      {recommended.slice(0, 3).map((product) => {
                         const variant = product.node.variants.edges[0]?.node;
                         const img = product.node.images.edges[0]?.node;
                         if (!variant?.availableForSale) return null;
@@ -240,32 +237,27 @@ export const CartDrawer = () => {
                             quantity: 1,
                             selectedOptions: variant.selectedOptions || [],
                           });
-                          toast.success("Added to cart", { description: product.node.title, position: "top-center" });
+                          toast.success("Added!", { description: product.node.title, position: "top-center" });
                         };
                         return (
-                          <div key={product.node.id} className="flex-shrink-0 w-28">
+                          <div key={product.node.id} className="flex-shrink-0 flex items-center gap-2 bg-secondary/30 rounded-lg p-1.5 pr-3">
                             <Link
                               to={`/product/${product.node.handle}`}
                               onClick={() => setIsOpen(false)}
-                              className="block aspect-square bg-secondary rounded-lg overflow-hidden mb-1.5 group"
+                              className="w-10 h-10 bg-secondary rounded-md overflow-hidden flex-shrink-0"
                             >
-                              {img ? (
-                                <img src={img.url} alt={img.altText || product.node.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" />
-                              ) : (
-                                <div className="w-full h-full flex items-center justify-center text-muted-foreground"><ShoppingCart className="h-4 w-4" /></div>
-                              )}
+                              {img && <img src={img.url} alt={product.node.title} className="w-full h-full object-cover" loading="lazy" />}
                             </Link>
-                            <p className="font-heading text-[11px] text-foreground line-clamp-1 leading-tight">{product.node.title}</p>
-                            <p className="font-body text-[10px] text-muted-foreground mt-0.5">
-                              {variant.price.currencyCode} {parseFloat(variant.price.amount).toFixed(0)}
-                            </p>
-                            <button
-                              onClick={handleQuickAdd}
-                              disabled={isLoading}
-                              className="mt-1 w-full text-[10px] font-heading tracking-wider uppercase bg-secondary hover:bg-secondary/80 text-foreground py-1.5 rounded-full transition-colors disabled:opacity-50"
-                            >
-                              + Add
-                            </button>
+                            <div className="min-w-0">
+                              <p className="font-heading text-[10px] text-foreground line-clamp-1 leading-tight">{product.node.title}</p>
+                              <button
+                                onClick={handleQuickAdd}
+                                disabled={isLoading}
+                                className="text-[10px] font-heading text-primary hover:underline disabled:opacity-50 mt-0.5"
+                              >
+                                + Add · {variant.price.currencyCode} {parseFloat(variant.price.amount).toFixed(0)}
+                              </button>
+                            </div>
                           </div>
                         );
                       })}
