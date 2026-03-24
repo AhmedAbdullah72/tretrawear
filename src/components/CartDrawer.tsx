@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { ShoppingCart, Minus, Plus, Trash2, ExternalLink, Loader2, ShieldCheck, Truck, RotateCcw, Tag, Sparkles } from "lucide-react";
+import { ShoppingCart, Minus, Plus, Trash2, ExternalLink, Loader2 } from "lucide-react";
 import { useCartStore, type ShopifyProduct } from "@/stores/cartStore";
 import { storefrontApiRequest, PRODUCTS_QUERY } from "@/lib/shopify";
 import { Link } from "react-router-dom";
@@ -91,8 +91,8 @@ export const CartDrawer = () => {
 
           {/* Free shipping progress — only when cart has items */}
           {items.length > 0 && (
-            <div className="mt-3 bg-background rounded-lg p-3">
-              <div className="h-1.5 rounded-full bg-secondary overflow-hidden">
+            <div className="mt-2">
+              <div className="h-1 rounded-full bg-secondary overflow-hidden">
                 <motion.div
                   className="h-full rounded-full bg-primary"
                   initial={{ width: 0 }}
@@ -100,11 +100,11 @@ export const CartDrawer = () => {
                   transition={{ duration: 0.6, ease: "easeOut" }}
                 />
               </div>
-              <p className="font-body text-xs text-muted-foreground text-center mt-1.5">
+              <p className="font-body text-[11px] text-muted-foreground text-center mt-1">
                 {remaining > 0 ? (
-                  <>Add <span className="font-semibold text-foreground">EGP {remaining.toFixed(0)}</span> more for <span className="font-semibold text-primary">free shipping</span></>
+                  <>Add <span className="font-semibold text-foreground">EGP {remaining.toFixed(0)}</span> for free shipping</>
                 ) : (
-                  <span className="text-primary font-semibold">🎉 You qualify for free shipping!</span>
+                  <span className="text-primary font-semibold">✓ Free shipping!</span>
                 )}
               </p>
             </div>
@@ -219,15 +219,12 @@ export const CartDrawer = () => {
                   ))}
                 </AnimatePresence>
 
-                {/* Recommended products */}
+                {/* Recommended products — compact */}
                 {recommended.length > 0 && (
-                  <div className="mt-4 pt-4 border-t border-border">
-                    <div className="flex items-center gap-1.5 mb-3">
-                      <Sparkles className="h-3.5 w-3.5 text-primary" />
-                      <h3 className="font-heading text-xs tracking-[0.15em] uppercase text-foreground">You Might Also Like</h3>
-                    </div>
-                    <div className="flex gap-2.5 overflow-x-auto pb-1 -mx-1 px-1 scrollbar-hide">
-                      {recommended.map((product) => {
+                  <div className="mt-3 pt-3 border-t border-border/50">
+                    <h3 className="font-heading text-[10px] tracking-[0.15em] uppercase text-muted-foreground mb-2">Complete Your Look</h3>
+                    <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
+                      {recommended.slice(0, 3).map((product) => {
                         const variant = product.node.variants.edges[0]?.node;
                         const img = product.node.images.edges[0]?.node;
                         if (!variant?.availableForSale) return null;
@@ -240,32 +237,27 @@ export const CartDrawer = () => {
                             quantity: 1,
                             selectedOptions: variant.selectedOptions || [],
                           });
-                          toast.success("Added to cart", { description: product.node.title, position: "top-center" });
+                          toast.success("Added!", { description: product.node.title, position: "top-center" });
                         };
                         return (
-                          <div key={product.node.id} className="flex-shrink-0 w-28">
+                          <div key={product.node.id} className="flex-shrink-0 flex items-center gap-2 bg-secondary/30 rounded-lg p-1.5 pr-3">
                             <Link
                               to={`/product/${product.node.handle}`}
                               onClick={() => setIsOpen(false)}
-                              className="block aspect-square bg-secondary rounded-lg overflow-hidden mb-1.5 group"
+                              className="w-10 h-10 bg-secondary rounded-md overflow-hidden flex-shrink-0"
                             >
-                              {img ? (
-                                <img src={img.url} alt={img.altText || product.node.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" />
-                              ) : (
-                                <div className="w-full h-full flex items-center justify-center text-muted-foreground"><ShoppingCart className="h-4 w-4" /></div>
-                              )}
+                              {img && <img src={img.url} alt={product.node.title} className="w-full h-full object-cover" loading="lazy" />}
                             </Link>
-                            <p className="font-heading text-[11px] text-foreground line-clamp-1 leading-tight">{product.node.title}</p>
-                            <p className="font-body text-[10px] text-muted-foreground mt-0.5">
-                              {variant.price.currencyCode} {parseFloat(variant.price.amount).toFixed(0)}
-                            </p>
-                            <button
-                              onClick={handleQuickAdd}
-                              disabled={isLoading}
-                              className="mt-1 w-full text-[10px] font-heading tracking-wider uppercase bg-secondary hover:bg-secondary/80 text-foreground py-1.5 rounded-full transition-colors disabled:opacity-50"
-                            >
-                              + Add
-                            </button>
+                            <div className="min-w-0">
+                              <p className="font-heading text-[10px] text-foreground line-clamp-1 leading-tight">{product.node.title}</p>
+                              <button
+                                onClick={handleQuickAdd}
+                                disabled={isLoading}
+                                className="text-[10px] font-heading text-primary hover:underline disabled:opacity-50 mt-0.5"
+                              >
+                                + Add · {variant.price.currencyCode} {parseFloat(variant.price.amount).toFixed(0)}
+                              </button>
+                            </div>
                           </div>
                         );
                       })}
@@ -274,39 +266,23 @@ export const CartDrawer = () => {
                 )}
               </div>
 
-              {/* Footer */}
-              <div className="flex-shrink-0 px-5 pb-5 pt-3 border-t border-border bg-card space-y-3">
-                {/* Discount hint */}
-                <div className="flex items-center gap-2 bg-primary/5 border border-primary/10 rounded-lg px-3 py-2">
-                  <Tag className="h-3.5 w-3.5 text-primary flex-shrink-0" />
-                  <p className="font-body text-xs text-muted-foreground">
-                    Use code <span className="font-semibold text-primary">WELCOME20</span> for 20% off at checkout
-                  </p>
-                </div>
-
-                {/* Order summary */}
-                <div className="space-y-1.5">
-                  <div className="flex justify-between items-center text-sm">
-                    <span className="font-body text-muted-foreground">Subtotal</span>
-                    <span className="font-body text-foreground">{items[0]?.price.currencyCode} {totalPrice.toFixed(2)}</span>
-                  </div>
-                  <div className="flex justify-between items-center text-sm">
-                    <span className="font-body text-muted-foreground">Shipping</span>
-                    <span className={`font-body ${qualifiesForFreeShipping ? 'text-primary font-semibold' : 'text-muted-foreground'}`}>
-                      {qualifiesForFreeShipping ? "Free" : "Calculated at checkout"}
+              {/* Footer — clean & compact */}
+              <div className="flex-shrink-0 px-5 pb-4 pt-3 border-t border-border bg-card space-y-2.5">
+                {/* Total + discount hint inline */}
+                <div className="flex justify-between items-baseline">
+                  <div>
+                    <span className="font-heading text-sm font-semibold text-foreground">Total</span>
+                    <span className="font-body text-[10px] text-muted-foreground ml-2">
+                      Code <span className="text-primary font-medium">WELCOME20</span> at checkout
                     </span>
                   </div>
-                </div>
-
-                <div className="flex justify-between items-center pt-2 border-t border-border">
-                  <span className="font-heading text-base font-semibold text-foreground">Total</span>
-                  <span className="font-heading text-lg font-bold text-foreground">{items[0]?.price.currencyCode} {totalPrice.toFixed(2)}</span>
+                  <span className="font-heading text-base font-bold text-foreground">{items[0]?.price.currencyCode} {totalPrice.toFixed(2)}</span>
                 </div>
 
                 {/* Checkout button */}
                 <Button
                   onClick={handleCheckout}
-                  className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-full h-12 text-sm font-heading tracking-wider uppercase shadow-lg shadow-primary/20"
+                  className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-full h-11 text-sm font-heading tracking-wider uppercase"
                   size="lg"
                   disabled={items.length === 0 || isLoading || isSyncing}
                 >
@@ -314,35 +290,16 @@ export const CartDrawer = () => {
                     <Loader2 className="w-4 h-4 animate-spin" />
                   ) : (
                     <>
-                      Secure Checkout
-                      <ExternalLink className="w-3.5 h-3.5 ml-2" />
+                      Checkout
+                      <ExternalLink className="w-3.5 h-3.5 ml-1.5" />
                     </>
                   )}
                 </Button>
 
-                {/* Trust signals */}
-                <div className="flex items-center justify-center gap-4 pt-1">
-                  <div className="flex items-center gap-1 text-muted-foreground/60">
-                    <ShieldCheck className="h-3 w-3" />
-                    <span className="font-body text-[10px]">Secure</span>
-                  </div>
-                  <div className="flex items-center gap-1 text-muted-foreground/60">
-                    <Truck className="h-3 w-3" />
-                    <span className="font-body text-[10px]">2-5 Day Delivery</span>
-                  </div>
-                  <div className="flex items-center gap-1 text-muted-foreground/60">
-                    <RotateCcw className="h-3 w-3" />
-                    <span className="font-body text-[10px]">14-Day Exchange</span>
-                  </div>
-                </div>
-
-                {/* Continue shopping */}
-                <button
-                  onClick={() => setIsOpen(false)}
-                  className="w-full text-center font-body text-xs text-muted-foreground hover:text-foreground transition-colors underline underline-offset-2"
-                >
-                  Continue Shopping
-                </button>
+                {/* Trust signals — single line */}
+                <p className="text-center font-body text-[10px] text-muted-foreground/50">
+                  Secure Payment · 2-5 Day Delivery · 14-Day Exchange
+                </p>
               </div>
             </>
           )}
