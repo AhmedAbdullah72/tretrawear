@@ -29,7 +29,14 @@ export const ProductCard = forwardRef<HTMLAnchorElement, ProductCardProps>(({ pr
       quantity: 1,
       selectedOptions: firstVariant.selectedOptions || [],
     });
-    toast.success("Added to cart", { description: node.title, position: "top-center" });
+    toast.success("Added to cart", {
+      description: node.title,
+      position: "top-center",
+      action: {
+        label: "View Cart",
+        onClick: () => window.dispatchEvent(new CustomEvent("open-cart")),
+      },
+    });
   };
 
   return (
