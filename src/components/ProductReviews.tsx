@@ -165,7 +165,7 @@ export const ProductReviews = ({ handle }: ProductReviewsProps) => {
                     Size: {review.size}
                   </span>
                 </div>
-                <p className="font-body text-sm text-foreground/80 mt-3 leading-relaxed" dir="auto">
+                <p className="font-body text-sm text-foreground/80 mt-3 leading-relaxed break-words overflow-wrap-anywhere" dir="auto" style={{ wordBreak: "break-word", overflowWrap: "anywhere" }}>
                   {review.text}
                 </p>
                 <p className="font-body text-[11px] text-muted-foreground mt-3">

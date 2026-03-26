@@ -5,7 +5,7 @@ import { Footer } from "@/components/Footer";
 import { Marquee } from "@/components/Marquee";
 import { storefrontApiRequest, PRODUCT_BY_HANDLE_QUERY } from "@/lib/shopify";
 import { useCartStore, type ShopifyProduct } from "@/stores/cartStore";
-import { Loader2, ChevronLeft, Truck, RefreshCw, ShieldCheck, Minus, Plus } from "lucide-react";
+import { Loader2, ChevronLeft, Truck, RefreshCw, ShieldCheck, Minus, Plus, Ruler } from "lucide-react";
 import { SizeGuide } from "@/components/SizeGuide";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -16,6 +16,7 @@ import { ProductImageGallery } from "@/components/ProductImageGallery";
 import { StockUrgencyBadge } from "@/components/StockUrgencyBadge";
 import { ProductReviews } from "@/components/ProductReviews";
 import { RelatedProducts } from "@/components/RelatedProducts";
+import { CompleteTheLook } from "@/components/CompleteTheLook";
 
 const ProductDetail = () => {
   const { handle } = useParams<{ handle: string }>();
@@ -169,12 +170,17 @@ const ProductDetail = () => {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="space-y-5"
           >
-            <div>
-              <h1 className="font-heading text-3xl md:text-4xl text-foreground mb-2">{product.title}</h1>
-              <p className="font-heading text-2xl text-primary">
-                {selectedVariant?.price.currencyCode} {parseFloat(selectedVariant?.price.amount || "0").toFixed(2)}
-              </p>
+            <div className="flex items-center gap-3 flex-wrap">
+              <h1 className="font-heading text-3xl md:text-4xl text-foreground">{product.title}</h1>
+              <StockUrgencyBadge
+                handle={product.handle}
+                availableForSale={selectedVariant?.availableForSale}
+                variant="pdp"
+              />
             </div>
+            <p className="font-heading text-2xl text-primary mt-2">
+              {selectedVariant?.price.currencyCode} {parseFloat(selectedVariant?.price.amount || "0").toFixed(2)}
+            </p>
 
             <ProductBenefits copy={copy} />
 
@@ -204,7 +210,17 @@ const ProductDetail = () => {
                     );
                   })}
                 </div>
-                <SizeGuide />
+                <button
+                  onClick={() => {
+                    const dialog = document.getElementById("size-guide-trigger");
+                    if (dialog) dialog.click();
+                  }}
+                  className="inline-flex items-center gap-1.5 font-body text-xs text-primary hover:text-primary/80 transition-colors mt-2 underline underline-offset-2"
+                >
+                  <Ruler className="h-3.5 w-3.5" />
+                  Not sure? Check our size guide
+                </button>
+                <div className="hidden"><SizeGuide /></div>
               </div>
             ))}
 
@@ -221,11 +237,7 @@ const ProductDetail = () => {
               </div>
             </div>
 
-            <StockUrgencyBadge
-              handle={product.handle}
-              availableForSale={selectedVariant?.availableForSale}
-              variant="pdp"
-            />
+            {/* Stock urgency moved to above-fold next to title */}
 
             <Button
               id="main-add-to-cart"
@@ -247,8 +259,8 @@ const ProductDetail = () => {
 
             {product.description && (
               <div className="bg-card rounded-xl p-5 border border-border">
-                <h3 className="font-heading text-xs tracking-wider text-foreground mb-2">Description</h3>
-                <p className="font-body text-sm text-muted-foreground leading-relaxed">{product.description}</p>
+                <h3 className="font-heading text-xs tracking-wider text-foreground mb-2">About This Piece</h3>
+                <p className="font-body text-sm text-muted-foreground leading-relaxed">{copy.collectionIntro}</p>
               </div>
             )}
 
@@ -275,6 +287,9 @@ const ProductDetail = () => {
       <section className="max-w-7xl mx-auto px-4 py-12 md:py-16 border-t border-border">
         <ProductReviews handle={handle || ""} />
       </section>
+
+      {/* Complete the Look Cross-sell */}
+      <CompleteTheLook currentHandle={handle || ""} currentTitle={product.title} />
 
       {/* Related Products */}
       <RelatedProducts currentHandle={handle || ""} />
