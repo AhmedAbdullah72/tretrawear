@@ -3,6 +3,7 @@
 
 export interface ProductCopy {
   hook: string;
+  subtitle: string;
   benefits: string[];
   specs: { material: string; size: string; care: string; shipping: string };
   faqs: Array<{ q: string; a: string }>;
@@ -27,6 +28,7 @@ function detectCategory(title: string, handle: string): CategoryKey {
 const categoryData: Record<CategoryKey, Omit<ProductCopy, "seo" | "imageAlts">> = {
   "half-zip": {
     hook: "You know that hoodie you reach for every single time? This is it — but better.",
+    subtitle: "380gsm heavyweight cotton · oversized drop-shoulder · half-zip",
     benefits: [
       "380gsm heavy cotton that feels like a warm hug (seriously, you'll get it when you touch it)",
       "Half-zip so you can throw it on over anything without messing up your hair",
@@ -49,6 +51,7 @@ const categoryData: Record<CategoryKey, Omit<ProductCopy, "seo" | "imageAlts">> 
   },
   "fur-lined": {
     hook: "Put this on once and you'll never want to take it off. We're not exaggerating.",
+    subtitle: "380gsm+ heavy cotton shell · faux fur lined · oversized fit",
     benefits: [
       "Faux fur lining inside that genuinely feels ridiculous (in the best way)",
       "Heavy cotton outside so it still looks clean and structured",
@@ -71,6 +74,7 @@ const categoryData: Record<CategoryKey, Omit<ProductCopy, "seo" | "imageAlts">> 
   },
   "dtf-printed": {
     hook: "Not just a hoodie — it's a conversation starter you can wear.",
+    subtitle: "380gsm heavy cotton · DTF printed · limited edition",
     benefits: [
       "DTF prints that stay sharp and vivid, no cracking or peeling ever",
       "380gsm heavy cotton base — the kind that makes you go 'oh wow' when you hold it",
@@ -93,6 +97,7 @@ const categoryData: Record<CategoryKey, Omit<ProductCopy, "seo" | "imageAlts">> 
   },
   sweatpants: {
     hook: "The kind of sweatpants you can actually wear outside the house and feel good about.",
+    subtitle: "380gsm cotton fleece · wide-leg relaxed fit · winter ready",
     benefits: [
       "Wide-leg cut that looks cool with literally everything — sneakers, slides, whatever",
       "380gsm cotton fleece that has weight to it but still breathes",
@@ -115,6 +120,7 @@ const categoryData: Record<CategoryKey, Omit<ProductCopy, "seo" | "imageAlts">> 
   },
   "oversized-tee": {
     hook: "Once you wear a 280gsm tee, every other t-shirt feels like tissue paper.",
+    subtitle: "280gsm heavyweight cotton · oversized drop-shoulder · pre-washed",
     benefits: [
       "280gsm heavyweight cotton — it has that satisfying weight you didn't know you needed",
       "Drop-shoulder oversized cut that just... works on everyone",
@@ -137,6 +143,7 @@ const categoryData: Record<CategoryKey, Omit<ProductCopy, "seo" | "imageAlts">> 
   },
   "basic-tee": {
     hook: "The everyday tee that quietly makes everything else you own look better.",
+    subtitle: "220gsm soft cotton · classic regular fit · everyday essential",
     benefits: [
       "220gsm soft cotton that breathes all day without going see-through",
       "Classic fit that flatters without being tight — or boxy",
@@ -159,6 +166,7 @@ const categoryData: Record<CategoryKey, Omit<ProductCopy, "seo" | "imageAlts">> 
   },
   default: {
     hook: "Built for people who'd rather be noticed than fit in.",
+    subtitle: "380gsm premium cotton · oversized fit · double-stitched",
     benefits: [
       "380gsm premium cotton that feels as good as it looks (maybe better)",
       "Oversized drop-shoulder cut that flatters without trying too hard",
