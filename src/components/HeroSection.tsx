@@ -6,15 +6,20 @@ import heroImage from "@/assets/hero-summer.webp";
 
 export const HeroSection = () => {
   const ref = useRef<HTMLElement>(null);
+  const prefersReducedMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
   });
 
-  const imageY = useTransform(scrollYProgress, [0, 1], ["0%", "25%"]);
-  const imageScale = useTransform(scrollYProgress, [0, 1], [1, 1.08]);
-  const textY = useTransform(scrollYProgress, [0, 1], ["0%", "40%"]);
+  const imageY = useTransform(scrollYProgress, [0, 1], ["0%", prefersReducedMotion ? "0%" : "25%"]);
+  const imageScale = useTransform(scrollYProgress, [0, 1], [1, prefersReducedMotion ? 1 : 1.08]);
+  const textY = useTransform(scrollYProgress, [0, 1], ["0%", prefersReducedMotion ? "0%" : "40%"]);
   const overlayOpacity = useTransform(scrollYProgress, [0, 0.5], [0.45, 0.8]);
+
+  // Simplified animation config to reduce main-thread work
+  const fadeIn = { opacity: 1, y: 0 };
+  const hidden = { opacity: 0, y: 20 };
 
   return (
     <section ref={ref} className="relative min-h-screen flex items-center overflow-hidden bg-foreground">
