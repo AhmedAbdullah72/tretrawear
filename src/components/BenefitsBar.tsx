@@ -24,10 +24,10 @@ export const BenefitsBar = () => {
           {benefits.map((b) => (
             <div
               key={b.label}
-              className="flex items-center gap-3 py-2 px-3 rounded-lg transition-opacity duration-300 hover:opacity-80 cursor-default group"
+              className="flex items-center gap-3 py-2 px-3 cursor-default group"
             >
-              <div className="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                <b.icon className="h-4 w-4 text-primary" />
+              <div className="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:bg-primary group-hover:shadow-md group-hover:shadow-primary/20">
+                <b.icon className="h-4 w-4 text-primary transition-colors duration-300 group-hover:text-primary-foreground" />
               </div>
               <div>
                 <p className="font-heading text-xs text-foreground">{b.label}</p>
