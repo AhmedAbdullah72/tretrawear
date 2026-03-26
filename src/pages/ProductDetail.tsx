@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
@@ -262,6 +262,12 @@ const ProductDetail = () => {
                   })}
                 </div>
                 <div className="hidden"><SizeGuide /></div>
+                <SizeRecommender onSizeSelect={(size) => {
+                  const idx = product.variants.edges.findIndex(v =>
+                    v.node.selectedOptions.some(o => o.value === size)
+                  );
+                  if (idx >= 0) setSelectedVariantIdx(idx);
+                }} />
               </div>
             ))}
 
