@@ -335,7 +335,7 @@ const ProductDetail = () => {
         </motion.div>
       )}
 
-      <Footer />
+      <Footer hideCta />
     </div>
   );
 };
