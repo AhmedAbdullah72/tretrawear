@@ -66,18 +66,18 @@ export const HeroSection = () => {
           </motion.h1>
 
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
+            initial={hidden}
+            animate={fadeIn}
+            transition={{ duration: 0.4, delay: 0.2 }}
             className="font-body text-base md:text-lg text-primary-foreground/70 max-w-md mb-8"
           >
             Comfort that keeps up with your life. Oversized fits, heavyweight cotton, zero compromise.
           </motion.p>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.45 }}
+            initial={hidden}
+            animate={fadeIn}
+            transition={{ duration: 0.4, delay: 0.3 }}
             className="flex flex-col sm:flex-row gap-4"
           >
             <Link
