@@ -4,8 +4,9 @@ import { HeroSection } from "@/components/HeroSection";
 import { BenefitsBar } from "@/components/BenefitsBar";
 import { Footer } from "@/components/Footer";
 
-// Lazy load popups - not needed for initial render
-const WelcomePopup = lazy(() => import("@/components/WelcomePopup").then(m => ({ default: m.WelcomePopup })));
+import { WelcomePopup } from "@/components/WelcomePopup";
+
+// Lazy load popup - not needed for initial render
 const ExitIntentPopup = lazy(() => import("@/components/ExitIntentPopup").then(m => ({ default: m.ExitIntentPopup })));
 
 // Lazy load below-fold sections
