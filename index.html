@@ -24,6 +24,17 @@
     <meta property="og:description" content="TRETRA Wear delivers bold, oversized fashion designed for the fearless. Born in Egypt, made for the world. Shop hoodies, tees &amp; more.">
     <meta name="twitter:description" content="TRETRA Wear delivers bold, oversized fashion designed for the fearless. Born in Egypt, made for the world. Shop hoodies, tees &amp; more.">
 
+    <!-- Inline critical CSS for faster FCP -->
+    <style>
+      :root{--background:0 0% 98%;--foreground:0 0% 8%;--primary:355 100% 33%;--primary-foreground:0 0% 100%}
+      *{margin:0;padding:0;box-sizing:border-box}
+      body{background-color:hsl(0 0% 98%);color:hsl(0 0% 8%);font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+      #root{min-height:100vh}
+      .min-h-screen{min-height:100vh}
+      .bg-background{background-color:hsl(0 0% 98%)}
+      .bg-foreground{background-color:hsl(0 0% 8%)}
+    </style>
+
     <!-- Preconnect to critical origins -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
