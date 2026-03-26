@@ -55,9 +55,9 @@ export const HeroSection = () => {
             transition={{ duration: 0.7, delay: 0.1 }}
             className="font-heading text-6xl md:text-8xl lg:text-9xl text-primary-foreground leading-[0.85] mb-6"
           >
-            OWN<br />
-            THE<br />
-            <span className="text-primary">HEAT</span>
+            DRESS<br />
+            HOW YOU<br />
+            <span className="text-primary">FEEL</span>
           </motion.h1>
 
           <motion.p
