@@ -3,6 +3,7 @@ import { ArrowRight } from "lucide-react";
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 import { useRef } from "react";
 import heroImage from "@/assets/hero-summer.webp";
+import heroImageMobile from "@/assets/hero-summer-mobile.webp";
 
 export const HeroSection = () => {
   const ref = useRef<HTMLElement>(null);
