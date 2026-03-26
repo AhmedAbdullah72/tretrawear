@@ -26,14 +26,16 @@ export const HeroSection = () => {
     <section ref={ref} className="relative min-h-screen flex items-center overflow-hidden bg-foreground">
       <motion.img
         src={heroImage}
+        srcSet={`${heroImageMobile} 768w, ${heroImage} 1536w`}
+        sizes="100vw"
         alt="TRETRA Wear summer collection – oversized tees and wide-leg sweatpants"
         className="absolute inset-0 w-full h-full object-cover object-[center_15%]"
         style={{ y: imageY, scale: imageScale, transformOrigin: "50% 15%" }}
         fetchPriority="high"
         loading="eager"
         decoding="async"
-        width={1920}
-        height={1080}
+        width={1536}
+        height={672}
       />
       <motion.div
         className="absolute inset-0 bg-foreground"
