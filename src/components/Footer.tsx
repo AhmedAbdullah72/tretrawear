@@ -4,12 +4,16 @@ import logo from "@/assets/logo.png";
 
 const WHATSAPP_URL = "https://wa.me/201024888818?text=Hi%20TRETRA!%20I%20have%20a%20question";
 
-export const Footer = () => {
+interface FooterProps {
+  hideCta?: boolean;
+}
+
+export const Footer = ({ hideCta = false }: FooterProps) => {
   return (
     <footer className="border-t border-border bg-card" role="contentinfo">
 
       {/* CTA banner */}
-      <div className="bg-primary">
+      {!hideCta && <div className="bg-primary">
         <div className="container py-10 md:py-12 flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
           <div>
             <h3 className="font-heading text-xl md:text-2xl text-primary-foreground">
@@ -26,7 +30,7 @@ export const Footer = () => {
             Shop Now <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
-      </div>
+      </div>}
 
       <div className="container py-16">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
