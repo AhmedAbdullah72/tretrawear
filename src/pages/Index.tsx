@@ -62,8 +62,8 @@ const Index = () => {
           <IntroAnimation onComplete={handleIntroComplete} />
         </Suspense>
       )}
+      <WelcomePopup />
       <Suspense fallback={null}>
-        <WelcomePopup />
         <ExitIntentPopup />
       </Suspense>
       <div className="min-h-screen bg-background">
