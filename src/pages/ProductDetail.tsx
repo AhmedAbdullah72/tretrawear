@@ -11,7 +11,7 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { getProductCopy } from "@/lib/productCopy";
-import { ProductBenefits, ProductSpecsTable, ProductFAQs } from "@/components/ProductCopySections";
+import { ProductDetailTabs } from "@/components/ProductCopySections";
 import { ProductImageGallery } from "@/components/ProductImageGallery";
 import { StockUrgencyBadge } from "@/components/StockUrgencyBadge";
 import { ProductReviews, getAverageRating, getTotalReviews } from "@/components/ProductReviews";
