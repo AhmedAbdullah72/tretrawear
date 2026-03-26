@@ -47,6 +47,7 @@ const Shop = () => {
   const [category, setCategory] = useState<Category>("all");
   const [sort, setSort] = useState<SortOption>("default");
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+  const bannerVisible = useBannerVisible();
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -92,7 +93,7 @@ const Shop = () => {
       <Navbar />
       <main id="main-content" role="main">
       {/* Shop Hero */}
-      <section className="pt-16 md:pt-18 bg-foreground text-background">
+      <section className="bg-foreground text-background" style={{ paddingTop: bannerVisible ? 104 : 64 }}>
         <div className="py-2 bg-primary text-primary-foreground">
           <Marquee items={["FREE SHIPPING OVER 1,500 EGP", "NEW ARRIVALS", "PREMIUM FASHION"]} speed="slow" />
         </div>
