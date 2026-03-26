@@ -45,7 +45,7 @@ export const HeroSection = () => {
             className="inline-block bg-primary/20 backdrop-blur-sm border border-primary/30 px-4 py-1.5 rounded-full mb-6"
           >
             <span className="font-body text-xs tracking-[0.3em] uppercase text-primary-foreground font-semibold">
-              Summer Collection 2026
+              New Summer Drops — Just Landed
             </span>
           </motion.div>
 
