@@ -2,19 +2,23 @@ import { useState, useEffect } from "react";
 import { X, Tag } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
+import { setBannerVisible } from "@/hooks/useBannerState";
 
 export const WelcomePopup = () => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     if (sessionStorage.getItem("welcome_banner_dismissed")) return;
-    // Show after a brief delay to avoid layout shift during initial paint
-    const timer = setTimeout(() => setIsVisible(true), 1000);
+    const timer = setTimeout(() => {
+      setIsVisible(true);
+      setBannerVisible(true);
+    }, 500);
     return () => clearTimeout(timer);
   }, []);
 
   const handleDismiss = () => {
     setIsVisible(false);
+    setBannerVisible(false);
     sessionStorage.setItem("welcome_banner_dismissed", "true");
   };
 

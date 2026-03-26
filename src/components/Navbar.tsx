@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { useBannerVisible } from "@/hooks/useBannerState";
 import { Menu, X } from "lucide-react";
 import { CartDrawer } from "./CartDrawer";
 import { motion, AnimatePresence } from "framer-motion";
@@ -29,6 +30,7 @@ export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
+  const bannerVisible = useBannerVisible();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 30);
@@ -41,11 +43,12 @@ export const Navbar = () => {
   return (
     <nav
       aria-label="Main navigation"
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-400 ${
+      className={`fixed left-0 right-0 z-50 transition-all duration-400 ${
         scrolled
           ? "bg-card/98 backdrop-blur-xl shadow-sm border-b border-border py-0"
           : "bg-transparent py-1"
       }`}
+      style={{ top: bannerVisible ? 40 : 0 }}
     >
       <div className="container flex items-center justify-between h-14 md:h-16">
         {/* Logo */}
