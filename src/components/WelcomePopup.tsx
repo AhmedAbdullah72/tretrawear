@@ -1,24 +1,24 @@
-import { useState, useEffect, createContext, useContext } from "react";
+import { useState, useEffect } from "react";
 import { X, Tag } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
-
-// Context to let Navbar know the banner height
-export const WelcomeBannerContext = createContext({ bannerVisible: false });
-
-export const useWelcomeBanner = () => useContext(WelcomeBannerContext);
+import { setBannerVisible } from "@/hooks/useBannerState";
 
 export const WelcomePopup = () => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     if (sessionStorage.getItem("welcome_banner_dismissed")) return;
-    const timer = setTimeout(() => setIsVisible(true), 500);
+    const timer = setTimeout(() => {
+      setIsVisible(true);
+      setBannerVisible(true);
+    }, 500);
     return () => clearTimeout(timer);
   }, []);
 
   const handleDismiss = () => {
     setIsVisible(false);
+    setBannerVisible(false);
     sessionStorage.setItem("welcome_banner_dismissed", "true");
   };
 
@@ -61,5 +61,3 @@ export const WelcomePopup = () => {
     </AnimatePresence>
   );
 };
-
-export const WELCOME_BANNER_HEIGHT = 40; // px, approximate height of the banner
