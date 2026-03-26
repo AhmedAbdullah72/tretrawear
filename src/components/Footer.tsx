@@ -7,8 +7,6 @@ const WHATSAPP_URL = "https://wa.me/201024888818?text=Hi%20TRETRA!%20I%20have%20
 export const Footer = () => {
   return (
     <footer className="border-t border-border bg-card" role="contentinfo">
-        </div>
-      </div>
 
       {/* CTA banner */}
       <div className="bg-primary">
