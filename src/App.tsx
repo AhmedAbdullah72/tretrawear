@@ -5,7 +5,10 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useCartSync } from "@/hooks/useCartSync";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
+import { WelcomePopup } from "@/components/WelcomePopup";
 import { lazy, Suspense } from "react";
+
+const ExitIntentPopup = lazy(() => import("@/components/ExitIntentPopup").then(m => ({ default: m.ExitIntentPopup })));
 
 // Eager load Index for fastest home page
 import Index from "./pages/Index";
@@ -48,6 +51,10 @@ const AppContent = () => {
           <Route path="/size-guide" element={<SizeGuide />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
+      </Suspense>
+      <WelcomePopup />
+      <Suspense fallback={null}>
+        <ExitIntentPopup />
       </Suspense>
       <WhatsAppButton />
     </BrowserRouter>
