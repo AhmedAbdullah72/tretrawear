@@ -133,12 +133,7 @@ const ProductDetail = () => {
   }
 
   const selectedVariant = product.variants.edges[selectedVariantIdx]?.node;
-  const shopifyImages = product.images.edges;
-  const detailImages = [
-    { node: { url: fabricTextureImg, altText: "380gsm heavyweight cotton fabric texture close-up" } },
-    { node: { url: stitchingDetailImg, altText: "Reinforced stitching detail showing premium craftsmanship" } },
-  ];
-  const images = [...shopifyImages, ...detailImages];
+  const images = product.images.edges;
   const copy = getProductCopy(product.title, product.handle);
   const avgRating = getAverageRating(handle || "");
   const totalReviews = getTotalReviews(handle || "");
