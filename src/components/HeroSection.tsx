@@ -1,20 +1,25 @@
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 import { useRef } from "react";
 import heroImage from "@/assets/hero-summer.webp";
 
 export const HeroSection = () => {
   const ref = useRef<HTMLElement>(null);
+  const prefersReducedMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
   });
 
-  const imageY = useTransform(scrollYProgress, [0, 1], ["0%", "25%"]);
-  const imageScale = useTransform(scrollYProgress, [0, 1], [1, 1.08]);
-  const textY = useTransform(scrollYProgress, [0, 1], ["0%", "40%"]);
+  const imageY = useTransform(scrollYProgress, [0, 1], ["0%", prefersReducedMotion ? "0%" : "25%"]);
+  const imageScale = useTransform(scrollYProgress, [0, 1], [1, prefersReducedMotion ? 1 : 1.08]);
+  const textY = useTransform(scrollYProgress, [0, 1], ["0%", prefersReducedMotion ? "0%" : "40%"]);
   const overlayOpacity = useTransform(scrollYProgress, [0, 0.5], [0.45, 0.8]);
+
+  // Simplified animation config to reduce main-thread work
+  const fadeIn = { opacity: 1, y: 0 };
+  const hidden = { opacity: 0, y: 20 };
 
   return (
     <section ref={ref} className="relative min-h-screen flex items-center overflow-hidden bg-foreground">
@@ -39,9 +44,9 @@ export const HeroSection = () => {
       <div className="relative container z-10">
         <motion.div className="max-w-2xl pt-20 md:pt-24" style={{ y: textY }}>
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+            initial={hidden}
+            animate={fadeIn}
+            transition={{ duration: 0.4 }}
             className="inline-block bg-primary/20 backdrop-blur-sm border border-primary/30 px-4 py-1.5 rounded-full mb-6"
           >
             <span className="font-body text-xs tracking-[0.3em] uppercase text-primary-foreground font-semibold">
@@ -50,9 +55,9 @@ export const HeroSection = () => {
           </motion.div>
 
           <motion.h1
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.1 }}
+            initial={{ opacity: 0, y: 30 }}
+            animate={fadeIn}
+            transition={{ duration: 0.5, delay: 0.1 }}
             className="font-heading text-6xl md:text-8xl lg:text-9xl text-primary-foreground leading-[0.85] mb-6"
           >
             DRESS<br />
@@ -61,18 +66,18 @@ export const HeroSection = () => {
           </motion.h1>
 
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
+            initial={hidden}
+            animate={fadeIn}
+            transition={{ duration: 0.4, delay: 0.2 }}
             className="font-body text-base md:text-lg text-primary-foreground/70 max-w-md mb-8"
           >
             Comfort that keeps up with your life. Oversized fits, heavyweight cotton, zero compromise.
           </motion.p>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.45 }}
+            initial={hidden}
+            animate={fadeIn}
+            transition={{ duration: 0.4, delay: 0.3 }}
             className="flex flex-col sm:flex-row gap-4"
           >
             <Link
