@@ -136,11 +136,22 @@ const ProductDetail = () => {
   const avgRating = getAverageRating(handle || "");
   const totalReviews = getTotalReviews(handle || "");
 
-  // Find the gallery image index matching the selected variant's image
+  // Find gallery image matching selected color by variant image URL or filename
+  const selectedColor = selectedVariant?.selectedOptions?.find(o => o.name.toLowerCase() === "color")?.value;
   const variantImageUrl = selectedVariant?.image?.url;
-  const variantImageIndex = variantImageUrl
-    ? images.findIndex(img => img.node.url === variantImageUrl)
-    : -1;
+  const variantImageIndex = (() => {
+    // First try exact variant image match
+    if (variantImageUrl) {
+      const exactIdx = images.findIndex(img => img.node.url === variantImageUrl);
+      if (exactIdx >= 0) return exactIdx;
+    }
+    // Fallback: match color name in image filename
+    if (selectedColor) {
+      const colorLower = selectedColor.toLowerCase();
+      return images.findIndex(img => img.node.url.toLowerCase().includes(colorLower));
+    }
+    return -1;
+  })();
 
   return (
     <div className="min-h-screen bg-background">
