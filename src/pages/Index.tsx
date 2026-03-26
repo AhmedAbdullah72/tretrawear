@@ -1,10 +1,12 @@
-import { useState, useEffect, lazy, Suspense } from "react";
-import { WelcomePopup } from "@/components/WelcomePopup";
-import { ExitIntentPopup } from "@/components/ExitIntentPopup";
+import { useState, lazy, Suspense } from "react";
 import { Navbar } from "@/components/Navbar";
 import { HeroSection } from "@/components/HeroSection";
 import { BenefitsBar } from "@/components/BenefitsBar";
 import { Footer } from "@/components/Footer";
+
+// Lazy load popups - not needed for initial render
+const WelcomePopup = lazy(() => import("@/components/WelcomePopup").then(m => ({ default: m.WelcomePopup })));
+const ExitIntentPopup = lazy(() => import("@/components/ExitIntentPopup").then(m => ({ default: m.ExitIntentPopup })));
 
 // Lazy load below-fold sections
 const SummerCollection = lazy(() => import("@/components/SummerCollection").then(m => ({ default: m.SummerCollection })));
@@ -59,8 +61,10 @@ const Index = () => {
           <IntroAnimation onComplete={handleIntroComplete} />
         </Suspense>
       )}
-      <WelcomePopup />
-      <ExitIntentPopup />
+      <Suspense fallback={null}>
+        <WelcomePopup />
+        <ExitIntentPopup />
+      </Suspense>
       <div className="min-h-screen bg-background">
         <a href="#main-content" className="skip-to-content">Skip to content</a>
         <Navbar />
