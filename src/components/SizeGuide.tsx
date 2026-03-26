@@ -20,7 +20,7 @@ export const SizeGuide = () => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <button className="inline-flex items-center gap-1.5 font-body text-xs text-primary hover:text-primary/80 underline underline-offset-2 transition-colors">
+        <button id="size-guide-trigger" className="inline-flex items-center gap-1.5 font-body text-xs text-primary hover:text-primary/80 underline underline-offset-2 transition-colors">
           <Ruler className="h-3.5 w-3.5" />
           Size Guide
         </button>
