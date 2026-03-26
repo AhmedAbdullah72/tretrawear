@@ -20,7 +20,7 @@ const About = () => {
       <Navbar />
 
       {/* Hero */}
-      <section className="pt-24 pb-16 md:pb-20 bg-foreground text-background">
+      <section className="pb-16 md:pb-20 bg-foreground text-background" style={{ paddingTop: 'calc(96px + var(--banner-offset))' }}>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}

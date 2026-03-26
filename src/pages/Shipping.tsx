@@ -5,7 +5,7 @@ import { Truck, Globe, Clock, Package } from "lucide-react";
 const Shipping = () => (
   <div className="min-h-screen bg-background">
     <Navbar />
-    <section className="pt-24 pb-12 bg-foreground text-background">
+    <section className="pb-12 bg-foreground text-background" style={{ paddingTop: 'calc(96px + var(--banner-offset))' }}>
       <div className="container py-8">
         <p className="font-body text-xs tracking-[0.3em] uppercase text-background/50 mb-2">Support</p>
         <h1 className="font-heading text-4xl md:text-5xl text-background">Shipping Info</h1>

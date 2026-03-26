@@ -45,7 +45,7 @@ const SizeGuide = () => {
     <div className="min-h-screen bg-background">
       <Navbar />
       
-      <main className="pt-24 pb-16">
+      <main className="pb-16" style={{ paddingTop: 'calc(96px + var(--banner-offset))' }}>
         <div className="container max-w-4xl">
           {/* Header */}
           <div className="text-center mb-12">

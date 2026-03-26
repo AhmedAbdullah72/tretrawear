@@ -93,7 +93,7 @@ const Shop = () => {
       <Navbar />
       <main id="main-content" role="main">
       {/* Shop Hero */}
-      <section className="bg-foreground text-background" style={{ paddingTop: bannerVisible ? 104 : 64 }}>
+      <section className="bg-foreground text-background" style={{ paddingTop: 'calc(64px + var(--banner-offset))' }}>
         <div className="py-2 bg-primary text-primary-foreground">
           <Marquee items={["FREE SHIPPING OVER 1,500 EGP", "NEW ARRIVALS", "PREMIUM FASHION"]} speed="slow" />
         </div>
