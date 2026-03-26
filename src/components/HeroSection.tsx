@@ -44,9 +44,9 @@ export const HeroSection = () => {
       <div className="relative container z-10">
         <motion.div className="max-w-2xl pt-20 md:pt-24" style={{ y: textY }}>
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+            initial={hidden}
+            animate={fadeIn}
+            transition={{ duration: 0.4 }}
             className="inline-block bg-primary/20 backdrop-blur-sm border border-primary/30 px-4 py-1.5 rounded-full mb-6"
           >
             <span className="font-body text-xs tracking-[0.3em] uppercase text-primary-foreground font-semibold">
@@ -55,9 +55,9 @@ export const HeroSection = () => {
           </motion.div>
 
           <motion.h1
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.1 }}
+            initial={{ opacity: 0, y: 30 }}
+            animate={fadeIn}
+            transition={{ duration: 0.5, delay: 0.1 }}
             className="font-heading text-6xl md:text-8xl lg:text-9xl text-primary-foreground leading-[0.85] mb-6"
           >
             DRESS<br />
