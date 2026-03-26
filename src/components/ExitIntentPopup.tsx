@@ -1,21 +1,70 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { X, Gift } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
 
+const isMobileDevice = () => {
+  if (typeof window === "undefined") return false;
+  return window.matchMedia("(pointer: coarse)").matches;
+};
+
 export const ExitIntentPopup = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const lastScrollY = useRef(0);
+  const scrollUpDistance = useRef(0);
 
-  const handleMouseLeave = useCallback((e: MouseEvent) => {
-    if (e.clientY <= 0 && !sessionStorage.getItem("exit_popup_seen")) {
+  const triggerPopup = useCallback(() => {
+    if (!sessionStorage.getItem("exit_popup_seen")) {
       setIsOpen(true);
     }
   }, []);
 
+  // Desktop: mouse leaves viewport
   useEffect(() => {
+    if (isMobileDevice()) return;
+
+    const handleMouseLeave = (e: MouseEvent) => {
+      if (e.clientY <= 0) triggerPopup();
+    };
+
     document.addEventListener("mouseleave", handleMouseLeave);
     return () => document.removeEventListener("mouseleave", handleMouseLeave);
-  }, [handleMouseLeave]);
+  }, [triggerPopup]);
+
+  // Mobile: rapid scroll-up intent (user scrolling back to top quickly)
+  useEffect(() => {
+    if (!isMobileDevice()) return;
+
+    let ticking = false;
+
+    const handleScroll = () => {
+      if (ticking) return;
+      ticking = true;
+
+      requestAnimationFrame(() => {
+        const currentY = window.scrollY;
+        const delta = lastScrollY.current - currentY;
+
+        // Only trigger after user has scrolled down at least 600px
+        if (currentY > 300 && delta > 0) {
+          scrollUpDistance.current += delta;
+          // Trigger if user scrolled up 200px+ rapidly
+          if (scrollUpDistance.current > 200) {
+            triggerPopup();
+            scrollUpDistance.current = 0;
+          }
+        } else {
+          scrollUpDistance.current = 0;
+        }
+
+        lastScrollY.current = currentY;
+        ticking = false;
+      });
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [triggerPopup]);
 
   const handleClose = () => {
     setIsOpen(false);
