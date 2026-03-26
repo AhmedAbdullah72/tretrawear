@@ -60,10 +60,14 @@ function getReviewsForProduct(handle: string) {
   return picks;
 }
 
-function getAverageRating(handle: string) {
+export function getAverageRating(handle: string) {
   const reviews = getReviewsForProduct(handle);
   const avg = reviews.reduce((s, r) => s + r.rating, 0) / reviews.length;
   return Math.round(avg * 10) / 10;
+}
+
+export function getTotalReviews(handle: string) {
+  return 47 + (Math.abs(handle.charCodeAt(0)) % 30);
 }
 
 const StarRating = ({ rating, size = "sm" }: { rating: number; size?: "sm" | "md" }) => (
@@ -91,7 +95,7 @@ interface ProductReviewsProps {
 export const ProductReviews = ({ handle }: ProductReviewsProps) => {
   const reviews = getReviewsForProduct(handle);
   const avgRating = getAverageRating(handle);
-  const totalReviews = 47 + (Math.abs(handle.charCodeAt(0)) % 30);
+  const totalReviews = getTotalReviews(handle);
 
   const distribution = [
     { stars: 5, pct: 78 },

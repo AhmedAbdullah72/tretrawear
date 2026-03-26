@@ -5,7 +5,7 @@ import { Footer } from "@/components/Footer";
 import { Marquee } from "@/components/Marquee";
 import { storefrontApiRequest, PRODUCT_BY_HANDLE_QUERY } from "@/lib/shopify";
 import { useCartStore, type ShopifyProduct } from "@/stores/cartStore";
-import { Loader2, ChevronLeft, Truck, RefreshCw, ShieldCheck, Minus, Plus, Ruler } from "lucide-react";
+import { Loader2, ChevronLeft, Truck, RefreshCw, ShieldCheck, Minus, Plus, Ruler, Star, CreditCard } from "lucide-react";
 import { SizeGuide } from "@/components/SizeGuide";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -14,7 +14,7 @@ import { getProductCopy } from "@/lib/productCopy";
 import { ProductBenefits, ProductSpecsTable, ProductFAQs } from "@/components/ProductCopySections";
 import { ProductImageGallery } from "@/components/ProductImageGallery";
 import { StockUrgencyBadge } from "@/components/StockUrgencyBadge";
-import { ProductReviews } from "@/components/ProductReviews";
+import { ProductReviews, getAverageRating, getTotalReviews } from "@/components/ProductReviews";
 import { RelatedProducts } from "@/components/RelatedProducts";
 import { CompleteTheLook } from "@/components/CompleteTheLook";
 
@@ -54,7 +54,6 @@ const ProductDetail = () => {
     const meta = document.querySelector('meta[name="description"]');
     if (meta) meta.setAttribute("content", copy.seo.metaDescription);
 
-    // JSON-LD Product Schema
     const variant = product.variants.edges[0]?.node;
     const schema = {
       "@context": "https://schema.org",
@@ -84,7 +83,7 @@ const ProductDetail = () => {
     return () => { script.remove(); };
   }, [product]);
 
-  // Sticky bar on mobile
+  // Sticky bar
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => setShowStickyBar(!entry.isIntersecting),
@@ -134,6 +133,8 @@ const ProductDetail = () => {
   const selectedVariant = product.variants.edges[selectedVariantIdx]?.node;
   const images = product.images.edges;
   const copy = getProductCopy(product.title, product.handle);
+  const avgRating = getAverageRating(handle || "");
+  const totalReviews = getTotalReviews(handle || "");
 
   return (
     <div className="min-h-screen bg-background">
@@ -163,30 +164,73 @@ const ProductDetail = () => {
             />
           </motion.div>
 
-          {/* Info */}
+          {/* === RESTRUCTURED INFO PANEL === */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="space-y-5"
+            className="space-y-4"
           >
-            <div className="flex items-center gap-3 flex-wrap">
-              <h1 className="font-heading text-3xl md:text-4xl text-foreground">{product.title}</h1>
-              <StockUrgencyBadge
-                handle={product.handle}
-                availableForSale={selectedVariant?.availableForSale}
-                variant="pdp"
-              />
+            {/* 1. TITLE + URGENCY */}
+            <div>
+              <div className="flex items-center gap-3 flex-wrap">
+                <h1 className="font-heading text-3xl md:text-4xl text-foreground">{product.title}</h1>
+                <StockUrgencyBadge
+                  handle={product.handle}
+                  availableForSale={selectedVariant?.availableForSale}
+                  variant="pdp"
+                />
+              </div>
+              {/* Subtitle hook — fabric, fit, use */}
+              <p className="font-body text-sm text-muted-foreground mt-1.5 tracking-wide uppercase">
+                {copy.subtitle}
+              </p>
             </div>
-            <p className="font-heading text-2xl text-primary mt-2">
+
+            {/* 2. PRICE */}
+            <p className="font-heading text-2xl text-primary">
               {selectedVariant?.price.currencyCode} {parseFloat(selectedVariant?.price.amount || "0").toFixed(2)}
             </p>
 
-            <ProductBenefits copy={copy} />
+            {/* 3. INLINE REVIEWS — clickable to scroll */}
+            <button
+              onClick={() => document.getElementById("reviews-section")?.scrollIntoView({ behavior: "smooth" })}
+              className="flex items-center gap-2 group"
+            >
+              <div className="flex gap-0.5">
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <Star
+                    key={i}
+                    className={`h-4 w-4 ${i < Math.round(avgRating) ? "text-yellow-400 fill-yellow-400" : "text-muted-foreground/20"}`}
+                  />
+                ))}
+              </div>
+              <span className="font-body text-sm text-muted-foreground group-hover:text-primary transition-colors">
+                {avgRating} ({totalReviews} reviews)
+              </span>
+            </button>
 
+            {/* 4. HOOK */}
+            <p className="font-heading text-base text-foreground italic border-l-2 border-primary pl-4">
+              {copy.hook}
+            </p>
+
+            {/* 5. VARIANTS + SIZE GUIDE */}
             {product.options.map((option) => (
               <div key={option.name}>
-                <label className="font-heading text-xs tracking-wider text-foreground block mb-2">{option.name}</label>
+                <div className="flex items-center justify-between mb-2">
+                  <label className="font-heading text-xs tracking-wider text-foreground">{option.name}</label>
+                  <button
+                    onClick={() => {
+                      const dialog = document.getElementById("size-guide-trigger");
+                      if (dialog) dialog.click();
+                    }}
+                    className="inline-flex items-center gap-1.5 font-heading text-xs text-primary hover:text-primary/80 transition-colors bg-primary/10 px-3 py-1.5 rounded-lg"
+                  >
+                    <Ruler className="h-3.5 w-3.5" />
+                    Find Your Size
+                  </button>
+                </div>
                 <div className="flex flex-wrap gap-2">
                   {option.values.map((value) => {
                     const variantIdx = product.variants.edges.findIndex(v =>
@@ -210,20 +254,11 @@ const ProductDetail = () => {
                     );
                   })}
                 </div>
-                <button
-                  onClick={() => {
-                    const dialog = document.getElementById("size-guide-trigger");
-                    if (dialog) dialog.click();
-                  }}
-                  className="inline-flex items-center gap-1.5 font-body text-xs text-primary hover:text-primary/80 transition-colors mt-2 underline underline-offset-2"
-                >
-                  <Ruler className="h-3.5 w-3.5" />
-                  Not sure? Check our size guide
-                </button>
                 <div className="hidden"><SizeGuide /></div>
               </div>
             ))}
 
+            {/* 6. QUANTITY */}
             <div>
               <label className="font-heading text-xs tracking-wider text-foreground block mb-2">Quantity</label>
               <div className="inline-flex items-center border border-border rounded-lg">
@@ -237,17 +272,16 @@ const ProductDetail = () => {
               </div>
             </div>
 
-            {/* Stock urgency moved to above-fold next to title */}
-
+            {/* 7. ADD TO CART — bigger, bolder */}
             <Button
               id="main-add-to-cart"
               onClick={handleAddToCart}
               disabled={isLoading || !selectedVariant?.availableForSale}
-              className="w-full bg-primary text-primary-foreground font-heading text-sm tracking-wider uppercase py-6 rounded-xl hover:bg-primary/90 shadow-lg shadow-primary/20 transition-all duration-300"
+              className="w-full bg-primary text-primary-foreground font-heading text-base tracking-wider uppercase py-7 rounded-xl hover:bg-primary/90 shadow-xl shadow-primary/25 transition-all duration-300"
               size="lg"
             >
               {isLoading ? (
-                <Loader2 className="h-4 w-4 animate-spin" />
+                <Loader2 className="h-5 w-5 animate-spin" />
               ) : !selectedVariant?.availableForSale ? (
                 "Sold Out"
               ) : (
@@ -255,46 +289,55 @@ const ProductDetail = () => {
               )}
             </Button>
 
-            <ProductSpecsTable copy={copy} />
-
-            {product.description && (
-              <div className="bg-card rounded-xl p-5 border border-border">
-                <h3 className="font-heading text-xs tracking-wider text-foreground mb-2">About This Piece</h3>
-                <p className="font-body text-sm text-muted-foreground leading-relaxed">{copy.collectionIntro}</p>
-              </div>
-            )}
-
-            <ProductFAQs copy={copy} />
-
-            <div className="space-y-2">
+            {/* 8. INLINE TRUST SIGNALS — right below CTA */}
+            <div className="grid grid-cols-3 gap-2">
               {[
-                { icon: Truck, text: "Free shipping on orders over 1,500 EGP" },
-                { icon: RefreshCw, text: "14-day return policy" },
-                { icon: ShieldCheck, text: "Premium quality materials" },
+                { icon: Truck, label: "Free Shipping", sub: "Over 1,500 EGP" },
+                { icon: RefreshCw, label: "Easy Returns", sub: "14-day policy" },
+                { icon: CreditCard, label: "Cash on Delivery", sub: "Pay at your door" },
               ].map((item) => (
-                <div key={item.text} className="flex items-center gap-3 p-3 bg-card rounded-lg border border-border">
-                  <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                <div key={item.label} className="flex flex-col items-center text-center p-3 bg-card rounded-xl border border-border">
+                  <div className="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center mb-1.5">
                     <item.icon className="h-4 w-4 text-primary" />
                   </div>
-                  <p className="font-body text-sm text-muted-foreground">{item.text}</p>
+                  <p className="font-heading text-[11px] tracking-wider text-foreground">{item.label}</p>
+                  <p className="font-body text-[10px] text-muted-foreground">{item.sub}</p>
                 </div>
               ))}
+            </div>
+
+            {/* 9. BENEFITS */}
+            <ProductBenefits copy={copy} />
+
+            {/* 10. ABOUT — restructured description */}
+            <div className="bg-card rounded-xl p-5 border border-border space-y-4">
+              <h3 className="font-heading text-xs tracking-wider text-foreground">About This Piece</h3>
+              <p className="font-body text-sm text-muted-foreground leading-relaxed">{copy.collectionIntro}</p>
+            </div>
+
+            {/* 11. SPECS TABLE */}
+            <ProductSpecsTable copy={copy} />
+
+            {/* 12. FAQs */}
+            <ProductFAQs copy={copy} />
+
+            {/* Security signal */}
+            <div className="flex items-center justify-center gap-2 p-3 bg-card rounded-lg border border-border">
+              <ShieldCheck className="h-4 w-4 text-primary" />
+              <p className="font-body text-xs text-muted-foreground">Secure checkout · Encrypted payments · Your data is safe</p>
             </div>
           </motion.div>
         </div>
       </div>
 
-      <section className="max-w-7xl mx-auto px-4 py-12 md:py-16 border-t border-border">
+      <section id="reviews-section" className="max-w-7xl mx-auto px-4 py-12 md:py-16 border-t border-border">
         <ProductReviews handle={handle || ""} />
       </section>
 
-      {/* Complete the Look Cross-sell */}
       <CompleteTheLook currentHandle={handle || ""} currentTitle={product.title} />
-
-      {/* Related Products */}
       <RelatedProducts currentHandle={handle || ""} />
 
-      {/* Sticky Add to Cart — all screen sizes */}
+      {/* Sticky Add to Cart */}
       {showStickyBar && selectedVariant && (
         <motion.div
           initial={{ y: 80, opacity: 0 }}
@@ -304,7 +347,6 @@ const ProductDetail = () => {
           className="fixed bottom-0 left-0 right-0 z-40 bg-card/95 backdrop-blur-xl border-t border-border safe-bottom"
         >
           <div className="container flex items-center gap-4 py-3">
-            {/* Product thumbnail — desktop only */}
             {images[0]?.node && (
               <div className="hidden md:block w-12 h-12 rounded-lg overflow-hidden border border-border flex-shrink-0">
                 <img src={images[0].node.url} alt="" className="w-full h-full object-cover" />
@@ -316,7 +358,6 @@ const ProductDetail = () => {
                 {selectedVariant.price.currencyCode} {parseFloat(selectedVariant.price.amount).toFixed(2)}
               </p>
             </div>
-            {/* Desktop variant info */}
             <div className="hidden md:flex items-center gap-2 flex-shrink-0">
               {selectedVariant.selectedOptions?.map(opt => (
                 <span key={opt.name} className="font-body text-xs bg-secondary text-secondary-foreground px-3 py-1 rounded-full">
