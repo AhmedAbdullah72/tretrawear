@@ -136,6 +136,12 @@ const ProductDetail = () => {
   const avgRating = getAverageRating(handle || "");
   const totalReviews = getTotalReviews(handle || "");
 
+  // Find the gallery image index matching the selected variant's image
+  const variantImageUrl = selectedVariant?.image?.url;
+  const variantImageIndex = variantImageUrl
+    ? images.findIndex(img => img.node.url === variantImageUrl)
+    : -1;
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
@@ -161,6 +167,7 @@ const ProductDetail = () => {
               images={images}
               imageAlts={copy.imageAlts}
               productTitle={product.title}
+              scrollToIndex={variantImageIndex >= 0 ? variantImageIndex : undefined}
             />
           </motion.div>
 
