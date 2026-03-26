@@ -4,7 +4,7 @@ import { Marquee } from "./Marquee";
 const benefits = [
   { icon: Truck, label: "Free Shipping", desc: "Orders over 1,500 EGP" },
   { icon: RefreshCw, label: "Easy Returns", desc: "14-day policy" },
-  { icon: Shield, label: "Secure Payment", desc: "SSL encrypted" },
+  { icon: Shield, label: "Secure Checkout", desc: "Encrypted payments" },
   { icon: Headphones, label: "24/7 Support", desc: "Always here" },
 ];
 
@@ -22,9 +22,12 @@ export const BenefitsBar = () => {
       <div className="container py-5">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {benefits.map((b) => (
-            <div key={b.label} className="flex items-center gap-3 py-2 px-3">
-              <div className="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                <b.icon className="h-4 w-4 text-primary" />
+            <div
+              key={b.label}
+              className="flex items-center gap-3 py-2 px-3 rounded-lg transition-all duration-300 hover:bg-primary/5 hover:-translate-y-0.5 hover:shadow-sm cursor-default group"
+            >
+              <div className="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 transition-colors duration-300 group-hover:bg-primary/20">
+                <b.icon className="h-4 w-4 text-primary transition-transform duration-300 group-hover:scale-110" />
               </div>
               <div>
                 <p className="font-heading text-xs text-foreground">{b.label}</p>
