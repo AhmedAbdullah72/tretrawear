@@ -14,6 +14,7 @@ interface ProductImageGalleryProps {
   images: ProductImage[];
   imageAlts?: string[];
   productTitle: string;
+  scrollToIndex?: number;
 }
 
 export const ProductImageGallery = ({ images, imageAlts = [], productTitle }: ProductImageGalleryProps) => {
