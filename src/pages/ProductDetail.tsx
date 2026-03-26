@@ -136,19 +136,20 @@ const ProductDetail = () => {
   const avgRating = getAverageRating(handle || "");
   const totalReviews = getTotalReviews(handle || "");
 
-  // Find gallery image matching selected color by variant image URL or filename
+  // Find gallery image matching selected color by filename or variant image
   const selectedColor = selectedVariant?.selectedOptions?.find(o => o.name.toLowerCase() === "color")?.value;
-  const variantImageUrl = selectedVariant?.image?.url;
   const variantImageIndex = (() => {
-    // First try exact variant image match
-    if (variantImageUrl) {
-      const exactIdx = images.findIndex(img => img.node.url === variantImageUrl);
-      if (exactIdx >= 0) return exactIdx;
-    }
-    // Fallback: match color name in image filename
+    // Primary: match color name in image filename/URL
     if (selectedColor) {
       const colorLower = selectedColor.toLowerCase();
-      return images.findIndex(img => img.node.url.toLowerCase().includes(colorLower));
+      const idx = images.findIndex(img => img.node.url.toLowerCase().includes(colorLower));
+      if (idx >= 0) return idx;
+    }
+    // Fallback: variant's assigned image
+    const variantImageUrl = selectedVariant?.image?.url;
+    if (variantImageUrl) {
+      const idx = images.findIndex(img => img.node.url === variantImageUrl);
+      if (idx >= 0) return idx;
     }
     return -1;
   })();
