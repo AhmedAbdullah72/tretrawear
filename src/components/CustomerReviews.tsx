@@ -51,7 +51,7 @@ export const CustomerReviews = () => {
           className="text-center mb-5"
         >
           <h2 id="reviews-heading" className="font-heading text-2xl md:text-3xl text-foreground">
-            WHAT THEY <span className="text-primary">SAY</span>
+            REAL PEOPLE, <span className="text-primary">REAL TALK</span>
           </h2>
           <div className="flex items-center justify-center gap-2 mt-2">
             <div className="flex gap-0.5">

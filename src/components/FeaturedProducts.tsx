@@ -34,9 +34,9 @@ export const FeaturedProducts = () => {
           className="flex items-end justify-between mb-6 md:mb-10"
         >
           <div>
-            <p className="font-body text-xs tracking-[0.3em] uppercase text-primary mb-3">Our Collection</p>
+            <p className="font-body text-xs tracking-[0.3em] uppercase text-primary mb-3">People's Favorites</p>
             <h2 className="font-heading text-2xl md:text-4xl text-foreground">
-              BEST <span className="text-primary">SELLERS</span>
+              MOST <span className="text-primary">LOVED</span>
             </h2>
           </div>
           <Link

@@ -2,10 +2,10 @@ import { Truck, RefreshCw, Shield, Headphones } from "lucide-react";
 import { Marquee } from "./Marquee";
 
 const benefits = [
-  { icon: Truck, label: "Free Shipping", desc: "Orders over 1,500 EGP" },
-  { icon: RefreshCw, label: "Easy Returns", desc: "14-day policy" },
-  { icon: Shield, label: "Secure Checkout", desc: "Encrypted payments" },
-  { icon: Headphones, label: "24/7 Support", desc: "Always here" },
+  { icon: Truck, label: "Free Shipping", desc: "On orders over 1,500 EGP" },
+  { icon: RefreshCw, label: "Easy Returns", desc: "No questions, 14 days" },
+  { icon: Shield, label: "Secure Checkout", desc: "Your info stays safe" },
+  { icon: Headphones, label: "We're Here", desc: "Chat with us anytime" },
 ];
 
 export const BenefitsBar = () => {
@@ -14,7 +14,7 @@ export const BenefitsBar = () => {
       {/* Top marquee strip */}
       <div className="py-2 bg-foreground text-background">
         <Marquee
-          items={["Pay on Delivery", "2–5 Day Delivery", "14-Day Exchange"]}
+          items={["Pay When It Arrives", "At Your Door in 2–5 Days", "Changed Your Mind? 14-Day Exchange"]}
           speed="slow"
         />
       </div>

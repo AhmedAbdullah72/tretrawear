@@ -32,13 +32,13 @@ export const ProductShowcase = () => {
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.7 }}
           >
-            <p className="font-body text-xs tracking-[0.3em] uppercase text-primary mb-3">Product Details</p>
+            <p className="font-body text-xs tracking-[0.3em] uppercase text-primary mb-3">Why It Hits Different</p>
             <h2 id="showcase-heading" className="font-heading text-2xl md:text-4xl text-foreground mb-4">
-              CRAFTED FOR<br />
-              <span className="text-primary">PERFECTION</span>
+              BUILT TO<br />
+              <span className="text-primary">LAST</span>
             </h2>
             <p className="font-body text-sm text-muted-foreground mb-5 max-w-md">
-              Every TRETRA piece is designed with obsessive attention to detail. From fabric selection to final stitch — no compromise.
+              We're picky about quality so you don't have to be. Every piece is made to feel as good on day 100 as it does on day 1.
             </p>
             <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3" aria-label="Product features">
               {features.map((f, i) => (

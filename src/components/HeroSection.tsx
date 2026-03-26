@@ -66,7 +66,7 @@ export const HeroSection = () => {
             transition={{ duration: 0.5, delay: 0.3 }}
             className="font-body text-base md:text-lg text-primary-foreground/70 max-w-md mb-8"
           >
-            Wide-leg sweatpants, oversized tees & essentials — built for summer streets.
+            Comfort that keeps up with your life. Oversized fits, heavyweight cotton, zero compromise.
           </motion.p>
 
           <motion.div
@@ -79,7 +79,7 @@ export const HeroSection = () => {
               to="/shop"
               className="group inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground font-heading text-lg tracking-wider uppercase px-8 py-4 rounded-lg hover:bg-primary/90 transition-all duration-300 shadow-lg shadow-primary/25"
             >
-              Shop Summer
+              See What's New
               <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
             </Link>
             <Link
