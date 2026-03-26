@@ -11,7 +11,7 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { getProductCopy } from "@/lib/productCopy";
-import { ProductBenefits, ProductSpecsTable, ProductFAQs } from "@/components/ProductCopySections";
+import { ProductDetailTabs } from "@/components/ProductCopySections";
 import { ProductImageGallery } from "@/components/ProductImageGallery";
 import { StockUrgencyBadge } from "@/components/StockUrgencyBadge";
 import { ProductReviews, getAverageRating, getTotalReviews } from "@/components/ProductReviews";
@@ -306,20 +306,8 @@ const ProductDetail = () => {
               ))}
             </div>
 
-            {/* 9. BENEFITS */}
-            <ProductBenefits copy={copy} />
-
-            {/* 10. ABOUT — restructured description */}
-            <div className="bg-card rounded-xl p-5 border border-border space-y-4">
-              <h3 className="font-heading text-xs tracking-wider text-foreground">About This Piece</h3>
-              <p className="font-body text-sm text-muted-foreground leading-relaxed">{copy.collectionIntro}</p>
-            </div>
-
-            {/* 11. SPECS TABLE */}
-            <ProductSpecsTable copy={copy} />
-
-            {/* 12. FAQs */}
-            <ProductFAQs copy={copy} />
+            {/* 9. ALL DETAILS — compact tabs */}
+            <ProductDetailTabs copy={copy} />
 
             {/* Security signal */}
             <div className="flex items-center justify-center gap-2 p-3 bg-card rounded-lg border border-border">
