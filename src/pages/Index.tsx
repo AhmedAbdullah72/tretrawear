@@ -73,8 +73,6 @@ const Index = () => {
           <BenefitsBar />
           <Suspense fallback={<SectionFallback />}>
             <PromoBanner />
-            <SocialProof />
-            <TrustSection />
             <ProductShowcase />
             <CustomerReviews />
             
