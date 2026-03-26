@@ -222,16 +222,18 @@ const ProductDetail = () => {
               <div key={option.name}>
                 <div className="flex items-center justify-between mb-2">
                   <label className="font-heading text-xs tracking-wider text-foreground">{option.name}</label>
-                  <button
-                    onClick={() => {
-                      const dialog = document.getElementById("size-guide-trigger");
-                      if (dialog) dialog.click();
-                    }}
-                    className="inline-flex items-center gap-1.5 font-heading text-xs text-primary hover:text-primary/80 transition-colors bg-primary/10 px-3 py-1.5 rounded-lg"
-                  >
-                    <Ruler className="h-3.5 w-3.5" />
-                    Find Your Size
-                  </button>
+                  {option.name.toLowerCase() === "size" && (
+                    <button
+                      onClick={() => {
+                        const dialog = document.getElementById("size-guide-trigger");
+                        if (dialog) dialog.click();
+                      }}
+                      className="inline-flex items-center gap-1.5 font-heading text-xs text-primary hover:text-primary/80 transition-colors bg-primary/10 px-3 py-1.5 rounded-lg"
+                    >
+                      <Ruler className="h-3.5 w-3.5" />
+                      Find Your Size
+                    </button>
+                  )}
                 </div>
                 <div className="flex flex-wrap gap-2">
                   {option.values.map((value) => {
@@ -256,13 +258,17 @@ const ProductDetail = () => {
                     );
                   })}
                 </div>
-                <div className="hidden"><SizeGuide /></div>
-                <SizeRecommender onSizeSelect={(size) => {
-                  const idx = product.variants.edges.findIndex(v =>
-                    v.node.selectedOptions.some(o => o.value === size)
-                  );
-                  if (idx >= 0) setSelectedVariantIdx(idx);
-                }} />
+                {option.name.toLowerCase() === "size" && (
+                  <>
+                    <div className="hidden"><SizeGuide /></div>
+                    <SizeRecommender onSizeSelect={(size) => {
+                      const idx = product.variants.edges.findIndex(v =>
+                        v.node.selectedOptions.some(o => o.value === size)
+                      );
+                      if (idx >= 0) setSelectedVariantIdx(idx);
+                    }} />
+                  </>
+                )}
               </div>
             ))}
 
