@@ -1,5 +1,4 @@
 import { useEffect, useState, useMemo } from "react";
-import { useBannerVisible } from "@/hooks/useBannerState";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { ProductCard } from "@/components/ProductCard";
@@ -47,7 +46,7 @@ const Shop = () => {
   const [category, setCategory] = useState<Category>("all");
   const [sort, setSort] = useState<SortOption>("default");
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
-  const bannerVisible = useBannerVisible();
+  
 
   useEffect(() => {
     const fetchProducts = async () => {
