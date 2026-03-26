@@ -14,9 +14,10 @@ interface ProductImageGalleryProps {
   images: ProductImage[];
   imageAlts?: string[];
   productTitle: string;
+  scrollToIndex?: number;
 }
 
-export const ProductImageGallery = ({ images, imageAlts = [], productTitle }: ProductImageGalleryProps) => {
+export const ProductImageGallery = ({ images, imageAlts = [], productTitle, scrollToIndex }: ProductImageGalleryProps) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false, skipSnaps: false });
 
@@ -31,6 +32,13 @@ export const ProductImageGallery = ({ images, imageAlts = [], productTitle }: Pr
     onSelect();
     return () => { emblaApi.off("select", onSelect); };
   }, [emblaApi, onSelect]);
+
+  // Scroll to specific index when scrollToIndex changes (e.g. color variant selected)
+  useEffect(() => {
+    if (scrollToIndex !== undefined && scrollToIndex >= 0 && emblaApi) {
+      emblaApi.scrollTo(scrollToIndex);
+    }
+  }, [scrollToIndex, emblaApi]);
 
   const scrollTo = useCallback((index: number) => {
     emblaApi?.scrollTo(index);

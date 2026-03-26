@@ -136,6 +136,24 @@ const ProductDetail = () => {
   const avgRating = getAverageRating(handle || "");
   const totalReviews = getTotalReviews(handle || "");
 
+  // Find gallery image matching selected color by filename or variant image
+  const selectedColor = selectedVariant?.selectedOptions?.find(o => o.name.toLowerCase() === "color")?.value;
+  const variantImageIndex = (() => {
+    // Primary: match color name in image filename/URL
+    if (selectedColor) {
+      const colorLower = selectedColor.toLowerCase();
+      const idx = images.findIndex(img => img.node.url.toLowerCase().includes(colorLower));
+      if (idx >= 0) return idx;
+    }
+    // Fallback: variant's assigned image
+    const variantImageUrl = selectedVariant?.image?.url;
+    if (variantImageUrl) {
+      const idx = images.findIndex(img => img.node.url === variantImageUrl);
+      if (idx >= 0) return idx;
+    }
+    return -1;
+  })();
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
@@ -161,6 +179,7 @@ const ProductDetail = () => {
               images={images}
               imageAlts={copy.imageAlts}
               productTitle={product.title}
+              scrollToIndex={variantImageIndex >= 0 ? variantImageIndex : undefined}
             />
           </motion.div>
 
