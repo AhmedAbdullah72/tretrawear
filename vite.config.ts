@@ -24,17 +24,6 @@ export default defineConfig(({ mode }) => ({
         manualChunks: {
           // Isolate animation library
           'framer': ['framer-motion'],
-          // Isolate UI primitives (shared across pages)
-          'radix': [
-            '@radix-ui/react-dialog',
-            '@radix-ui/react-accordion',
-            '@radix-ui/react-tabs',
-            '@radix-ui/react-tooltip',
-            '@radix-ui/react-popover',
-            '@radix-ui/react-select',
-            '@radix-ui/react-scroll-area',
-            '@radix-ui/react-toast',
-          ],
           // Vendor chunk for React ecosystem
           'vendor': ['react', 'react-dom', 'react-router-dom', 'zustand', '@tanstack/react-query'],
         },

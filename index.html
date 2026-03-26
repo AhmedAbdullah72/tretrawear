@@ -26,13 +26,16 @@
 
     <!-- Inline critical CSS for faster FCP -->
     <style>
-      :root{--background:0 0% 98%;--foreground:0 0% 8%;--primary:355 100% 33%;--primary-foreground:0 0% 100%}
+      :root{--background:0 0% 98%;--foreground:0 0% 8%;--primary:355 100% 33%;--primary-foreground:0 0% 100%;--banner-offset:0px}
       *{margin:0;padding:0;box-sizing:border-box}
       body{background-color:hsl(0 0% 98%);color:hsl(0 0% 8%);font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
       #root{min-height:100vh}
       .min-h-screen{min-height:100vh}
       .bg-background{background-color:hsl(0 0% 98%)}
       .bg-foreground{background-color:hsl(0 0% 8%)}
+      .container{width:100%;margin-left:auto;margin-right:auto;padding-left:1.5rem;padding-right:1.5rem}
+      nav{position:fixed;top:var(--banner-offset);left:0;right:0;z-index:50}
+      section.relative{position:relative}
     </style>
 
     <!-- Preconnect to critical origins -->
