@@ -158,7 +158,7 @@ const ProductDetail = () => {
     <div className="min-h-screen bg-background">
       <Navbar />
 
-      <div className="pt-16 md:pt-18 bg-primary text-primary-foreground">
+      <div className="bg-primary text-primary-foreground" style={{ paddingTop: 'calc(64px + var(--banner-offset))' }}>
         <div className="py-2">
           <Marquee items={["FREE SHIPPING OVER 1,500 EGP", "14-DAY RETURNS", "PREMIUM QUALITY"]} speed="slow" />
         </div>
