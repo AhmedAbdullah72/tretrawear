@@ -221,6 +221,7 @@ const ProductDetail = () => {
                   Not sure? Check our size guide
                 </button>
                 <div className="hidden"><SizeGuide /></div>
+              </div>
             ))}
 
             <div>
