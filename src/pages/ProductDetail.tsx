@@ -138,7 +138,7 @@ const ProductDetail = () => {
     { node: { url: fabricTextureImg, altText: "380gsm heavyweight cotton fabric texture close-up" } },
     { node: { url: stitchingDetailImg, altText: "Reinforced stitching detail showing premium craftsmanship" } },
   ];
-  const images = useMemo(() => [...shopifyImages, ...detailImages], [shopifyImages]);
+  const images = [...shopifyImages, ...detailImages];
   const copy = getProductCopy(product.title, product.handle);
   const avgRating = getAverageRating(handle || "");
   const totalReviews = getTotalReviews(handle || "");
