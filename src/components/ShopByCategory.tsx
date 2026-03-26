@@ -37,9 +37,9 @@ export const ShopByCategory = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-6 md:mb-10"
         >
-          <p className="font-body text-xs tracking-[0.3em] uppercase text-primary mb-2">Collections</p>
+          <p className="font-body text-xs tracking-[0.3em] uppercase text-primary mb-2">Find Your Fit</p>
           <h2 id="category-heading" className="font-heading text-2xl md:text-4xl text-foreground">
-            SHOP BY <span className="text-primary">CATEGORY</span>
+            EXPLORE BY <span className="text-primary">STYLE</span>
           </h2>
         </motion.div>
 

@@ -45,7 +45,7 @@ export const HeroSection = () => {
             className="inline-block bg-primary/20 backdrop-blur-sm border border-primary/30 px-4 py-1.5 rounded-full mb-6"
           >
             <span className="font-body text-xs tracking-[0.3em] uppercase text-primary-foreground font-semibold">
-              Summer Collection 2026
+              New Summer Drops — Just Landed
             </span>
           </motion.div>
 
@@ -55,9 +55,9 @@ export const HeroSection = () => {
             transition={{ duration: 0.7, delay: 0.1 }}
             className="font-heading text-6xl md:text-8xl lg:text-9xl text-primary-foreground leading-[0.85] mb-6"
           >
-            OWN<br />
-            THE<br />
-            <span className="text-primary">HEAT</span>
+            DRESS<br />
+            HOW YOU<br />
+            <span className="text-primary">FEEL</span>
           </motion.h1>
 
           <motion.p
@@ -66,7 +66,7 @@ export const HeroSection = () => {
             transition={{ duration: 0.5, delay: 0.3 }}
             className="font-body text-base md:text-lg text-primary-foreground/70 max-w-md mb-8"
           >
-            Wide-leg sweatpants, oversized tees & essentials — built for summer streets.
+            Comfort that keeps up with your life. Oversized fits, heavyweight cotton, zero compromise.
           </motion.p>
 
           <motion.div
@@ -79,7 +79,7 @@ export const HeroSection = () => {
               to="/shop"
               className="group inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground font-heading text-lg tracking-wider uppercase px-8 py-4 rounded-lg hover:bg-primary/90 transition-all duration-300 shadow-lg shadow-primary/25"
             >
-              Shop Summer
+              See What's New
               <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
             </Link>
             <Link

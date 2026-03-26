@@ -67,7 +67,7 @@ export const PromoBanner = () => {
               >
                 <Sparkles className="h-5 w-5 text-primary-foreground" />
                 <span className="font-body text-xs tracking-[0.3em] uppercase text-primary-foreground/80">
-                  Limited Time Offer
+                  Don't Sleep On This
                 </span>
               </motion.div>
               <motion.h2
@@ -77,7 +77,7 @@ export const PromoBanner = () => {
                 transition={{ duration: 0.5, delay: 0.1 }}
                 className="font-heading text-3xl md:text-4xl lg:text-5xl text-primary-foreground leading-[0.9] mb-3"
               >
-                20% OFF<br />NEW COLLECTION
+                20% OFF<br />FRESH DROPS
               </motion.h2>
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
@@ -86,7 +86,7 @@ export const PromoBanner = () => {
                 transition={{ duration: 0.5, delay: 0.2 }}
                 className="font-body text-sm text-primary-foreground/70 max-w-sm"
               >
-                Grab 20% off the latest drops — wide-leg sweatpants, oversized tees & everyday basics.
+                Your new go-to pieces are here — grab them before everyone else does.
               </motion.p>
             </div>
 

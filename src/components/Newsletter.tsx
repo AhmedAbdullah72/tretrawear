@@ -30,10 +30,10 @@ export const Newsletter = () => {
           </span>
         </div>
         <h2 id="newsletter-heading" className="font-heading text-2xl md:text-3xl text-background mb-2">
-          Join the Movement
+          Be the First to Know
         </h2>
         <p className="font-body text-sm text-background/60 mb-6">
-          Subscribe for early access to new drops, exclusive offers, and 10% off your first order.
+          New drops, exclusive deals, and 10% off your first order — straight to your inbox.
         </p>
         <form onSubmit={handleSubmit} className="flex gap-0" aria-label="Newsletter subscription">
           <label htmlFor="newsletter-email" className="sr-only">Email address</label>
