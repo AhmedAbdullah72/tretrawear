@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
@@ -7,6 +7,7 @@ import { storefrontApiRequest, PRODUCT_BY_HANDLE_QUERY } from "@/lib/shopify";
 import { useCartStore, type ShopifyProduct } from "@/stores/cartStore";
 import { Loader2, ChevronLeft, Truck, RefreshCw, ShieldCheck, Minus, Plus, Ruler, Star, CreditCard } from "lucide-react";
 import { SizeGuide } from "@/components/SizeGuide";
+import { SizeRecommender } from "@/components/SizeRecommender";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
@@ -17,7 +18,8 @@ import { StockUrgencyBadge } from "@/components/StockUrgencyBadge";
 import { ProductReviews, getAverageRating, getTotalReviews } from "@/components/ProductReviews";
 import { RelatedProducts } from "@/components/RelatedProducts";
 import { CompleteTheLook } from "@/components/CompleteTheLook";
-
+import fabricTextureImg from "@/assets/fabric-texture-closeup.jpg";
+import stitchingDetailImg from "@/assets/stitching-detail-closeup.jpg";
 const ProductDetail = () => {
   const { handle } = useParams<{ handle: string }>();
   const [product, setProduct] = useState<ShopifyProduct["node"] | null>(null);
@@ -131,7 +133,12 @@ const ProductDetail = () => {
   }
 
   const selectedVariant = product.variants.edges[selectedVariantIdx]?.node;
-  const images = product.images.edges;
+  const shopifyImages = product.images.edges;
+  const detailImages = [
+    { node: { url: fabricTextureImg, altText: "380gsm heavyweight cotton fabric texture close-up" } },
+    { node: { url: stitchingDetailImg, altText: "Reinforced stitching detail showing premium craftsmanship" } },
+  ];
+  const images = useMemo(() => [...shopifyImages, ...detailImages], [shopifyImages]);
   const copy = getProductCopy(product.title, product.handle);
   const avgRating = getAverageRating(handle || "");
   const totalReviews = getTotalReviews(handle || "");
