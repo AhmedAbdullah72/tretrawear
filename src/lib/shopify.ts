@@ -39,6 +39,10 @@ export interface ShopifyProduct {
             name: string;
             value: string;
           }>;
+          image?: {
+            url: string;
+            altText: string | null;
+          } | null;
         };
       }>;
     };
