@@ -52,6 +52,10 @@ const AppContent = () => {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
+      <WelcomePopup />
+      <Suspense fallback={null}>
+        <ExitIntentPopup />
+      </Suspense>
       <WhatsAppButton />
     </BrowserRouter>
   );
