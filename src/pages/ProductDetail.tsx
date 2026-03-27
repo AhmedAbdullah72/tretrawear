@@ -94,6 +94,27 @@ const ProductDetail = () => {
     return () => observer.disconnect();
   }, [product]);
 
+  // Initialize selectedOptions from first variant
+  useEffect(() => {
+    if (product && Object.keys(selectedOptions).length === 0) {
+      const firstVariant = product.variants.edges[0]?.node;
+      if (firstVariant) {
+        const opts: Record<string, string> = {};
+        firstVariant.selectedOptions.forEach(o => { opts[o.name] = o.value; });
+        setSelectedOptions(opts);
+      }
+    }
+  }, [product]);
+
+  // Find the variant matching all selected options
+  const selectedVariant = product
+    ? (product.variants.edges.find(v =>
+        Object.entries(selectedOptions).every(([name, value]) =>
+          v.node.selectedOptions.some(o => o.name === name && o.value === value)
+        )
+      )?.node || product.variants.edges[0]?.node)
+    : undefined;
+
   const handleAddToCart = async () => {
     if (!product || !selectedVariant) return;
     const variant = selectedVariant;
@@ -130,24 +151,6 @@ const ProductDetail = () => {
     );
   }
 
-  // Initialize selectedOptions from first variant
-  useEffect(() => {
-    if (product && Object.keys(selectedOptions).length === 0) {
-      const firstVariant = product.variants.edges[0]?.node;
-      if (firstVariant) {
-        const opts: Record<string, string> = {};
-        firstVariant.selectedOptions.forEach(o => { opts[o.name] = o.value; });
-        setSelectedOptions(opts);
-      }
-    }
-  }, [product]);
-
-  // Find the variant matching all selected options
-  const selectedVariant = product.variants.edges.find(v =>
-    Object.entries(selectedOptions).every(([name, value]) =>
-      v.node.selectedOptions.some(o => o.name === name && o.value === value)
-    )
-  )?.node || product.variants.edges[0]?.node;
   const images = product.images.edges;
   const copy = getProductCopy(product.title, product.handle);
   const avgRating = getAverageRating(handle || "");
