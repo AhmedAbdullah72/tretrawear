@@ -23,7 +23,7 @@ const ProductDetail = () => {
   const [product, setProduct] = useState<ShopifyProduct["node"] | null>(null);
   const [loading, setLoading] = useState(true);
   
-  const [selectedVariantIdx, setSelectedVariantIdx] = useState(0);
+  const [selectedOptions, setSelectedOptions] = useState<Record<string, string>>({});
   const [quantity, setQuantity] = useState(1);
   const [showStickyBar, setShowStickyBar] = useState(false);
   const addItem = useCartStore(state => state.addItem);
