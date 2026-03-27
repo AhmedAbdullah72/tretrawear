@@ -95,8 +95,8 @@ const ProductDetail = () => {
   }, [product]);
 
   const handleAddToCart = async () => {
-    if (!product) return;
-    const variant = product.variants.edges[selectedVariantIdx]?.node;
+    if (!product || !selectedVariant) return;
+    const variant = selectedVariant;
     if (!variant) return;
     await addItem({
       product: { node: product },
@@ -130,7 +130,24 @@ const ProductDetail = () => {
     );
   }
 
-  const selectedVariant = product.variants.edges[selectedVariantIdx]?.node;
+  // Initialize selectedOptions from first variant
+  useEffect(() => {
+    if (product && Object.keys(selectedOptions).length === 0) {
+      const firstVariant = product.variants.edges[0]?.node;
+      if (firstVariant) {
+        const opts: Record<string, string> = {};
+        firstVariant.selectedOptions.forEach(o => { opts[o.name] = o.value; });
+        setSelectedOptions(opts);
+      }
+    }
+  }, [product]);
+
+  // Find the variant matching all selected options
+  const selectedVariant = product.variants.edges.find(v =>
+    Object.entries(selectedOptions).every(([name, value]) =>
+      v.node.selectedOptions.some(o => o.name === name && o.value === value)
+    )
+  )?.node || product.variants.edges[0]?.node;
   const images = product.images.edges;
   const copy = getProductCopy(product.title, product.handle);
   const avgRating = getAverageRating(handle || "");
@@ -254,20 +271,25 @@ const ProductDetail = () => {
                 </div>
                 <div className="flex flex-wrap gap-2">
                   {option.values.map((value) => {
-                    const variantIdx = product.variants.edges.findIndex(v =>
+                    const isSelected = selectedOptions[option.name] === value;
+                    // Check if this option value has any available variant given other selections
+                    const hasVariant = product.variants.edges.some(v =>
                       v.node.selectedOptions.some(o => o.name === option.name && o.value === value)
-                    );
-                    const isSelected = product.variants.edges[selectedVariantIdx]?.node.selectedOptions.some(
-                      o => o.name === option.name && o.value === value
                     );
                     return (
                       <button
                         key={value}
-                        onClick={() => variantIdx >= 0 && setSelectedVariantIdx(variantIdx)}
+                        onClick={() => {
+                          if (!hasVariant) return;
+                          setSelectedOptions(prev => ({ ...prev, [option.name]: value }));
+                        }}
+                        disabled={!hasVariant}
                         className={`px-4 py-2 text-sm font-body rounded-lg border-2 transition-all duration-200 ${
                           isSelected
                             ? "border-primary bg-primary text-primary-foreground"
-                            : "border-border text-foreground hover:border-primary/40 bg-card"
+                            : hasVariant
+                              ? "border-border text-foreground hover:border-primary/40 bg-card"
+                              : "border-border text-muted-foreground/40 bg-muted cursor-not-allowed line-through"
                         }`}
                       >
                         {value}
@@ -279,10 +301,7 @@ const ProductDetail = () => {
                   <>
                     <div className="hidden"><SizeGuide /></div>
                     <SizeRecommender onSizeSelect={(size) => {
-                      const idx = product.variants.edges.findIndex(v =>
-                        v.node.selectedOptions.some(o => o.value === size)
-                      );
-                      if (idx >= 0) setSelectedVariantIdx(idx);
+                      setSelectedOptions(prev => ({ ...prev, Size: size }));
                     }} />
                   </>
                 )}
