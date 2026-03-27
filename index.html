@@ -47,9 +47,12 @@
     <link rel="dns-prefetch" href="https://tretra-wear-urban-conversion-jxjl8.myshopify.com" />
 
     <!-- Preload critical fonts for faster FCP -->
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;500;600;700&display=swap" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;500;600;700&display=swap" media="print" onload="this.media='all'" />
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;500;600;700&display=swap" /></noscript>
+    <!-- Load only critical font weights initially, rest deferred -->
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600&display=swap" media="print" onload="this.media='all'" />
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600&display=swap" /></noscript>
+    <!-- Defer non-critical font weights -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap" media="print" onload="this.media='all'" />
 
     <script type="application/ld+json">
     {
@@ -68,7 +71,17 @@
     </script>
 </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <!-- Static shell for instant FCP - removed by React on hydration -->
+      <div id="app-shell">
+        <nav class="shell-nav" aria-hidden="true">
+          <span style="font-family:Anton,system-ui,sans-serif;font-size:1.25rem;letter-spacing:0.05em;color:hsl(0 0% 8%)">TRETRA</span>
+        </nav>
+        <div class="shell-hero" aria-hidden="true">
+          <span class="shell-hero-text">TRETRA WEAR</span>
+        </div>
+      </div>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
