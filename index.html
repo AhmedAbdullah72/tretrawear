@@ -46,7 +46,10 @@
     <link rel="preconnect" href="https://tretra-wear-urban-conversion-jxjl8.myshopify.com" crossorigin />
     <link rel="dns-prefetch" href="https://tretra-wear-urban-conversion-jxjl8.myshopify.com" />
 
-    <!-- Preload critical fonts for faster FCP -->
+    <!-- Preload LCP hero images -->
+    <link rel="preload" as="image" type="image/webp" href="/hero-summer-mobile.webp" media="(max-width: 768px)" fetchpriority="high" />
+    <link rel="preload" as="image" type="image/webp" href="/hero-summer.webp" media="(min-width: 769px)" fetchpriority="high" />
+
     <!-- Load only critical font weights initially, rest deferred -->
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600&display=swap" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600&display=swap" media="print" onload="this.media='all'" />

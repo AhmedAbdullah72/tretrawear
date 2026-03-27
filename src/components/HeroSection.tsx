@@ -2,8 +2,10 @@ import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 import { useRef } from "react";
-import heroImage from "@/assets/hero-summer.webp";
-import heroImageMobile from "@/assets/hero-summer-mobile.webp";
+
+// Use public paths so images can be preloaded from HTML <head>
+const heroImage = "/hero-summer.webp";
+const heroImageMobile = "/hero-summer-mobile.webp";
 
 export const HeroSection = () => {
   const ref = useRef<HTMLElement>(null);
