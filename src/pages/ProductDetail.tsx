@@ -42,7 +42,7 @@ const ProductDetail = () => {
     };
     if (handle) fetchProduct();
     
-    setSelectedVariantIdx(0);
+    setSelectedOptions({});
     setQuantity(1);
   }, [handle]);
 
