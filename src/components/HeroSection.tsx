@@ -52,7 +52,7 @@ export const HeroSection = () => {
             initial={hidden}
             animate={fadeIn}
             transition={{ duration: 0.4 }}
-            className="inline-block bg-primary/20 backdrop-blur-sm border border-primary/30 px-4 py-1.5 rounded-full mb-6"
+            className="hidden md:inline-block bg-primary/20 backdrop-blur-sm border border-primary/30 px-4 py-1.5 rounded-full mb-6"
           >
             <span className="font-body text-xs tracking-[0.3em] uppercase text-primary-foreground font-semibold">
               New Summer Drops — Just Landed
@@ -63,7 +63,7 @@ export const HeroSection = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={fadeIn}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="font-heading text-6xl md:text-8xl lg:text-9xl text-primary-foreground leading-[0.85] mb-6"
+            className="font-heading text-5xl md:text-8xl lg:text-9xl text-primary-foreground leading-[0.85] mb-4 md:mb-6"
           >
             DRESS<br />
             HOW YOU<br />
@@ -74,7 +74,7 @@ export const HeroSection = () => {
             initial={hidden}
             animate={fadeIn}
             transition={{ duration: 0.4, delay: 0.2 }}
-            className="font-body text-base md:text-lg text-primary-foreground/70 max-w-md mb-8"
+            className="font-body text-sm md:text-lg text-primary-foreground/70 max-w-md mb-6 md:mb-8"
           >
             Comfort that keeps up with your life. Oversized fits, heavyweight cotton, zero compromise.
           </motion.p>
@@ -83,18 +83,18 @@ export const HeroSection = () => {
             initial={hidden}
             animate={fadeIn}
             transition={{ duration: 0.4, delay: 0.3 }}
-            className="flex flex-col sm:flex-row gap-4"
+            className="flex flex-col sm:flex-row gap-3 md:gap-4"
           >
             <Link
               to="/shop"
-              className="group inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground font-heading text-lg tracking-wider uppercase px-8 py-4 rounded-lg hover:bg-primary/90 transition-all duration-300 shadow-lg shadow-primary/25"
+              className="group inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground font-heading text-base md:text-lg tracking-wider uppercase px-6 md:px-8 py-3.5 md:py-4 rounded-lg hover:bg-primary/90 transition-all duration-300 shadow-lg shadow-primary/25"
             >
               See What's New
               <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
             </Link>
             <Link
               to="/about"
-              className="inline-flex items-center justify-center gap-2 border border-primary-foreground/30 text-primary-foreground font-heading text-lg tracking-wider uppercase px-8 py-4 rounded-lg hover:border-primary-foreground hover:bg-primary-foreground/10 transition-all duration-300 backdrop-blur-sm"
+              className="inline-flex items-center justify-center gap-2 border border-primary-foreground/30 text-primary-foreground font-heading text-base md:text-lg tracking-wider uppercase px-6 md:px-8 py-3.5 md:py-4 rounded-lg hover:border-primary-foreground hover:bg-primary-foreground/10 transition-all duration-300 backdrop-blur-sm"
             >
               Our Story
             </Link>
@@ -107,7 +107,7 @@ export const HeroSection = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1, duration: 0.6 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-2"
       >
         <span className="font-body text-xs tracking-[0.2em] uppercase text-primary-foreground/50">Scroll</span>
         <motion.div
