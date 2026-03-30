@@ -1,6 +1,6 @@
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
-import { Truck, Globe, Clock, Package } from "lucide-react";
+import { Truck, Clock, Package } from "lucide-react";
 
 const Shipping = () => (
   <div className="min-h-screen bg-background">
@@ -17,7 +17,6 @@ const Shipping = () => (
           {[
             { icon: Truck, title: "Free Domestic Shipping", desc: "Orders over 1,500 EGP ship free within Egypt." },
             { icon: Clock, title: "2–4 Business Days", desc: "Domestic delivery within Egypt." },
-            { icon: Globe, title: "International Shipping", desc: "7–14 business days worldwide." },
             { icon: Package, title: "Order Tracking", desc: "Tracking number sent via email once shipped." },
           ].map((item) => (
             <div key={item.title} className="p-5 bg-card rounded-xl border border-border">
@@ -34,7 +33,7 @@ const Shipping = () => (
           <div className="font-body text-sm text-muted-foreground space-y-3 leading-relaxed">
             <p>All orders are processed within 1–2 business days. Orders placed on weekends or holidays are processed the next business day.</p>
             <p>Once your order ships, you'll receive an email with a tracking number. Please allow up to 24 hours for tracking information to update.</p>
-            <p>TRETRA is not responsible for delays caused by customs or local postal services for international shipments. Import duties and taxes are the buyer's responsibility.</p>
+            <p>TRETRA is not responsible for delays caused by local postal services.</p>
           </div>
         </div>
       </div>

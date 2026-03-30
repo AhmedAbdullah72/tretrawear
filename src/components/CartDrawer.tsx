@@ -250,7 +250,7 @@ export const CartDrawer = () => {
                   </div>
                   <div className="flex items-center gap-1 text-muted-foreground/60">
                     <Truck className="h-3 w-3" />
-                    <span className="font-body text-[10px]">2-5 Day Delivery</span>
+                    <span className="font-body text-[10px]"><span className="font-body text-[10px]">2–4 Day Delivery</span></span>
                   </div>
                   <div className="flex items-center gap-1 text-muted-foreground/60">
                     <RotateCcw className="h-3 w-3" />
