@@ -19,6 +19,7 @@ import { ProductReviews, getAverageRating, getTotalReviews } from "@/components/
 import { RelatedProducts } from "@/components/RelatedProducts";
 import { CompleteTheLook } from "@/components/CompleteTheLook";
 import { DeliveryEstimate } from "@/components/DeliveryEstimate";
+import { ProductBundles } from "@/components/ProductBundles";
 const ProductDetail = () => {
   const { handle } = useParams<{ handle: string }>();
   const [product, setProduct] = useState<ShopifyProduct["node"] | null>(null);
@@ -363,6 +364,13 @@ const ProductDetail = () => {
       <section id="reviews-section" className="max-w-7xl mx-auto px-4 py-12 md:py-16 border-t border-border">
         <ProductReviews handle={handle || ""} />
       </section>
+
+      <ProductBundles
+        currentHandle={handle || ""}
+        currentTitle={product.title}
+        currentPrice={parseFloat(selectedVariant?.price.amount || "0")}
+        currencyCode={selectedVariant?.price.currencyCode || "EGP"}
+      />
 
       <CompleteTheLook currentHandle={handle || ""} currentTitle={product.title} />
       <RelatedProducts currentHandle={handle || ""} />
