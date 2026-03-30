@@ -19,6 +19,7 @@ import { ProductReviews, getAverageRating, getTotalReviews } from "@/components/
 import { RelatedProducts } from "@/components/RelatedProducts";
 import { CompleteTheLook } from "@/components/CompleteTheLook";
 import { DeliveryEstimate } from "@/components/DeliveryEstimate";
+import { ProductBundles } from "@/components/ProductBundles";
 const ProductDetail = () => {
   const { handle } = useParams<{ handle: string }>();
   const [product, setProduct] = useState<ShopifyProduct["node"] | null>(null);
