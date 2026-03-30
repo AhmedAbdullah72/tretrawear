@@ -9,7 +9,7 @@ interface MarqueeProps {
 export const Marquee = ({
   items = [
     "Pay on Delivery",
-    "2–5 Day Delivery",
+    "2–4 Day Delivery",
     "14-Day Exchange",
   ],
   speed = "normal",
