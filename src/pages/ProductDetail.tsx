@@ -304,9 +304,11 @@ const ProductDetail = () => {
                 {option.name.toLowerCase() === "size" && (
                   <>
                     <div className="hidden"><SizeGuide /></div>
-                    <SizeRecommender onSizeSelect={(size) => {
-                      setSelectedOptions(prev => ({ ...prev, Size: size }));
-                    }} />
+                    <div className="mt-3">
+                      <SizeRecommender onSizeSelect={(size) => {
+                        setSelectedOptions(prev => ({ ...prev, Size: size }));
+                      }} />
+                    </div>
                   </>
                 )}
               </div>
