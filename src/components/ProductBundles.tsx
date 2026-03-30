@@ -3,9 +3,31 @@ import { storefrontApiRequest, PRODUCTS_QUERY, type ShopifyProduct } from "@/lib
 import { useCartStore } from "@/stores/cartStore";
 import { toast } from "sonner";
 import { motion } from "framer-motion";
-import { Package, Copy, Check, ShoppingBag, Tag } from "lucide-react";
+import { Package, Copy, Check, ShoppingBag, Tag, Clock } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+
+// Countdown hook — resets every 6 hours from midnight
+function useBundleCountdown() {
+  const getTimeLeft = () => {
+    const now = new Date();
+    const hours = now.getHours();
+    const nextReset = new Date(now);
+    const cycleHour = Math.ceil((hours + 1) / 6) * 6;
+    nextReset.setHours(cycleHour, 0, 0, 0);
+    const diff = Math.max(0, nextReset.getTime() - now.getTime());
+    const h = Math.floor(diff / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const s = Math.floor((diff % 60000) / 1000);
+    return { h, m, s };
+  };
+  const [time, setTime] = useState(getTimeLeft);
+  useEffect(() => {
+    const id = setInterval(() => setTime(getTimeLeft()), 1000);
+    return () => clearInterval(id);
+  }, []);
+  return time;
+}
 
 // Bundle tier definitions with real Shopify discount codes
 const quantityTiers = [
