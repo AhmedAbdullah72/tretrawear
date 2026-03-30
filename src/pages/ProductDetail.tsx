@@ -343,25 +343,8 @@ const ProductDetail = () => {
               )}
             </Button>
 
-            {/* 7.5 DELIVERY ESTIMATE */}
+            {/* 7.5 DELIVERY ESTIMATE + TRUST SIGNALS (combined) */}
             <DeliveryEstimate />
-
-            {/* 8. INLINE TRUST SIGNALS — right below CTA */}
-            <div className="grid grid-cols-3 gap-2">
-              {[
-                { icon: Truck, label: "Free Shipping", sub: "Over 1,500 EGP" },
-                { icon: RefreshCw, label: "Easy Returns", sub: "14-day policy" },
-                { icon: CreditCard, label: "Cash on Delivery", sub: "Pay at your door" },
-              ].map((item) => (
-                <div key={item.label} className="flex flex-col items-center text-center p-3 bg-card rounded-xl border border-border">
-                  <div className="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center mb-1.5">
-                    <item.icon className="h-4 w-4 text-primary" />
-                  </div>
-                  <p className="font-heading text-[11px] tracking-wider text-foreground">{item.label}</p>
-                  <p className="font-body text-[10px] text-muted-foreground">{item.sub}</p>
-                </div>
-              ))}
-            </div>
 
             {/* 9. ALL DETAILS — compact tabs */}
             <ProductDetailTabs copy={copy} />

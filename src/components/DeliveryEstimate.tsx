@@ -1,4 +1,4 @@
-import { Clock, ShoppingBag, Truck, MapPin } from "lucide-react";
+import { Clock, ShoppingBag, Truck, MapPin, RefreshCw, CreditCard } from "lucide-react";
 import { useEffect, useState } from "react";
 
 function getDeliveryDates() {
@@ -58,8 +58,8 @@ export const DeliveryEstimate = () => {
         </p>
       </div>
 
-      {/* Timeline */}
-      <div className="bg-secondary/60 rounded-xl p-4">
+      {/* Timeline + Trust Signals combined */}
+      <div className="bg-secondary/60 rounded-xl p-4 space-y-4">
         <div className="flex items-center justify-between relative">
           {/* Connector line */}
           <div className="absolute top-5 left-[15%] right-[15%] h-[2px] bg-border" />
@@ -79,6 +79,25 @@ export const DeliveryEstimate = () => {
               </p>
             </div>
           ))}
+        </div>
+
+        {/* Trust Signals */}
+        <div className="border-t border-border/60 pt-3">
+          <div className="grid grid-cols-3 gap-2">
+            {[
+              { icon: Truck, label: "Free Shipping", sub: "Over 1,500 EGP" },
+              { icon: RefreshCw, label: "Easy Returns", sub: "14-day policy" },
+              { icon: CreditCard, label: "Cash on Delivery", sub: "Pay at your door" },
+            ].map((item) => (
+              <div key={item.label} className="flex flex-col items-center text-center">
+                <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center mb-1">
+                  <item.icon className="h-3.5 w-3.5 text-primary" />
+                </div>
+                <p className="font-heading text-[10px] tracking-wider text-foreground">{item.label}</p>
+                <p className="font-body text-[9px] text-muted-foreground">{item.sub}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
