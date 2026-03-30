@@ -18,6 +18,7 @@ import { StockUrgencyBadge } from "@/components/StockUrgencyBadge";
 import { ProductReviews, getAverageRating, getTotalReviews } from "@/components/ProductReviews";
 import { RelatedProducts } from "@/components/RelatedProducts";
 import { CompleteTheLook } from "@/components/CompleteTheLook";
+import { DeliveryEstimate } from "@/components/DeliveryEstimate";
 const ProductDetail = () => {
   const { handle } = useParams<{ handle: string }>();
   const [product, setProduct] = useState<ShopifyProduct["node"] | null>(null);
@@ -341,6 +342,9 @@ const ProductDetail = () => {
                 "Add to Cart"
               )}
             </Button>
+
+            {/* 7.5 DELIVERY ESTIMATE */}
+            <DeliveryEstimate />
 
             {/* 8. INLINE TRUST SIGNALS — right below CTA */}
             <div className="grid grid-cols-3 gap-2">
