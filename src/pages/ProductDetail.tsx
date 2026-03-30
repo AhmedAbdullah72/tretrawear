@@ -365,6 +365,13 @@ const ProductDetail = () => {
         <ProductReviews handle={handle || ""} />
       </section>
 
+      <ProductBundles
+        currentHandle={handle || ""}
+        currentTitle={product.title}
+        currentPrice={parseFloat(selectedVariant?.price.amount || "0")}
+        currencyCode={selectedVariant?.price.currencyCode || "EGP"}
+      />
+
       <CompleteTheLook currentHandle={handle || ""} currentTitle={product.title} />
       <RelatedProducts currentHandle={handle || ""} />
 
