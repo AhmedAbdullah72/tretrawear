@@ -118,6 +118,9 @@ export const ProductBundles = ({
     });
   };
 
+  const countdown = useBundleCountdown();
+  const pad = (n: number) => String(n).padStart(2, "0");
+
   return (
     <section className="max-w-7xl mx-auto px-4 py-12 md:py-16 border-t border-border">
       <motion.div
@@ -126,12 +129,20 @@ export const ProductBundles = ({
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
       >
-        {/* Section Header */}
-        <div className="flex items-center gap-3 mb-8">
-          <Package className="h-6 w-6 text-primary" />
-          <h2 className="font-heading text-2xl md:text-3xl text-foreground">
-            Bundle & Save
-          </h2>
+        {/* Section Header + Countdown */}
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-8">
+          <div className="flex items-center gap-3">
+            <Package className="h-6 w-6 text-primary" />
+            <h2 className="font-heading text-2xl md:text-3xl text-foreground">
+              Bundle & Save
+            </h2>
+          </div>
+          <div className="flex items-center gap-2 bg-destructive/10 text-destructive px-4 py-2 rounded-lg">
+            <Clock className="h-4 w-4" />
+            <span className="font-heading text-sm tracking-wider">
+              Ends in {pad(countdown.h)}:{pad(countdown.m)}:{pad(countdown.s)}
+            </span>
+          </div>
         </div>
 
         {/* Quantity Discount Tiers */}
