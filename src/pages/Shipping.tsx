@@ -18,14 +18,14 @@ const Shipping = () => (
           <h2 className="font-heading text-lg text-foreground mb-2">The short version?</h2>
           <p className="font-body text-sm text-muted-foreground leading-relaxed">
             We ship all over Egypt. Orders over <strong className="text-foreground">1,500 EGP</strong> ship free — no codes, no tricks. 
-            Most orders land at your door within <strong className="text-foreground">2–4 business days</strong>. Simple as that.
+            Most orders land at your door within <strong className="text-foreground">2–5 business days</strong>. Simple as that.
           </p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {[
             { icon: Truck, title: "Free Shipping", desc: "On orders over 1,500 EGP — automatically applied at checkout." },
-            { icon: Clock, title: "2–4 Business Days", desc: "That's how fast we get it to you, anywhere in Egypt." },
+            { icon: Clock, title: "2–5 Business Days", desc: "That's how fast we get it to you, anywhere in Egypt." },
             { icon: Package, title: "Order Tracking", desc: "You'll get a tracking number by email as soon as it ships." },
           ].map((item) => (
             <div key={item.title} className="p-5 bg-card rounded-xl border border-border">
@@ -52,7 +52,7 @@ const Shipping = () => (
             </li>
             <li className="flex gap-3">
               <span className="flex-shrink-0 w-6 h-6 rounded-full bg-primary/10 text-primary font-heading text-xs flex items-center justify-center">3</span>
-              <span>Sit back — your order is on its way. Most deliveries arrive within 2–4 business days.</span>
+              <span>Sit back — your order is on its way. Most deliveries arrive within 2–5 business days.</span>
             </li>
           </ol>
         </div>

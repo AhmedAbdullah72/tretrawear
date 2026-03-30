@@ -36,7 +36,7 @@ export const UrgencyBanner = () => {
             "NEW COLLECTION NOW LIVE",
             "20% OFF NEW COLLECTION",
             "WIDE-LEG SWEATPANTS • OVERSIZED TEES • BASICS",
-            "PAY ON DELIVERY • 2–4 DAY SHIPPING",
+            "PAY ON DELIVERY • 2–5 DAY SHIPPING",
           ]}
           speed="normal"
         />

@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
 
 const faqs = [
   { q: "What sizes do you offer?", a: "We offer sizes S through 3XL. All our pieces feature an oversized fit, so we recommend sizing down if you prefer a more fitted look." },
-  { q: "How long does shipping take?", a: "Orders within Egypt are delivered within 2–4 business days." },
+  { q: "How long does shipping take?", a: "Orders within Egypt are delivered within 2–5 business days." },
   { q: "What is your return policy?", a: "We accept returns within 14 days of delivery for unworn items with original tags attached." },
   { q: "How do I track my order?", a: "Once your order ships, you'll receive an email with a tracking number." },
   { q: "Are your products true to size?", a: "Our pieces are designed with an oversized, drop-shoulder fit. For a more fitted look, size down one." },
