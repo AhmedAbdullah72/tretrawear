@@ -5,7 +5,7 @@ import { Footer } from "@/components/Footer";
 import { Marquee } from "@/components/Marquee";
 import { storefrontApiRequest, PRODUCT_BY_HANDLE_QUERY } from "@/lib/shopify";
 import { useCartStore, type ShopifyProduct } from "@/stores/cartStore";
-import { Loader2, ChevronLeft, Truck, RefreshCw, ShieldCheck, Minus, Plus, Ruler, Star, CreditCard } from "lucide-react";
+import { Loader2, ChevronLeft, ShieldCheck, Minus, Plus, Ruler, Star } from "lucide-react";
 import { SizeGuide } from "@/components/SizeGuide";
 import { SizeRecommender } from "@/components/SizeRecommender";
 import { toast } from "sonner";
