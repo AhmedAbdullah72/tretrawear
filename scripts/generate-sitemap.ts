@@ -42,7 +42,7 @@ async function fetchProductHandles(): Promise<string[]> {
       body: JSON.stringify({ query }),
     });
 
-    const json = await res.json();
+    const json = await res.json() as any;
     const edges = json?.data?.products?.edges || [];
     edges.forEach((e: any) => handles.push(e.node.handle));
 
