@@ -79,7 +79,7 @@ const About = () => {
   const img1Ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress: img1Progress } = useScroll({ target: img1Ref, offset: ["start end", "end start"] });
   const img1Y = useTransform(img1Progress, [0, 1], ["6%", "-6%"]);
-  const img2Y = useTransform(img2Progress, [0, 1], ["6%", "-6%"]);
+  
 
   return (
     <div className="min-h-screen bg-background">
