@@ -2,10 +2,46 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Newsletter } from "@/components/Newsletter";
 import { FAQSection } from "@/components/FAQSection";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { motion, useScroll, useTransform, useInView, useMotionValue, useSpring } from "framer-motion";
+import { useRef, useEffect } from "react";
 import lifestyle1 from "@/assets/lifestyle-1.webp";
 import lifestyle2 from "@/assets/lifestyle-2.webp";
+
+/* ── Animated counter ── */
+const CountUp = ({ target, suffix = "" }: { target: number; suffix?: string }) => {
+  const ref = useRef<HTMLSpanElement>(null);
+  const motionVal = useMotionValue(0);
+  const spring = useSpring(motionVal, { duration: 2000 });
+  const isInView = useInView(ref, { once: true, margin: "-80px" });
+
+  useEffect(() => {
+    if (isInView) motionVal.set(target);
+  }, [isInView, motionVal, target]);
+
+  useEffect(() => {
+    const unsub = spring.on("change", (v) => {
+      if (ref.current) ref.current.textContent = Math.round(v).toLocaleString() + suffix;
+    });
+    return unsub;
+  }, [spring, suffix]);
+
+  return <span ref={ref}>0{suffix}</span>;
+};
+
+/* ── Timeline data ── */
+const timeline = [
+  { year: "2023", title: "The Idea", desc: "Frustrated with overpriced, low-quality streetwear — we decided to make our own." },
+  { year: "2023", title: "First Drop", desc: "Our debut collection of heavyweight hoodies sold out within the first week." },
+  { year: "2024", title: "Community Growth", desc: "10,000+ customers joined the TRETRA movement across Egypt and the Arab world." },
+  { year: "2025", title: "What's Next", desc: "Expanding categories, new fabrics, and building the brand Egypt deserves." },
+];
+
+const stats = [
+  { value: 10, suffix: "K+", label: "Happy Customers" },
+  { value: 50, suffix: "K+", label: "Pieces Sold" },
+  { value: 4.9, suffix: "★", label: "Average Rating" },
+  { value: 380, suffix: "gsm", label: "Heavy Cotton" },
+];
 
 const About = () => {
   const img1Ref = useRef<HTMLDivElement>(null);
@@ -37,6 +73,33 @@ const About = () => {
         </motion.div>
       </section>
 
+      {/* Stats */}
+      <section className="py-14 bg-card border-b border-border">
+        <div className="container">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {stats.map((s, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 0.4, delay: i * 0.1 }}
+                className="text-center"
+              >
+                <p className="font-heading text-4xl md:text-5xl text-primary">
+                  {typeof s.value === "number" && s.value >= 10 ? (
+                    <CountUp target={s.value} suffix={s.suffix} />
+                  ) : (
+                    <>{s.value}{s.suffix}</>
+                  )}
+                </p>
+                <p className="font-body text-xs tracking-[0.2em] uppercase text-muted-foreground mt-2">{s.label}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Mission */}
       <section className="py-16 bg-background overflow-hidden">
         <div className="container">
@@ -66,6 +129,52 @@ const About = () => {
                 From the streets of Cairo to the urban landscapes of the Arab world, Tretra Wear represents a generation that's bold, creative, and unapologetically real.
               </p>
             </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Timeline */}
+      <section className="py-20 md:py-28 bg-foreground text-background overflow-hidden">
+        <div className="container max-w-3xl">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-16"
+          >
+            <p className="font-body text-xs tracking-[0.3em] uppercase text-background/50 mb-3">Our Journey</p>
+            <h2 className="font-heading text-4xl md:text-5xl text-background">
+              How We Got Here<span className="text-primary">.</span>
+            </h2>
+          </motion.div>
+
+          <div className="relative">
+            {/* Vertical line */}
+            <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-background/20 md:-translate-x-px" />
+
+            {timeline.map((item, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                className={`relative flex items-start gap-8 mb-12 last:mb-0 ${
+                  i % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
+                }`}
+              >
+                {/* Dot */}
+                <div className="absolute left-4 md:left-1/2 w-3 h-3 rounded-full bg-primary -translate-x-1/2 mt-1.5 ring-4 ring-foreground z-10" />
+
+                {/* Content */}
+                <div className={`ml-12 md:ml-0 md:w-1/2 ${i % 2 === 0 ? "md:pr-12 md:text-right" : "md:pl-12"}`}>
+                  <span className="font-heading text-sm text-primary">{item.year}</span>
+                  <h3 className="font-heading text-xl text-background mt-1">{item.title}</h3>
+                  <p className="font-body text-sm text-background/60 mt-2 leading-relaxed">{item.desc}</p>
+                </div>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
