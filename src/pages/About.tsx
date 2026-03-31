@@ -77,9 +77,7 @@ const timeline = [
 
 const About = () => {
   const img1Ref = useRef<HTMLDivElement>(null);
-  const img2Ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress: img1Progress } = useScroll({ target: img1Ref, offset: ["start end", "end start"] });
-  const { scrollYProgress: img2Progress } = useScroll({ target: img2Ref, offset: ["start end", "end start"] });
   const img1Y = useTransform(img1Progress, [0, 1], ["6%", "-6%"]);
   const img2Y = useTransform(img2Progress, [0, 1], ["6%", "-6%"]);
 
