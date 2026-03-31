@@ -287,45 +287,6 @@ const About = () => {
         </div>
       </section>
 
-      {/* ═══ 6. COMMUNITY — Human Element ═══ */}
-      <section className="py-16 bg-card overflow-hidden">
-        <div className="container">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <motion.div
-              initial={{ opacity: 0, x: -40 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.6 }}
-              className="order-2 md:order-1"
-            >
-              <p className="font-body text-xs tracking-[0.3em] uppercase text-primary mb-3">Community</p>
-              <h2 className="font-heading text-3xl text-foreground mb-4">
-                More Than Clothing<span className="text-primary">.</span>
-              </h2>
-              <p className="font-body text-sm text-muted-foreground leading-relaxed mb-4">
-                TRETRA is a movement of creatives, dreamers, and hustlers across Egypt and the Arab world. We wear it as identity, not just fashion.
-              </p>
-              <div className="bg-background rounded-xl p-4 border border-border">
-                <p className="font-body text-sm text-muted-foreground italic leading-relaxed">
-                  "كنت بدور على حاجة تمثلني — مش brand عالمي ولا حاجة local مفيهاش style. لقيت TRETRA وحسيت إنها اتعملت ليا."
-                </p>
-                <p className="font-body text-xs text-foreground font-medium mt-2">— سارة، الإسكندرية</p>
-              </div>
-            </motion.div>
-            <motion.div
-              ref={img2Ref}
-              initial={{ opacity: 0, x: 40 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.6 }}
-              className="order-1 md:order-2 aspect-square rounded-2xl overflow-hidden shadow-lg"
-            >
-              <motion.img src={lifestyle2} alt="TRETRA community oversized hoodie Egypt" className="w-full h-full object-cover" style={{ y: img2Y }} />
-            </motion.div>
-          </div>
-          <CTABlock />
-        </div>
-      </section>
 
       <FAQSection />
       <Newsletter />
