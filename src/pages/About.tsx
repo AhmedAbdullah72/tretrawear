@@ -7,7 +7,7 @@ import { useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, CheckCircle2, Star, Users, Package, Sparkles } from "lucide-react";
 import lifestyle1 from "@/assets/lifestyle-1.webp";
-import lifestyle2 from "@/assets/lifestyle-2.webp";
+
 
 /* ── Animated counter ── */
 const CountUp = ({ target, suffix = "" }: { target: number; suffix?: string }) => {
