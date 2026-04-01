@@ -57,6 +57,16 @@ const ProductDetail = () => {
     if (meta) meta.setAttribute("content", copy.seo.metaDescription);
 
     const variant = product.variants.edges[0]?.node;
+    // Dynamic canonical URL
+    const canonicalUrl = `${window.location.origin}/product/${product.handle}`;
+    let canonical = document.querySelector('link[rel="canonical"]') as HTMLLinkElement;
+    if (!canonical) {
+      canonical = document.createElement("link");
+      canonical.rel = "canonical";
+      document.head.appendChild(canonical);
+    }
+    canonical.href = canonicalUrl;
+
     const schema = {
       "@context": "https://schema.org",
       "@type": "Product",
@@ -66,7 +76,7 @@ const ProductDetail = () => {
       brand: { "@type": "Brand", name: "TRETRA" },
       offers: {
         "@type": "Offer",
-        url: `${window.location.origin}/product/${product.handle}`,
+        url: canonicalUrl,
         priceCurrency: variant?.price.currencyCode || "EGP",
         price: variant?.price.amount || "0",
         availability: variant?.availableForSale
@@ -74,6 +84,17 @@ const ProductDetail = () => {
           : "https://schema.org/OutOfStock",
       },
     };
+
+    const breadcrumbSchema = {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: window.location.origin },
+        { "@type": "ListItem", position: 2, name: "Shop", item: `${window.location.origin}/shop` },
+        { "@type": "ListItem", position: 3, name: product.title, item: canonicalUrl },
+      ],
+    };
+
     let script = document.getElementById("product-jsonld") as HTMLScriptElement;
     if (!script) {
       script = document.createElement("script");
@@ -81,8 +102,12 @@ const ProductDetail = () => {
       script.type = "application/ld+json";
       document.head.appendChild(script);
     }
-    script.textContent = JSON.stringify(schema);
-    return () => { script.remove(); };
+    script.textContent = JSON.stringify([schema, breadcrumbSchema]);
+
+    return () => {
+      script.remove();
+      canonical.remove();
+    };
   }, [product]);
 
   // Sticky bar
