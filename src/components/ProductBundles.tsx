@@ -31,8 +31,7 @@ function useBundleCountdown() {
 
 // Bundle tier definitions with real Shopify discount codes
 const quantityTiers = [
-  { qty: 2, discount: 10, code: "BUNDLE2", label: "Buy 2", saving: "Save 10%" },
-  { qty: 3, discount: 15, code: "BUNDLE3", label: "Buy 3", saving: "Save 15%" },
+  { qty: 3, discount: 15, code: "BUNDLE3", label: "Buy 3", saving: "Save 15%", minTotal: 1050 },
 ];
 
 // Category pairings for mix & match
