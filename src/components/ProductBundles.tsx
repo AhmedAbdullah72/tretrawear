@@ -285,7 +285,7 @@ export const ProductBundles = ({
               })}
             </div>
             <p className="font-body text-xs text-muted-foreground text-center mt-4">
-              Add 2+ items and use code <button onClick={() => handleCopyCode("BUNDLE2")} className="font-heading text-primary hover:underline cursor-pointer">BUNDLE2</button> for 10% off, or <button onClick={() => handleCopyCode("BUNDLE3")} className="font-heading text-primary hover:underline cursor-pointer">BUNDLE3</button> for 15% off 3+ items
+              Add 3+ items (min. {currencyCode} 1,050) and use code <button onClick={() => handleCopyCode("BUNDLE3")} className="font-heading text-primary hover:underline cursor-pointer">BUNDLE3</button> for 15% off
             </p>
           </div>
         )}
