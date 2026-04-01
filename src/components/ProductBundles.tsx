@@ -150,6 +150,7 @@ export const ProductBundles = ({
             const totalOriginal = currentPrice * tier.qty;
             const totalDiscounted = totalOriginal * (1 - tier.discount / 100);
             const youSave = totalOriginal - totalDiscounted;
+            const meetsMinimum = totalOriginal >= tier.minTotal;
 
             return (
               <motion.div
@@ -157,12 +158,9 @@ export const ProductBundles = ({
                 whileHover={{ scale: 1.02 }}
                 className="relative overflow-hidden rounded-xl border-2 border-primary/20 bg-card p-5 transition-all hover:border-primary/50 hover:shadow-lg hover:shadow-primary/10"
               >
-                {/* Best value badge for highest tier */}
-                {tier.qty === 3 && (
-                  <div className="absolute top-0 right-0 bg-primary text-primary-foreground font-heading text-[10px] tracking-wider uppercase px-3 py-1 rounded-bl-lg">
-                    Best Value
-                  </div>
-                )}
+                <div className="absolute top-0 right-0 bg-primary text-primary-foreground font-heading text-[10px] tracking-wider uppercase px-3 py-1 rounded-bl-lg">
+                  Best Value
+                </div>
 
                 <div className="flex items-start justify-between gap-4">
                   <div className="space-y-2">
@@ -181,6 +179,12 @@ export const ProductBundles = ({
                     </div>
                     <p className="font-body text-xs text-muted-foreground">
                       You save {currencyCode} {youSave.toFixed(2)}
+                    </p>
+                    <p className="font-body text-xs text-primary/80">
+                      Min. order: {currencyCode} {tier.minTotal.toFixed(2)}
+                      {!meetsMinimum && (
+                        <span className="text-destructive ml-1">(not met yet)</span>
+                      )}
                     </p>
                   </div>
 
