@@ -290,6 +290,9 @@ const ProductDetail = () => {
               </span>
             </button>
 
+            {/* Live viewers */}
+            <LiveViewers handle={product.handle} />
+
             {/* 4. HOOK */}
             <p className="font-heading text-base text-foreground italic border-l-2 border-primary pl-4">
               {copy.hook}
