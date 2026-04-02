@@ -57,6 +57,7 @@ const AppContent = () => {
       <Suspense fallback={null}>
         <ExitIntentPopup />
       </Suspense>
+      <FloatingCartButton />
       <WhatsAppButton />
     </BrowserRouter>
   );
