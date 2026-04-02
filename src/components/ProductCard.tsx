@@ -44,7 +44,8 @@ export const ProductCard = forwardRef<HTMLAnchorElement, ProductCardProps>(({ pr
       <div className="relative aspect-[3/4] bg-secondary rounded-xl overflow-hidden mb-3 shadow-sm group-hover:shadow-lg transition-all duration-500">
         {image ? (
           <img
-            src={image.url}
+            src={image.url + (image.url.includes('cdn.shopify.com') ? '&width=400' : '')}
+            srcSet={image.url.includes('cdn.shopify.com') ? `${image.url}&width=200 200w, ${image.url}&width=400 400w, ${image.url}&width=600 600w` : undefined}
             alt={image.altText || node.title}
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
             loading="lazy"
