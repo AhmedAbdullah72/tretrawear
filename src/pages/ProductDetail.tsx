@@ -425,7 +425,7 @@ const ProductDetail = () => {
           <div className="container flex items-center gap-4 py-3">
             {images[0]?.node && (
               <div className="hidden md:block w-12 h-12 rounded-lg overflow-hidden border border-border flex-shrink-0">
-                <img src={images[0].node.url} alt="" className="w-full h-full object-cover" />
+                <img src={images[0].node.url} alt="" className="w-full h-full object-cover" loading="lazy" decoding="async" />
               </div>
             )}
             <div className="flex-1 min-w-0">
