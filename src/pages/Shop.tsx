@@ -283,7 +283,7 @@ const Shop = () => {
         </div>
       </section>
       </main>
-      <FloatingCartButton />
+      
       <Footer />
     </div>
   );
