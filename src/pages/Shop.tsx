@@ -5,7 +5,8 @@ import { ProductCard } from "@/components/ProductCard";
 import { Marquee } from "@/components/Marquee";
 import { FloatingCartButton } from "@/components/FloatingCartButton";
 import { storefrontApiRequest, PRODUCTS_QUERY, type ShopifyProduct } from "@/lib/shopify";
-import { Loader2, SlidersHorizontal, X } from "lucide-react";
+import { SlidersHorizontal, X } from "lucide-react";
+import { ProductGridSkeleton } from "@/components/ProductCardSkeleton";
 import { motion, AnimatePresence } from "framer-motion";
 
 type Category = "all" | "half-zip" | "fur-lined" | "dtf-printed" | "sweatpants" | "t-shirt" | "basic";
