@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useCartSync } from "@/hooks/useCartSync";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
+import { FloatingCartButton } from "@/components/FloatingCartButton";
 
 import { lazy, Suspense } from "react";
 
