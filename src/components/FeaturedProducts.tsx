@@ -50,9 +50,7 @@ export const FeaturedProducts = () => {
         </motion.div>
 
         {loading ? (
-          <div className="flex justify-center py-20">
-            <Loader2 className="h-8 w-8 animate-spin text-primary" />
-          </div>
+          <ProductGridSkeleton count={4} />
         ) : products.length === 0 ? (
           <div className="text-center py-20 border border-border rounded-xl bg-card">
             <p className="font-heading text-2xl text-muted-foreground/30 mb-2">NO PRODUCTS YET</p>

@@ -248,9 +248,7 @@ const Shop = () => {
           )}
 
           {loading ? (
-            <div className="flex justify-center py-20">
-              <Loader2 className="h-8 w-8 animate-spin text-primary" />
-            </div>
+            <ProductGridSkeleton count={8} />
           ) : filtered.length === 0 ? (
             <div className="text-center py-20 bg-card rounded-xl border border-border">
               <p className="font-heading text-lg text-foreground mb-2">No products found</p>

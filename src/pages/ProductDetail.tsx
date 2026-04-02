@@ -162,7 +162,7 @@ const ProductDetail = () => {
     return (
       <div className="min-h-screen bg-background">
         <Navbar />
-        <div className="flex justify-center py-40"><Loader2 className="h-8 w-8 animate-spin text-primary" /></div>
+        <ProductDetailSkeleton />
       </div>
     );
   }
