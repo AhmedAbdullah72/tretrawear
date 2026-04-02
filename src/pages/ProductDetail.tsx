@@ -21,6 +21,7 @@ import { RelatedProducts } from "@/components/RelatedProducts";
 import { CompleteTheLook } from "@/components/CompleteTheLook";
 import { DeliveryEstimate } from "@/components/DeliveryEstimate";
 import { ProductBundles } from "@/components/ProductBundles";
+import { LiveViewers } from "@/components/LiveViewers";
 const ProductDetail = () => {
   const { handle } = useParams<{ handle: string }>();
   const [product, setProduct] = useState<ShopifyProduct["node"] | null>(null);
