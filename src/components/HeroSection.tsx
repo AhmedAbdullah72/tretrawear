@@ -86,7 +86,7 @@ export const HeroSection = () => {
             >
               Our Story
             </Link>
-          </motion.div>
+          </div>
         </motion.div>
       </div>
 
