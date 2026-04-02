@@ -62,6 +62,8 @@ export const ProductImageGallery = ({ images, imageAlts = [], productTitle, scro
           src={images[0].node.url}
           alt={imageAlts[0] || images[0].node.altText || productTitle}
           className="w-full h-full object-cover"
+          loading="eager"
+          decoding="async"
         />
       </div>
     );
