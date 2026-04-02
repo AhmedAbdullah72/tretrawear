@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { storefrontApiRequest, PRODUCTS_QUERY, type ShopifyProduct } from "@/lib/shopify";
 import { ProductCard } from "./ProductCard";
-import { Loader2, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
+import { ProductGridSkeleton } from "./ProductCardSkeleton";
 
 export const FeaturedProducts = () => {
   const [products, setProducts] = useState<ShopifyProduct[]>([]);
@@ -49,9 +50,7 @@ export const FeaturedProducts = () => {
         </motion.div>
 
         {loading ? (
-          <div className="flex justify-center py-20">
-            <Loader2 className="h-8 w-8 animate-spin text-primary" />
-          </div>
+          <ProductGridSkeleton count={4} />
         ) : products.length === 0 ? (
           <div className="text-center py-20 border border-border rounded-xl bg-card">
             <p className="font-heading text-2xl text-muted-foreground/30 mb-2">NO PRODUCTS YET</p>

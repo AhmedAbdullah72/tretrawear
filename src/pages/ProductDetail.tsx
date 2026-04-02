@@ -6,6 +6,7 @@ import { Marquee } from "@/components/Marquee";
 import { storefrontApiRequest, PRODUCT_BY_HANDLE_QUERY } from "@/lib/shopify";
 import { useCartStore, type ShopifyProduct } from "@/stores/cartStore";
 import { Loader2, ChevronLeft, ShieldCheck, Minus, Plus, Ruler, Star } from "lucide-react";
+import { ProductDetailSkeleton } from "@/components/ProductDetailSkeleton";
 import { SizeGuide } from "@/components/SizeGuide";
 import { SizeRecommender } from "@/components/SizeRecommender";
 import { toast } from "sonner";
@@ -161,7 +162,7 @@ const ProductDetail = () => {
     return (
       <div className="min-h-screen bg-background">
         <Navbar />
-        <div className="flex justify-center py-40"><Loader2 className="h-8 w-8 animate-spin text-primary" /></div>
+        <ProductDetailSkeleton />
       </div>
     );
   }

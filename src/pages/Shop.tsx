@@ -5,7 +5,8 @@ import { ProductCard } from "@/components/ProductCard";
 import { Marquee } from "@/components/Marquee";
 import { FloatingCartButton } from "@/components/FloatingCartButton";
 import { storefrontApiRequest, PRODUCTS_QUERY, type ShopifyProduct } from "@/lib/shopify";
-import { Loader2, SlidersHorizontal, X } from "lucide-react";
+import { SlidersHorizontal, X } from "lucide-react";
+import { ProductGridSkeleton } from "@/components/ProductCardSkeleton";
 import { motion, AnimatePresence } from "framer-motion";
 
 type Category = "all" | "half-zip" | "fur-lined" | "dtf-printed" | "sweatpants" | "t-shirt" | "basic";
@@ -247,9 +248,7 @@ const Shop = () => {
           )}
 
           {loading ? (
-            <div className="flex justify-center py-20">
-              <Loader2 className="h-8 w-8 animate-spin text-primary" />
-            </div>
+            <ProductGridSkeleton count={8} />
           ) : filtered.length === 0 ? (
             <div className="text-center py-20 bg-card rounded-xl border border-border">
               <p className="font-heading text-lg text-foreground mb-2">No products found</p>
