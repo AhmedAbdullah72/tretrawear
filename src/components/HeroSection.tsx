@@ -48,41 +48,29 @@ export const HeroSection = () => {
 
       <div className="relative container z-10">
         <motion.div className="max-w-2xl pt-20 md:pt-24" style={{ y: textY }}>
-          <motion.div
-            initial={hidden}
-            animate={fadeIn}
-            transition={{ duration: 0.4 }}
+          <div
             className="hidden md:inline-block bg-primary/20 backdrop-blur-sm border border-primary/30 px-4 py-1.5 rounded-full mb-6"
           >
             <span className="font-body text-xs tracking-[0.3em] uppercase text-primary-foreground font-semibold">
               New Summer Drops — Just Landed
             </span>
-          </motion.div>
+          </div>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={fadeIn}
-            transition={{ duration: 0.5, delay: 0.1 }}
+          <h1
             className="font-heading text-5xl md:text-8xl lg:text-9xl text-primary-foreground leading-[0.85] mb-4 md:mb-6"
           >
             DRESS<br />
             HOW YOU<br />
             <span className="text-primary">FEEL</span>
-          </motion.h1>
+          </h1>
 
-          <motion.p
-            initial={hidden}
-            animate={fadeIn}
-            transition={{ duration: 0.4, delay: 0.2 }}
+          <p
             className="font-body text-sm md:text-lg text-primary-foreground/70 max-w-md mb-6 md:mb-8"
           >
             Comfort that keeps up with your life. Oversized fits, heavyweight cotton, zero compromise.
-          </motion.p>
+          </p>
 
-          <motion.div
-            initial={hidden}
-            animate={fadeIn}
-            transition={{ duration: 0.4, delay: 0.3 }}
+          <div
             className="flex flex-col sm:flex-row gap-3 md:gap-4"
           >
             <Link
@@ -98,7 +86,7 @@ export const HeroSection = () => {
             >
               Our Story
             </Link>
-          </motion.div>
+          </div>
         </motion.div>
       </div>
 
