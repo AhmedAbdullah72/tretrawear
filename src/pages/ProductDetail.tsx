@@ -213,9 +213,21 @@ const ProductDetail = () => {
       </div>
 
       <div className="container py-8 md:py-12">
-        <Link to="/shop" className="inline-flex items-center gap-1 font-body text-sm text-muted-foreground hover:text-primary transition-colors mb-6">
-          <ChevronLeft className="h-4 w-4" /> Back to Shop
-        </Link>
+        <nav aria-label="Breadcrumb" className="mb-6">
+          <ol className="flex items-center gap-1.5 font-body text-sm text-muted-foreground">
+            <li>
+              <Link to="/" className="hover:text-primary transition-colors">Home</Link>
+            </li>
+            <li><ChevronRight className="h-3.5 w-3.5" /></li>
+            <li>
+              <Link to="/shop" className="hover:text-primary transition-colors">Shop</Link>
+            </li>
+            <li><ChevronRight className="h-3.5 w-3.5" /></li>
+            <li className="text-foreground font-heading text-xs tracking-wider truncate max-w-[200px]" aria-current="page">
+              {product.title}
+            </li>
+          </ol>
+        </nav>
 
         <div className="grid md:grid-cols-2 gap-6 md:gap-12">
           <motion.div
