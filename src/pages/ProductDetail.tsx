@@ -21,6 +21,7 @@ import { RelatedProducts } from "@/components/RelatedProducts";
 import { CompleteTheLook } from "@/components/CompleteTheLook";
 import { DeliveryEstimate } from "@/components/DeliveryEstimate";
 import { ProductBundles } from "@/components/ProductBundles";
+import { LiveViewers } from "@/components/LiveViewers";
 const ProductDetail = () => {
   const { handle } = useParams<{ handle: string }>();
   const [product, setProduct] = useState<ShopifyProduct["node"] | null>(null);
@@ -288,6 +289,9 @@ const ProductDetail = () => {
                 {avgRating} ({totalReviews} reviews)
               </span>
             </button>
+
+            {/* Live viewers */}
+            <LiveViewers handle={product.handle} />
 
             {/* 4. HOOK */}
             <p className="font-heading text-base text-foreground italic border-l-2 border-primary pl-4">
