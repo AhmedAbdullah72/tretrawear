@@ -1,10 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import { Link, useLocation } from "react-router-dom";
-
 import { Menu, X } from "lucide-react";
 import { CartDrawer } from "./CartDrawer";
-import { motion, AnimatePresence } from "framer-motion";
 import logo from "@/assets/logo.png";
+
+// Lazy load mobile menu to avoid loading framer-motion on initial render
+const MobileMenu = lazy(() => import("./MobileMenu"));
 
 const navLinks = [
   { label: "Home", path: "/" },
@@ -30,7 +31,6 @@ export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
-  
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 30);
@@ -51,7 +51,6 @@ export const Navbar = () => {
       style={{ top: 0 }}
     >
       <div className="container flex items-center justify-between h-14 md:h-16">
-        {/* Logo */}
         <Link to="/" className="flex-shrink-0">
           <img
             src={logo}
@@ -64,7 +63,6 @@ export const Navbar = () => {
           />
         </Link>
 
-        {/* Desktop Nav + Socials */}
         <div className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (
             <Link
@@ -80,11 +78,7 @@ export const Navbar = () => {
             >
               {link.label}
               {location.pathname === link.path && (
-                <motion.div
-                  layoutId="nav-indicator"
-                  className="absolute -bottom-0.5 left-0 right-0 h-0.5 bg-primary rounded-full"
-                  transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                />
+                <div className="absolute -bottom-0.5 left-0 right-0 h-0.5 bg-primary rounded-full" />
               )}
             </Link>
           ))}
@@ -93,7 +87,6 @@ export const Navbar = () => {
           </div>
         </div>
 
-        {/* Right actions */}
         <div className="flex items-center gap-2">
           <div className={`transition-colors duration-300 ${scrolled ? "text-foreground" : "text-primary-foreground"}`}>
             <CartDrawer />
@@ -108,47 +101,17 @@ export const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="md:hidden bg-card border-t border-border overflow-hidden"
-          >
-            <div className="container py-5 space-y-1">
-              {navLinks.map((link, i) => (
-                <motion.div
-                  key={link.path}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.07 }}
-                >
-                  <Link
-                    to={link.path}
-                    onClick={() => setIsOpen(false)}
-                    className={`block font-heading text-xl py-2.5 transition-colors ${
-                      location.pathname === link.path ? "text-primary" : "text-foreground/70"
-                    }`}
-                  >
-                    {link.label}
-                  </Link>
-                </motion.div>
-              ))}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.25 }}
-                className="pt-4 border-t border-border text-foreground/50"
-              >
-                <SocialIcons />
-              </motion.div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Mobile Menu - lazy loaded */}
+      {isOpen && (
+        <Suspense fallback={null}>
+          <MobileMenu
+            navLinks={navLinks}
+            location={location}
+            onClose={() => setIsOpen(false)}
+            SocialIcons={SocialIcons}
+          />
+        </Suspense>
+      )}
     </nav>
   );
 };

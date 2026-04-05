@@ -1,78 +1,48 @@
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
-import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
-import { useRef } from "react";
 
 // Use public paths so images can be preloaded from HTML <head>
 const heroImage = "/hero-summer.webp";
 const heroImageMobile = "/hero-summer-mobile.webp";
 
 export const HeroSection = () => {
-  const ref = useRef<HTMLElement>(null);
-  const prefersReducedMotion = useReducedMotion();
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start start", "end start"],
-  });
-
-  const imageY = useTransform(scrollYProgress, [0, 1], ["0%", prefersReducedMotion ? "0%" : "25%"]);
-  const imageScale = useTransform(scrollYProgress, [0, 1], [1, prefersReducedMotion ? 1 : 1.08]);
-  const textY = useTransform(scrollYProgress, [0, 1], ["0%", prefersReducedMotion ? "0%" : "40%"]);
-  const overlayOpacity = useTransform(scrollYProgress, [0, 0.5], [0.45, 0.8]);
-
-  // Simplified animation config to reduce main-thread work
-  const fadeIn = { opacity: 1, y: 0 };
-  const hidden = { opacity: 0, y: 20 };
-
   return (
-    <section ref={ref} className="relative min-h-screen flex items-center overflow-hidden bg-foreground">
+    <section className="relative min-h-screen flex items-center overflow-hidden bg-foreground">
       <picture>
         <source media="(max-width: 767px)" srcSet={heroImageMobile} />
         <source media="(min-width: 768px)" srcSet={heroImage} />
-        <motion.img
+        <img
           src={heroImage}
           alt="TRETRA Wear summer collection – oversized tees and wide-leg sweatpants"
           className="absolute inset-0 w-full h-full object-cover object-center md:object-[center_15%]"
-          style={{ y: imageY, scale: imageScale, transformOrigin: "50% 15%" }}
           fetchPriority="high"
           loading="eager"
           decoding="async"
         />
       </picture>
-      <motion.div
-        className="absolute inset-0 bg-foreground"
-        style={{ opacity: overlayOpacity }}
-      />
+      <div className="absolute inset-0 bg-foreground/45" />
       <div className="absolute inset-0 bg-gradient-to-r from-foreground/40 via-transparent to-transparent" />
       <div className="absolute inset-0 bg-gradient-to-t from-foreground/70 via-transparent to-foreground/10" />
 
       <div className="relative container z-10">
-        <motion.div className="max-w-2xl pt-20 md:pt-24" style={{ y: textY }}>
-          <div
-            className="hidden md:inline-block bg-primary/20 backdrop-blur-sm border border-primary/30 px-4 py-1.5 rounded-full mb-6"
-          >
+        <div className="max-w-2xl pt-20 md:pt-24">
+          <div className="hidden md:inline-block bg-primary/20 backdrop-blur-sm border border-primary/30 px-4 py-1.5 rounded-full mb-6">
             <span className="font-body text-xs tracking-[0.3em] uppercase text-primary-foreground font-semibold">
               New Summer Drops — Just Landed
             </span>
           </div>
 
-          <h1
-            className="font-heading text-5xl md:text-8xl lg:text-9xl text-primary-foreground leading-[0.85] mb-4 md:mb-6"
-          >
+          <h1 className="font-heading text-5xl md:text-8xl lg:text-9xl text-primary-foreground leading-[0.85] mb-4 md:mb-6">
             DRESS<br />
             HOW YOU<br />
             <span className="text-primary">FEEL</span>
           </h1>
 
-          <p
-            className="font-body text-sm md:text-lg text-primary-foreground/70 max-w-md mb-6 md:mb-8"
-          >
+          <p className="font-body text-sm md:text-lg text-primary-foreground/70 max-w-md mb-6 md:mb-8">
             Comfort that keeps up with your life. Oversized fits, heavyweight cotton, zero compromise.
           </p>
 
-          <div
-            className="flex flex-col sm:flex-row gap-3 md:gap-4"
-          >
+          <div className="flex flex-col sm:flex-row gap-3 md:gap-4">
             <Link
               to="/shop"
               className="group inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground font-heading text-base md:text-lg tracking-wider uppercase px-6 md:px-8 py-3.5 md:py-4 rounded-lg hover:bg-primary/90 transition-all duration-300 shadow-lg shadow-primary/25"
@@ -87,23 +57,14 @@ export const HeroSection = () => {
               Our Story
             </Link>
           </div>
-        </motion.div>
+        </div>
       </div>
 
-      {/* Scroll indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1, duration: 0.6 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-2"
-      >
+      {/* Scroll indicator - CSS only */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-2 animate-fade-in-delayed">
         <span className="font-body text-xs tracking-[0.2em] uppercase text-primary-foreground/50">Scroll</span>
-        <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ repeat: Infinity, duration: 1.5 }}
-          className="w-px h-8 bg-gradient-to-b from-primary-foreground/50 to-transparent"
-        />
-      </motion.div>
+        <div className="w-px h-8 bg-gradient-to-b from-primary-foreground/50 to-transparent animate-bounce-subtle" />
+      </div>
     </section>
   );
 };
