@@ -108,15 +108,9 @@ export const CartDrawer = () => {
           ) : (
             <>
               <div className="flex-1 overflow-y-auto px-5 py-3 min-h-0">
-                <AnimatePresence initial={false}>
                   {items.map((item) => (
-                    <motion.div
+                    <div
                       key={item.variantId}
-                      layout
-                      initial={{ opacity: 0, x: 30 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: -30, height: 0, marginBottom: 0 }}
-                      transition={{ duration: 0.25 }}
                       className="flex gap-3 p-3 mb-3 bg-background rounded-xl border border-border"
                     >
                       {/* Product image */}
