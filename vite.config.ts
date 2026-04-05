@@ -11,12 +11,9 @@ function deferCssPlugin() {
     name: 'defer-css',
     enforce: 'post' as const,
     transformIndexHtml(html: string) {
-      // Match any Vite-injected stylesheet link regardless of attribute order
+      // Match Vite-injected stylesheet links to /assets/*.css
       return html.replace(
-        /<link\s+(?=[^>]*href="(\/assets\/[^"]+\.css)")[^>]*rel="stylesheet"[^>]*>/g,
-        '<link rel="stylesheet" href="$1" media="print" onload="this.media=\'all\'">\n    <noscript><link rel="stylesheet" href="$1"></noscript>'
-      ).replace(
-        /<link\s+rel="stylesheet"\s+(?=[^>]*href="(\/assets\/[^"]+\.css)")[^>]*>/g,
+        /<link[^>]*href="(\/assets\/[^"]+\.css)"[^>]*>/g,
         '<link rel="stylesheet" href="$1" media="print" onload="this.media=\'all\'">\n    <noscript><link rel="stylesheet" href="$1"></noscript>'
       );
     },
