@@ -5,7 +5,6 @@ import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTr
 import { ShoppingCart, Minus, Plus, Trash2, ExternalLink, Loader2, ShieldCheck, Truck, RotateCcw, Tag } from "lucide-react";
 import { useCartStore } from "@/stores/cartStore";
 import { Link } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
 
 const FREE_SHIPPING_THRESHOLD = 1500;
 
@@ -69,11 +68,9 @@ export const CartDrawer = () => {
           {items.length > 0 && (
             <div className="mt-3 bg-background rounded-lg p-3">
               <div className="h-1.5 rounded-full bg-secondary overflow-hidden">
-                <motion.div
-                  className="h-full rounded-full bg-primary"
-                  initial={{ width: 0 }}
-                  animate={{ width: `${progress}%` }}
-                  transition={{ duration: 0.6, ease: "easeOut" }}
+                <div
+                  className="h-full rounded-full bg-primary transition-all duration-600 ease-out"
+                  style={{ width: `${progress}%` }}
                 />
               </div>
               <p className="font-body text-xs text-muted-foreground text-center mt-1.5">
@@ -111,15 +108,9 @@ export const CartDrawer = () => {
           ) : (
             <>
               <div className="flex-1 overflow-y-auto px-5 py-3 min-h-0">
-                <AnimatePresence initial={false}>
                   {items.map((item) => (
-                    <motion.div
+                    <div
                       key={item.variantId}
-                      layout
-                      initial={{ opacity: 0, x: 30 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: -30, height: 0, marginBottom: 0 }}
-                      transition={{ duration: 0.25 }}
                       className="flex gap-3 p-3 mb-3 bg-background rounded-xl border border-border"
                     >
                       {/* Product image */}
@@ -193,9 +184,8 @@ export const CartDrawer = () => {
                       >
                         <Trash2 className="h-3.5 w-3.5" />
                       </button>
-                    </motion.div>
+                    </div>
                   ))}
-                </AnimatePresence>
               </div>
 
               {/* Footer */}
