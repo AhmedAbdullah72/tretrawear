@@ -68,11 +68,9 @@ export const CartDrawer = () => {
           {items.length > 0 && (
             <div className="mt-3 bg-background rounded-lg p-3">
               <div className="h-1.5 rounded-full bg-secondary overflow-hidden">
-                <motion.div
-                  className="h-full rounded-full bg-primary"
-                  initial={{ width: 0 }}
-                  animate={{ width: `${progress}%` }}
-                  transition={{ duration: 0.6, ease: "easeOut" }}
+                <div
+                  className="h-full rounded-full bg-primary transition-all duration-600 ease-out"
+                  style={{ width: `${progress}%` }}
                 />
               </div>
               <p className="font-body text-xs text-muted-foreground text-center mt-1.5">
