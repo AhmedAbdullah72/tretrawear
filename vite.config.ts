@@ -5,6 +5,20 @@ import { componentTagger } from "lovable-tagger";
 import { sitemapPlugin } from "./scripts/generate-sitemap";
 
 // https://vitejs.dev/config/
+// Plugin to make CSS non-render-blocking (critical CSS is already inlined in index.html)
+function deferCssPlugin() {
+  return {
+    name: 'defer-css',
+    enforce: 'post' as const,
+    transformIndexHtml(html: string) {
+      return html.replace(
+        /<link rel="stylesheet" crossorigin href="(\/assets\/[^"]+\.css)">/g,
+        '<link rel="stylesheet" href="$1" media="print" onload="this.media=\'all\'">\n    <noscript><link rel="stylesheet" href="$1"></noscript>'
+      );
+    },
+  };
+}
+
 export default defineConfig(({ mode }) => ({
   server: {
     host: "::",
@@ -13,7 +27,7 @@ export default defineConfig(({ mode }) => ({
       overlay: false,
     },
   },
-  plugins: [react(), mode === "development" && componentTagger(), mode === "production" && sitemapPlugin()].filter(Boolean),
+  plugins: [react(), mode === "development" && componentTagger(), mode === "production" && sitemapPlugin(), mode === "production" && deferCssPlugin()].filter(Boolean),
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
