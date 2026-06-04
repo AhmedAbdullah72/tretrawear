@@ -2,6 +2,7 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Newsletter } from "@/components/Newsletter";
 import { FAQSection } from "@/components/FAQSection";
+import { SEO } from "@/components/SEO";
 import { motion, useScroll, useTransform, useInView, useMotionValue, useSpring } from "framer-motion";
 import { useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
@@ -83,6 +84,17 @@ const About = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title="About TRETRA Wear | Egyptian Streetwear Brand"
+        description="Born in Egypt, made for the world. Discover the story behind TRETRA Wear — heavyweight oversized hoodies & streetwear built on honest pricing and premium quality."
+        path="/about"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "AboutPage",
+          name: "About TRETRA Wear",
+          url: "https://www.tretrawear.com/about",
+        }}
+      />
       <Navbar />
 
       {/* ═══ 1. HERO — Value Proposition ═══ */}

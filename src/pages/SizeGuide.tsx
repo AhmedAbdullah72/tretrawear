@@ -1,6 +1,7 @@
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Ruler } from "lucide-react";
+import { SEO } from "@/components/SEO";
 import {
   Table,
   TableBody,
@@ -43,6 +44,11 @@ const categories = [
 const SizeGuide = () => {
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title="Size Guide | TRETRA Wear"
+        description="Find your perfect fit. TRETRA Wear's full measurement chart (cm) for hoodies, half-zips, tees, and sweatpants — sizes S to 3XL."
+        path="/size-guide"
+      />
       <Navbar />
       
       <main className="pb-16" style={{ paddingTop: 'calc(96px + var(--banner-offset))' }}>

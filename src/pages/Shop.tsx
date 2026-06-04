@@ -3,6 +3,7 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { ProductCard } from "@/components/ProductCard";
 import { Marquee } from "@/components/Marquee";
+import { SEO } from "@/components/SEO";
 
 import { storefrontApiRequest, PRODUCTS_QUERY, type ShopifyProduct } from "@/lib/shopify";
 import { SlidersHorizontal, X } from "lucide-react";
@@ -89,6 +90,17 @@ const Shop = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title="Shop All Products | TRETRA Wear"
+        description="Shop the full TRETRA Wear collection — oversized hoodies, half-zips, fur-lined essentials, DTF-printed tees, and wide-leg sweatpants. Free shipping over 1,500 EGP."
+        path="/shop"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "CollectionPage",
+          name: "Shop All Products",
+          url: "https://www.tretrawear.com/shop",
+        }}
+      />
       <a href="#main-content" className="skip-to-content">Skip to content</a>
       <Navbar />
       <main id="main-content" role="main">

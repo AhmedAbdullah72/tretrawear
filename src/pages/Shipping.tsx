@@ -1,9 +1,15 @@
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Truck, Clock, Package, MessageCircle, Mail, ArrowRight } from "lucide-react";
+import { SEO } from "@/components/SEO";
 
 const Shipping = () => (
   <div className="min-h-screen bg-background">
+    <SEO
+      title="Shipping Info | TRETRA Wear"
+      description="Free shipping on orders over 1,500 EGP across Egypt. Most orders arrive in 2–5 business days with tracking. Read our full shipping policy."
+      path="/shipping"
+    />
     <Navbar />
     <section className="pb-12 bg-foreground text-background" style={{ paddingTop: 'calc(96px + var(--banner-offset))' }}>
       <div className="container py-8">

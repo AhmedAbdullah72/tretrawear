@@ -1,9 +1,15 @@
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Shield, MessageCircle, Mail, ArrowRight } from "lucide-react";
+import { SEO } from "@/components/SEO";
 
 const Privacy = () => (
   <div className="min-h-screen bg-background">
+    <SEO
+      title="Privacy Policy | TRETRA Wear"
+      description="How TRETRA Wear collects, uses, and protects your personal data — written in plain English, no legal jargon or fine print tricks."
+      path="/privacy"
+    />
     <Navbar />
     <section className="pb-12 bg-foreground text-background" style={{ paddingTop: 'calc(96px + var(--banner-offset))' }}>
       <div className="container py-8">
