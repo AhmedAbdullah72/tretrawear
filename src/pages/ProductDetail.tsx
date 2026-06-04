@@ -144,6 +144,45 @@ const ProductDetail = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title={copy.seo.title}
+        description={copy.seo.metaDescription}
+        path={`/product/${product.handle}`}
+        ogType="product"
+        jsonLd={[
+          {
+            "@context": "https://schema.org",
+            "@type": "Product",
+            name: product.title,
+            description: product.description || copy.seo.metaDescription,
+            image: product.images.edges.map((e) => e.node.url),
+            brand: { "@type": "Brand", name: "TRETRA" },
+            aggregateRating: totalReviews > 0 ? {
+              "@type": "AggregateRating",
+              ratingValue: avgRating,
+              reviewCount: totalReviews,
+            } : undefined,
+            offers: {
+              "@type": "Offer",
+              url: `https://www.tretrawear.com/product/${product.handle}`,
+              priceCurrency: selectedVariant?.price.currencyCode || "EGP",
+              price: selectedVariant?.price.amount || "0",
+              availability: selectedVariant?.availableForSale
+                ? "https://schema.org/InStock"
+                : "https://schema.org/OutOfStock",
+            },
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Home", item: "https://www.tretrawear.com" },
+              { "@type": "ListItem", position: 2, name: "Shop", item: "https://www.tretrawear.com/shop" },
+              { "@type": "ListItem", position: 3, name: product.title, item: `https://www.tretrawear.com/product/${product.handle}` },
+            ],
+          },
+        ]}
+      />
       <Navbar />
 
       <div className="bg-primary text-primary-foreground" style={{ paddingTop: 'calc(64px + var(--banner-offset))' }}>
