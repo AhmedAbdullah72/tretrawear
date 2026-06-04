@@ -22,6 +22,7 @@ import { CompleteTheLook } from "@/components/CompleteTheLook";
 import { DeliveryEstimate } from "@/components/DeliveryEstimate";
 import { ProductBundles } from "@/components/ProductBundles";
 import { LiveViewers } from "@/components/LiveViewers";
+import { SEO } from "@/components/SEO";
 const ProductDetail = () => {
   const { handle } = useParams<{ handle: string }>();
   const [product, setProduct] = useState<ShopifyProduct["node"] | null>(null);
@@ -49,68 +50,6 @@ const ProductDetail = () => {
     setSelectedOptions({});
     setQuantity(1);
   }, [handle]);
-
-  // SEO: update document title & meta + JSON-LD
-  useEffect(() => {
-    if (!product) return;
-    const copy = getProductCopy(product.title, product.handle);
-    document.title = copy.seo.title;
-    const meta = document.querySelector('meta[name="description"]');
-    if (meta) meta.setAttribute("content", copy.seo.metaDescription);
-
-    const variant = product.variants.edges[0]?.node;
-    // Dynamic canonical URL
-    const canonicalUrl = `${window.location.origin}/product/${product.handle}`;
-    let canonical = document.querySelector('link[rel="canonical"]') as HTMLLinkElement;
-    if (!canonical) {
-      canonical = document.createElement("link");
-      canonical.rel = "canonical";
-      document.head.appendChild(canonical);
-    }
-    canonical.href = canonicalUrl;
-
-    const schema = {
-      "@context": "https://schema.org",
-      "@type": "Product",
-      name: product.title,
-      description: product.description || copy.seo.metaDescription,
-      image: product.images.edges.map(e => e.node.url),
-      brand: { "@type": "Brand", name: "TRETRA" },
-      offers: {
-        "@type": "Offer",
-        url: canonicalUrl,
-        priceCurrency: variant?.price.currencyCode || "EGP",
-        price: variant?.price.amount || "0",
-        availability: variant?.availableForSale
-          ? "https://schema.org/InStock"
-          : "https://schema.org/OutOfStock",
-      },
-    };
-
-    const breadcrumbSchema = {
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      itemListElement: [
-        { "@type": "ListItem", position: 1, name: "Home", item: window.location.origin },
-        { "@type": "ListItem", position: 2, name: "Shop", item: `${window.location.origin}/shop` },
-        { "@type": "ListItem", position: 3, name: product.title, item: canonicalUrl },
-      ],
-    };
-
-    let script = document.getElementById("product-jsonld") as HTMLScriptElement;
-    if (!script) {
-      script = document.createElement("script");
-      script.id = "product-jsonld";
-      script.type = "application/ld+json";
-      document.head.appendChild(script);
-    }
-    script.textContent = JSON.stringify([schema, breadcrumbSchema]);
-
-    return () => {
-      script.remove();
-      canonical.remove();
-    };
-  }, [product]);
 
   // Sticky bar
   useEffect(() => {
