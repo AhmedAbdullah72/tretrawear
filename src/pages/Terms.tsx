@@ -2,9 +2,15 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { FileText, MessageCircle, Mail, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
+import { SEO } from "@/components/SEO";
 
 const Terms = () => (
   <div className="min-h-screen bg-background">
+    <SEO
+      title="Terms of Service | TRETRA Wear"
+      description="The ground rules for shopping with TRETRA Wear — short, simple, and fair. No lawyer-speak required."
+      path="/terms"
+    />
     <Navbar />
     <section className="pb-12 bg-foreground text-background" style={{ paddingTop: 'calc(96px + var(--banner-offset))' }}>
       <div className="container py-8">

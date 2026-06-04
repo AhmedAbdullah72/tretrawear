@@ -1,9 +1,15 @@
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { RefreshCw, CheckCircle, XCircle, MessageCircle, Mail, ArrowRight } from "lucide-react";
+import { SEO } from "@/components/SEO";
 
 const Returns = () => (
   <div className="min-h-screen bg-background">
+    <SEO
+      title="Returns & Exchanges | TRETRA Wear"
+      description="14-day no-stress returns and exchanges on unworn TRETRA Wear items with tags attached. Easy, fair, and customer-first."
+      path="/returns"
+    />
     <Navbar />
     <section className="pb-12 bg-foreground text-background" style={{ paddingTop: 'calc(96px + var(--banner-offset))' }}>
       <div className="container py-8">

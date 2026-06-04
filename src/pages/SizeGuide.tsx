@@ -1,6 +1,7 @@
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Ruler } from "lucide-react";
+import { SEO } from "@/components/SEO";
 import {
   Table,
   TableBody,
