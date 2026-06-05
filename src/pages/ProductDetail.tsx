@@ -350,6 +350,17 @@ const ProductDetail = () => {
               </div>
             </div>
 
+            {/* Bundle promo — above ATC */}
+            <div className="flex items-center justify-between gap-3 bg-primary/5 border border-primary/20 rounded-lg px-3 py-2.5">
+              <div className="flex items-center gap-2 min-w-0">
+                <span className="font-heading text-xs tracking-wider text-primary uppercase shrink-0">Bundle &amp; Save</span>
+                <span className="font-body text-xs text-foreground truncate">Buy 3 items, save 15%</span>
+              </div>
+              <span className="font-heading text-[11px] tracking-wider bg-primary text-primary-foreground px-2 py-1 rounded shrink-0">
+                BUNDLE3
+              </span>
+            </div>
+
             {/* 7. ADD TO CART — bigger, bolder */}
             <Button
               id="main-add-to-cart"
