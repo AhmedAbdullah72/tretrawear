@@ -64,6 +64,13 @@ const Shop = () => {
     fetchProducts();
   }, []);
 
+  // Only show categories that actually contain products
+  const availableCategories = useMemo(() => {
+    const present = new Set<Category>(["all"]);
+    products.forEach((p) => categorize(p.node.title).forEach((c) => present.add(c)));
+    return CATEGORIES.filter((c) => present.has(c.value));
+  }, [products]);
+
   const filtered = useMemo(() => {
     let result = [...products];
 
@@ -144,7 +151,7 @@ const Shop = () => {
           <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
             {/* Desktop Categories */}
             <div className="hidden md:flex items-center gap-2">
-              {CATEGORIES.map((cat) => (
+              {availableCategories.map((cat) => (
                 <button
                   key={cat.value}
                   onClick={() => setCategory(cat.value)}
@@ -211,7 +218,7 @@ const Shop = () => {
                   <div>
                     <p className="font-body text-xs text-muted-foreground uppercase tracking-wider mb-3">Category</p>
                     <div className="flex flex-wrap gap-2">
-                      {CATEGORIES.map((cat) => (
+                      {availableCategories.map((cat) => (
                         <button
                           key={cat.value}
                           onClick={() => setCategory(cat.value)}
