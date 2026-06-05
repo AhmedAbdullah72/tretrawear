@@ -88,18 +88,33 @@ const Shop = () => {
 
   const activeFilterCount = (category !== "all" ? 1 : 0) + (sort !== "default" ? 1 : 0);
 
+  const itemListSchema = useMemo(() => ({
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "TRETRA Wear — All Products",
+    itemListElement: filtered.map((p, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      url: `https://www.tretrawear.com/product/${p.node.handle}`,
+      name: p.node.title,
+    })),
+  }), [filtered]);
+
   return (
     <div className="min-h-screen bg-background">
       <SEO
         title="Shop All Products | TRETRA Wear"
         description="Shop the full TRETRA Wear collection — oversized hoodies, half-zips, fur-lined essentials, DTF-printed tees, and wide-leg sweatpants. Free shipping over 1,500 EGP."
         path="/shop"
-        jsonLd={{
-          "@context": "https://schema.org",
-          "@type": "CollectionPage",
-          name: "Shop All Products",
-          url: "https://www.tretrawear.com/shop",
-        }}
+        jsonLd={[
+          {
+            "@context": "https://schema.org",
+            "@type": "CollectionPage",
+            name: "Shop All Products",
+            url: "https://www.tretrawear.com/shop",
+          },
+          itemListSchema,
+        ]}
       />
       <a href="#main-content" className="skip-to-content">Skip to content</a>
       <Navbar />
