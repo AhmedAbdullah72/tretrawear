@@ -15,13 +15,11 @@ import { motion } from "framer-motion";
 import { getProductCopy } from "@/lib/productCopy";
 import { ProductDetailTabs } from "@/components/ProductCopySections";
 import { ProductImageGallery } from "@/components/ProductImageGallery";
-import { StockUrgencyBadge } from "@/components/StockUrgencyBadge";
 import { ProductReviews, getAverageRating, getTotalReviews } from "@/components/ProductReviews";
 import { RelatedProducts } from "@/components/RelatedProducts";
 import { CompleteTheLook } from "@/components/CompleteTheLook";
 import { DeliveryEstimate } from "@/components/DeliveryEstimate";
 import { ProductBundles } from "@/components/ProductBundles";
-import { LiveViewers } from "@/components/LiveViewers";
 import { SEO } from "@/components/SEO";
 const ProductDetail = () => {
   const { handle } = useParams<{ handle: string }>();
@@ -238,18 +236,33 @@ const ProductDetail = () => {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="space-y-4"
           >
-            {/* 1. TITLE + URGENCY */}
+            {/* 1. TITLE */}
             <div>
               <div className="flex items-center gap-3 flex-wrap">
                 <h1 className="font-heading text-3xl md:text-4xl text-foreground">{product.title}</h1>
-                <StockUrgencyBadge
-                  handle={product.handle}
-                  availableForSale={selectedVariant?.availableForSale}
-                  variant="pdp"
-                />
               </div>
+
+              {/* Reviews summary — directly under title */}
+              <button
+                onClick={() => document.getElementById("reviews-section")?.scrollIntoView({ behavior: "smooth" })}
+                className="flex items-center gap-2 group mt-2"
+                aria-label={`See ${totalReviews} reviews`}
+              >
+                <div className="flex gap-0.5">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <Star
+                      key={i}
+                      className={`h-4 w-4 ${i < Math.round(avgRating) ? "text-yellow-400 fill-yellow-400" : "text-muted-foreground/20"}`}
+                    />
+                  ))}
+                </div>
+                <span className="font-body text-sm text-muted-foreground group-hover:text-primary transition-colors">
+                  {avgRating} ({totalReviews} reviews)
+                </span>
+              </button>
+
               {/* Subtitle hook — fabric, fit, use */}
-              <p className="font-body text-sm text-muted-foreground mt-1.5 tracking-wide uppercase">
+              <p className="font-body text-sm text-muted-foreground mt-2 tracking-wide uppercase">
                 {copy.subtitle}
               </p>
             </div>
@@ -258,27 +271,6 @@ const ProductDetail = () => {
             <p className="font-heading text-2xl text-primary">
               {selectedVariant?.price.currencyCode} {parseFloat(selectedVariant?.price.amount || "0").toFixed(2)}
             </p>
-
-            {/* 3. INLINE REVIEWS — clickable to scroll */}
-            <button
-              onClick={() => document.getElementById("reviews-section")?.scrollIntoView({ behavior: "smooth" })}
-              className="flex items-center gap-2 group"
-            >
-              <div className="flex gap-0.5">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <Star
-                    key={i}
-                    className={`h-4 w-4 ${i < Math.round(avgRating) ? "text-yellow-400 fill-yellow-400" : "text-muted-foreground/20"}`}
-                  />
-                ))}
-              </div>
-              <span className="font-body text-sm text-muted-foreground group-hover:text-primary transition-colors">
-                {avgRating} ({totalReviews} reviews)
-              </span>
-            </button>
-
-            {/* Live viewers */}
-            <LiveViewers handle={product.handle} />
 
             {/* 4. HOOK */}
             <p className="font-heading text-base text-foreground italic border-l-2 border-primary pl-4">
@@ -356,6 +348,17 @@ const ProductDetail = () => {
                   <Plus className="h-4 w-4" />
                 </button>
               </div>
+            </div>
+
+            {/* Bundle promo — above ATC */}
+            <div className="flex items-center justify-between gap-3 bg-primary/5 border border-primary/20 rounded-lg px-3 py-2.5">
+              <div className="flex items-center gap-2 min-w-0">
+                <span className="font-heading text-xs tracking-wider text-primary uppercase shrink-0">Bundle &amp; Save</span>
+                <span className="font-body text-xs text-foreground truncate">Buy 3 items, save 15%</span>
+              </div>
+              <span className="font-heading text-[11px] tracking-wider bg-primary text-primary-foreground px-2 py-1 rounded shrink-0">
+                BUNDLE3
+              </span>
             </div>
 
             {/* 7. ADD TO CART — bigger, bolder */}

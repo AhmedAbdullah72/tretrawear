@@ -4,28 +4,15 @@ import { HeroSection } from "@/components/HeroSection";
 import { BenefitsBar } from "@/components/BenefitsBar";
 import { Footer } from "@/components/Footer";
 import { SEO } from "@/components/SEO";
-
-// Lazy load below-fold sections
-
-// Lazy load below-fold sections
-const SummerCollection = lazy(() => import("@/components/SummerCollection").then(m => ({ default: m.SummerCollection })));
-const ShopByCategory = lazy(() => import("@/components/ShopByCategory").then(m => ({ default: m.ShopByCategory })));
-const LifestyleLookbook = lazy(() => import("@/components/LifestyleLookbook").then(m => ({ default: m.LifestyleLookbook })));
-const PromoBanner = lazy(() => import("@/components/PromoBanner").then(m => ({ default: m.PromoBanner })));
-const FeaturedProducts = lazy(() => import("@/components/FeaturedProducts").then(m => ({ default: m.FeaturedProducts })));
-
-const ProductShowcase = lazy(() => import("@/components/ProductShowcase").then(m => ({ default: m.ProductShowcase })));
-const TrustSection = lazy(() => import("@/components/TrustSection").then(m => ({ default: m.TrustSection })));
-const SocialProof = lazy(() => import("@/components/SocialProof").then(m => ({ default: m.SocialProof })));
-const CustomerReviews = lazy(() => import("@/components/CustomerReviews").then(m => ({ default: m.CustomerReviews })));
-
-const Newsletter = lazy(() => import("@/components/Newsletter").then(m => ({ default: m.Newsletter })));
-
+import { ShopByCategory } from "@/components/ShopByCategory";
+import { PromoBanner } from "@/components/PromoBanner";
+import { FeaturedProducts } from "@/components/FeaturedProducts";
+import { ProductShowcase } from "@/components/ProductShowcase";
+import { CustomerReviews } from "@/components/CustomerReviews";
+import { Newsletter } from "@/components/Newsletter";
 
 // Lazy load intro
 const IntroAnimation = lazy(() => import("@/components/IntroAnimation").then(m => ({ default: m.IntroAnimation })));
-
-const SectionFallback = () => <div className="min-h-[200px]" />;
 
 // Detect bots/lighthouse to skip intro animation
 const isBot = () => {
@@ -95,18 +82,13 @@ const Index = () => {
         <Navbar />
         <main id="main-content" role="main">
           <HeroSection />
-          <Suspense fallback={<SectionFallback />}>
-            <FeaturedProducts />
-            <ShopByCategory />
-          </Suspense>
+          <FeaturedProducts />
+          <ShopByCategory />
           <BenefitsBar />
-          <Suspense fallback={<SectionFallback />}>
-            <PromoBanner />
-            <ProductShowcase />
-            <CustomerReviews />
-            
-            <Newsletter />
-          </Suspense>
+          <PromoBanner />
+          <ProductShowcase />
+          <CustomerReviews />
+          <Newsletter />
         </main>
         <Footer />
       </div>

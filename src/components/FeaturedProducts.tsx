@@ -25,7 +25,7 @@ export const FeaturedProducts = () => {
   }, []);
 
   return (
-    <section className="section-padding bg-background">
+    <section id="featured" className="section-padding bg-background scroll-mt-24">
       <div className="container">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
