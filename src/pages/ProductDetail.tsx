@@ -181,6 +181,15 @@ const ProductDetail = () => {
               { "@type": "ListItem", position: 3, name: product.title, item: `https://www.tretrawear.com/product/${product.handle}` },
             ],
           },
+          ...(copy.faqs && copy.faqs.length > 0 ? [{
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: copy.faqs.map((f) => ({
+              "@type": "Question",
+              name: f.q,
+              acceptedAnswer: { "@type": "Answer", text: f.a },
+            })),
+          }] : []),
         ]}
       />
       <Navbar />
