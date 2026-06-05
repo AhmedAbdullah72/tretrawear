@@ -181,6 +181,15 @@ const ProductDetail = () => {
               { "@type": "ListItem", position: 3, name: product.title, item: `https://www.tretrawear.com/product/${product.handle}` },
             ],
           },
+          ...(copy.faqs && copy.faqs.length > 0 ? [{
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: copy.faqs.map((f) => ({
+              "@type": "Question",
+              name: f.q,
+              acceptedAnswer: { "@type": "Answer", text: f.a },
+            })),
+          }] : []),
         ]}
       />
       <Navbar />
@@ -339,11 +348,11 @@ const ProductDetail = () => {
             <div>
               <label className="font-heading text-xs tracking-wider text-foreground block mb-2">Quantity</label>
               <div className="inline-flex items-center border border-border rounded-lg">
-                <button onClick={() => setQuantity(Math.max(1, quantity - 1))} className="p-2.5 text-muted-foreground hover:text-foreground transition-colors">
+                <button onClick={() => setQuantity(Math.max(1, quantity - 1))} aria-label="Decrease quantity" className="p-2.5 text-muted-foreground hover:text-foreground transition-colors">
                   <Minus className="h-4 w-4" />
                 </button>
                 <span className="w-10 text-center font-body text-sm text-foreground">{quantity}</span>
-                <button onClick={() => setQuantity(quantity + 1)} className="p-2.5 text-muted-foreground hover:text-foreground transition-colors">
+                <button onClick={() => setQuantity(quantity + 1)} aria-label="Increase quantity" className="p-2.5 text-muted-foreground hover:text-foreground transition-colors">
                   <Plus className="h-4 w-4" />
                 </button>
               </div>
