@@ -1,46 +1,8 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowRight, Sparkles } from "lucide-react";
-import { useState, useEffect, useRef } from "react";
-
-const useCountdown = (targetDate: Date) => {
-  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
-
-  useEffect(() => {
-    const tick = () => {
-      const diff = Math.max(targetDate.getTime() - Date.now(), 0);
-      setTimeLeft({
-        days: Math.floor(diff / 86400000),
-        hours: Math.floor((diff % 86400000) / 3600000),
-        minutes: Math.floor((diff % 3600000) / 60000),
-        seconds: Math.floor((diff % 60000) / 1000),
-      });
-    };
-    tick();
-    const id = setInterval(tick, 1000);
-    return () => clearInterval(id);
-  }, [targetDate]);
-
-  return timeLeft;
-};
-
-// Set offer end to 3 days from now (resets on page load for demo)
-const offerEnd = new Date(Date.now() + 3 * 86400000);
-
-const CountdownUnit = ({ value, label }: { value: number; label: string }) => (
-  <div className="flex flex-col items-center">
-    <span className="font-heading text-2xl md:text-3xl text-primary-foreground tabular-nums leading-none">
-      {String(value).padStart(2, "0")}
-    </span>
-    <span className="font-body text-[10px] tracking-[0.2em] uppercase text-primary-foreground/60 mt-1">
-      {label}
-    </span>
-  </div>
-);
 
 export const PromoBanner = () => {
-  const { days, hours, minutes, seconds } = useCountdown(offerEnd);
-
   return (
     <section className="py-0 overflow-hidden">
       <motion.div
@@ -91,23 +53,6 @@ export const PromoBanner = () => {
             </div>
 
             <div className="flex flex-col items-center gap-5">
-              {/* Countdown */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.25 }}
-                className="flex items-center gap-3 md:gap-4 bg-primary-foreground/10 backdrop-blur-sm border border-primary-foreground/20 rounded-xl px-5 py-3"
-              >
-                <CountdownUnit value={days} label="Days" />
-                <span className="font-heading text-xl text-primary-foreground/40">:</span>
-                <CountdownUnit value={hours} label="Hrs" />
-                <span className="font-heading text-xl text-primary-foreground/40">:</span>
-                <CountdownUnit value={minutes} label="Min" />
-                <span className="font-heading text-xl text-primary-foreground/40">:</span>
-                <CountdownUnit value={seconds} label="Sec" />
-              </motion.div>
-
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
