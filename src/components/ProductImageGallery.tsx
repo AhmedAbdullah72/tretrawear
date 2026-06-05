@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect } from "react";
 import useEmblaCarousel from "embla-carousel-react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, X, ZoomIn } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface ProductImage {
@@ -19,6 +19,7 @@ interface ProductImageGalleryProps {
 
 export const ProductImageGallery = ({ images, imageAlts = [], productTitle, scrollToIndex }: ProductImageGalleryProps) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const [zoomed, setZoomed] = useState(false);
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false, skipSnaps: false });
 
   const onSelect = useCallback(() => {
@@ -57,19 +58,33 @@ export const ProductImageGallery = ({ images, imageAlts = [], productTitle, scro
 
   if (images.length === 1) {
     return (
-      <div className="aspect-[3/4] bg-secondary rounded-2xl overflow-hidden shadow-sm">
-        <img
-          src={images[0].node.url}
-          alt={imageAlts[0] || images[0].node.altText || productTitle}
-          className="w-full h-full object-cover"
-          loading="eager"
-          decoding="async"
-        />
-      </div>
+      <>
+        <button
+          type="button"
+          onClick={() => setZoomed(true)}
+          className="block w-full aspect-[3/4] bg-secondary rounded-2xl overflow-hidden shadow-sm group relative cursor-zoom-in"
+          aria-label="Zoom image"
+        >
+          <img
+            src={images[0].node.url}
+            alt={imageAlts[0] || images[0].node.altText || productTitle}
+            className="w-full h-full object-cover"
+            loading="eager"
+            decoding="async"
+          />
+          <span className="absolute top-3 left-3 bg-background/80 backdrop-blur-sm text-foreground p-1.5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
+            <ZoomIn className="h-4 w-4" />
+          </span>
+        </button>
+        {zoomed && (
+          <ZoomOverlay src={images[0].node.url} alt={imageAlts[0] || productTitle} onClose={() => setZoomed(false)} />
+        )}
+      </>
     );
   }
 
   return (
+   <>
     <div className="flex flex-col-reverse md:flex-row gap-3">
       {/* Desktop vertical thumbnails */}
       <div className="hidden md:flex flex-col gap-2 w-20 flex-shrink-0">
@@ -100,18 +115,28 @@ export const ProductImageGallery = ({ images, imageAlts = [], productTitle, scro
           <div className="flex">
             {images.map((img, idx) => (
               <div key={idx} className="flex-[0_0_100%] min-w-0">
-                <div className="aspect-[3/4] bg-secondary">
+                <button
+                  type="button"
+                  onClick={() => setZoomed(true)}
+                  className="aspect-[3/4] bg-secondary w-full block cursor-zoom-in"
+                  aria-label="Zoom image"
+                >
                   <img
                     src={img.node.url}
                     alt={imageAlts[idx] || img.node.altText || productTitle}
                     className="w-full h-full object-cover"
                     loading={idx === 0 ? "eager" : "lazy"}
                   />
-                </div>
+                </button>
               </div>
             ))}
           </div>
         </div>
+
+        {/* Zoom hint icon */}
+        <span className="absolute top-3 left-3 bg-background/80 backdrop-blur-sm text-foreground p-1.5 rounded-full opacity-0 md:group-hover:opacity-100 transition-opacity pointer-events-none">
+          <ZoomIn className="h-4 w-4" />
+        </span>
 
         {/* Desktop arrow nav */}
         <button
@@ -157,6 +182,50 @@ export const ProductImageGallery = ({ images, imageAlts = [], productTitle, scro
           {selectedIndex + 1} / {images.length}
         </div>
       </div>
+    </div>
+    {zoomed && (
+      <ZoomOverlay
+        src={images[selectedIndex].node.url}
+        alt={imageAlts[selectedIndex] || images[selectedIndex].node.altText || productTitle}
+        onClose={() => setZoomed(false)}
+      />
+    )}
+   </>
+  );
+};
+
+const ZoomOverlay = ({ src, alt, onClose }: { src: string; alt: string; onClose: () => void }) => {
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
+    window.addEventListener("keydown", handler);
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", handler);
+      document.body.style.overflow = "";
+    };
+  }, [onClose]);
+
+  return (
+    <div
+      className="fixed inset-0 z-[100] bg-foreground/95 backdrop-blur-sm flex items-center justify-center p-4 animate-fade-in"
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-label="Image zoom view"
+    >
+      <button
+        onClick={onClose}
+        aria-label="Close zoom"
+        className="absolute top-4 right-4 bg-background/90 text-foreground p-2.5 rounded-full hover:bg-background transition-colors"
+      >
+        <X className="h-5 w-5" />
+      </button>
+      <img
+        src={src}
+        alt={alt}
+        className="max-w-full max-h-full object-contain rounded-lg cursor-zoom-out"
+        onClick={(e) => e.stopPropagation()}
+      />
     </div>
   );
 };
