@@ -88,12 +88,26 @@ const About = () => {
         title="About TRETRA Wear | Egyptian Streetwear Brand"
         description="Born in Egypt, made for the world. Discover the story behind TRETRA Wear — heavyweight oversized hoodies & streetwear built on honest pricing and premium quality."
         path="/about"
-        jsonLd={{
-          "@context": "https://schema.org",
-          "@type": "AboutPage",
-          name: "About TRETRA Wear",
-          url: "https://www.tretrawear.com/about",
-        }}
+        jsonLd={[
+          {
+            "@context": "https://schema.org",
+            "@type": "AboutPage",
+            name: "About TRETRA Wear",
+            url: "https://www.tretrawear.com/about",
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: [
+              { "@type": "Question", name: "What sizes do you offer?", acceptedAnswer: { "@type": "Answer", text: "We offer sizes S through 3XL. All our pieces feature an oversized fit, so we recommend sizing down if you prefer a more fitted look." } },
+              { "@type": "Question", name: "How long does shipping take?", acceptedAnswer: { "@type": "Answer", text: "Orders within Egypt are delivered within 2–5 business days." } },
+              { "@type": "Question", name: "What is your return policy?", acceptedAnswer: { "@type": "Answer", text: "We accept returns within 14 days of delivery for unworn items with original tags attached." } },
+              { "@type": "Question", name: "How do I track my order?", acceptedAnswer: { "@type": "Answer", text: "Once your order ships, you'll receive an email with a tracking number." } },
+              { "@type": "Question", name: "Are your products true to size?", acceptedAnswer: { "@type": "Answer", text: "Our pieces are designed with an oversized, drop-shoulder fit. For a more fitted look, size down one." } },
+              { "@type": "Question", name: "Do you offer free shipping?", acceptedAnswer: { "@type": "Answer", text: "Yes — free shipping on orders over 1,500 EGP within Egypt." } },
+            ],
+          },
+        ]}
       />
       <Navbar />
 

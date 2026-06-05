@@ -13,4 +13,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://tretrawear.lovable.app/sitemap.xml
+Sitemap: https://www.tretrawear.com/sitemap.xml
