@@ -236,18 +236,33 @@ const ProductDetail = () => {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="space-y-4"
           >
-            {/* 1. TITLE + URGENCY */}
+            {/* 1. TITLE */}
             <div>
               <div className="flex items-center gap-3 flex-wrap">
                 <h1 className="font-heading text-3xl md:text-4xl text-foreground">{product.title}</h1>
-                <StockUrgencyBadge
-                  handle={product.handle}
-                  availableForSale={selectedVariant?.availableForSale}
-                  variant="pdp"
-                />
               </div>
+
+              {/* Reviews summary — directly under title */}
+              <button
+                onClick={() => document.getElementById("reviews-section")?.scrollIntoView({ behavior: "smooth" })}
+                className="flex items-center gap-2 group mt-2"
+                aria-label={`See ${totalReviews} reviews`}
+              >
+                <div className="flex gap-0.5">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <Star
+                      key={i}
+                      className={`h-4 w-4 ${i < Math.round(avgRating) ? "text-yellow-400 fill-yellow-400" : "text-muted-foreground/20"}`}
+                    />
+                  ))}
+                </div>
+                <span className="font-body text-sm text-muted-foreground group-hover:text-primary transition-colors">
+                  {avgRating} ({totalReviews} reviews)
+                </span>
+              </button>
+
               {/* Subtitle hook — fabric, fit, use */}
-              <p className="font-body text-sm text-muted-foreground mt-1.5 tracking-wide uppercase">
+              <p className="font-body text-sm text-muted-foreground mt-2 tracking-wide uppercase">
                 {copy.subtitle}
               </p>
             </div>
@@ -256,27 +271,6 @@ const ProductDetail = () => {
             <p className="font-heading text-2xl text-primary">
               {selectedVariant?.price.currencyCode} {parseFloat(selectedVariant?.price.amount || "0").toFixed(2)}
             </p>
-
-            {/* 3. INLINE REVIEWS — clickable to scroll */}
-            <button
-              onClick={() => document.getElementById("reviews-section")?.scrollIntoView({ behavior: "smooth" })}
-              className="flex items-center gap-2 group"
-            >
-              <div className="flex gap-0.5">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <Star
-                    key={i}
-                    className={`h-4 w-4 ${i < Math.round(avgRating) ? "text-yellow-400 fill-yellow-400" : "text-muted-foreground/20"}`}
-                  />
-                ))}
-              </div>
-              <span className="font-body text-sm text-muted-foreground group-hover:text-primary transition-colors">
-                {avgRating} ({totalReviews} reviews)
-              </span>
-            </button>
-
-            {/* Live viewers */}
-            <LiveViewers handle={product.handle} />
 
             {/* 4. HOOK */}
             <p className="font-heading text-base text-foreground italic border-l-2 border-primary pl-4">
