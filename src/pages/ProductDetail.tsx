@@ -15,13 +15,11 @@ import { motion } from "framer-motion";
 import { getProductCopy } from "@/lib/productCopy";
 import { ProductDetailTabs } from "@/components/ProductCopySections";
 import { ProductImageGallery } from "@/components/ProductImageGallery";
-import { StockUrgencyBadge } from "@/components/StockUrgencyBadge";
 import { ProductReviews, getAverageRating, getTotalReviews } from "@/components/ProductReviews";
 import { RelatedProducts } from "@/components/RelatedProducts";
 import { CompleteTheLook } from "@/components/CompleteTheLook";
 import { DeliveryEstimate } from "@/components/DeliveryEstimate";
 import { ProductBundles } from "@/components/ProductBundles";
-import { LiveViewers } from "@/components/LiveViewers";
 import { SEO } from "@/components/SEO";
 const ProductDetail = () => {
   const { handle } = useParams<{ handle: string }>();
