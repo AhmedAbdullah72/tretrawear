@@ -203,7 +203,7 @@ const Shop = () => {
                 <div className="bg-card border border-border rounded-xl p-5 space-y-5">
                   <div className="flex items-center justify-between">
                     <span className="font-heading text-sm">Filters</span>
-                    <button onClick={() => setMobileFiltersOpen(false)}>
+                    <button onClick={() => setMobileFiltersOpen(false)} aria-label="Close filters">
                       <X size={18} className="text-muted-foreground" />
                     </button>
                   </div>
@@ -266,7 +266,7 @@ const Shop = () => {
               {category !== "all" && (
                 <span className="inline-flex items-center gap-1 ml-2 bg-secondary text-foreground px-2 py-0.5 rounded-full">
                   {CATEGORIES.find((c) => c.value === category)?.label}
-                  <button onClick={() => setCategory("all")}>
+                  <button onClick={() => setCategory("all")} aria-label="Remove category filter">
                     <X size={12} />
                   </button>
                 </span>

@@ -86,7 +86,7 @@ const About = () => {
     <div className="min-h-screen bg-background">
       <SEO
         title="About TRETRA Wear | Egyptian Streetwear Brand"
-        description="Born in Egypt, made for the world. Discover the story behind TRETRA Wear — heavyweight oversized hoodies & streetwear built on honest pricing and premium quality."
+        description="Born in Egypt, made for the world. The story behind TRETRA Wear — heavyweight oversized hoodies built on honest pricing and premium quality."
         path="/about"
         jsonLd={[
           {
