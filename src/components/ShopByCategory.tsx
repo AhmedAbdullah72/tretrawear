@@ -7,22 +7,29 @@ const collections = [
     title: "Wide-Leg Sweatpants",
     subtitle: "From 550 EGP",
     image: "/products/beige-wide-leg-sweatpants.webp",
-    link: "/shop",
+    link: "/shop?category=wide-leg-sweatpants",
     bgClass: "bg-secondary",
   },
   {
-    title: "Oversized T-Shirts",
+    title: "T-Shirts",
     subtitle: "From 450 EGP",
     image: "/products/off-white-oversized-tee.webp",
-    link: "/shop",
+    link: "/shop?category=t-shirt",
     bgClass: "bg-muted",
   },
   {
-    title: "Basic Essentials",
-    subtitle: "From 350 EGP",
+    title: "Best Sellers",
+    subtitle: "Customer Favorites",
     image: "/products/black-basic-tee.webp",
-    link: "/shop",
+    link: "/shop?category=best-sellers",
     bgClass: "bg-surface",
+  },
+  {
+    title: "New Drops",
+    subtitle: "Just Landed",
+    image: "/products/black-basic-tee.webp",
+    link: "/shop?category=new-drops",
+    bgClass: "bg-secondary",
   },
 ];
 
@@ -43,7 +50,7 @@ export const ShopByCategory = () => {
           </h2>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
           {collections.map((col, i) => (
             <motion.div
               key={col.title}
