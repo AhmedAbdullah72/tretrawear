@@ -3,6 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      (function() {
+        var host = window.location.hostname;
+        if (host === 'tretrawear.com' || host === 'www.tretrawear.com') {
+          window.location.replace('https://tretrawear.lovable.app' + window.location.pathname + window.location.search + window.location.hash);
+        }
+      })();
+    </script>
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https://cdn.shopify.com https://storage.googleapis.com https://www.googletagmanager.com https://www.google-analytics.com; connect-src 'self' https://*.myshopify.com https://www.google-analytics.com https://www.googletagmanager.com https://region1.google-analytics.com; frame-src https://www.googletagmanager.com; object-src 'none'; base-uri 'self'; form-action 'self';" />
     <!-- Google Tag Manager (deferred for performance) -->
     <script>
