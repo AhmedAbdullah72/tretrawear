@@ -1,4 +1,5 @@
 import { useEffect, useState, useMemo } from "react";
+import { useSearchParams } from "react-router-dom";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { ProductCard } from "@/components/ProductCard";
@@ -10,17 +11,15 @@ import { SlidersHorizontal, X } from "lucide-react";
 import { ProductGridSkeleton } from "@/components/ProductCardSkeleton";
 import { motion, AnimatePresence } from "framer-motion";
 
-type Category = "all" | "half-zip" | "fur-lined" | "dtf-printed" | "sweatpants" | "t-shirt" | "basic";
+type Category = "all" | "wide-leg-sweatpants" | "t-shirt" | "best-sellers" | "new-drops";
 type SortOption = "default" | "price-asc" | "price-desc" | "name-asc";
 
 const CATEGORIES: { value: Category; label: string }[] = [
   { value: "all", label: "All" },
-  { value: "sweatpants", label: "Sweatpants" },
+  { value: "wide-leg-sweatpants", label: "Wide-Leg Sweatpants" },
   { value: "t-shirt", label: "T-Shirts" },
-  { value: "basic", label: "Basics" },
-  { value: "half-zip", label: "Half-Zip" },
-  { value: "fur-lined", label: "Fur-Lined" },
-  { value: "dtf-printed", label: "DTF Printed" },
+  { value: "best-sellers", label: "Best Sellers" },
+  { value: "new-drops", label: "New Drops" },
 ];
 
 const SORT_OPTIONS: { value: SortOption; label: string }[] = [
@@ -30,25 +29,58 @@ const SORT_OPTIONS: { value: SortOption; label: string }[] = [
   { value: "name-asc", label: "A → Z" },
 ];
 
-function categorize(title: string): Category[] {
-  const t = title.toLowerCase();
-  const cats: Category[] = [];
-  if (t.includes("half-zip") || t.includes("half zip")) cats.push("half-zip");
-  if (t.includes("fur-lined") || t.includes("fur lined") || t.includes("fur ")) cats.push("fur-lined");
-  if (t.includes("dtf")) cats.push("dtf-printed");
-  if (t.includes("sweatpants") || t.includes("wide-leg")) cats.push("sweatpants");
-  if (t.includes("t-shirt") || t.includes("tee") || t.includes("oversized t")) cats.push("t-shirt");
-  if (t.includes("basic") || t.includes("essential")) cats.push("basic");
-  return cats;
+const NEW_DROPS_DAYS = 45;
+
+function matchesCategory(product: ShopifyProduct, category: Category, allProducts: ShopifyProduct[]): boolean {
+  if (category === "all") return true;
+  const node = product.node;
+  const title = node.title.toLowerCase();
+  const type = (node.productType || "").toLowerCase();
+  const tags = (node.tags || []).map((t) => t.toLowerCase());
+
+  if (category === "wide-leg-sweatpants") {
+    return title.includes("wide-leg") || title.includes("wide leg") || title.includes("sweatpants") || type.includes("sweatpants");
+  }
+  if (category === "t-shirt") {
+    return title.includes("t-shirt") || title.includes("tee") || title.includes("tshirt") || type.includes("t-shirt");
+  }
+  if (category === "best-sellers") {
+    if (tags.some((t) => t.includes("best") || t.includes("bestseller"))) return true;
+    // Fallback: treat the 4 most-variant products as best sellers if no tags exist
+    const anyTagged = allProducts.some((p) => (p.node.tags || []).some((t) => t.toLowerCase().includes("best")));
+    if (anyTagged) return false;
+    const sorted = [...allProducts].sort((a, b) => (b.node.variants?.edges?.length || 0) - (a.node.variants?.edges?.length || 0));
+    return sorted.slice(0, Math.min(4, sorted.length)).some((p) => p.node.id === node.id);
+  }
+  if (category === "new-drops") {
+    if (tags.some((t) => t.includes("new"))) return true;
+    if (node.createdAt) {
+      const days = (Date.now() - new Date(node.createdAt).getTime()) / (1000 * 60 * 60 * 24);
+      return days <= NEW_DROPS_DAYS;
+    }
+    return false;
+  }
+  return false;
 }
 
 const Shop = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [products, setProducts] = useState<ShopifyProduct[]>([]);
   const [loading, setLoading] = useState(true);
-  const [category, setCategory] = useState<Category>("all");
+  const initialCategory = (searchParams.get("category") as Category) || "all";
+  const [category, setCategoryState] = useState<Category>(
+    CATEGORIES.some((c) => c.value === initialCategory) ? initialCategory : "all"
+  );
   const [sort, setSort] = useState<SortOption>("default");
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
-  
+
+  const setCategory = (next: Category) => {
+    setCategoryState(next);
+    const params = new URLSearchParams(searchParams);
+    if (next === "all") params.delete("category");
+    else params.set("category", next);
+    setSearchParams(params, { replace: true });
+  };
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -64,19 +96,11 @@ const Shop = () => {
     fetchProducts();
   }, []);
 
-  // Only show categories that actually contain products
-  const availableCategories = useMemo(() => {
-    const present = new Set<Category>(["all"]);
-    products.forEach((p) => categorize(p.node.title).forEach((c) => present.add(c)));
-    return CATEGORIES.filter((c) => present.has(c.value));
-  }, [products]);
+  // Show all collection tabs (Best Sellers / New Drops are curated)
+  const availableCategories = CATEGORIES;
 
   const filtered = useMemo(() => {
-    let result = [...products];
-
-    if (category !== "all") {
-      result = result.filter((p) => categorize(p.node.title).includes(category));
-    }
+    let result = products.filter((p) => matchesCategory(p, category, products));
 
     switch (sort) {
       case "price-asc":
