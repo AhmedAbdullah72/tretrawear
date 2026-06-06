@@ -1,9 +1,9 @@
 import { toast } from "sonner";
 
 const SHOPIFY_API_VERSION = '2025-07';
-const SHOPIFY_STORE_PERMANENT_DOMAIN = 'tretrawear-fhjb3.myshopify.com';
+const SHOPIFY_STORE_PERMANENT_DOMAIN = 'tretra-wear-urban-conversion-jxjl8.myshopify.com';
 const SHOPIFY_STOREFRONT_URL = `https://${SHOPIFY_STORE_PERMANENT_DOMAIN}/api/${SHOPIFY_API_VERSION}/graphql.json`;
-const SHOPIFY_STOREFRONT_TOKEN = '16cc9fe9cec6c9abc9a6a1f6d87049a3';
+const SHOPIFY_STOREFRONT_TOKEN = '3835ea53ec14f653e5d070ece8e3e21b';
 
 export interface ShopifyProduct {
   node: {
