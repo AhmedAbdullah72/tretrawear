@@ -3,7 +3,7 @@ import { toast } from "sonner";
 const SHOPIFY_API_VERSION = '2025-07';
 const SHOPIFY_STORE_PERMANENT_DOMAIN = 'tretra-wear-urban-conversion-jxjl8.myshopify.com';
 const SHOPIFY_STOREFRONT_URL = `https://${SHOPIFY_STORE_PERMANENT_DOMAIN}/api/${SHOPIFY_API_VERSION}/graphql.json`;
-const SHOPIFY_STOREFRONT_TOKEN = '1c77b98b1468d12ecd63bd4ac6f1e67f';
+const SHOPIFY_STOREFRONT_TOKEN = 'f386a1d165aa91b4674909bb5f4bd467';
 
 export interface ShopifyProduct {
   node: {
