@@ -32,13 +32,13 @@ export const ProductShowcase = () => {
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.7 }}
           >
-            <p className="font-body text-xs tracking-[0.3em] uppercase text-primary mb-3">Why It Hits Different</p>
+            <p className="font-body text-xs tracking-[0.3em] uppercase text-primary mb-3">Summer '26</p>
             <h2 id="showcase-heading" className="font-heading text-2xl md:text-4xl text-foreground mb-4">
-              BUILT TO<br />
-              <span className="text-primary">LAST</span>
+              BUILT FOR<br />
+              <span className="text-primary">SUMMER</span>
             </h2>
             <p className="font-body text-sm text-muted-foreground mb-5 max-w-md">
-              We're picky about quality so you don't have to be. Every piece is made to feel as good on day 100 as it does on day 1.
+              Heat-ready drops that keep their shape and softness all season. Lightweight, breathable, and made to move.
             </p>
             <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3" aria-label="Product features">
               {features.map((f, i) => (
