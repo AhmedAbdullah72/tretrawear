@@ -1,6 +1,6 @@
 import { forwardRef, useState, useMemo } from "react";
 import { Link } from "react-router-dom";
-import { ShoppingCart, Loader2, Eye, X } from "lucide-react";
+import { ShoppingCart, Loader2, Eye, X, Ruler, ChevronDown } from "lucide-react";
 import { useCartStore, type ShopifyProduct } from "@/stores/cartStore";
 import { toast } from "sonner";
 
@@ -27,6 +27,13 @@ export const ProductCard = forwardRef<HTMLAnchorElement, ProductCardProps>(({ pr
     [selectedVariantId, variants, firstAvailable]
   );
   const hasMultipleVariants = variants.length > 1;
+  const [showSizeGuide, setShowSizeGuide] = useState(false);
+  const sizeGuide = [
+    { size: "M", chest: "102", length: "72", shoulder: "50" },
+    { size: "L", chest: "108", length: "74", shoulder: "52" },
+    { size: "XL", chest: "114", length: "76", shoulder: "54" },
+    { size: "2XL", chest: "120", length: "78", shoulder: "56" },
+  ];
 
   const handleAddToCart = async (e: React.MouseEvent) => {
     e.preventDefault();
@@ -198,9 +205,16 @@ export const ProductCard = forwardRef<HTMLAnchorElement, ProductCardProps>(({ pr
                   <p className="font-heading text-xs tracking-wider uppercase text-foreground">
                     Size: <span className="text-muted-foreground">{selectedVariant?.title}</span>
                   </p>
-                  {selectedVariant && !selectedVariant.availableForSale && (
-                    <span className="font-body text-[10px] uppercase tracking-wider text-primary">Sold out</span>
-                  )}
+                  <button
+                    type="button"
+                    onClick={() => setShowSizeGuide((s) => !s)}
+                    aria-expanded={showSizeGuide}
+                    className="inline-flex items-center gap-1 font-body text-[11px] text-primary hover:text-primary/80 underline underline-offset-2"
+                  >
+                    <Ruler className="h-3 w-3" />
+                    Size Guide
+                    <ChevronDown className={`h-3 w-3 transition-transform ${showSizeGuide ? "rotate-180" : ""}`} />
+                  </button>
                 </div>
                 <div className="flex flex-wrap gap-2">
                   {variants.map((v) => {
@@ -232,6 +246,43 @@ export const ProductCard = forwardRef<HTMLAnchorElement, ProductCardProps>(({ pr
                     );
                   })}
                 </div>
+                {selectedVariant && !selectedVariant.availableForSale && (
+                  <p className="mt-2 font-body text-[11px] uppercase tracking-wider text-primary">This size is sold out</p>
+                )}
+
+                {showSizeGuide && (
+                  <div className="mt-4 rounded-lg border border-border overflow-hidden animate-fade-in">
+                    <table className="w-full text-xs">
+                      <thead>
+                        <tr className="bg-foreground text-background">
+                          <th className="font-heading py-2 px-2 text-left">Size</th>
+                          <th className="font-heading py-2 px-2 text-center">Chest</th>
+                          <th className="font-heading py-2 px-2 text-center">Length</th>
+                          <th className="font-heading py-2 px-2 text-center">Shoulder</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {sizeGuide.map((row) => {
+                          const isActive = selectedVariant?.title?.toUpperCase() === row.size;
+                          return (
+                            <tr
+                              key={row.size}
+                              className={`border-t border-border ${isActive ? "bg-primary/10" : "bg-background"}`}
+                            >
+                              <td className={`font-heading py-2 px-2 ${isActive ? "text-primary" : "text-foreground"}`}>{row.size}</td>
+                              <td className="font-body py-2 px-2 text-center text-foreground">{row.chest}</td>
+                              <td className="font-body py-2 px-2 text-center text-foreground">{row.length}</td>
+                              <td className="font-body py-2 px-2 text-center text-foreground">{row.shoulder}</td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                    <p className="font-body text-[10px] text-muted-foreground px-2 py-1.5 bg-card">
+                      Measurements in cm. Relaxed oversized fit — true to size.
+                    </p>
+                  </div>
+                )}
               </div>
             )}
 
