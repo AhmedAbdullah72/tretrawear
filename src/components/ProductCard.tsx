@@ -1,6 +1,6 @@
-import { forwardRef } from "react";
+import { forwardRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { ShoppingCart, Loader2, Eye } from "lucide-react";
+import { ShoppingCart, Loader2, Eye, X } from "lucide-react";
 import { useCartStore, type ShopifyProduct } from "@/stores/cartStore";
 import { toast } from "sonner";
 
@@ -11,6 +11,7 @@ interface ProductCardProps {
 export const ProductCard = forwardRef<HTMLAnchorElement, ProductCardProps>(({ product }, ref) => {
   const addItem = useCartStore(state => state.addItem);
   const isLoading = useCartStore(state => state.isLoading);
+  const [quickView, setQuickView] = useState(false);
   const { node } = product;
   const image = node.images.edges[0]?.node;
   const hoverImage = node.images.edges[1]?.node;
@@ -39,7 +40,14 @@ export const ProductCard = forwardRef<HTMLAnchorElement, ProductCardProps>(({ pr
     });
   };
 
+  const openQuickView = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setQuickView(true);
+  };
+
   return (
+    <>
     <Link ref={ref} to={`/product/${node.handle}`} className="group block">
       <div className="relative aspect-[3/4] bg-secondary rounded-xl overflow-hidden mb-3 shadow-sm group-hover:shadow-lg transition-all duration-500">
         {image ? (
@@ -72,10 +80,14 @@ export const ProductCard = forwardRef<HTMLAnchorElement, ProductCardProps>(({ pr
         )}
 
         {/* View Product affordance on hover (desktop) */}
-        <div className="absolute inset-x-0 bottom-0 hidden md:flex items-center justify-center p-3 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 pointer-events-none">
-          <span className="inline-flex items-center gap-1.5 bg-background/95 backdrop-blur-sm text-foreground font-heading text-[11px] tracking-wider uppercase px-3 py-1.5 rounded-full shadow-md border border-border">
-            <Eye className="h-3 w-3" /> View Product
-          </span>
+        <div className="absolute inset-x-0 bottom-0 hidden md:flex items-center justify-center gap-2 p-3 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
+          <button
+            onClick={openQuickView}
+            className="inline-flex items-center gap-1.5 bg-background/95 backdrop-blur-sm text-foreground font-heading text-[11px] tracking-wider uppercase px-3 py-1.5 rounded-full shadow-md border border-border hover:bg-background transition-colors"
+            aria-label={`Quick view ${node.title}`}
+          >
+            <Eye className="h-3 w-3" /> Quick View
+          </button>
         </div>
 
         <button
@@ -101,6 +113,62 @@ export const ProductCard = forwardRef<HTMLAnchorElement, ProductCardProps>(({ pr
         {price.currencyCode} {parseFloat(price.amount).toFixed(2)}
       </p>
     </Link>
+
+    {quickView && (
+      <div
+        className="fixed inset-0 z-[100] bg-foreground/80 backdrop-blur-sm flex items-center justify-center p-4 animate-fade-in"
+        onClick={() => setQuickView(false)}
+        role="dialog"
+        aria-modal="true"
+        aria-label={`Quick view: ${node.title}`}
+      >
+        <div
+          className="bg-background rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden shadow-2xl grid md:grid-cols-2"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div className="aspect-[3/4] bg-secondary overflow-hidden">
+            {image && (
+              <img src={image.url} alt={image.altText || node.title} className="w-full h-full object-cover" />
+            )}
+          </div>
+          <div className="p-6 flex flex-col">
+            <button
+              onClick={() => setQuickView(false)}
+              className="self-end p-1 text-muted-foreground hover:text-foreground"
+              aria-label="Close quick view"
+            >
+              <X className="h-5 w-5" />
+            </button>
+            <h3 className="font-heading text-2xl text-foreground mt-2">{node.title}</h3>
+            <p className="font-heading text-xl text-primary mt-2">
+              {price.currencyCode} {parseFloat(price.amount).toFixed(2)}
+            </p>
+            {node.description && (
+              <p className="font-body text-sm text-muted-foreground mt-3 line-clamp-4">
+                {node.description}
+              </p>
+            )}
+            <div className="flex flex-col gap-2 mt-auto pt-4">
+              <button
+                onClick={handleAddToCart}
+                disabled={isLoading || !firstVariant?.availableForSale}
+                className="w-full bg-primary text-primary-foreground font-heading text-sm tracking-wider uppercase py-3 rounded-lg hover:bg-primary/90 disabled:opacity-50 transition-colors inline-flex items-center justify-center gap-2"
+              >
+                {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : !firstVariant?.availableForSale ? "Sold Out" : <><ShoppingCart className="h-4 w-4" /> Add to Cart</>}
+              </button>
+              <Link
+                to={`/product/${node.handle}`}
+                onClick={() => setQuickView(false)}
+                className="w-full text-center border border-border text-foreground font-heading text-sm tracking-wider uppercase py-3 rounded-lg hover:bg-secondary transition-colors"
+              >
+                View Full Details
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+    )}
+    </>
   );
 });
 
