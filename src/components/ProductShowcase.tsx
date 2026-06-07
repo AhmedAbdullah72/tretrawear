@@ -1,15 +1,15 @@
 import { Check } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-import detailFabric from "@/assets/detail-fabric.webp";
-import shadowHoodie from "@/assets/shadow-hoodie.webp";
+import flatlaySummer from "@/assets/flatlay-summer.webp";
+import lifestyleSummer from "@/assets/lifestyle-summer-1.webp";
 
 const features = [
-  "380gsm heavy-weight premium cotton",
-  "Wide-leg & oversized silhouettes",
+  "180gsm lightweight breathable cotton",
+  "Relaxed oversized fit — stays airy",
   "Pre-shrunk & colorfast fabric",
   "Reinforced double-stitched seams",
-  "Elastic waistbands with drawstring",
+  "Soft-touch finish, no cling",
   "Unisex fit — sizes M to 2XL",
 ];
 
