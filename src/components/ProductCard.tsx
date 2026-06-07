@@ -1,4 +1,4 @@
-import { forwardRef, useState } from "react";
+import { forwardRef, useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { ShoppingCart, Loader2, Eye, X } from "lucide-react";
 import { useCartStore, type ShopifyProduct } from "@/stores/cartStore";
@@ -18,6 +18,15 @@ export const ProductCard = forwardRef<HTMLAnchorElement, ProductCardProps>(({ pr
   const price = node.priceRange.minVariantPrice;
   const firstVariant = node.variants.edges[0]?.node;
   const isBestSeller = (node.tags || []).map((t) => t.toLowerCase()).includes("best-seller");
+
+  const variants = node.variants.edges.map((e) => e.node);
+  const firstAvailable = variants.find((v) => v.availableForSale) || variants[0];
+  const [selectedVariantId, setSelectedVariantId] = useState<string | undefined>(firstAvailable?.id);
+  const selectedVariant = useMemo(
+    () => variants.find((v) => v.id === selectedVariantId) || firstAvailable,
+    [selectedVariantId, variants, firstAvailable]
+  );
+  const hasMultipleVariants = variants.length > 1;
 
   const handleAddToCart = async (e: React.MouseEvent) => {
     e.preventDefault();
@@ -39,6 +48,33 @@ export const ProductCard = forwardRef<HTMLAnchorElement, ProductCardProps>(({ pr
         onClick: () => window.dispatchEvent(new CustomEvent("open-cart")),
       },
     });
+  };
+
+  const handleQuickAdd = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (!selectedVariant) return;
+    if (!selectedVariant.availableForSale) {
+      toast.error("This size is sold out", { position: "top-center" });
+      return;
+    }
+    await addItem({
+      product,
+      variantId: selectedVariant.id,
+      variantTitle: selectedVariant.title,
+      price: selectedVariant.price,
+      quantity: 1,
+      selectedOptions: selectedVariant.selectedOptions || [],
+    });
+    toast.success("Added to cart", {
+      description: `${node.title} — ${selectedVariant.title}`,
+      position: "top-center",
+      action: {
+        label: "View Cart",
+        onClick: () => window.dispatchEvent(new CustomEvent("open-cart")),
+      },
+    });
+    setQuickView(false);
   };
 
   const openQuickView = (e: React.MouseEvent) => {
@@ -138,7 +174,7 @@ export const ProductCard = forwardRef<HTMLAnchorElement, ProductCardProps>(({ pr
               <img src={image.url} alt={image.altText || node.title} className="w-full h-full object-cover" />
             )}
           </div>
-          <div className="p-6 flex flex-col">
+          <div className="p-6 flex flex-col overflow-y-auto">
             <button
               onClick={() => setQuickView(false)}
               className="self-end p-1 text-muted-foreground hover:text-foreground"
@@ -148,20 +184,64 @@ export const ProductCard = forwardRef<HTMLAnchorElement, ProductCardProps>(({ pr
             </button>
             <h3 className="font-heading text-2xl text-foreground mt-2">{node.title}</h3>
             <p className="font-heading text-xl text-primary mt-2">
-              {price.currencyCode} {parseFloat(price.amount).toFixed(2)}
+              {(selectedVariant?.price || price).currencyCode} {parseFloat((selectedVariant?.price || price).amount).toFixed(2)}
             </p>
             {node.description && (
               <p className="font-body text-sm text-muted-foreground mt-3 line-clamp-4">
                 {node.description}
               </p>
             )}
-            <div className="flex flex-col gap-2 mt-auto pt-4">
+
+            {hasMultipleVariants && (
+              <div className="mt-5">
+                <div className="flex items-center justify-between mb-2">
+                  <p className="font-heading text-xs tracking-wider uppercase text-foreground">
+                    Size: <span className="text-muted-foreground">{selectedVariant?.title}</span>
+                  </p>
+                  {selectedVariant && !selectedVariant.availableForSale && (
+                    <span className="font-body text-[10px] uppercase tracking-wider text-primary">Sold out</span>
+                  )}
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {variants.map((v) => {
+                    const isSelected = v.id === selectedVariant?.id;
+                    const soldOut = !v.availableForSale;
+                    return (
+                      <button
+                        key={v.id}
+                        type="button"
+                        onClick={() => setSelectedVariantId(v.id)}
+                        aria-pressed={isSelected}
+                        aria-label={`${v.title}${soldOut ? " (sold out)" : ""}`}
+                        className={`relative min-w-[3rem] px-3 py-2 rounded-lg border font-body text-xs tracking-wider uppercase transition-all ${
+                          isSelected
+                            ? "bg-foreground text-background border-foreground"
+                            : "bg-transparent text-foreground border-border hover:border-foreground"
+                        } ${soldOut ? "opacity-50" : ""}`}
+                      >
+                        {v.title}
+                        {soldOut && (
+                          <span
+                            aria-hidden="true"
+                            className="absolute inset-0 flex items-center justify-center pointer-events-none"
+                          >
+                            <span className="block w-full h-px bg-current rotate-[-20deg]" />
+                          </span>
+                        )}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+
+            <div className="flex flex-col gap-2 mt-6 pt-4">
               <button
-                onClick={handleAddToCart}
-                disabled={isLoading || !firstVariant?.availableForSale}
+                onClick={handleQuickAdd}
+                disabled={isLoading || !selectedVariant?.availableForSale}
                 className="w-full bg-primary text-primary-foreground font-heading text-sm tracking-wider uppercase py-3 rounded-lg hover:bg-primary/90 disabled:opacity-50 transition-colors inline-flex items-center justify-center gap-2"
               >
-                {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : !firstVariant?.availableForSale ? "Sold Out" : <><ShoppingCart className="h-4 w-4" /> Add to Cart</>}
+                {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : !selectedVariant?.availableForSale ? "Sold Out" : <><ShoppingCart className="h-4 w-4" /> Add to Cart</>}
               </button>
               <Link
                 to={`/product/${node.handle}`}
