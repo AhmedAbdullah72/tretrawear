@@ -17,6 +17,7 @@ export const ProductCard = forwardRef<HTMLAnchorElement, ProductCardProps>(({ pr
   const hoverImage = node.images.edges[1]?.node;
   const price = node.priceRange.minVariantPrice;
   const firstVariant = node.variants.edges[0]?.node;
+  const isBestSeller = (node.tags || []).map((t) => t.toLowerCase()).includes("best-seller");
 
   const handleAddToCart = async (e: React.MouseEvent) => {
     e.preventDefault();
@@ -102,6 +103,12 @@ export const ProductCard = forwardRef<HTMLAnchorElement, ProductCardProps>(({ pr
         {!firstVariant?.availableForSale && (
           <div className="absolute top-3 left-3 bg-foreground text-background text-xs font-heading px-3 py-1 rounded-full">
             SOLD OUT
+          </div>
+        )}
+
+        {isBestSeller && firstVariant?.availableForSale && (
+          <div className="absolute top-3 left-3 bg-primary text-primary-foreground text-[10px] font-heading tracking-wider uppercase px-2.5 py-1 rounded-full shadow-md">
+            Best Seller
           </div>
         )}
       </div>

@@ -45,12 +45,8 @@ function matchesCategory(product: ShopifyProduct, category: Category, allProduct
     return title.includes("t-shirt") || title.includes("tee") || title.includes("tshirt") || type.includes("t-shirt");
   }
   if (category === "best-sellers") {
-    if (tags.some((t) => t.includes("best") || t.includes("bestseller"))) return true;
-    // Fallback: treat the 4 most-variant products as best sellers if no tags exist
-    const anyTagged = allProducts.some((p) => (p.node.tags || []).some((t) => t.toLowerCase().includes("best")));
-    if (anyTagged) return false;
-    const sorted = [...allProducts].sort((a, b) => (b.node.variants?.edges?.length || 0) - (a.node.variants?.edges?.length || 0));
-    return sorted.slice(0, Math.min(4, sorted.length)).some((p) => p.node.id === node.id);
+    // Only trust the explicit Shopify tag — no fuzzy fallback
+    return tags.includes("best-seller");
   }
   if (category === "new-drops") {
     if (tags.some((t) => t.includes("new"))) return true;
