@@ -69,8 +69,8 @@ export const ProductShowcase = () => {
             <div className="grid grid-cols-2 gap-3">
               <div className="aspect-[3/4] bg-secondary rounded-2xl overflow-hidden shadow-xl">
                 <motion.img
-                  src={shadowHoodie}
-                  alt="TRETRA hoodie detail showing premium stitching and fabric quality"
+                  src={lifestyleSummer}
+                  alt="TRETRA summer collection lifestyle shot"
                   className="w-full h-full object-cover"
                   style={{ y: imageY }}
                   loading="lazy"
@@ -79,8 +79,8 @@ export const ProductShowcase = () => {
               </div>
               <div className="aspect-[3/4] bg-secondary rounded-2xl overflow-hidden shadow-xl mt-8">
                 <img
-                  src={detailFabric}
-                  alt="Premium 380GSM cotton fabric texture close-up"
+                  src={flatlaySummer}
+                  alt="Summer collection flatlay showing lightweight tees"
                   className="w-full h-full object-cover"
                   loading="lazy"
                   decoding="async"
