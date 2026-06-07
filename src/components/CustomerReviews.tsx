@@ -53,14 +53,9 @@ export const CustomerReviews = () => {
           <h2 id="reviews-heading" className="font-heading text-2xl md:text-3xl text-foreground">
             REAL PEOPLE, <span className="text-primary">REAL TALK</span>
           </h2>
-          <div className="flex items-center justify-center gap-2 mt-2">
-            <div className="flex gap-0.5">
-              {Array.from({ length: 5 }).map((_, i) => (
-                <Star key={i} className="h-4 w-4 text-yellow-400 fill-yellow-400" aria-hidden="true" />
-              ))}
-            </div>
-            <span className="font-body text-xs text-muted-foreground">4.9/5 · 850+ reviews</span>
-          </div>
+          <p className="font-body text-xs text-muted-foreground mt-2">
+            What real customers are saying
+          </p>
         </motion.div>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-3xl mx-auto">

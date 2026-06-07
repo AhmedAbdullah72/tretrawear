@@ -1,5 +1,4 @@
 import { Clock, ShoppingBag, Truck, MapPin, RefreshCw, CreditCard } from "lucide-react";
-import { useEffect, useState } from "react";
 
 function getDeliveryDates() {
   const now = new Date();
@@ -23,35 +22,16 @@ function getDeliveryDates() {
   };
 }
 
-function useCountdown() {
-  const [now, setNow] = useState(new Date());
-  useEffect(() => {
-    const id = setInterval(() => setNow(new Date()), 1000);
-    return () => clearInterval(id);
-  }, []);
-
-  const endOfDay = new Date(now);
-  endOfDay.setHours(23, 59, 59, 999);
-  const diff = Math.max(0, endOfDay.getTime() - now.getTime());
-  const h = String(Math.floor(diff / 3600000)).padStart(2, "0");
-  const m = String(Math.floor((diff % 3600000) / 60000)).padStart(2, "0");
-  const s = String(Math.floor((diff % 60000) / 1000)).padStart(2, "0");
-  return `${h} : ${m} : ${s}`;
-}
-
 export const DeliveryEstimate = () => {
-  const countdown = useCountdown();
   const dates = getDeliveryDates();
 
   return (
     <div className="space-y-3">
-      {/* Countdown line */}
+      {/* Delivery estimate line — based on real shipping windows, no fake urgency */}
       <div className="flex items-start gap-2 text-sm font-body">
         <Clock className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
         <p className="text-foreground">
-          Order today within{" "}
-          <span className="font-heading font-bold tabular-nums">{countdown}</span>
-          , you'll receive your package between{" "}
+          Order today and you'll receive your package between{" "}
           <span className="font-heading font-bold">{dates.deliverStartFull}</span>
           {" "}to{" "}
           <span className="font-heading font-bold">{dates.deliverEndFull}</span>
