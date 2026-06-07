@@ -96,8 +96,20 @@ const Shop = () => {
     fetchProducts();
   }, []);
 
-  // Show all collection tabs (Best Sellers / New Drops are curated)
-  const availableCategories = CATEGORIES;
+  // Only show categories that actually have products
+  const availableCategories = useMemo(() => {
+    if (!products.length) return CATEGORIES;
+    return CATEGORIES.filter(
+      (c) => c.value === "all" || products.some((p) => matchesCategory(p, c.value, products))
+    );
+  }, [products]);
+
+  // If current category no longer has products, fall back to "all"
+  useEffect(() => {
+    if (!loading && !availableCategories.some((c) => c.value === category)) {
+      setCategoryState("all");
+    }
+  }, [availableCategories, category, loading]);
 
   const filtered = useMemo(() => {
     let result = products.filter((p) => matchesCategory(p, category, products));
