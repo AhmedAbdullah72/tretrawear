@@ -1,15 +1,15 @@
 import { Check } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-import detailFabric from "@/assets/detail-fabric.webp";
-import shadowHoodie from "@/assets/shadow-hoodie.webp";
+import flatlaySummer from "@/assets/flatlay-summer.webp";
+import lifestyleSummer from "@/assets/lifestyle-summer-1.webp";
 
 const features = [
-  "380gsm heavy-weight premium cotton",
-  "Wide-leg & oversized silhouettes",
+  "180gsm lightweight breathable cotton",
+  "Relaxed oversized fit — stays airy",
   "Pre-shrunk & colorfast fabric",
   "Reinforced double-stitched seams",
-  "Elastic waistbands with drawstring",
+  "Soft-touch finish, no cling",
   "Unisex fit — sizes M to 2XL",
 ];
 
@@ -32,13 +32,13 @@ export const ProductShowcase = () => {
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.7 }}
           >
-            <p className="font-body text-xs tracking-[0.3em] uppercase text-primary mb-3">Why It Hits Different</p>
+            <p className="font-body text-xs tracking-[0.3em] uppercase text-primary mb-3">Summer '26</p>
             <h2 id="showcase-heading" className="font-heading text-2xl md:text-4xl text-foreground mb-4">
-              BUILT TO<br />
-              <span className="text-primary">LAST</span>
+              BUILT FOR<br />
+              <span className="text-primary">SUMMER</span>
             </h2>
             <p className="font-body text-sm text-muted-foreground mb-5 max-w-md">
-              We're picky about quality so you don't have to be. Every piece is made to feel as good on day 100 as it does on day 1.
+              Heat-ready drops that keep their shape and softness all season. Lightweight, breathable, and made to move.
             </p>
             <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3" aria-label="Product features">
               {features.map((f, i) => (
@@ -69,8 +69,8 @@ export const ProductShowcase = () => {
             <div className="grid grid-cols-2 gap-3">
               <div className="aspect-[3/4] bg-secondary rounded-2xl overflow-hidden shadow-xl">
                 <motion.img
-                  src={shadowHoodie}
-                  alt="TRETRA hoodie detail showing premium stitching and fabric quality"
+                  src={lifestyleSummer}
+                  alt="TRETRA summer collection lifestyle shot"
                   className="w-full h-full object-cover"
                   style={{ y: imageY }}
                   loading="lazy"
@@ -79,8 +79,8 @@ export const ProductShowcase = () => {
               </div>
               <div className="aspect-[3/4] bg-secondary rounded-2xl overflow-hidden shadow-xl mt-8">
                 <img
-                  src={detailFabric}
-                  alt="Premium 380GSM cotton fabric texture close-up"
+                  src={flatlaySummer}
+                  alt="Summer collection flatlay showing lightweight tees"
                   className="w-full h-full object-cover"
                   loading="lazy"
                   decoding="async"
