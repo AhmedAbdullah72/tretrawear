@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { ShoppingCart, Minus, Plus, Trash2, ExternalLink, Loader2, ShieldCheck, Truck, RotateCcw, Tag } from "lucide-react";
 import { useCartStore } from "@/stores/cartStore";
+import { shopifyImg } from "@/lib/shopify";
 import { Link } from "react-router-dom";
 
 const FREE_SHIPPING_THRESHOLD = 1500;
@@ -121,7 +122,7 @@ export const CartDrawer = () => {
                       >
                         {item.product.node.images?.edges?.[0]?.node ? (
                           <img
-                            src={item.product.node.images.edges[0].node.url}
+                            src={shopifyImg(item.product.node.images.edges[0].node.url, 200)}
                             alt={item.product.node.title}
                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                             loading="lazy"

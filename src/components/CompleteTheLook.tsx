@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { storefrontApiRequest, PRODUCTS_QUERY, type ShopifyProduct } from "@/lib/shopify";
+import { storefrontApiRequest, PRODUCTS_QUERY, type ShopifyProduct, shopifyImg, shopifySrcSet } from "@/lib/shopify";
 import { useCartStore } from "@/stores/cartStore";
 import { toast } from "sonner";
 import { motion } from "framer-motion";
@@ -122,7 +122,9 @@ export const CompleteTheLook = ({ currentHandle, currentTitle }: CompleteTheLook
                 >
                   {image && (
                     <img
-                      src={image.url}
+                      src={shopifyImg(image.url, 800)}
+                      srcSet={shopifySrcSet(image.url)}
+                      sizes="(max-width: 768px) 50vw, 25vw"
                       alt={image.altText || product.node.title}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       loading="lazy"
