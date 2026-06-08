@@ -67,11 +67,11 @@ export const ProductShowcase = () => {
             className="relative"
           >
             <div className="grid grid-cols-2 gap-3">
-              <div className="aspect-[4/5] sm:aspect-[3/4] lg:aspect-[4/5] xl:aspect-[3/4] bg-secondary rounded-2xl overflow-hidden shadow-xl">
+              <div className="aspect-square bg-secondary rounded-2xl overflow-hidden shadow-xl">
                 <motion.img
                   src={lifestyleSummer.url}
                   alt="TRETRA summer collection lifestyle shot"
-                  className="w-full h-full object-cover object-[center_20%]"
+                  className="w-full h-full object-contain"
                   style={{ y: imageY }}
                   loading="lazy"
                   decoding="async"
