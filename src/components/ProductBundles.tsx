@@ -209,8 +209,10 @@ export const ProductBundles = ({
                     <Link to={`/product/${product.node.handle}`}>
                       <div className="aspect-square overflow-hidden bg-secondary/30">
                         {image && (
-                          <img
-                            src={image.url}
+                           <img
+                            src={`${image.url}${image.url.includes('?') ? '&' : '?'}width=600`}
+                            srcSet={image.url.includes('cdn.shopify.com') ? `${image.url}${image.url.includes('?') ? '&' : '?'}width=300 300w, ${image.url}${image.url.includes('?') ? '&' : '?'}width=600 600w, ${image.url}${image.url.includes('?') ? '&' : '?'}width=900 900w` : undefined}
+                            sizes="(max-width: 768px) 50vw, 25vw"
                             alt={image.altText || product.node.title}
                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                             loading="lazy"
