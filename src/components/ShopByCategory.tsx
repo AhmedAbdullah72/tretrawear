@@ -46,7 +46,7 @@ export const ShopByCategory = () => {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
           {loading
             ? Array.from({ length: 4 }).map((_, i) => (
-                <div key={i} className="aspect-[3/4] rounded-2xl bg-secondary/40 animate-pulse" />
+                <div key={i} className="aspect-square rounded-2xl bg-secondary/40 animate-pulse" />
               ))
             : collections.map((col, i) => (
             <motion.div
@@ -61,13 +61,13 @@ export const ShopByCategory = () => {
                 className="group block rounded-2xl overflow-hidden relative"
                 aria-label={`Shop ${col.node.title}`}
               >
-                <div className={`${bgClasses[i % bgClasses.length]} aspect-[3/4] overflow-hidden transition-all duration-500`}>
+                <div className={`${bgClasses[i % bgClasses.length]} aspect-square overflow-hidden transition-all duration-500`}>
                   <img
                     src={col.node.image!.url}
                     alt={col.node.image!.altText || col.node.title}
                     width={600}
                     height={800}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-105"
                     loading="lazy"
                     decoding="async"
                   />
