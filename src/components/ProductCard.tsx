@@ -2,6 +2,7 @@ import { forwardRef, useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { ShoppingCart, Loader2, Eye, X, Ruler, ChevronDown } from "lucide-react";
 import { useCartStore, type ShopifyProduct } from "@/stores/cartStore";
+import { shopifyImg, shopifySrcSet } from "@/lib/shopify";
 import { toast } from "sonner";
 
 interface ProductCardProps {
