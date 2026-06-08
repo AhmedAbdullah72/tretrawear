@@ -97,19 +97,21 @@ export const ProductCard = forwardRef<HTMLAnchorElement, ProductCardProps>(({ pr
         {image ? (
           <>
             <img
-              src={image.url + (image.url.includes('cdn.shopify.com') ? '&width=400' : '')}
-              srcSet={image.url.includes('cdn.shopify.com') ? `${image.url}&width=200 200w, ${image.url}&width=400 400w, ${image.url}&width=600 600w` : undefined}
+              src={shopifyImg(image.url, 800)}
+              srcSet={shopifySrcSet(image.url)}
               alt={image.altText || node.title}
               className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${hoverImage ? 'md:group-hover:opacity-0' : 'group-hover:scale-105'}`}
               loading="lazy"
               decoding="async"
-              width="400"
-              height="533"
+              width="600"
+              height="800"
               sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
             />
             {hoverImage && (
               <img
-                src={hoverImage.url + (hoverImage.url.includes('cdn.shopify.com') ? '&width=400' : '')}
+                src={shopifyImg(hoverImage.url, 800)}
+                srcSet={shopifySrcSet(hoverImage.url)}
+                sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
                 alt={hoverImage.altText || node.title}
                 className="hidden md:block absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100"
                 loading="lazy"
