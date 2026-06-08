@@ -2,7 +2,7 @@ import { Check } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import flatlaySummer from "@/assets/flatlay-summer.webp";
-import lifestyleSummer from "@/assets/lifestyle-summer-1.webp";
+import lifestyleSummer from "@/assets/tretra-wear-hero.png.asset.json";
 
 const features = [
   "180gsm lightweight breathable cotton",
@@ -69,7 +69,7 @@ export const ProductShowcase = () => {
             <div className="grid grid-cols-2 gap-3">
               <div className="aspect-[3/4] bg-secondary rounded-2xl overflow-hidden shadow-xl">
                 <motion.img
-                  src={lifestyleSummer}
+                  src={lifestyleSummer.url}
                   alt="TRETRA summer collection lifestyle shot"
                   className="w-full h-full object-cover"
                   style={{ y: imageY }}
