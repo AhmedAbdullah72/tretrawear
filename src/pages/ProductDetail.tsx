@@ -124,7 +124,6 @@ const ProductDetail = () => {
 
   // Find gallery image matching selected color by filename or variant image
   const selectedColor = selectedVariant?.selectedOptions?.find(o => o.name.toLowerCase() === "color")?.value;
-  const allColorValues = (product.options.find(o => o.name.toLowerCase() === "color")?.values || []).map(v => v.toLowerCase());
   const variantImageIndex = (() => {
     // Primary: match color name in image filename/URL
     if (selectedColor) {
@@ -136,15 +135,6 @@ const ProductDetail = () => {
     const variantImageUrl = selectedVariant?.image?.url;
     if (variantImageUrl) {
       const idx = images.findIndex(img => img.node.url === variantImageUrl);
-      if (idx >= 0) return idx;
-    }
-    // Fallback: image that doesn't belong to any OTHER color (best guess for this color)
-    if (selectedColor) {
-      const otherColors = allColorValues.filter(c => c !== selectedColor.toLowerCase());
-      const idx = images.findIndex(img => {
-        const url = img.node.url.toLowerCase();
-        return !otherColors.some(c => url.includes(c));
-      });
       if (idx >= 0) return idx;
     }
     return -1;

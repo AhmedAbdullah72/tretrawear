@@ -93,14 +93,14 @@ export const ProductCard = forwardRef<HTMLAnchorElement, ProductCardProps>(({ pr
   return (
     <>
     <Link ref={ref} to={`/product/${node.handle}`} className="group block">
-      <div className="relative aspect-square bg-secondary rounded-xl overflow-hidden mb-3 shadow-sm group-hover:shadow-lg transition-all duration-500">
+      <div className="relative aspect-[3/4] bg-secondary rounded-xl overflow-hidden mb-3 shadow-sm group-hover:shadow-lg transition-all duration-500">
         {image ? (
           <>
             <img
               src={image.url + (image.url.includes('cdn.shopify.com') ? '&width=400' : '')}
               srcSet={image.url.includes('cdn.shopify.com') ? `${image.url}&width=200 200w, ${image.url}&width=400 400w, ${image.url}&width=600 600w` : undefined}
               alt={image.altText || node.title}
-              className={`absolute inset-0 w-full h-full object-contain transition-opacity duration-500 ${hoverImage ? 'md:group-hover:opacity-0' : 'group-hover:scale-105'}`}
+              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${hoverImage ? 'md:group-hover:opacity-0' : 'group-hover:scale-105'}`}
               loading="lazy"
               decoding="async"
               width="400"
@@ -111,7 +111,7 @@ export const ProductCard = forwardRef<HTMLAnchorElement, ProductCardProps>(({ pr
               <img
                 src={hoverImage.url + (hoverImage.url.includes('cdn.shopify.com') ? '&width=400' : '')}
                 alt={hoverImage.altText || node.title}
-                className="hidden md:block absolute inset-0 w-full h-full object-contain opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                className="hidden md:block absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100"
                 loading="lazy"
                 decoding="async"
               />
@@ -176,9 +176,9 @@ export const ProductCard = forwardRef<HTMLAnchorElement, ProductCardProps>(({ pr
           className="bg-background rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden shadow-2xl grid md:grid-cols-2"
           onClick={(e) => e.stopPropagation()}
         >
-          <div className="aspect-square bg-secondary overflow-hidden">
+          <div className="aspect-[3/4] bg-secondary overflow-hidden">
             {image && (
-              <img src={image.url} alt={image.altText || node.title} className="w-full h-full object-contain" />
+              <img src={image.url} alt={image.altText || node.title} className="w-full h-full object-cover" />
             )}
           </div>
           <div className="p-6 flex flex-col overflow-y-auto">

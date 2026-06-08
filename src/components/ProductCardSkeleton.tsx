@@ -2,7 +2,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 export const ProductCardSkeleton = () => (
   <div className="block">
-    <Skeleton className="aspect-square rounded-xl mb-3" />
+    <Skeleton className="aspect-[3/4] rounded-xl mb-3" />
     <Skeleton className="h-4 w-3/4 mb-2" />
     <Skeleton className="h-3.5 w-1/3" />
   </div>
