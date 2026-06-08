@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { storefrontApiRequest, PRODUCTS_QUERY, type ShopifyProduct } from "@/lib/shopify";
+import { storefrontApiRequest, PRODUCTS_QUERY, type ShopifyProduct, shopifyImg, shopifySrcSet } from "@/lib/shopify";
 import { useCartStore } from "@/stores/cartStore";
 import { toast } from "sonner";
 import { motion } from "framer-motion";
