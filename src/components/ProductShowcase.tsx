@@ -71,7 +71,7 @@ export const ProductShowcase = () => {
                 <motion.img
                   src={lifestyleSummer.url}
                   alt="TRETRA summer collection lifestyle shot"
-                  className="w-full h-full object-contain"
+                  className="w-full h-full object-contain rounded-2xl"
                   style={{ y: imageY }}
                   loading="lazy"
                   decoding="async"
