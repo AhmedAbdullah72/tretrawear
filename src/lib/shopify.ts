@@ -191,6 +191,35 @@ export const PRODUCT_BY_HANDLE_QUERY = `
   }
 `;
 
+export const COLLECTIONS_QUERY = `
+  query GetCollections($first: Int!) {
+    collections(first: $first, sortKey: TITLE) {
+      edges {
+        node {
+          id
+          title
+          handle
+          description
+          image {
+            url
+            altText
+          }
+        }
+      }
+    }
+  }
+`;
+
+export interface ShopifyCollection {
+  node: {
+    id: string;
+    title: string;
+    handle: string;
+    description: string;
+    image: { url: string; altText: string | null } | null;
+  };
+}
+
 // Cart mutations
 export const CART_QUERY = `
   query cart($id: ID!) {
