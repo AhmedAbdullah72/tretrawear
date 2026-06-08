@@ -2,7 +2,7 @@ import { Check } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import flatlaySummer from "@/assets/flatlay-summer.webp";
-import lifestyleSummer from "@/assets/tretra-wear-hero.png.asset.json";
+import lifestyleSummer from "@/assets/tretra-instagram-post.png.asset.json";
 
 const features = [
   "180gsm lightweight breathable cotton",
