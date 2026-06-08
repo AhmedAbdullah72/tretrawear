@@ -110,7 +110,7 @@ export const ExitIntentPopup = () => {
 
             <div className="p-6 text-center space-y-4">
               <p className="font-body text-sm text-muted-foreground leading-relaxed">
-                Get <span className="font-semibold text-foreground">15% OFF</span> your first order! Use code <span className="font-heading text-primary">STAY15</span> at checkout.
+                Get <span className="font-semibold text-foreground">5% OFF</span> your first order! Use code <span className="font-heading text-primary">STAY5</span> at checkout.
               </p>
 
               <Link
