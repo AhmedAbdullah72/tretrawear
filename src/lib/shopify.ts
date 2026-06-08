@@ -5,6 +5,20 @@ const SHOPIFY_STORE_PERMANENT_DOMAIN = 'tretra-wear-urban-conversion-jxjl8.mysho
 const SHOPIFY_STOREFRONT_URL = `https://${SHOPIFY_STORE_PERMANENT_DOMAIN}/api/${SHOPIFY_API_VERSION}/graphql.json`;
 const SHOPIFY_STOREFRONT_TOKEN = '3835ea53ec14f653e5d070ece8e3e21b';
 
+// Append a Shopify CDN image transform (e.g. width=800) safely, choosing
+// `?` or `&` based on whether the URL already has a query string.
+export const shopifyImg = (url: string, width: number): string => {
+  if (!url || !url.includes('cdn.shopify.com')) return url;
+  const sep = url.includes('?') ? '&' : '?';
+  return `${url}${sep}width=${width}`;
+};
+
+export const shopifySrcSet = (url: string): string | undefined => {
+  if (!url || !url.includes('cdn.shopify.com')) return undefined;
+  const widths = [300, 500, 800, 1200, 1600];
+  return widths.map((w) => `${shopifyImg(url, w)} ${w}w`).join(', ');
+};
+
 export interface ShopifyProduct {
   node: {
     id: string;
