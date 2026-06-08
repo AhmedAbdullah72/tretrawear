@@ -2,6 +2,7 @@ import { useState, useCallback, useEffect } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import { ChevronLeft, ChevronRight, X, ZoomIn } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { shopifyImg, shopifySrcSet } from "@/lib/shopify";
 
 interface ProductImage {
   node: {
@@ -66,7 +67,9 @@ export const ProductImageGallery = ({ images, imageAlts = [], productTitle, scro
           aria-label="Zoom image"
         >
           <img
-            src={images[0].node.url}
+            src={shopifyImg(images[0].node.url, 1200)}
+            srcSet={shopifySrcSet(images[0].node.url)}
+            sizes="(max-width: 768px) 100vw, 50vw"
             alt={imageAlts[0] || images[0].node.altText || productTitle}
             className="w-full h-full object-cover"
             loading="eager"
@@ -100,7 +103,7 @@ export const ProductImageGallery = ({ images, imageAlts = [], productTitle, scro
             )}
           >
             <img
-              src={img.node.url}
+              src={shopifyImg(img.node.url, 200)}
               alt={imageAlts[idx] || ""}
               className="w-full h-full object-cover"
               loading="lazy"
@@ -122,7 +125,9 @@ export const ProductImageGallery = ({ images, imageAlts = [], productTitle, scro
                   aria-label="Zoom image"
                 >
                   <img
-                    src={img.node.url}
+                    src={shopifyImg(img.node.url, 1200)}
+                    srcSet={shopifySrcSet(img.node.url)}
+                    sizes="(max-width: 768px) 100vw, 50vw"
                     alt={imageAlts[idx] || img.node.altText || productTitle}
                     className="w-full h-full object-cover"
                     loading={idx === 0 ? "eager" : "lazy"}
