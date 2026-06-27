@@ -11,10 +11,10 @@ import { SlidersHorizontal, X } from "lucide-react";
 import { ProductGridSkeleton } from "@/components/ProductCardSkeleton";
 import { motion, AnimatePresence } from "framer-motion";
 
-type Category = "all" | "wide-leg-sweatpants" | "t-shirt" | "best-sellers" | "new-drops";
+type Category = string;
 type SortOption = "default" | "price-asc" | "price-desc" | "name-asc";
 
-const CATEGORIES: { value: Category; label: string }[] = [
+const CURATED_CATEGORIES: { value: Category; label: string }[] = [
   { value: "all", label: "All" },
   { value: "wide-leg-sweatpants", label: "Wide-Leg Sweatpants" },
   { value: "t-shirt", label: "T-Shirts" },
@@ -31,12 +31,22 @@ const SORT_OPTIONS: { value: SortOption; label: string }[] = [
 
 const NEW_DROPS_DAYS = 45;
 
+const STOPWORDS = new Set(["the", "and", "a", "of", "for", "with", "in", "on"]);
+
+function slugTokens(slug: string): string[] {
+  return slug
+    .toLowerCase()
+    .split(/[-_\s]+/)
+    .filter((t) => t && !STOPWORDS.has(t));
+}
+
 function matchesCategory(product: ShopifyProduct, category: Category, allProducts: ShopifyProduct[]): boolean {
   if (category === "all") return true;
   const node = product.node;
   const title = node.title.toLowerCase();
   const type = (node.productType || "").toLowerCase();
   const tags = (node.tags || []).map((t) => t.toLowerCase());
+  const handle = (node.handle || "").toLowerCase();
 
   if (category === "wide-leg-sweatpants") {
     return title.includes("wide-leg") || title.includes("wide leg") || title.includes("sweatpants") || type.includes("sweatpants");
@@ -56,17 +66,22 @@ function matchesCategory(product: ShopifyProduct, category: Category, allProduct
     }
     return false;
   }
-  return false;
+
+  // Generic slug match for Shopify collection handles (e.g. "cotton-wide-leg-sweatpants").
+  // A product matches when every significant token from the slug appears in its
+  // title, handle, product type, or tags.
+  const tokens = slugTokens(category);
+  if (!tokens.length) return false;
+  const haystack = `${title} ${handle} ${type} ${tags.join(" ")}`;
+  return tokens.every((t) => haystack.includes(t));
 }
 
 const Shop = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [products, setProducts] = useState<ShopifyProduct[]>([]);
   const [loading, setLoading] = useState(true);
-  const initialCategory = (searchParams.get("category") as Category) || "all";
-  const [category, setCategoryState] = useState<Category>(
-    CATEGORIES.some((c) => c.value === initialCategory) ? initialCategory : "all"
-  );
+  const initialCategory: Category = searchParams.get("category") || "all";
+  const [category, setCategoryState] = useState<Category>(initialCategory);
   const [sort, setSort] = useState<SortOption>("default");
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
@@ -92,20 +107,32 @@ const Shop = () => {
     fetchProducts();
   }, []);
 
-  // Only show categories that actually have products
+  // Only show curated tabs that actually have products. If the URL points to a
+  // non-curated slug (e.g. a Shopify collection handle from the homepage),
+  // surface it as an extra tab so the user can see what's filtered.
   const availableCategories = useMemo(() => {
-    if (!products.length) return CATEGORIES;
-    return CATEGORIES.filter(
-      (c) => c.value === "all" || products.some((p) => matchesCategory(p, c.value, products))
-    );
-  }, [products]);
-
-  // If current category no longer has products, fall back to "all"
-  useEffect(() => {
-    if (!loading && !availableCategories.some((c) => c.value === category)) {
-      setCategoryState("all");
+    const base = !products.length
+      ? CURATED_CATEGORIES
+      : CURATED_CATEGORIES.filter(
+          (c) => c.value === "all" || products.some((p) => matchesCategory(p, c.value, products))
+        );
+    if (category !== "all" && !base.some((c) => c.value === category)) {
+      const label = category
+        .split("-")
+        .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+        .join(" ");
+      return [...base, { value: category, label }];
     }
-  }, [availableCategories, category, loading]);
+    return base;
+  }, [products, category]);
+
+  // If the active category truly matches nothing, fall back to "all".
+  useEffect(() => {
+    if (loading) return;
+    if (category === "all") return;
+    const hasMatches = products.some((p) => matchesCategory(p, category, products));
+    if (!hasMatches) setCategoryState("all");
+  }, [products, category, loading]);
 
   const filtered = useMemo(() => {
     let result = products.filter((p) => matchesCategory(p, category, products));
@@ -304,7 +331,7 @@ const Shop = () => {
               {filtered.length} product{filtered.length !== 1 ? "s" : ""}
               {category !== "all" && (
                 <span className="inline-flex items-center gap-1 ml-2 bg-secondary text-foreground px-2 py-0.5 rounded-full">
-                  {CATEGORIES.find((c) => c.value === category)?.label}
+                  {availableCategories.find((c) => c.value === category)?.label || category}
                   <button onClick={() => setCategory("all")} aria-label="Remove category filter">
                     <X size={12} />
                   </button>
