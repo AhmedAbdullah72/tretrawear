@@ -2,16 +2,27 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { motion } from "framer-motion";
 import { Send, Gift } from "lucide-react";
+import { z } from "zod";
+
+const emailSchema = z
+  .string()
+  .trim()
+  .min(1, { message: "Please enter your email." })
+  .max(255, { message: "Email is too long." })
+  .email({ message: "Please enter a valid email address." });
 
 export const Newsletter = () => {
   const [email, setEmail] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (email) {
-      toast.success("Welcome to the crew! Check your inbox for 10% off.", { position: "top-center" });
-      setEmail("");
+    const result = emailSchema.safeParse(email);
+    if (!result.success) {
+      toast.error(result.error.issues[0]?.message ?? "Invalid email.", { position: "top-center" });
+      return;
     }
+    toast.success("Welcome to the crew! Check your inbox for 10% off.", { position: "top-center" });
+    setEmail("");
   };
 
   return (
