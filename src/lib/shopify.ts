@@ -1,9 +1,17 @@
 import { toast } from "sonner";
 
 const SHOPIFY_API_VERSION = '2025-07';
-const SHOPIFY_STORE_PERMANENT_DOMAIN = 'tretra-wear-urban-conversion-jxjl8.myshopify.com';
+// Shopify Storefront credentials. The token is a *public* Storefront token
+// (designed to be exposed in client JS), but we read it from env vars so it
+// can be rotated without a code change. Fallbacks keep dev working out of the
+// box.
+const SHOPIFY_STORE_PERMANENT_DOMAIN =
+  import.meta.env.VITE_SHOPIFY_STORE_DOMAIN ||
+  'tretra-wear-urban-conversion-jxjl8.myshopify.com';
+const SHOPIFY_STOREFRONT_TOKEN =
+  import.meta.env.VITE_SHOPIFY_STOREFRONT_TOKEN ||
+  '3835ea53ec14f653e5d070ece8e3e21b';
 const SHOPIFY_STOREFRONT_URL = `https://${SHOPIFY_STORE_PERMANENT_DOMAIN}/api/${SHOPIFY_API_VERSION}/graphql.json`;
-const SHOPIFY_STOREFRONT_TOKEN = '3835ea53ec14f653e5d070ece8e3e21b';
 
 // Append a Shopify CDN image transform (e.g. width=800) safely, choosing
 // `?` or `&` based on whether the URL already has a query string.
