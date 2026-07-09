@@ -509,9 +509,21 @@ const ProductDetail = () => {
             )}
             <div className="flex-1 min-w-0">
               <p className="font-heading text-sm text-foreground truncate">{product.title}</p>
-              <p className="font-heading text-sm text-primary">
-                {selectedVariant.price.currencyCode} {parseFloat(selectedVariant.price.amount).toFixed(2)}
-              </p>
+              <div className="flex items-center gap-2 flex-wrap">
+                {selectedVariant.compareAtPrice && (
+                  <span className="font-heading text-xs text-muted-foreground line-through">
+                    {selectedVariant.compareAtPrice.currencyCode} {parseFloat(selectedVariant.compareAtPrice.amount).toFixed(2)}
+                  </span>
+                )}
+                <span className="font-heading text-sm text-primary">
+                  {selectedVariant.price.currencyCode} {parseFloat(selectedVariant.price.amount).toFixed(2)}
+                </span>
+                {selectedVariant.compareAtPrice && (
+                  <span className="font-heading text-[10px] tracking-wider text-primary-foreground bg-primary px-2 py-0.5 rounded-full">
+                    Save {selectedVariant.price.currencyCode} {(parseFloat(selectedVariant.compareAtPrice.amount) - parseFloat(selectedVariant.price.amount)).toFixed(0)}
+                  </span>
+                )}
+              </div>
             </div>
             <div className="hidden md:flex items-center gap-2 flex-shrink-0">
               {selectedVariant.selectedOptions?.map(opt => (
