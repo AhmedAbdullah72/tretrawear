@@ -201,6 +201,10 @@ export const PRODUCT_BY_HANDLE_QUERY = `
               amount
               currencyCode
             }
+            compareAtPrice {
+              amount
+              currencyCode
+            }
             availableForSale
             selectedOptions {
               name
