@@ -240,7 +240,7 @@ const productOverrides: Record<string, Partial<ProductCopy>> = {
     included: ["Zip Hoodie", "Wide-Leg Pants"],
     singleSize: {
       label: "One Size",
-      weightRange: "55–75 KG",
+      weightRange: "75–100 KG",
       heightRange: "155–175 CM",
       fit: "Relaxed Oversized",
       suitableFor: "Women",
@@ -264,12 +264,12 @@ const productOverrides: Record<string, Partial<ProductCopy>> = {
       { label: "Season", value: "Spring / Summer" },
       { label: "Country of Origin", value: "Made in Egypt" },
       { label: "Care Instructions", value: "Machine wash cold · Tumble dry low · Do not bleach · Iron on low" },
-      { label: "Recommended Weight", value: "55–75 KG" },
+      { label: "Recommended Weight", value: "75–100 KG" },
       { label: "Recommended Height", value: "155–175 CM" },
       { label: "Size", value: "One Size" },
     ],
     faqs: [
-      { q: "Who does the One Size fit?", a: "It's designed for women with a relaxed oversized fit, roughly 55–75 KG and 155–175 CM tall. Outside that range it will still wear — just tighter or looser than intended." },
+      { q: "Who does the One Size fit?", a: "It's designed for women with a relaxed oversized fit, roughly 75–100 KG and 155–175 CM tall. Outside that range it will still wear — just tighter or looser than intended." },
       { q: "Can I wear the pieces separately?", a: "Yes. The zip hoodie and wide-leg pants are designed to match, but each piece works on its own with the rest of your wardrobe." },
       { q: "Is the fabric heavy or hot?", a: "It's a lightweight summer cotton — breathable and soft, made to keep you comfortable in warm weather." },
     ],

@@ -51,7 +51,7 @@ const productReviewsOverrides: Record<string, typeof allReviews> = {
       date: "6 days ago",
       rating: 5,
       size: "One Size",
-      text: "el set da 7arfyan mn a7la 7agat eshtareytha el se7 el fabric khafeef w bara7a gedan fi el 7ar, w el oversized fit 3aleya (165 سم / 60 كيلو) tal3 relaxed w cute mesh baggy 🔥 el color black ma bahet4 ba3d el 8asel.",
+      text: "el set da 7arfyan mn a7la 7agat eshtareytha, el fabric khafeef w bara7a gedan fi el 7ar. ana 165 سم / 82 كيلو w el oversized fit tal3 relaxed w cute mesh dae23 5ales 🔥 el color black ma bahet4 ba3d el 8asel.",
       helpful: 27,
     },
     {
@@ -59,7 +59,7 @@ const productReviewsOverrides: Record<string, typeof allReviews> = {
       date: "2 weeks ago",
       rating: 5,
       size: "One Size",
-      text: "بجد أحلى سمر ست جبته السنة دي. القماش قطن خفيف ومريح جداً ومش شفاف. أنا 170 سم و 68 كيلو والمقاس عليّ oversized زي ما هو مكتوب. بلبس البنطلون لوحده مع كروب توب كتير.",
+      text: "بجد أحلى سمر ست جبته السنة دي. القماش قطن خفيف ومريح جداً ومش شفاف. أنا 170 سم و 90 كيلو والمقاس عليّ مريح جداً وعامل شكل relaxed حلو مش ضيق. بلبس البنطلون لوحده مع كروب توب كتير.",
       helpful: 22,
     },
     {
@@ -67,7 +67,7 @@ const productReviewsOverrides: Record<string, typeof allReviews> = {
       date: "3 weeks ago",
       rating: 5,
       size: "One Size",
-      text: "el zip hoodie w el wide-leg pants matching 3'aleyy gdn, w el fit fe3lan women-friendly — msh boxy w msh dae23. lbsto el set kollo mara w kol wa7da fi el gam3a sa2altni mnen. worth every pound 💯",
+      text: "el zip hoodie w el wide-leg pants matching 3'aleyy gdn. ana 160 سم / 78 كيلو w el fit fe3lan women-friendly — comfortable w msh dae23 mn ay 7eta. lbsto el set kollo mara w kol wa7da fi el gam3a sa2altni mnen. worth every pound 💯",
       helpful: 18,
     },
     {
@@ -75,7 +75,7 @@ const productReviewsOverrides: Record<string, typeof allReviews> = {
       date: "1 month ago",
       rating: 4,
       size: "One Size",
-      text: "القماش رهيب والستايل يجنن. أنا 158 سم فالبنطلون طويل شوية عليّ واحتاج أعدله، بس ده متوقع مع one size. الهودي مقاسه تمام والزيبر ممتاز. هطلب ألوان تانية لو نزلت.",
+      text: "القماش رهيب والستايل يجنن. أنا 158 سم و 85 كيلو، الهودي مقاسه تمام ومريح جداً على الكتف والوسط، بس البنطلون طويل شوية عليّ من تحت واحتاج أعدله — ده متوقع مع one size. هطلب ألوان تانية لو نزلت.",
       helpful: 11,
     },
     {
@@ -83,7 +83,7 @@ const productReviewsOverrides: Record<string, typeof allReviews> = {
       date: "1 month ago",
       rating: 5,
       size: "One Size",
-      text: "el 2omash breathable fe3lan w mesh bey2af 3ala el jesm — perfect lel se7 el 7ar. el packaging kan premium w el shipping wesel fe yomeen fe el 2ahera. TRETRA becomes my favorite brand 💕",
+      text: "ana 172 سم / 95 كيلو w kont 5ayfa el one size ma yenfa34 ma3aya, bs el 2omash breathable fe3lan w el fit tal3 relaxed w flattering mesh dae23. perfect lel se7 el 7ar. el packaging kan premium w el shipping wesel fe yomeen fe el 2ahera. TRETRA becomes my favorite brand 💕",
       helpful: 15,
     },
   ],
