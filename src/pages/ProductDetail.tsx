@@ -264,6 +264,11 @@ const ProductDetail = () => {
             <div>
               <div className="flex items-center gap-3 flex-wrap">
                 <h1 className="font-heading text-3xl md:text-4xl text-foreground">{product.title}</h1>
+                {selectedVariant?.compareAtPrice && (
+                  <span className="font-heading text-[10px] tracking-wider uppercase bg-primary text-primary-foreground px-2.5 py-1 rounded-full">
+                    Sale
+                  </span>
+                )}
               </div>
 
               {/* Reviews summary — directly under title */}
@@ -292,9 +297,21 @@ const ProductDetail = () => {
             </div>
 
             {/* 2. PRICE */}
-            <p className="font-heading text-2xl text-primary">
-              {selectedVariant?.price.currencyCode} {parseFloat(selectedVariant?.price.amount || "0").toFixed(2)}
-            </p>
+            <div className="flex items-center gap-3 flex-wrap">
+              {selectedVariant?.compareAtPrice && (
+                <span className="font-heading text-xl text-muted-foreground line-through">
+                  {selectedVariant.compareAtPrice.currencyCode} {parseFloat(selectedVariant.compareAtPrice.amount).toFixed(2)}
+                </span>
+              )}
+              <span className="font-heading text-2xl text-primary">
+                {selectedVariant?.price.currencyCode} {parseFloat(selectedVariant?.price.amount || "0").toFixed(2)}
+              </span>
+              {selectedVariant?.compareAtPrice && (
+                <span className="font-heading text-xs tracking-wider text-primary-foreground bg-primary px-2.5 py-1 rounded-full">
+                  Save {selectedVariant.price.currencyCode} {(parseFloat(selectedVariant.compareAtPrice.amount) - parseFloat(selectedVariant.price.amount)).toFixed(0)}
+                </span>
+              )}
+            </div>
 
             {/* What's Included — shown for set products */}
             {copy.included && copy.included.length > 0 && (
