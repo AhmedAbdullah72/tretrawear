@@ -50,21 +50,26 @@ export const ProductDetailTabs = ({ copy }: ProductCopySectionsProps) => (
     </TabsContent>
 
     <TabsContent value="details" className="mt-3">
-      <p className="font-body text-sm text-muted-foreground leading-relaxed">{copy.collectionIntro}</p>
+      <p className="font-body text-sm text-muted-foreground leading-relaxed">
+        {copy.description || copy.collectionIntro}
+      </p>
     </TabsContent>
 
     <TabsContent value="specs" className="mt-3">
       <div className="bg-card rounded-xl border border-border overflow-hidden">
         <Table>
           <TableBody>
-            {[
-              ["Material", copy.specs.material],
-              ["Size", copy.specs.size],
-              ["Care", copy.specs.care],
-              ["Shipping", copy.specs.shipping],
-            ].map(([key, value]) => (
+            {(copy.detailedSpecs && copy.detailedSpecs.length > 0
+              ? copy.detailedSpecs.map(({ label, value }) => [label, value] as [string, string])
+              : [
+                  ["Material", copy.specs.material],
+                  ["Size", copy.specs.size],
+                  ["Care", copy.specs.care],
+                  ["Shipping", copy.specs.shipping],
+                ] as [string, string][]
+            ).map(([key, value]) => (
               <TableRow key={key} className="border-border/50">
-                <TableCell className="font-heading text-xs tracking-wider text-foreground w-24 py-3">{key}</TableCell>
+                <TableCell className="font-heading text-xs tracking-wider text-foreground w-32 py-3 align-top">{key}</TableCell>
                 <TableCell className="font-body text-sm text-muted-foreground py-3">{value}</TableCell>
               </TableRow>
             ))}

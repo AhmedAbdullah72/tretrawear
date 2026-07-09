@@ -10,6 +10,22 @@ export interface ProductCopy {
   seo: { title: string; metaDescription: string };
   imageAlts: string[];
   collectionIntro: string;
+  /** Optional richer product description shown in the Details tab. */
+  description?: string;
+  /** Optional structured spec rows. When present, replaces the default 4-row specs table. */
+  detailedSpecs?: Array<{ label: string; value: string }>;
+  /** Items included in the set/bundle. When present, a "What's Included" card is shown near the price. */
+  included?: string[];
+  /** Single-size product info. When present, size selector helpers are hidden and a One-Size card is shown. */
+  singleSize?: {
+    label: string;
+    weightRange: string;
+    heightRange: string;
+    fit: string;
+    suitableFor?: string;
+  };
+  /** Model wearing info shown under the gallery. */
+  modelInfo?: { height: string; weight: string; wearing: string };
 }
 
 type CategoryKey = "half-zip" | "fur-lined" | "dtf-printed" | "sweatpants" | "oversized-tee" | "basic-tee" | "default";
@@ -196,7 +212,7 @@ export function getProductCopy(title: string, handle: string): ProductCopy {
   const cleanTitle = title.replace(/^Oversized Heavy Cotton Hoodie – DTF Printed – /, "").replace(/ Edition$/, "");
   const seoKeyword = cleanTitle.length < 40 ? cleanTitle : title.split(" ").slice(0, 5).join(" ");
 
-  return {
+  const base: ProductCopy = {
     ...data,
     seo: {
       title: `${seoKeyword} | TRETRA Premium Fashion`.slice(0, 60),
@@ -209,4 +225,53 @@ export function getProductCopy(title: string, handle: string): ProductCopy {
       `${title} - Lifestyle | TRETRA ${category === "half-zip" ? "Half-Zip" : category === "sweatpants" ? "Sweatpants" : category.includes("tee") ? "T-Shirt" : "Hoodie"} Collection`,
     ],
   };
+
+  const override = productOverrides[handle];
+  return override ? { ...base, ...override } : base;
 }
+
+/** Per-product copy overrides — keyed by Shopify product handle. */
+const productOverrides: Record<string, Partial<ProductCopy>> = {
+  "black-polo-summer-cotton-set": {
+    hook: "A matching summer set built for comfort — light, breathable, and easy to wear every day.",
+    subtitle: "Premium summer cotton · zip hoodie + wide-leg pants · unisex one size",
+    description:
+      "A two-piece summer set made from premium lightweight cotton. Includes a matching zip hoodie and wide-leg pants, designed for a relaxed oversized fit. Breathable and soft against the skin, it works as an everyday outfit or as separates. Unisex sizing, made in Egypt.",
+    included: ["Zip Hoodie", "Wide-Leg Pants"],
+    singleSize: {
+      label: "One Size",
+      weightRange: "75–100 KG",
+      heightRange: "165–185 CM",
+      fit: "Relaxed Oversized",
+      suitableFor: "Men & Women",
+    },
+    modelInfo: { height: "170 CM", weight: "68 KG", wearing: "One Size" },
+    benefits: [
+      "Premium breathable summer cotton",
+      "Relaxed oversized silhouette",
+      "Lightweight for everyday wear",
+      "Soft and comfortable fabric",
+      "Durable stitching",
+      "Unisex design",
+      "Easy to style as a set or separates",
+    ],
+    detailedSpecs: [
+      { label: "Material", value: "Premium Summer Cotton" },
+      { label: "Fabric Weight", value: "Lightweight (summer weight)" },
+      { label: "Fit", value: "Oversized Relaxed" },
+      { label: "Included Pieces", value: "Zip Hoodie + Wide-Leg Pants" },
+      { label: "Gender", value: "Unisex" },
+      { label: "Season", value: "Spring / Summer" },
+      { label: "Country of Origin", value: "Made in Egypt" },
+      { label: "Care Instructions", value: "Machine wash cold · Tumble dry low · Do not bleach · Iron on low" },
+      { label: "Recommended Weight", value: "75–100 KG" },
+      { label: "Recommended Height", value: "165–185 CM" },
+      { label: "Size", value: "One Size" },
+    ],
+    faqs: [
+      { q: "Who does the One Size fit?", a: "It's designed for a relaxed oversized fit on customers roughly 75–100 KG and 165–185 CM tall. Outside that range it will still wear — just tighter or looser than intended." },
+      { q: "Can I wear the pieces separately?", a: "Yes. The zip hoodie and wide-leg pants are designed to match, but each piece works on its own with the rest of your wardrobe." },
+      { q: "Is the fabric heavy or hot?", a: "It's a lightweight summer cotton — breathable and soft, made to keep you comfortable in warm weather." },
+    ],
+  },
+};

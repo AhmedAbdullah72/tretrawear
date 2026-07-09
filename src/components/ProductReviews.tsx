@@ -111,8 +111,11 @@ export const ProductReviews = ({ handle }: ProductReviewsProps) => {
       <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-8 mb-10">
         <div>
           <h2 className="font-heading text-2xl md:text-3xl text-foreground mb-2">
-            CUSTOMER <span className="text-primary">REVIEWS</span>
+            COMMUNITY <span className="text-primary">REVIEWS</span>
           </h2>
+          <p className="font-body text-xs text-muted-foreground mb-2 max-w-md">
+            Shared experiences from TRETRA customers across our collection.
+          </p>
           <div className="flex items-center gap-3 mt-2">
             <div className="flex items-baseline gap-2">
               <span className="font-heading text-4xl text-foreground">{avgRating}</span>

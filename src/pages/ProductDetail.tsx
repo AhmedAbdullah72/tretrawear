@@ -5,7 +5,7 @@ import { Footer } from "@/components/Footer";
 import { Marquee } from "@/components/Marquee";
 import { storefrontApiRequest, PRODUCT_BY_HANDLE_QUERY } from "@/lib/shopify";
 import { useCartStore, type ShopifyProduct } from "@/stores/cartStore";
-import { Loader2, ChevronRight, ShieldCheck, Minus, Plus, Ruler, Star } from "lucide-react";
+import { Loader2, ChevronRight, ShieldCheck, Minus, Plus, Ruler, Star, Check, User } from "lucide-react";
 import { ProductDetailSkeleton } from "@/components/ProductDetailSkeleton";
 import { SizeGuide } from "@/components/SizeGuide";
 import { SizeRecommender } from "@/components/SizeRecommender";
@@ -227,6 +227,30 @@ const ProductDetail = () => {
               productTitle={product.title}
               scrollToIndex={variantImageIndex >= 0 ? variantImageIndex : undefined}
             />
+
+            {/* Model Information — shown when copy.modelInfo is defined */}
+            {copy.modelInfo && (
+              <div className="mt-4 bg-card border border-border rounded-xl p-4">
+                <div className="flex items-center gap-2 mb-3">
+                  <User className="h-4 w-4 text-primary" />
+                  <p className="font-heading text-xs tracking-wider text-foreground uppercase">Model Information</p>
+                </div>
+                <div className="grid grid-cols-3 gap-3">
+                  <div>
+                    <p className="font-body text-[11px] text-muted-foreground uppercase tracking-wide">Height</p>
+                    <p className="font-heading text-sm text-foreground mt-0.5">{copy.modelInfo.height}</p>
+                  </div>
+                  <div>
+                    <p className="font-body text-[11px] text-muted-foreground uppercase tracking-wide">Weight</p>
+                    <p className="font-heading text-sm text-foreground mt-0.5">{copy.modelInfo.weight}</p>
+                  </div>
+                  <div>
+                    <p className="font-body text-[11px] text-muted-foreground uppercase tracking-wide">Wearing</p>
+                    <p className="font-heading text-sm text-foreground mt-0.5">{copy.modelInfo.wearing}</p>
+                  </div>
+                </div>
+              </div>
+            )}
           </motion.div>
 
           {/* === RESTRUCTURED INFO PANEL === */}
@@ -272,17 +296,61 @@ const ProductDetail = () => {
               {selectedVariant?.price.currencyCode} {parseFloat(selectedVariant?.price.amount || "0").toFixed(2)}
             </p>
 
+            {/* What's Included — shown for set products */}
+            {copy.included && copy.included.length > 0 && (
+              <div className="bg-card border border-border rounded-xl p-4">
+                <p className="font-heading text-xs tracking-wider text-foreground uppercase mb-2">What's Included</p>
+                <ul className="space-y-1.5">
+                  {copy.included.map((item) => (
+                    <li key={item} className="flex items-center gap-2 font-body text-sm text-foreground">
+                      <Check className="h-4 w-4 text-primary flex-shrink-0" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
             {/* 4. HOOK */}
             <p className="font-heading text-base text-foreground italic border-l-2 border-primary pl-4">
               {copy.hook}
             </p>
+
+            {/* One Size Fit info card — replaces size selector helpers for single-size products */}
+            {copy.singleSize && (
+              <div className="bg-card border border-border rounded-xl p-4">
+                <div className="flex items-center justify-between mb-3">
+                  <p className="font-heading text-sm tracking-wider text-foreground uppercase">{copy.singleSize.label} Fit</p>
+                  <span className="font-heading text-[10px] tracking-wider bg-primary/10 text-primary px-2 py-1 rounded uppercase">
+                    {copy.singleSize.fit}
+                  </span>
+                </div>
+                <p className="font-body text-xs text-muted-foreground mb-3">Designed to comfortably fit:</p>
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <p className="font-body text-[11px] text-muted-foreground uppercase tracking-wide">Weight</p>
+                    <p className="font-heading text-sm text-foreground mt-0.5">{copy.singleSize.weightRange}</p>
+                  </div>
+                  <div>
+                    <p className="font-body text-[11px] text-muted-foreground uppercase tracking-wide">Height</p>
+                    <p className="font-heading text-sm text-foreground mt-0.5">{copy.singleSize.heightRange}</p>
+                  </div>
+                  {copy.singleSize.suitableFor && (
+                    <div className="col-span-2">
+                      <p className="font-body text-[11px] text-muted-foreground uppercase tracking-wide">Suitable For</p>
+                      <p className="font-heading text-sm text-foreground mt-0.5">{copy.singleSize.suitableFor}</p>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
 
             {/* 5. VARIANTS + SIZE GUIDE */}
             {product.options.map((option) => (
               <div key={option.name}>
                 <div className="flex items-center justify-between mb-2">
                   <label className="font-heading text-xs tracking-wider text-foreground">{option.name}</label>
-                  {option.name.toLowerCase() === "size" && (
+                  {option.name.toLowerCase() === "size" && !copy.singleSize && (
                     <button
                       onClick={() => {
                         const dialog = document.getElementById("size-guide-trigger");
@@ -323,7 +391,7 @@ const ProductDetail = () => {
                     );
                   })}
                 </div>
-                {option.name.toLowerCase() === "size" && (
+                {option.name.toLowerCase() === "size" && !copy.singleSize && (
                   <>
                     <div className="hidden"><SizeGuide /></div>
                     <div className="mt-3">
