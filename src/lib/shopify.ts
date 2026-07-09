@@ -59,6 +59,10 @@ export interface ShopifyProduct {
             amount: string;
             currencyCode: string;
           };
+          compareAtPrice?: {
+            amount: string;
+            currencyCode: string;
+          } | null;
           availableForSale: boolean;
           selectedOptions: Array<{
             name: string;
