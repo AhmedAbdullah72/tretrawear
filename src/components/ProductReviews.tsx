@@ -43,10 +43,58 @@ const allReviews = [
   },
 ];
 
+/** Per-product review overrides — keyed by Shopify product handle. */
+const productReviewsOverrides: Record<string, typeof allReviews> = {
+  "black-polo-summer-cotton-set": [
+    {
+      name: "هنا م.",
+      date: "6 days ago",
+      rating: 5,
+      size: "One Size",
+      text: "el set da 7arfyan mn a7la 7agat eshtareytha el se7 el fabric khafeef w bara7a gedan fi el 7ar, w el oversized fit 3aleya (165 سم / 60 كيلو) tal3 relaxed w cute mesh baggy 🔥 el color black ma bahet4 ba3d el 8asel.",
+      helpful: 27,
+    },
+    {
+      name: "ملك ع.",
+      date: "2 weeks ago",
+      rating: 5,
+      size: "One Size",
+      text: "بجد أحلى سمر ست جبته السنة دي. القماش قطن خفيف ومريح جداً ومش شفاف. أنا 170 سم و 68 كيلو والمقاس عليّ oversized زي ما هو مكتوب. بلبس البنطلون لوحده مع كروب توب كتير.",
+      helpful: 22,
+    },
+    {
+      name: "فرح ش.",
+      date: "3 weeks ago",
+      rating: 5,
+      size: "One Size",
+      text: "el zip hoodie w el wide-leg pants matching 3'aleyy gdn, w el fit fe3lan women-friendly — msh boxy w msh dae23. lbsto el set kollo mara w kol wa7da fi el gam3a sa2altni mnen. worth every pound 💯",
+      helpful: 18,
+    },
+    {
+      name: "سلمى ر.",
+      date: "1 month ago",
+      rating: 4,
+      size: "One Size",
+      text: "القماش رهيب والستايل يجنن. أنا 158 سم فالبنطلون طويل شوية عليّ واحتاج أعدله، بس ده متوقع مع one size. الهودي مقاسه تمام والزيبر ممتاز. هطلب ألوان تانية لو نزلت.",
+      helpful: 11,
+    },
+    {
+      name: "دينا ك.",
+      date: "1 month ago",
+      rating: 5,
+      size: "One Size",
+      text: "el 2omash breathable fe3lan w mesh bey2af 3ala el jesm — perfect lel se7 el 7ar. el packaging kan premium w el shipping wesel fe yomeen fe el 2ahera. TRETRA becomes my favorite brand 💕",
+      helpful: 15,
+    },
+  ],
+};
+
 /**
  * Pick 3 reviews deterministically based on product handle
  */
 function getReviewsForProduct(handle: string) {
+  const override = productReviewsOverrides[handle];
+  if (override) return override.slice(0, 3);
   let hash = 0;
   for (let i = 0; i < handle.length; i++) {
     hash = ((hash << 5) - hash) + handle.charCodeAt(i);
