@@ -232,6 +232,42 @@ export function getProductCopy(title: string, handle: string): ProductCopy {
 
 /** Per-product copy overrides — keyed by Shopify product handle. */
 const productOverrides: Record<string, Partial<ProductCopy>> = {
+  "tretra-summer-t-shirt": {
+    hook: "A boxy-fit summer tee that sits right, drapes clean, and wears cooler than it looks.",
+    subtitle: "Premium summer cotton · boxy relaxed fit · drop-shoulder",
+    description:
+      "A boxy-fit summer t-shirt cut from breathable premium cotton. Structured shoulders, a wider body, and a slightly cropped straight hem give it that clean streetwear silhouette without feeling stiff. Soft, pre-washed, and made to be your everyday go-to when it's hot outside.",
+    benefits: [
+      "True boxy fit — wider body, structured shoulders, straight hem",
+      "Lightweight summer cotton that actually breathes in Egyptian heat",
+      "Drop-shoulder cut that sits clean without looking sloppy",
+      "Pre-washed so it's soft from day one and won't shrink on you",
+      "Ribbed crew neck that holds its shape wash after wash",
+      "Reinforced double stitching at the shoulders and hem",
+    ],
+    detailedSpecs: [
+      { label: "Material", value: "100% Premium Summer Cotton" },
+      { label: "Fabric Weight", value: "Lightweight (summer weight)" },
+      { label: "Fit", value: "Boxy Relaxed · Drop-shoulder" },
+      { label: "Neck", value: "Ribbed Crew" },
+      { label: "Hem", value: "Straight, slightly cropped" },
+      { label: "Season", value: "Spring / Summer" },
+      { label: "Country of Origin", value: "Made in Egypt" },
+      { label: "Care Instructions", value: "Machine wash cold · Tumble dry low · Do not bleach · Iron on low" },
+      { label: "Size Range", value: "S – 2XL" },
+    ],
+    specs: {
+      material: "100% Premium Summer Cotton",
+      size: "S – 2XL · Boxy relaxed fit (true to size for boxy look, size down for a fitted feel)",
+      care: "Machine wash cold · Tumble dry low · Skip the bleach",
+      shipping: "Free over 1,500 EGP · 2–5 days in Egypt",
+    },
+    faqs: [
+      { q: "How boxy is the fit exactly?", a: "Wider through the body with a shorter, straight hem and drop shoulders. It sits away from the body instead of hugging it — think modern streetwear silhouette, not tight fit." },
+      { q: "Should I size up or down?", a: "Take your true size for the intended boxy look. If you want a more fitted, less cropped feel, go one size down." },
+      { q: "Is it thin or see-through?", a: "It's a summer-weight cotton, so it's light and breathable — but not sheer. Opaque enough to wear on its own with confidence, even in lighter colors." },
+    ],
+  },
   "black-polo-summer-cotton-set": {
     hook: "A matching summer set for women — light, breathable, and easy to wear every day.",
     subtitle: "Premium summer cotton · zip hoodie + wide-leg pants · women's one size",
