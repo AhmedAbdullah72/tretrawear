@@ -90,34 +90,7 @@
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WMZXMDSS" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
-    <div id="root">
-      <!-- Static shell for instant FCP - removed by React on hydration -->
-      <div id="app-shell" style="display:none">
-        <nav class="shell-nav" aria-hidden="true">
-          <span style="font-family:Anton,system-ui,sans-serif;font-size:1.25rem;letter-spacing:0.05em;color:hsl(0 0% 8%)">TRETRA</span>
-        </nav>
-        <div class="shell-hero" aria-hidden="true">
-          <picture>
-            <source media="(max-width: 768px)" srcset="/hero-summer-mobile.webp" type="image/webp" />
-            <img src="/hero-summer.webp" alt="" width="1920" height="823" style="width:100%;height:100%;object-fit:cover;object-position:center 15%" fetchpriority="high" decoding="sync" />
-          </picture>
-          <div style="position:absolute;inset:0;background:rgba(20,20,20,0.45)"></div>
-          <div style="position:absolute;bottom:20%;left:24px;z-index:1;color:#fff;font-family:Anton,system-ui,sans-serif">
-            <div style="font-size:clamp(2.5rem,10vw,6rem);line-height:0.85;letter-spacing:-0.01em">DRESS<br>HOW YOU<br><span style="color:hsl(355 100% 33%)">FEEL</span></div>
-          </div>
-        </div>
-      </div>
-      <script>
-        // Only show the home-page shell on the root path to avoid a flash of the
-        // home hero when opening deep links (e.g. /product/...).
-        (function(){
-          if (location.pathname === '/' || location.pathname === '') {
-            var el = document.getElementById('app-shell');
-            if (el) el.style.display = '';
-          }
-        })();
-      </script>
-    </div>
+    <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
