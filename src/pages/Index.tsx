@@ -12,32 +12,7 @@ import { CustomerReviews } from "@/components/CustomerReviews";
 import { Newsletter } from "@/components/Newsletter";
 
 
-// Detect bots/lighthouse to skip intro animation
-const isBot = () => {
-  if (typeof navigator === "undefined") return false;
-  const ua = navigator.userAgent.toLowerCase();
-  return /lighthouse|pagespeed|gtmetrix|googlebot|bingbot|headlesschrome/i.test(ua);
-};
-
 const Index = () => {
-  const [showIntro, setShowIntro] = useState(() => {
-    // Skip intro for bots and returning visitors
-    if (isBot()) return false;
-    if (typeof sessionStorage !== "undefined" && sessionStorage.getItem("intro_seen")) return false;
-    return true;
-  });
-  const [hasSeenIntro, setHasSeenIntro] = useState(() => {
-    if (isBot()) return true;
-    if (typeof sessionStorage !== "undefined" && sessionStorage.getItem("intro_seen")) return true;
-    return false;
-  });
-
-  const handleIntroComplete = () => {
-    setShowIntro(false);
-    setHasSeenIntro(true);
-    sessionStorage.setItem("intro_seen", "true");
-  };
-
   return (
     <>
       <SEO
@@ -70,11 +45,6 @@ const Index = () => {
           },
         ]}
       />
-      {showIntro && !hasSeenIntro && (
-        <Suspense fallback={<div className="fixed inset-0 z-[100] bg-foreground" />}>
-          <IntroAnimation onComplete={handleIntroComplete} />
-        </Suspense>
-      )}
       <div className="min-h-screen bg-background">
         <a href="#main-content" className="skip-to-content">Skip to content</a>
         <Navbar />
