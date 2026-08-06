@@ -8,3 +8,8 @@ createRoot(document.getElementById("root")!).render(
     <App />
   </HelmetProvider>
 );
+
+// Remove the pre-hydration loader once React has mounted
+requestAnimationFrame(() => {
+  document.getElementById("initial-loader")?.remove();
+});

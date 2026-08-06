@@ -46,6 +46,9 @@
       .min-h-screen{min-height:100vh}
       .bg-background{background-color:hsl(0 0% 98%)}
       .bg-foreground{background-color:hsl(0 0% 8%)}
+      #initial-loader{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:hsl(0 0% 98%);z-index:9999}
+      #initial-loader span{width:34px;height:34px;border:3px solid hsl(0 0% 88%);border-top-color:hsl(355 100% 33%);border-radius:50%;animation:il-spin .7s linear infinite}
+      @keyframes il-spin{to{transform:rotate(360deg)}}
     </style>
 
     <!-- Preconnect to critical origins -->
@@ -87,6 +90,7 @@
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WMZXMDSS" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
     <div id="root"></div>
+    <div id="initial-loader"><span></span></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
