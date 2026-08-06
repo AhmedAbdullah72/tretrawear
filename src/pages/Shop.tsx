@@ -149,6 +149,11 @@ const Shop = () => {
         break;
     }
 
+    // Always push sold-out products to the end
+    const inStock = (p: typeof result[number]) =>
+      p.node.variants?.edges?.some((v) => v.node.availableForSale) ?? true;
+    result = [...result].sort((a, b) => Number(inStock(b)) - Number(inStock(a)));
+
     return result;
   }, [products, category, sort]);
 
