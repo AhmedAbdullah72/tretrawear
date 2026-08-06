@@ -1,4 +1,4 @@
-import { useState, lazy, Suspense } from "react";
+import { useState } from "react";
 import { Navbar } from "@/components/Navbar";
 import { HeroSection } from "@/components/HeroSection";
 import { BenefitsBar } from "@/components/BenefitsBar";
@@ -11,8 +11,6 @@ import { ProductShowcase } from "@/components/ProductShowcase";
 import { CustomerReviews } from "@/components/CustomerReviews";
 import { Newsletter } from "@/components/Newsletter";
 
-// Lazy load intro
-const IntroAnimation = lazy(() => import("@/components/IntroAnimation").then(m => ({ default: m.IntroAnimation })));
 
 // Detect bots/lighthouse to skip intro animation
 const isBot = () => {
