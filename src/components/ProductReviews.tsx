@@ -45,6 +45,40 @@ const allReviews = [
 
 /** Per-product review overrides — keyed by Shopify product handle. */
 const productReviewsOverrides: Record<string, typeof allReviews> = {
+  "mens-summer-set": [
+    {
+      name: "يوسف ح.",
+      date: "3 days ago",
+      rating: 5,
+      size: "One Size",
+      text: "el set da 3amal far2 fe el 7ar sara7a. el 2omash khafeef w breathable w el boxy fit tal3 zay ma feh el soar bel zabt — wase3 mn el body w el ketf naz'el shwaya. ana 178 سم / 84 كيلو w el one size 3aleyya tamam. akhadt el black w hatlab el gray kaman 🔥",
+      helpful: 21,
+    },
+    {
+      name: "عمر ص.",
+      date: "5 days ago",
+      rating: 5,
+      size: "One Size",
+      text: "أخيراً ست صيفي بقصة بوكسي حقيقية مش واسعة عشوائي. أنا 182 سم و 90 كيلو والمقاس مريح جداً، التوب واقف حلو من الكتف والشورت مقاسه ظبط. القماش خفيف ومش شفاف والخياطة متينة. لبسته في العجازة كلها.",
+      helpful: 17,
+    },
+    {
+      name: "كريم ط.",
+      date: "8 days ago",
+      rating: 5,
+      size: "One Size",
+      text: "boxy fit bgd w da elly kont bdawar 3aleh. el gray lonoh clean w el matching bta3 el set shaklo ghali aktar mn se3ro bkteer. wesel el 2ahera fe yomeen w el packaging kan premium 💯",
+      helpful: 14,
+    },
+    {
+      name: "محمود ع.",
+      date: "10 days ago",
+      rating: 4,
+      size: "One Size",
+      text: "القماش والقصة ممتازين والبوكسي فيت شكله مظبوط. أنا 173 سم و 78 كيلو فالتوب طالع أوسع شوية عليّا من المتوقع — بس ده طبيعي مع one size لو انت أقصر. عموماً مريح جداً في الحر وهطلب اللون التاني.",
+      helpful: 9,
+    },
+  ],
   "black-polo-summer-cotton-set": [
     {
       name: "هنا م.",
