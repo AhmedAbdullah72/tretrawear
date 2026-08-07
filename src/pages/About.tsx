@@ -121,6 +121,7 @@ const About = () => {
         >
           <p className="font-body text-xs tracking-[0.3em] uppercase text-background/50 mb-4">Egyptian Streetwear, Redefined</p>
           <h1 className="font-heading text-4xl md:text-6xl lg:text-7xl text-background mb-6 leading-tight">
+            <span className="sr-only">About TRETRA Wear — </span>
             Premium Quality<span className="text-primary">.</span><br />
             Honest Prices<span className="text-primary">.</span><br />
             Made in Egypt<span className="text-primary">.</span>
