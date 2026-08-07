@@ -33,6 +33,7 @@ export const HeroSection = () => {
           </div>
 
           <h1 className="font-heading text-[2.75rem] sm:text-5xl md:text-8xl lg:text-9xl text-primary-foreground leading-[0.85] mb-3 md:mb-6">
+            <span className="sr-only">TRETRA Wear — Premium Egyptian Streetwear. </span>
             DRESS<br />
             HOW YOU<br />
             <span className="text-primary">FEEL</span>

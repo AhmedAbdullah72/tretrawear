@@ -175,7 +175,7 @@ const Shop = () => {
     <div className="min-h-screen bg-background">
       <SEO
         title="Shop All Products | TRETRA Wear"
-        description="Shop the full TRETRA Wear collection — oversized hoodies, half-zips, fur-lined essentials, DTF-printed tees, and wide-leg sweatpants. Free shipping over 1,500 EGP."
+        description="Shop the full TRETRA Wear collection — oversized hoodies, half-zips, DTF-printed tees and wide-leg sweatpants. Free shipping over 1,500 EGP."
         path="/shop"
         jsonLd={[
           {
