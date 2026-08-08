@@ -270,7 +270,7 @@ const productOverrides: Record<string, Partial<ProductCopy>> = {
   },
   "mens-summer-set": {
     hook: "A boxy-fit summer set that sits clean, breathes easy, and works every day.",
-    subtitle: "Lightweight summer cotton · boxy relaxed fit · black or gray",
+    subtitle: "Lightweight summer cotton · boxy relaxed fit · sizes L, XL & 2XL",
     description:
       "A two-piece men's summer set cut for a boxy fit — wider through the body, structured drop shoulders, and a straight hem that sits away from the body instead of hugging it. Made from lightweight breathable fabric that keeps you cool in Egyptian heat. Available in Black and Dark Gray, easy to wear as a full set or split into separates.",
     included: ["Boxy-Fit Top", "Matching Bottom"],
