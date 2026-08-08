@@ -274,13 +274,6 @@ const productOverrides: Record<string, Partial<ProductCopy>> = {
     description:
       "A two-piece men's summer set cut for a boxy fit — wider through the body, structured drop shoulders, and a straight hem that sits away from the body instead of hugging it. Made from lightweight breathable fabric that keeps you cool in Egyptian heat. Available in Black and Dark Gray, easy to wear as a full set or split into separates.",
     included: ["Boxy-Fit Top", "Matching Bottom"],
-    singleSize: {
-      label: "One Size",
-      weightRange: "70–95 KG",
-      heightRange: "170–185 CM",
-      fit: "Boxy Relaxed",
-      suitableFor: "Men",
-    },
     benefits: [
       "True boxy fit — wider body, drop shoulders, straight hem",
       "Lightweight breathable fabric built for warm weather",
@@ -291,6 +284,7 @@ const productOverrides: Record<string, Partial<ProductCopy>> = {
     ],
     detailedSpecs: [
       { label: "Fit", value: "Boxy Relaxed · Drop-shoulder" },
+      { label: "Available Sizes", value: "L · XL · 2XL" },
       { label: "Material", value: "Lightweight Summer Cotton Blend" },
       { label: "Fabric Weight", value: "Lightweight (summer weight)" },
       { label: "Included Pieces", value: "Top + Matching Bottom" },
@@ -302,13 +296,13 @@ const productOverrides: Record<string, Partial<ProductCopy>> = {
     ],
     specs: {
       material: "Lightweight Summer Cotton Blend",
-      size: "One Size · Boxy relaxed fit",
+      size: "L · XL · 2XL · Boxy relaxed fit (true to size for the boxy look)",
       care: "Machine wash cold · Tumble dry low · Skip the bleach",
       shipping: "Free over 1,500 EGP · 2–5 days in Egypt",
     },
     faqs: [
       { q: "How boxy is the fit?", a: "Wider through the body with drop shoulders and a straight hem. It sits away from the body instead of hugging it — a modern relaxed streetwear silhouette, not a tight fit." },
-      { q: "Who does the One Size fit?", a: "It's cut boxy for men roughly 70–95 KG and 170–185 CM. Outside that range it still wears fine — just a bit tighter or looser than intended." },
+      { q: "Which size should I pick?", a: "The set comes in L, XL and 2XL. L fits roughly 70–82 KG, XL 82–95 KG, and 2XL 95–110 KG. Since it's cut boxy, take your true size — only size up if you want it even looser." },
       { q: "Is the fabric hot?", a: "No. It's a lightweight summer fabric that breathes, so it stays comfortable through hot days and warm evenings." },
     ],
   },
