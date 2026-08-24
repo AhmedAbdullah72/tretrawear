@@ -176,13 +176,15 @@ export const ProductReviews = ({ handle }: ProductReviewsProps) => {
   const avgRating = getAverageRating(handle);
   const totalReviews = getTotalReviews(handle);
 
-  const distribution = [
-    { stars: 5, pct: 78 },
-    { stars: 4, pct: 15 },
-    { stars: 3, pct: 5 },
-    { stars: 2, pct: 2 },
-    { stars: 1, pct: 0 },
-  ];
+  // No genuine reviews for this product: render nothing rather than an empty
+  // state or a borrowed aggregate.
+  if (totalReviews === 0) return null;
+
+  // Distribution is computed from the real ratings on file, never assumed.
+  const distribution = [5, 4, 3, 2, 1].map((stars) => ({
+    stars,
+    pct: Math.round((reviews.filter((r) => r.rating === stars).length / totalReviews) * 100),
+  }));
 
   return (
     <div>
