@@ -8,8 +8,6 @@ import { WhatsAppButton } from "@/components/WhatsAppButton";
 
 import { lazy, Suspense } from "react";
 
-const ExitIntentPopup = lazy(() => import("@/components/ExitIntentPopup").then(m => ({ default: m.ExitIntentPopup })));
-
 // Eager load Index for fastest home page
 import Index from "./pages/Index";
 
