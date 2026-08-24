@@ -4,14 +4,19 @@ import { Loader2 } from "lucide-react";
 import { useCartStore, type ShopifyProduct } from "@/stores/cartStore";
 import { shopifyImg, shopifySrcSet } from "@/lib/shopify";
 import { toast } from "sonner";
+import { itemFromProduct, trackSelectItem } from "@/lib/analytics";
 
 interface ProductCardProps {
   product: ShopifyProduct;
+  /** GA4 item_list_name, e.g. "shop_grid". Omit to skip select_item. */
+  listName?: string;
+  /** Zero-based position within the list. */
+  index?: number;
 }
 
 
 
-export const ProductCard = forwardRef<HTMLDivElement, ProductCardProps>(({ product }, ref) => {
+export const ProductCard = forwardRef<HTMLDivElement, ProductCardProps>(({ product, listName, index }, ref) => {
   const addItem = useCartStore((state) => state.addItem);
   const isLoading = useCartStore((state) => state.isLoading);
   const { node } = product;
@@ -56,6 +61,12 @@ export const ProductCard = forwardRef<HTMLDivElement, ProductCardProps>(({ produ
   // Single badge, priority: SOLD OUT > SALE > NEW
   const badge = behavior === "D" ? "SOLD OUT" : onSale ? "SALE" : isNew ? "NEW" : null;
 
+  // select_item — user-initiated click on a merchandising list card only.
+  const onSelect = () => {
+    if (!listName) return;
+    trackSelectItem(itemFromProduct(node, { variant: selected, index }), listName);
+  };
+
   const fmt = (a: { currencyCode: string; amount: string }) =>
     `${a.currencyCode} ${parseFloat(a.amount).toFixed(2)}`;
 
@@ -97,6 +108,7 @@ export const ProductCard = forwardRef<HTMLDivElement, ProductCardProps>(({ produ
         to={`/product/${node.handle}`}
         className="block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-xl"
         aria-label={`View ${node.title}`}
+        onClick={onSelect}
       >
         <div className="relative aspect-[3/4] bg-secondary rounded-xl overflow-hidden shadow-sm group-hover:shadow-lg transition-shadow duration-300">
           {image ? (
@@ -222,6 +234,7 @@ export const ProductCard = forwardRef<HTMLDivElement, ProductCardProps>(({ produ
         {behavior === "C" && (
           <Link
             to={`/product/${node.handle}`}
+            onClick={onSelect}
             className="w-full h-10 rounded-lg border border-foreground text-foreground font-body font-semibold text-[13px] tracking-[0.06em] uppercase hover:bg-foreground hover:text-background transition-colors inline-flex items-center justify-center"
           >
             View Product

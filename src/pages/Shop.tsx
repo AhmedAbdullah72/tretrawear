@@ -9,6 +9,7 @@ import { SEO } from "@/components/SEO";
 import { storefrontApiRequest, PRODUCTS_QUERY, type ShopifyProduct } from "@/lib/shopify";
 import { SlidersHorizontal, X } from "lucide-react";
 import { ProductGridSkeleton } from "@/components/ProductCardSkeleton";
+import { pushEvent } from "@/lib/analytics";
 
 type Category = string;
 type SortOption = "default" | "price-asc" | "price-desc" | "name-asc";
@@ -85,6 +86,7 @@ const Shop = () => {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
   const setCategory = (next: Category) => {
+    if (next !== category) pushEvent("filter_used", { filter_type: "category", filter_value: next });
     setCategoryState(next);
     const params = new URLSearchParams(searchParams);
     if (next === "all") params.delete("category");
@@ -245,7 +247,7 @@ const Shop = () => {
               <span className="font-body text-xs text-muted-foreground uppercase tracking-wider">Sort:</span>
               <select
                 value={sort}
-                onChange={(e) => setSort(e.target.value as SortOption)}
+                onChange={(e) => { pushEvent("filter_used", { filter_type: "sort", filter_value: e.target.value }); setSort(e.target.value as SortOption); }}
                 className="font-body text-xs bg-transparent border border-border rounded-full px-4 py-2 text-foreground focus:outline-none focus:border-foreground cursor-pointer"
               >
                 {SORT_OPTIONS.map((opt) => (
@@ -293,7 +295,7 @@ const Shop = () => {
                       {SORT_OPTIONS.map((opt) => (
                         <button
                           key={opt.value}
-                          onClick={() => setSort(opt.value)}
+                          onClick={() => { if (sort !== opt.value) pushEvent("filter_used", { filter_type: "sort", filter_value: opt.value }); setSort(opt.value); }}
                           className={`font-body text-xs tracking-wider px-3 py-1.5 rounded-full border transition-all duration-300 ${
                             sort === opt.value
                               ? "bg-foreground text-background border-foreground"
@@ -354,8 +356,8 @@ const Shop = () => {
             </div>
           ) : (
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-              {filtered.map((product) => (
-                <ProductCard key={product.node.id} product={product} />
+              {filtered.map((product, i) => (
+                <ProductCard key={product.node.id} product={product} listName="shop_grid" index={i} />
               ))}
             </div>
           )}

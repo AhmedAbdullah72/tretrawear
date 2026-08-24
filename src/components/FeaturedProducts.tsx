@@ -59,8 +59,8 @@ export const FeaturedProducts = () => {
           </div>
         ) : (
           <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-            {available.map((product) => (
-              <ProductCard key={product.node.id} product={product} />
+            {available.map((product, i) => (
+              <ProductCard key={product.node.id} product={product} listName="home_shop_collection" index={i} />
             ))}
           </div>
         )}
