@@ -94,6 +94,8 @@ const ProductDetail = () => {
       selectedOptions: variant.selectedOptions || [],
     });
     toast.success("Added to cart", { description: product.title, position: "top-center" });
+    // Open the cart immediately: one step from add-to-cart to checkout.
+    window.dispatchEvent(new CustomEvent("open-cart"));
   };
 
   if (loading) {
@@ -499,6 +501,7 @@ const ProductDetail = () => {
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 80, opacity: 0 }}
           transition={{ type: "spring", stiffness: 300, damping: 30 }}
+          id="sticky-atc"
           className="fixed bottom-0 left-0 right-0 z-40 bg-card/95 backdrop-blur-xl border-t border-border safe-bottom"
         >
           <div className="container flex items-center gap-4 py-3">
