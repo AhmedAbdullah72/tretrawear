@@ -49,9 +49,9 @@ export const ProductCard = forwardRef<HTMLDivElement, ProductCardProps>(({ produ
   const onSale =
     !!compareAt && parseFloat(compareAt.amount) > parseFloat(price.amount) && behavior !== "D";
 
-  const isNew =
-    !!node.createdAt &&
-    Date.now() - new Date(node.createdAt).getTime() < NEW_WINDOW_DAYS * 86400000;
+  // NEW comes strictly from the merchandising tag set in Shopify ("new-arrival").
+  // No date/index inference.
+  const isNew = (node.tags || []).some((t) => t.toLowerCase() === "new-arrival");
 
   // Single badge, priority: SOLD OUT > SALE > NEW
   const badge = behavior === "D" ? "SOLD OUT" : onSale ? "SALE" : isNew ? "NEW" : null;
