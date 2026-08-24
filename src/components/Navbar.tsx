@@ -35,7 +35,9 @@ const backgroundLuminanceAt = (x: number, y: number): number | null => {
     const bg = getComputedStyle(node).backgroundColor;
     const m = bg.match(/rgba?\(([^)]+)\)/);
     if (m) {
-      const [r, g, b, a = "1"] = m[1].split(",").map((v) => parseFloat(v));
+      const parts = m[1].split(",").map((v) => parseFloat(v));
+      const [r, g, b] = parts;
+      const a = parts.length > 3 ? parts[3] : 1;
       if (a > 0.5) return (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255;
     }
     node = node.parentElement;
