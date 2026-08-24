@@ -124,32 +124,29 @@ const productReviewsOverrides: Record<string, typeof allReviews> = {
 };
 
 /**
- * Pick 3 reviews deterministically based on product handle
+ * Reviews are only ever real, product-specific entries supplied for that exact
+ * handle. Products without collected feedback return an empty list — we never
+ * borrow another product's reviews or synthesise an aggregate.
  */
 function getReviewsForProduct(handle: string) {
-  const override = productReviewsOverrides[handle];
-  if (override) return override.slice(0, 3);
-  let hash = 0;
-  for (let i = 0; i < handle.length; i++) {
-    hash = ((hash << 5) - hash) + handle.charCodeAt(i);
-    hash |= 0;
-  }
-  const start = Math.abs(hash) % allReviews.length;
-  const picks: typeof allReviews = [];
-  for (let i = 0; i < 3; i++) {
-    picks.push(allReviews[(start + i) % allReviews.length]);
-  }
-  return picks;
+  return productReviewsOverrides[handle] ?? [];
+}
+
+/** True only when this product has genuine, product-specific reviews. */
+export function hasGenuineReviews(handle: string) {
+  return getReviewsForProduct(handle).length > 0;
 }
 
 export function getAverageRating(handle: string) {
   const reviews = getReviewsForProduct(handle);
+  if (reviews.length === 0) return 0;
   const avg = reviews.reduce((s, r) => s + r.rating, 0) / reviews.length;
   return Math.round(avg * 10) / 10;
 }
 
+/** Actual number of reviews on file for this product. */
 export function getTotalReviews(handle: string) {
-  return 47 + (Math.abs(handle.charCodeAt(0)) % 30);
+  return getReviewsForProduct(handle).length;
 }
 
 const StarRating = ({ rating, size = "sm" }: { rating: number; size?: "sm" | "md" }) => (
