@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { Check } from "lucide-react";
 import {
   Accordion,
@@ -7,13 +8,14 @@ import {
 } from "@/components/ui/accordion";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { DeliveryEstimate } from "@/components/DeliveryEstimate";
-import { SizeGuide } from "@/components/SizeGuide";
 import type { ProductCopy } from "@/lib/productCopy";
 
 interface ProductAccordionsProps {
   copy: ProductCopy;
   /** Product Details opens by default on desktop only. */
   defaultOpen?: string;
+  /** Optional size-finder rendered inside Size & Fit. */
+  sizeHelper?: ReactNode;
 }
 
 const Row = ({ label, value }: { label: string; value: string }) => (
