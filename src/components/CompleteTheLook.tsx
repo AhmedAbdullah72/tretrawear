@@ -146,7 +146,7 @@ export const CompleteTheLook = ({ currentHandle, currentTitle }: CompleteTheLook
                     disabled={isLoading}
                     variant="outline"
                     size="sm"
-                    className="w-full font-body font-semibold text-xs tracking-wider uppercase gap-2 border-primary/30 text-primary hover:bg-primary hover:text-primary-foreground transition-all"
+                    className="w-full font-body font-semibold text-xs tracking-[0.06em] uppercase gap-2 border-primary/30 text-primary hover:bg-primary hover:text-primary-foreground transition-all"
                   >
                     <Plus className="h-3.5 w-3.5" />
                     Quick Add

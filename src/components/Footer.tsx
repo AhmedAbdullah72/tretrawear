@@ -25,7 +25,7 @@ export const Footer = ({ hideCta = false }: FooterProps) => {
           </div>
           <Link
             to="/shop"
-            className="inline-flex items-center gap-2 bg-primary-foreground text-primary font-body font-semibold text-sm tracking-wider uppercase px-8 py-3.5 rounded-xl hover:bg-primary-foreground/90 transition-colors duration-300 flex-shrink-0"
+            className="inline-flex items-center gap-2 bg-primary-foreground text-primary font-body font-semibold text-sm tracking-[0.06em] uppercase px-8 py-3.5 rounded-xl hover:bg-primary-foreground/90 transition-colors duration-300 flex-shrink-0"
           >
             Shop Now <ArrowRight className="h-4 w-4" />
           </Link>

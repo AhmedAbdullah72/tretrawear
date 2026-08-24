@@ -42,14 +42,14 @@ const CTABlock = ({ variant = "default" }: { variant?: "default" | "dark" }) => 
   >
     <Link
       to="/shop"
-      className="group inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground font-body font-semibold text-sm tracking-wider uppercase px-7 py-3.5 rounded-lg hover:bg-primary/90 transition-all duration-300 shadow-lg shadow-primary/20"
+      className="group inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground font-body font-semibold text-sm tracking-[0.06em] uppercase px-7 py-3.5 rounded-lg hover:bg-primary/90 transition-all duration-300 shadow-lg shadow-primary/20"
     >
       Shop Now
       <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
     </Link>
     <Link
       to="/shop"
-      className={`inline-flex items-center justify-center gap-2 border font-body font-semibold text-sm tracking-wider uppercase px-7 py-3.5 rounded-lg transition-all duration-300 ${
+      className={`inline-flex items-center justify-center gap-2 border font-body font-semibold text-sm tracking-[0.06em] uppercase px-7 py-3.5 rounded-lg transition-all duration-300 ${
         variant === "dark"
           ? "border-background/30 text-background hover:bg-background/10"
           : "border-foreground/20 text-foreground hover:bg-foreground/5"

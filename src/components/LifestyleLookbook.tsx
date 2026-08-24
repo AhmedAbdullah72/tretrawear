@@ -101,7 +101,7 @@ export const LifestyleLookbook = () => {
               <div className="absolute inset-0 bg-foreground/0 group-hover:bg-foreground/20 transition-all duration-500 flex items-center justify-center">
                 <Link
                   to="/shop"
-                  className="bg-primary text-primary-foreground font-body font-semibold text-xs tracking-wider uppercase px-5 py-2.5 rounded-full opacity-0 group-hover:opacity-100 scale-90 group-hover:scale-100 transition-all duration-500 flex items-center gap-2"
+                  className="bg-primary text-primary-foreground font-body font-semibold text-xs tracking-[0.06em] uppercase px-5 py-2.5 rounded-full opacity-0 group-hover:opacity-100 scale-90 group-hover:scale-100 transition-all duration-500 flex items-center gap-2"
                 >
                   Shop the Look
                   <ArrowRight className="h-3.5 w-3.5" />

@@ -83,7 +83,7 @@ export const VideoBanner = () => {
           >
             <Link
               to="/shop"
-              className="group inline-flex items-center gap-2 bg-primary-foreground text-foreground font-body font-semibold text-sm tracking-wider uppercase px-7 py-3.5 rounded-full hover:bg-primary hover:text-primary-foreground transition-all duration-300"
+              className="group inline-flex items-center gap-2 bg-primary-foreground text-foreground font-body font-semibold text-sm tracking-[0.06em] uppercase px-7 py-3.5 rounded-full hover:bg-primary hover:text-primary-foreground transition-all duration-300"
             >
               Explore Collection
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />

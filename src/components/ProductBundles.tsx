@@ -244,7 +244,7 @@ export const ProductBundles = ({
                         disabled={isLoading}
                         variant="outline"
                         size="sm"
-                        className="w-full font-body font-semibold text-xs tracking-wider uppercase"
+                        className="w-full font-body font-semibold text-xs tracking-[0.06em] uppercase"
                       >
                         Add to Bundle
                       </Button>

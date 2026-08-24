@@ -46,7 +46,7 @@ export const Newsletter = () => {
               type="submit"
               disabled
               aria-disabled="true"
-              className="bg-primary/60 text-primary-foreground font-body font-semibold font-semibold text-sm tracking-wider uppercase px-5 py-3 rounded-r-lg flex items-center gap-2 cursor-not-allowed"
+              className="bg-primary/60 text-primary-foreground font-body font-semibold text-sm tracking-[0.06em] uppercase px-5 py-3 rounded-r-lg flex items-center gap-2 cursor-not-allowed"
             >
               <Send className="h-4 w-4" aria-hidden="true" />
               Join
