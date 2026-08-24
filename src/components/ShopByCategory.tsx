@@ -52,13 +52,13 @@ export const ShopByCategory = () => {
                 className="group block rounded-2xl overflow-hidden relative"
                 aria-label={`Shop ${col.node.title}`}
               >
-                <div className={`${bgClasses[i % bgClasses.length]} aspect-[3/4] overflow-hidden transition-all duration-500`}>
+                <div className={`${bgClasses[i % bgClasses.length]} aspect-[3/4] overflow-hidden transition-colors duration-200`}>
                   <img
                     src={col.node.image!.url}
                     alt={col.node.image!.altText || col.node.title}
                     width={600}
                     height={800}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                     loading="lazy"
                     decoding="async"
                   />
@@ -67,7 +67,7 @@ export const ShopByCategory = () => {
                   <h3 className="font-body font-semibold text-xl text-primary-foreground mb-1">{col.node.title}</h3>
                   <div className="flex items-center justify-between">
                     <p className="font-body text-xs text-primary-foreground/60">Shop the collection</p>
-                    <span className="bg-primary text-primary-foreground font-body font-semibold text-[10px] tracking-wider uppercase px-3 py-1.5 rounded-full flex items-center gap-1 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-400" aria-hidden="true">
+                    <span className="bg-primary text-primary-foreground font-body font-semibold text-[10px] tracking-wider uppercase px-3 py-1.5 rounded-full flex items-center gap-1 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-200" aria-hidden="true">
                       Shop
                       <ArrowRight className="h-3 w-3" />
                     </span>
