@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { ShoppingCart, Minus, Plus, Trash2, ExternalLink, Loader2, ShieldCheck, Truck, RotateCcw, Tag } from "lucide-react";
+import { ShoppingCart, Minus, Plus, Trash2, Loader2, ShieldCheck, Truck, RotateCcw, Tag } from "lucide-react";
 import { useCartStore } from "@/stores/cartStore";
 import { shopifyImg } from "@/lib/shopify";
 import { Link } from "react-router-dom";
