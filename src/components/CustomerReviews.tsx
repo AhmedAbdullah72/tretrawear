@@ -1,26 +1,33 @@
 import { motion } from "framer-motion";
-import { Star, CheckCircle2 } from "lucide-react";
+import { Star } from "lucide-react";
 
-const reviews = [
-  {
-    name: "أحمد ك.",
-    rating: 5,
-    text: "el wide-leg sweatpants di 7aga tanya wallahi — comfortable gdn w labsetha barra marten already. kol as7aby bys2alo mneen 🔥",
-    verified: true,
-  },
-  {
-    name: "نور م.",
-    rating: 5,
-    text: "القماش تقيل بس ناعم جداً من جوا، مش زي أي حاجة تانية جربتها. الfit بتاع الsweatpants مظبوط أوي 💯",
-    verified: true,
-  },
-  {
-    name: "عمر س.",
-    rating: 5,
-    text: "wasalet f yomeen w el packaging kan premium 3la el a5er. el sweatpants mesh wasa3 mesh daye2 — zay ma tkoon metfasal 3aleek 🔥",
-    verified: true,
-  },
-];
+/**
+ * Homepage customer reviews.
+ *
+ * DATA INTEGRITY NOTICE
+ * ---------------------
+ * The quotes that previously lived here were design placeholders written
+ * during the build. Their origin could not be traced to genuine customer
+ * feedback (no order records, no Instagram/Facebook/WhatsApp source, no
+ * imported review export), so they are NOT rendered as verified testimonials.
+ *
+ * To bring this section live, paste real, attributable customer feedback into
+ * `reviews` below (first name or initials only, short quote, real rating).
+ * Do not add invented names, ratings, counts or "verified buyer" badges.
+ * While the array is empty the section renders nothing.
+ */
+export interface HomepageReview {
+  /** First name or initials only. */
+  name: string;
+  /** Real rating given by the customer, 1-5. */
+  rating: number;
+  /** The customer's own words. */
+  text: string;
+  /** Optional genuine product reference, e.g. "Black Polo Summer Set". */
+  product?: string;
+}
+
+export const reviews: HomepageReview[] = [];
 
 const StarRating = ({ rating }: { rating: number }) => (
   <div className="flex gap-0.5" role="img" aria-label={`${rating} out of 5 stars`}>
@@ -35,11 +42,16 @@ const StarRating = ({ rating }: { rating: number }) => (
 );
 
 const getInitials = (name: string) => {
-  const parts = name.split(" ");
+  const parts = name.trim().split(" ");
   return parts.length > 1 ? parts[0][0] + parts[1][0] : parts[0][0];
 };
 
 export const CustomerReviews = () => {
+  // No verified review data on file — render nothing rather than placeholders.
+  if (reviews.length === 0) return null;
+
+  const shown = reviews.slice(0, 3);
+
   return (
     <section className="py-8 md:py-12 bg-background overflow-hidden" aria-labelledby="reviews-heading">
       <div className="container">
@@ -54,18 +66,14 @@ export const CustomerReviews = () => {
             REAL PEOPLE, <span className="text-primary">REAL TALK</span>
           </h2>
           <p className="font-body text-xs text-muted-foreground mt-2">
-            What real customers are saying
+            What our customers are saying
           </p>
         </motion.div>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-3xl mx-auto">
-          {reviews.map((review, i) => (
-            <motion.div
-              key={review.name}
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-30px" }}
-              transition={{ delay: i * 0.1, duration: 0.4 }}
+          {shown.map((review) => (
+            <div
+              key={review.name + review.text.slice(0, 12)}
               className="p-4 rounded-lg border border-border bg-card"
             >
               <StarRating rating={review.rating} />
@@ -77,11 +85,13 @@ export const CustomerReviews = () => {
                   <span className="font-heading text-[10px] text-primary">{getInitials(review.name)}</span>
                 </div>
                 <span className="font-body text-xs text-muted-foreground">{review.name}</span>
-                {review.verified && (
-                  <CheckCircle2 className="h-3 w-3 text-primary ml-auto" />
+                {review.product && (
+                  <span className="font-body text-[10px] text-muted-foreground/70 ml-auto truncate">
+                    {review.product}
+                  </span>
                 )}
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>
