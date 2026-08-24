@@ -10,6 +10,7 @@ import {
   updateShopifyCartLine,
   removeLineFromShopifyCart,
 } from '@/lib/shopify';
+import { itemFromCartItem, trackAddToCart, trackRemoveFromCart } from '@/lib/analytics';
 
 export type { CartItem, ShopifyProduct };
 
@@ -45,6 +46,8 @@ export const useCartStore = create<CartStore>()(
             const result = await createShopifyCart({ ...item, lineId: null });
             if (result) {
               set({ cartId: result.cartId, checkoutUrl: result.checkoutUrl, items: [{ ...item, lineId: result.lineId }] });
+              // Fired only after the Shopify mutation succeeded.
+              trackAddToCart(itemFromCartItem({ ...item, lineId: result.lineId }, item.quantity));
             }
           } else if (existingItem) {
             const newQuantity = existingItem.quantity + item.quantity;
@@ -52,11 +55,13 @@ export const useCartStore = create<CartStore>()(
             const result = await updateShopifyCartLine(cartId, existingItem.lineId, newQuantity);
             if (result.success) {
               set({ items: get().items.map(i => i.variantId === item.variantId ? { ...i, quantity: newQuantity } : i) });
+              trackAddToCart(itemFromCartItem({ ...existingItem, quantity: newQuantity }, item.quantity));
             } else if (result.cartNotFound) clearCart();
           } else {
             const result = await addLineToShopifyCart(cartId, { ...item, lineId: null });
             if (result.success) {
               set({ items: [...get().items, { ...item, lineId: result.lineId ?? null }] });
+              trackAddToCart(itemFromCartItem({ ...item, lineId: result.lineId ?? null }, item.quantity));
             } else if (result.cartNotFound) clearCart();
           }
         } catch (error) {
@@ -76,6 +81,11 @@ export const useCartStore = create<CartStore>()(
           const result = await updateShopifyCartLine(cartId, item.lineId, quantity);
           if (result.success) {
             set({ items: get().items.map(i => i.variantId === variantId ? { ...i, quantity } : i) });
+            // Report the DELTA, not the resulting quantity: 1→2 is add_to_cart
+            // qty 1, 2→1 is remove_from_cart qty 1.
+            const delta = quantity - item.quantity;
+            if (delta > 0) trackAddToCart(itemFromCartItem(item, delta));
+            else if (delta < 0) trackRemoveFromCart(itemFromCartItem(item, -delta));
           } else if (result.cartNotFound) clearCart();
         } catch (error) {
           console.error('Failed to update quantity:', error);
@@ -94,6 +104,7 @@ export const useCartStore = create<CartStore>()(
           if (result.success) {
             const newItems = get().items.filter(i => i.variantId !== variantId);
             newItems.length === 0 ? clearCart() : set({ items: newItems });
+            trackRemoveFromCart(itemFromCartItem(item, item.quantity));
           } else if (result.cartNotFound) clearCart();
         } catch (error) {
           console.error('Failed to remove item:', error);
