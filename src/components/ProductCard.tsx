@@ -9,7 +9,7 @@ interface ProductCardProps {
   product: ShopifyProduct;
 }
 
-const NEW_WINDOW_DAYS = 45;
+
 
 export const ProductCard = forwardRef<HTMLDivElement, ProductCardProps>(({ product }, ref) => {
   const addItem = useCartStore((state) => state.addItem);
