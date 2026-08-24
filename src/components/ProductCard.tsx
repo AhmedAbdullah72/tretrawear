@@ -164,7 +164,7 @@ export const ProductCard = forwardRef<HTMLDivElement, ProductCardProps>(({ produ
 
       {/* Behavior B — explicit single-option select, no auto-selection */}
       {behavior === "B" && (
-        <div className="mt-2 flex flex-wrap gap-1.5" role="group" aria-label={`Select ${sizeOptionName}`}>
+        <div className="mt-2 grid grid-cols-4 gap-1" role="group" aria-label={`Select ${sizeOptionName}`}>
           {variants.map((v) => {
             const value = v.selectedOptions?.[0]?.value || v.title;
             const soldOut = !v.availableForSale;
@@ -177,7 +177,7 @@ export const ProductCard = forwardRef<HTMLDivElement, ProductCardProps>(({ produ
                 onClick={() => setSelectedId(v.id)}
                 aria-pressed={isSel}
                 aria-label={`${sizeOptionName} ${value}${soldOut ? " (sold out)" : ""}`}
-                className={`min-w-[2.5rem] h-9 px-2 rounded-md border font-body text-xs uppercase tracking-wide transition-colors ${
+                className={`h-9 px-1 rounded-md border font-body text-xs uppercase tracking-wide transition-colors ${
                   isSel
                     ? "bg-foreground text-background border-foreground"
                     : "bg-transparent text-foreground border-border hover:border-foreground"
