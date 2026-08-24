@@ -153,12 +153,12 @@ export const ProductCard = forwardRef<HTMLDivElement, ProductCardProps>(({ produ
         </h3>
       </Link>
 
-      <p className="font-body nums text-[15px] mt-1.5 flex items-baseline gap-2">
-        <span className={`font-semibold ${behavior === "D" ? "text-muted-foreground" : "text-foreground"}`}>
+      <p className="font-body nums text-sm mt-1.5 flex flex-wrap items-baseline gap-x-2">
+        <span className={`font-semibold whitespace-nowrap ${behavior === "D" ? "text-muted-foreground" : "text-foreground"}`}>
           {fmt(price)}
         </span>
         {onSale && compareAt && (
-          <span className="text-[13px] font-normal text-muted-foreground line-through">{fmt(compareAt)}</span>
+          <span className="text-xs font-normal text-muted-foreground line-through whitespace-nowrap">{fmt(compareAt)}</span>
         )}
       </p>
 
