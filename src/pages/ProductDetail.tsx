@@ -22,7 +22,12 @@ import {
 import { RelatedProducts } from "@/components/RelatedProducts";
 import { CompleteTheLook } from "@/components/CompleteTheLook";
 import { DeliveryEstimate } from "@/components/DeliveryEstimate";
-import { FAQSection } from "@/components/FAQSection";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { SEO } from "@/components/SEO";
 
 /** Short, human fit descriptor pulled from the existing product copy. */
@@ -506,7 +511,25 @@ const ProductDetail = () => {
         </div>
       </div>
 
-      {copy.faqs && copy.faqs.length > 0 && <FAQSection faqs={copy.faqs} />}
+      {copy.faqs && copy.faqs.length > 0 && (
+        <section className="max-w-3xl mx-auto px-4 py-12 md:py-16 border-t border-border">
+          <h2 className="font-heading text-xl md:text-2xl text-foreground mb-4">
+            Questions about this piece
+          </h2>
+          <Accordion type="single" collapsible className="w-full">
+            {copy.faqs.map((faq, i) => (
+              <AccordionItem key={i} value={`faq-${i}`} className="border-b border-border">
+                <AccordionTrigger className="font-heading text-sm tracking-wide text-foreground text-left hover:no-underline hover:text-primary py-4">
+                  {faq.q}
+                </AccordionTrigger>
+                <AccordionContent className="font-body text-sm text-muted-foreground pb-5 leading-relaxed">
+                  {faq.a}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </section>
+      )}
 
       {showReviews && (
         <section
