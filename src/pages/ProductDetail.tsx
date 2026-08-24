@@ -9,6 +9,7 @@ import { ProductDetailSkeleton } from "@/components/ProductDetailSkeleton";
 import { SizeGuide } from "@/components/SizeGuide";
 import { SizeRecommender } from "@/components/SizeRecommender";
 import { toast } from "sonner";
+import { itemFromProduct, onceInSession, trackViewItem } from "@/lib/analytics";
 import { Button } from "@/components/ui/button";
 import { getProductCopy } from "@/lib/productCopy";
 import { ProductAccordions } from "@/components/ProductAccordions";
@@ -157,6 +158,18 @@ const ProductDetail = () => {
     // Quantity lives in the drawer, so open it right after a successful add.
     window.dispatchEvent(new CustomEvent("open-cart"));
   };
+
+  // view_item — fires once per handle per page session, only after real
+  // Shopify data resolved. Variant is included only if legitimately selected.
+  useEffect(() => {
+    if (!product) return;
+    onceInSession(`view_item:${product.id}`, () => {
+      trackViewItem(itemFromProduct(product, { variant: selectedVariant }));
+    });
+    // selectedVariant intentionally excluded: re-selecting a size must not
+    // re-fire view_item.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [product]);
 
   // Sticky CTA shows only while the main CTA is off screen — never both at once.
   useEffect(() => {

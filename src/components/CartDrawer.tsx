@@ -6,6 +6,7 @@ import { ShoppingCart, Minus, Plus, Trash2, Loader2, ShieldCheck, Truck, RotateC
 import { useCartStore } from "@/stores/cartStore";
 import { shopifyImg } from "@/lib/shopify";
 import { Link } from "react-router-dom";
+import { itemFromCartItem, trackBeginCheckout, trackViewCart } from "@/lib/analytics";
 
 const FREE_SHIPPING_THRESHOLD = 1500;
 
@@ -17,6 +18,16 @@ export const CartDrawer = () => {
 
   useEffect(() => { if (isOpen) syncCart(); }, [isOpen, syncCart]);
 
+  // view_cart — every intentional open of the drawer (documented choice), never
+  // on rerenders: the effect is keyed on the open transition only.
+  useEffect(() => {
+    if (!isOpen) return;
+    const current = useCartStore.getState().items;
+    if (current.length === 0) return;
+    trackViewCart(current.map((i) => itemFromCartItem(i)));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isOpen]);
+
   useEffect(() => {
     const handler = () => setIsOpen(true);
     window.addEventListener("open-cart", handler);
@@ -26,6 +37,8 @@ export const CartDrawer = () => {
   const handleCheckout = () => {
     const checkoutUrl = getCheckoutUrl();
     if (checkoutUrl) {
+      // Fire-and-forget: navigation is never delayed by analytics.
+      trackBeginCheckout(items.map((i) => itemFromCartItem(i)));
       setIsOpen(false);
       // Same-tab navigation: popup blockers on mobile browsers silently drop
       // window.open() here, which killed checkout starts.
