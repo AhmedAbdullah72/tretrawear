@@ -40,7 +40,7 @@ export const RelatedProducts = ({ currentHandle }: RelatedProductsProps) => {
             <div
               key={product.node.id}
             >
-              <ProductCard product={product} />
+              <ProductCard product={product} listName="related_products" index={i} />
             </div>
           ))}
         </div>
