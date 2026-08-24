@@ -102,7 +102,7 @@ export const CartDrawer = () => {
                 <Link
                   to="/shop"
                   onClick={() => setIsOpen(false)}
-                  className="inline-flex items-center gap-2 bg-primary text-primary-foreground font-body font-semibold text-sm tracking-wider uppercase px-6 py-2.5 rounded-full hover:bg-primary/90 transition-colors"
+                  className="inline-flex items-center gap-2 bg-primary text-primary-foreground font-body font-semibold text-sm tracking-[0.06em] uppercase px-6 py-2.5 rounded-full hover:bg-primary/90 transition-colors"
                 >
                   Start Shopping
                 </Link>
@@ -143,7 +143,7 @@ export const CartDrawer = () => {
                           <Link
                             to={`/product/${item.product.node.handle}`}
                             onClick={() => setIsOpen(false)}
-                            className="font-body font-semibold font-medium text-sm text-foreground hover:text-primary transition-colors line-clamp-1"
+                            className="font-body font-medium text-sm text-foreground hover:text-primary transition-colors line-clamp-1"
                           >
                             {item.product.node.title}
                           </Link>
@@ -162,7 +162,7 @@ export const CartDrawer = () => {
                             >
                               <Minus className="h-3 w-3" />
                             </button>
-                            <span className="w-7 text-center text-xs font-body font-semibold font-semibold text-foreground">{item.quantity}</span>
+                            <span className="w-7 text-center text-xs font-body font-semibold text-foreground">{item.quantity}</span>
                             <button
                               onClick={() => updateQuantity(item.variantId, item.quantity + 1)}
                               className="h-7 w-7 rounded-full flex items-center justify-center hover:bg-background transition-colors text-muted-foreground hover:text-foreground"
@@ -173,7 +173,7 @@ export const CartDrawer = () => {
                           </div>
 
                           {/* Price */}
-                          <p className="font-body font-semibold font-semibold text-sm text-foreground">
+                          <p className="font-body nums font-semibold text-sm text-foreground">
                             {item.price.currencyCode} {(parseFloat(item.price.amount) * item.quantity).toFixed(2)}
                           </p>
                         </div>
@@ -198,7 +198,7 @@ export const CartDrawer = () => {
                 <div className="space-y-1.5">
                   <div className="flex justify-between items-center text-sm">
                     <span className="font-body text-muted-foreground">Subtotal</span>
-                    <span className="font-body text-foreground">{items[0]?.price.currencyCode} {totalPrice.toFixed(2)}</span>
+                    <span className="font-body nums font-medium text-foreground">{items[0]?.price.currencyCode} {totalPrice.toFixed(2)}</span>
                   </div>
                   <div className="flex justify-between items-center text-sm">
                     <span className="font-body text-muted-foreground">Shipping</span>
@@ -209,14 +209,14 @@ export const CartDrawer = () => {
                 </div>
 
                 <div className="flex justify-between items-center pt-2 border-t border-border">
-                  <span className="font-body font-semibold text-base font-semibold text-foreground">Total</span>
-                  <span className="font-body font-semibold text-lg font-bold text-foreground">{items[0]?.price.currencyCode} {totalPrice.toFixed(2)}</span>
+                  <span className="font-body font-semibold text-base text-foreground">Total</span>
+                  <span className="font-body text-lg font-bold text-foreground">{items[0]?.price.currencyCode} {totalPrice.toFixed(2)}</span>
                 </div>
 
                 {/* Checkout button */}
                 <Button
                   onClick={handleCheckout}
-                  className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-full h-14 text-base font-body font-semibold tracking-wider uppercase shadow-lg shadow-primary/20"
+                  className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-full h-14 text-base font-body font-semibold tracking-[0.06em] uppercase shadow-lg shadow-primary/20"
                   size="lg"
                   disabled={items.length === 0 || isLoading || isSyncing}
                 >
@@ -235,7 +235,7 @@ export const CartDrawer = () => {
                   </div>
                   <div className="flex items-center gap-1 text-muted-foreground/60">
                     <Truck className="h-3 w-3" />
-                    <span className="font-body text-[10px]"><span className="font-body text-[10px]">2–5 Day Delivery</span></span>
+                    <span className="font-body text-[10px]">2–5 Day Delivery</span>
                   </div>
                   <div className="flex items-center gap-1 text-muted-foreground/60">
                     <RotateCcw className="h-3 w-3" />
