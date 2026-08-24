@@ -90,7 +90,7 @@ export const Navbar = () => {
           ? "bg-transparent py-1"
           : "bg-card/98 backdrop-blur-xl shadow-sm border-b border-border py-0"
       }`}
-      style={{ top: 0 }}
+      style={{ top: "var(--banner-offset)" }}
     >
 
       <div className="container flex items-center justify-between h-14 md:h-16">
