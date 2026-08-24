@@ -26,8 +26,10 @@ export const CartDrawer = () => {
   const handleCheckout = () => {
     const checkoutUrl = getCheckoutUrl();
     if (checkoutUrl) {
-      window.open(checkoutUrl, '_blank');
       setIsOpen(false);
+      // Same-tab navigation: popup blockers on mobile browsers silently drop
+      // window.open() here, which killed checkout starts.
+      window.location.href = checkoutUrl;
     }
   };
 
@@ -230,17 +232,14 @@ export const CartDrawer = () => {
                 {/* Checkout button */}
                 <Button
                   onClick={handleCheckout}
-                  className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-full h-12 text-sm font-heading tracking-wider uppercase shadow-lg shadow-primary/20"
+                  className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-full h-14 text-base font-heading tracking-wider uppercase shadow-lg shadow-primary/20"
                   size="lg"
                   disabled={items.length === 0 || isLoading || isSyncing}
                 >
                   {isLoading || isSyncing ? (
                     <Loader2 className="w-4 h-4 animate-spin" />
                   ) : (
-                    <>
-                      Secure Checkout
-                      <ExternalLink className="w-3.5 h-3.5 ml-2" />
-                    </>
+                    "Secure Checkout"
                   )}
                 </Button>
 
