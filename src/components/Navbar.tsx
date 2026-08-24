@@ -27,9 +27,30 @@ const SocialIcons = ({ className = "" }: { className?: string }) => (
   </div>
 );
 
+/** Reads the effective background colour behind a point and returns its luminance. */
+const backgroundLuminanceAt = (x: number, y: number): number | null => {
+  const el = document.elementFromPoint(x, y);
+  let node: Element | null = el;
+  while (node) {
+    const bg = getComputedStyle(node).backgroundColor;
+    const m = bg.match(/rgba?\(([^)]+)\)/);
+    if (m) {
+      const parts = m[1].split(",").map((v) => parseFloat(v));
+      const [r, g, b] = parts;
+      const a = parts.length > 3 ? parts[3] : 1;
+      if (a > 0.5) return (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255;
+    }
+    node = node.parentElement;
+  }
+  return null;
+};
+
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  // Transparent nav is only safe over a genuinely dark hero. Anywhere else the
+  // bar goes solid so the logo and icons keep accessible contrast.
+  const [overDark, setOverDark] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -38,18 +59,40 @@ export const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    const measure = () => {
+      const nav = document.querySelector("nav[aria-label='Main navigation']");
+      const bottom = nav ? nav.getBoundingClientRect().bottom : 64;
+      const lum = backgroundLuminanceAt(window.innerWidth / 2, bottom + 12);
+      setOverDark(lum !== null && lum < 0.5);
+    };
+    measure();
+    const t = window.setTimeout(measure, 400);
+    const t2 = window.setTimeout(measure, 1200);
+    window.addEventListener("resize", measure);
+    return () => {
+      window.clearTimeout(t);
+      window.clearTimeout(t2);
+      window.removeEventListener("resize", measure);
+    };
+  }, [location.pathname]);
+
   useEffect(() => { setIsOpen(false); }, [location.pathname]);
+
+  // Light foreground only while the bar is genuinely floating over a dark hero.
+  const transparent = overDark && !scrolled;
 
   return (
     <nav
       aria-label="Main navigation"
       className={`fixed left-0 right-0 z-50 transition-all duration-400 ${
-        scrolled
-          ? "bg-card/98 backdrop-blur-xl shadow-sm border-b border-border py-0"
-          : "bg-transparent py-1"
+        transparent
+          ? "bg-transparent py-1"
+          : "bg-card/98 backdrop-blur-xl shadow-sm border-b border-border py-0"
       }`}
       style={{ top: 0 }}
     >
+
       <div className="container flex items-center justify-between h-14 md:h-16">
         <Link to="/" className="flex-shrink-0">
           <img
@@ -58,7 +101,7 @@ export const Navbar = () => {
             width="160"
             height="40"
             className={`h-8 md:h-10 w-auto transition-all duration-300 ${
-              scrolled ? "" : "brightness-0 invert"
+              transparent ? "brightness-0 invert" : ""
             }`}
           />
         </Link>
@@ -71,9 +114,9 @@ export const Navbar = () => {
               className={`font-body text-xs tracking-[0.15em] uppercase transition-colors duration-300 relative py-1 ${
                 location.pathname === link.path
                   ? "text-primary"
-                  : scrolled
-                  ? "text-foreground/70 hover:text-foreground"
-                  : "text-primary-foreground/70 hover:text-primary-foreground"
+                  : transparent
+                  ? "text-primary-foreground/80 hover:text-primary-foreground"
+                  : "text-foreground/70 hover:text-foreground"
               }`}
             >
               {link.label}
@@ -82,17 +125,17 @@ export const Navbar = () => {
               )}
             </Link>
           ))}
-          <div className={`border-l border-current/20 pl-4 ${scrolled ? "text-foreground/50" : "text-primary-foreground/50"}`}>
+          <div className={`border-l border-current/20 pl-4 ${transparent ? "text-primary-foreground/70" : "text-foreground/60"}`}>
             <SocialIcons />
           </div>
         </div>
 
         <div className="flex items-center gap-2">
-          <div className={`transition-colors duration-300 ${scrolled ? "text-foreground" : "text-primary-foreground"}`}>
+          <div className={`transition-colors duration-300 ${transparent ? "text-primary-foreground" : "text-foreground"}`}>
             <CartDrawer />
           </div>
           <button
-            className={`md:hidden p-2 transition-colors ${scrolled ? "text-foreground" : "text-primary-foreground"}`}
+            className={`md:hidden p-2 transition-colors ${transparent ? "text-primary-foreground" : "text-foreground"}`}
             onClick={() => setIsOpen(!isOpen)}
             aria-label="Toggle menu"
           >

@@ -1,52 +1,36 @@
-import { Clock, ShoppingBag, Truck, MapPin, RefreshCw, CreditCard } from "lucide-react";
+import { ShoppingBag, Truck, MapPin, RefreshCw, CreditCard } from "lucide-react";
 
-function getDeliveryDates() {
-  const now = new Date();
-  const purchased = new Date(now);
-  const processing = new Date(now);
-  processing.setDate(processing.getDate() + 1);
-  const deliverStart = new Date(now);
-  deliverStart.setDate(deliverStart.getDate() + 2);
-  const deliverEnd = new Date(now);
-  deliverEnd.setDate(deliverEnd.getDate() + 3);
-
-  const fmt = (d: Date) => `${d.toLocaleString("en-US", { month: "short" })} ${d.getDate()}`;
-
-  return {
-    purchased: fmt(purchased),
-    processing: fmt(processing),
-    deliverStart: fmt(deliverStart),
-    deliverEnd: fmt(deliverEnd),
-    deliverStartFull: `${String(deliverStart.getDate()).padStart(2, "0")}/${String(deliverStart.getMonth() + 1).padStart(2, "0")}/${deliverStart.getFullYear()}`,
-    deliverEndFull: `${String(deliverEnd.getDate()).padStart(2, "0")}/${String(deliverEnd.getMonth() + 1).padStart(2, "0")}/${deliverEnd.getFullYear()}`,
-  };
-}
+/**
+ * Delivery wording comes straight from the published store shipping policy
+ * (/shipping): orders are processed in 1–2 business days and most deliveries
+ * arrive within 2–5 business days anywhere in Egypt. We deliberately do NOT
+ * render exact calendar dates — the store has no courier-level date API, so a
+ * client-side date offset would be false precision.
+ */
+const PROCESSING_WINDOW = "1–2 business days";
+const DELIVERY_WINDOW = "2–5 business days";
 
 interface DeliveryEstimateProps {
   /**
-   * Compact mode renders only the two reassurance lines that belong directly
+   * Compact mode renders only the reassurance lines that belong directly
    * under Add to Cart. The full timeline lives inside the Shipping accordion.
    */
   compact?: boolean;
 }
 
 export const DeliveryEstimate = ({ compact = false }: DeliveryEstimateProps) => {
-  const dates = getDeliveryDates();
-
   if (compact) {
     return (
       <div className="space-y-1.5">
         <div className="flex items-start gap-2 font-body text-xs">
           <Truck className="h-3.5 w-3.5 text-primary mt-0.5 flex-shrink-0" />
           <p className="text-muted-foreground">
-            Delivered{" "}
-            <span className="text-foreground font-semibold">{dates.deliverStartFull}</span>
-            {" – "}
-            <span className="text-foreground font-semibold">{dates.deliverEndFull}</span>
+            Delivery in{" "}
+            <span className="text-foreground font-semibold">{DELIVERY_WINDOW}</span> across Egypt
           </p>
         </div>
         <p className="font-body text-xs text-muted-foreground pl-[22px]">
-          Free shipping over 1,500 EGP · Cash on delivery · 14-day exchange
+          Free shipping over 1,500 EGP · Cash on delivery
         </p>
       </div>
     );
@@ -54,37 +38,22 @@ export const DeliveryEstimate = ({ compact = false }: DeliveryEstimateProps) => 
 
   return (
     <div className="space-y-3">
-      {/* Delivery estimate line — based on real shipping windows, no fake urgency */}
-      <div className="flex items-start gap-2 text-sm font-body">
-        <Clock className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
-        <p className="text-foreground">
-          Order today and you'll receive your package between{" "}
-          <span className="font-heading font-bold">{dates.deliverStartFull}</span>
-          {" "}to{" "}
-          <span className="font-heading font-bold">{dates.deliverEndFull}</span>
-        </p>
-      </div>
-
-      {/* Timeline + Trust Signals combined */}
       <div className="bg-secondary/60 rounded-xl p-4 space-y-4">
-
         <div className="flex items-center justify-between relative">
           {/* Connector line */}
           <div className="absolute top-5 left-[15%] right-[15%] h-[2px] bg-border" />
 
           {[
-            { icon: ShoppingBag, label: "Purchased", date: dates.purchased },
-            { icon: Truck, label: "Processing", date: dates.processing },
-            { icon: MapPin, label: "Delivered", date: `${dates.deliverStart.split(" ")[1]} - ${dates.deliverEnd.split(" ")[1]}` },
-          ].map((step, i) => (
-            <div key={step.label} className="flex flex-col items-center relative z-10">
+            { icon: ShoppingBag, label: "Ordered", date: "Today" },
+            { icon: Truck, label: "Processing", date: PROCESSING_WINDOW },
+            { icon: MapPin, label: "Delivered", date: DELIVERY_WINDOW },
+          ].map((step) => (
+            <div key={step.label} className="flex flex-col items-center relative z-10 w-1/3 text-center">
               <div className="w-10 h-10 rounded-full bg-card border border-border flex items-center justify-center mb-1.5">
                 <step.icon className="h-4 w-4 text-foreground" />
               </div>
               <p className="font-heading text-xs text-foreground">{step.label}</p>
-              <p className="font-body text-[11px] text-muted-foreground">
-                {i === 2 ? `${dates.deliverStart.split(" ")[0]} ${dates.deliverStart.split(" ")[1]} - ${dates.deliverEnd.split(" ")[1]}` : step.date}
-              </p>
+              <p className="font-body text-[11px] text-muted-foreground">{step.date}</p>
             </div>
           ))}
         </div>
@@ -94,7 +63,7 @@ export const DeliveryEstimate = ({ compact = false }: DeliveryEstimateProps) => 
           <div className="grid grid-cols-3 gap-2">
             {[
               { icon: Truck, label: "Free Shipping", sub: "Over 1,500 EGP" },
-              { icon: RefreshCw, label: "Easy Returns", sub: "14-day policy" },
+              { icon: RefreshCw, label: "Exchanges", sub: "14 days, tags on" },
               { icon: CreditCard, label: "Cash on Delivery", sub: "Pay at your door" },
             ].map((item) => (
               <div key={item.label} className="flex flex-col items-center text-center">

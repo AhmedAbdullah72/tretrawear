@@ -47,9 +47,20 @@ const ProductDetail = () => {
   const [selectedOptions, setSelectedOptions] = useState<Record<string, string>>({});
   const [missingOption, setMissingOption] = useState<string | null>(null);
   const [showStickyBar, setShowStickyBar] = useState(false);
+  // Product Details may start open on desktop only; mobile keeps all collapsed.
+  const [isDesktop, setIsDesktop] = useState(
+    typeof window !== "undefined" && window.matchMedia("(min-width: 768px)").matches
+  );
   const optionRefs = useRef<Record<string, HTMLDivElement | null>>({});
   const addItem = useCartStore((state) => state.addItem);
   const isLoading = useCartStore((state) => state.isLoading);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 768px)");
+    const onChange = () => setIsDesktop(mq.matches);
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -293,20 +304,20 @@ const ProductDetail = () => {
 
       <div
         className="container pb-10 md:pb-14"
-        style={{ paddingTop: "calc(72px + var(--banner-offset))" }}
+        style={{ paddingTop: "calc(64px + var(--banner-offset))" }}
       >
-        <nav aria-label="Breadcrumb" className="mb-4 md:mb-6">
-          <ol className="flex items-center gap-1.5 font-body text-xs md:text-sm text-muted-foreground">
+        <nav aria-label="Breadcrumb" className="mb-2 md:mb-4">
+          <ol className="flex items-center gap-1 font-body text-xs text-muted-foreground leading-none">
             <li>
               <Link to="/" className="hover:text-primary transition-colors">Home</Link>
             </li>
-            <li><ChevronRight className="h-3.5 w-3.5" /></li>
+            <li aria-hidden="true"><ChevronRight className="h-3 w-3" /></li>
             <li>
               <Link to="/shop" className="hover:text-primary transition-colors">Shop</Link>
             </li>
-            <li><ChevronRight className="h-3.5 w-3.5" /></li>
+            <li aria-hidden="true"><ChevronRight className="h-3 w-3" /></li>
             <li
-              className="text-foreground font-heading text-xs tracking-wider truncate max-w-[150px] md:max-w-[240px]"
+              className="text-foreground/80 font-body text-xs truncate max-w-[150px] md:max-w-[240px]"
               aria-current="page"
             >
               {product.title}
@@ -328,16 +339,9 @@ const ProductDetail = () => {
           {/* PURCHASE PANEL — no entrance animation, interactive on paint */}
           <div>
             {/* 1. TITLE */}
-            <div className="flex items-start gap-3 flex-wrap">
-              <h1 className="font-heading text-2xl md:text-4xl text-foreground leading-tight">
-                {product.title}
-              </h1>
-              {onSale && (
-                <span className="font-heading text-[10px] tracking-wider uppercase bg-primary text-primary-foreground px-2.5 py-1 rounded-full mt-1">
-                  Sale
-                </span>
-              )}
-            </div>
+            <h1 className="font-heading text-2xl md:text-4xl text-foreground leading-tight">
+              {product.title}
+            </h1>
 
             {/* 2. REVIEW SUMMARY — genuine reviews only */}
             {showReviews && (
@@ -366,7 +370,7 @@ const ProductDetail = () => {
               </button>
             )}
 
-            <p className="font-body text-xs md:text-sm text-muted-foreground mt-2 tracking-wide uppercase">
+            <p className="font-body text-xs md:text-sm text-muted-foreground mt-2 leading-relaxed line-clamp-2">
               {copy.subtitle}
             </p>
 
@@ -432,7 +436,7 @@ const ProductDetail = () => {
                                   ? "border-primary bg-primary text-primary-foreground"
                                   : available
                                     ? "border-border bg-card text-foreground hover:border-primary/50"
-                                    : "border-border/60 bg-muted text-muted-foreground/40 cursor-not-allowed line-through"
+                                    : "border-dashed border-border bg-muted/60 text-muted-foreground/70 cursor-not-allowed line-through decoration-muted-foreground/60"
                               }`}
                             >
                               {isColor ? value : value}
@@ -495,6 +499,7 @@ const ProductDetail = () => {
             <div className="mt-8">
               <ProductAccordions
                 copy={copy}
+                defaultOpen={isDesktop ? "details" : undefined}
                 sizeHelper={
                   hasSizeOption && !copy.singleSize ? (
                     <SizeRecommender
