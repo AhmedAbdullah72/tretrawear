@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
-import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { storefrontApiRequest, COLLECTIONS_QUERY, type ShopifyCollection } from "@/lib/shopify";
 
@@ -30,18 +29,14 @@ export const ShopByCategory = () => {
   return (
     <section className="section-padding bg-card overflow-hidden" aria-labelledby="category-heading">
       <div className="container">
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.6 }}
+        <div
           className="text-center mb-6 md:mb-10"
         >
           <p className="font-body text-xs tracking-[0.3em] uppercase text-primary mb-2">Find Your Fit</p>
           <h2 id="category-heading" className="font-display text-2xl md:text-4xl text-foreground">
             EXPLORE BY <span className="text-primary">STYLE</span>
           </h2>
-        </motion.div>
+        </div>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
           {loading
@@ -49,25 +44,21 @@ export const ShopByCategory = () => {
                 <div key={i} className="aspect-[3/4] rounded-2xl bg-secondary/40 animate-pulse" />
               ))
             : collections.map((col, i) => (
-            <motion.div
+            <div
               key={col.node.id}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ delay: i * 0.1, duration: 0.5 }}
             >
               <Link
                 to={`/shop?category=${col.node.handle}`}
                 className="group block rounded-2xl overflow-hidden relative"
                 aria-label={`Shop ${col.node.title}`}
               >
-                <div className={`${bgClasses[i % bgClasses.length]} aspect-[3/4] overflow-hidden transition-all duration-500`}>
+                <div className={`${bgClasses[i % bgClasses.length]} aspect-[3/4] overflow-hidden transition-colors duration-200`}>
                   <img
                     src={col.node.image!.url}
                     alt={col.node.image!.altText || col.node.title}
                     width={600}
                     height={800}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                     loading="lazy"
                     decoding="async"
                   />
@@ -76,14 +67,14 @@ export const ShopByCategory = () => {
                   <h3 className="font-body font-semibold text-xl text-primary-foreground mb-1">{col.node.title}</h3>
                   <div className="flex items-center justify-between">
                     <p className="font-body text-xs text-primary-foreground/60">Shop the collection</p>
-                    <span className="bg-primary text-primary-foreground font-body font-semibold text-[10px] tracking-wider uppercase px-3 py-1.5 rounded-full flex items-center gap-1 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-400" aria-hidden="true">
+                    <span className="bg-primary text-primary-foreground font-body font-semibold text-[10px] tracking-wider uppercase px-3 py-1.5 rounded-full flex items-center gap-1 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-200" aria-hidden="true">
                       Shop
                       <ArrowRight className="h-3 w-3" />
                     </span>
                   </div>
                 </div>
               </Link>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

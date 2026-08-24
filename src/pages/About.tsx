@@ -3,41 +3,20 @@ import { Footer } from "@/components/Footer";
 import { Newsletter } from "@/components/Newsletter";
 import { FAQSection } from "@/components/FAQSection";
 import { SEO } from "@/components/SEO";
-import { motion, useScroll, useTransform, useInView, useMotionValue, useSpring } from "framer-motion";
 import { useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, CheckCircle2, Star, Users, Package, Sparkles } from "lucide-react";
 import lifestyle1 from "@/assets/lifestyle-1.webp";
 
 
-/* ── Animated counter ── */
-const CountUp = ({ target, suffix = "" }: { target: number; suffix?: string }) => {
-  const ref = useRef<HTMLSpanElement>(null);
-  const motionVal = useMotionValue(0);
-  const spring = useSpring(motionVal, { duration: 2000 });
-  const isInView = useInView(ref, { once: true, margin: "-80px" });
-
-  useEffect(() => {
-    if (isInView) motionVal.set(target);
-  }, [isInView, motionVal, target]);
-
-  useEffect(() => {
-    const unsub = spring.on("change", (v) => {
-      if (ref.current) ref.current.textContent = Math.round(v).toLocaleString() + suffix;
-    });
-    return unsub;
-  }, [spring, suffix]);
-
-  return <span ref={ref}>0{suffix}</span>;
-};
+/* ── Static stat value (no animated counting) ── */
+const CountUp = ({ target, suffix = "" }: { target: number; suffix?: string }) => (
+  <span>{target.toLocaleString()}{suffix}</span>
+);
 
 /* ── CTA Block ── */
 const CTABlock = ({ variant = "default" }: { variant?: "default" | "dark" }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 15 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true, margin: "-40px" }}
-    transition={{ duration: 0.4 }}
+  <div
     className="flex flex-col sm:flex-row gap-3 justify-center mt-10"
   >
     <Link
@@ -57,7 +36,7 @@ const CTABlock = ({ variant = "default" }: { variant?: "default" | "dark" }) => 
     >
       Explore Collection
     </Link>
-  </motion.div>
+  </div>
 );
 
 /* ── Stats data ── */
@@ -78,8 +57,6 @@ const timeline = [
 
 const About = () => {
   const img1Ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress: img1Progress } = useScroll({ target: img1Ref, offset: ["start end", "end start"] });
-  const img1Y = useTransform(img1Progress, [0, 1], ["6%", "-6%"]);
   
 
   return (
@@ -113,10 +90,7 @@ const About = () => {
 
       {/* ═══ 1. HERO — Value Proposition ═══ */}
       <section className="pb-16 md:pb-20 bg-foreground text-background" style={{ paddingTop: 'calc(96px + var(--banner-offset))' }}>
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+        <div
           className="container max-w-3xl text-center py-12"
         >
           <p className="font-body text-xs tracking-[0.3em] uppercase text-background/50 mb-4">Egyptian Streetwear, Redefined</p>
@@ -130,7 +104,7 @@ const About = () => {
             Heavyweight oversized hoodies & streetwear built to last — no hype tax, no compromises.
           </p>
           <CTABlock variant="dark" />
-        </motion.div>
+        </div>
       </section>
 
       {/* ═══ 2. PROOF — Stats ═══ */}
@@ -138,12 +112,8 @@ const About = () => {
         <div className="container">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {stats.map((s, i) => (
-              <motion.div
+              <div
                 key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-60px" }}
-                transition={{ duration: 0.4, delay: i * 0.1 }}
                 className="text-center"
               >
                 <div className="w-10 h-10 mx-auto mb-3 flex items-center justify-center bg-primary/10 rounded-xl">
@@ -157,7 +127,7 @@ const About = () => {
                   )}
                 </p>
                 <p className="font-body text-xs tracking-[0.15em] uppercase text-muted-foreground mt-1">{s.label}</p>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -167,21 +137,13 @@ const About = () => {
       <section className="py-16 bg-background overflow-hidden">
         <div className="container">
           <div className="grid md:grid-cols-2 gap-12 items-center">
-            <motion.div
+            <div
               ref={img1Ref}
-              initial={{ opacity: 0, x: -40 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.6 }}
               className="aspect-square rounded-2xl overflow-hidden shadow-lg"
             >
-              <motion.img src={lifestyle1} alt="TRETRA Egyptian streetwear premium cotton hoodie" className="w-full h-full object-cover" style={{ y: img1Y }} />
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, x: 40 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.6 }}
+              <img src={lifestyle1} alt="TRETRA Egyptian streetwear premium cotton hoodie" className="w-full h-full object-cover" loading="lazy" decoding="async" />
+            </div>
+            <div
             >
               <p className="font-body text-xs tracking-[0.3em] uppercase text-primary mb-3">Our Story</p>
               <h2 className="font-display text-3xl text-foreground mb-4">
@@ -207,7 +169,7 @@ const About = () => {
                 "أول هودي اشتريته من TRETRA — لسه بلبسه بعد سنة. الخامة فرق فعلاً."
                 <span className="block mt-1 not-italic text-foreground font-medium">— أحمد، القاهرة</span>
               </p>
-            </motion.div>
+            </div>
           </div>
         </div>
         <CTABlock />
@@ -216,28 +178,20 @@ const About = () => {
       {/* ═══ 4. TIMELINE — Journey ═══ */}
       <section className="py-20 md:py-24 bg-foreground text-background overflow-hidden">
         <div className="container max-w-3xl">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.6 }}
+          <div
             className="text-center mb-14"
           >
             <p className="font-body text-xs tracking-[0.3em] uppercase text-background/50 mb-3">Our Journey</p>
             <h2 className="font-display text-3xl md:text-5xl text-background">
               From Idea to 10K+ Customers<span className="text-primary">.</span>
             </h2>
-          </motion.div>
+          </div>
 
           <div className="relative">
             <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-background/20 md:-translate-x-px" />
             {timeline.map((item, i) => (
-              <motion.div
+              <div
                 key={i}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-60px" }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
                 className={`relative flex items-start gap-8 mb-10 last:mb-0 ${i % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"}`}
               >
                 <div className="absolute left-4 md:left-1/2 w-3 h-3 rounded-full bg-primary -translate-x-1/2 mt-1.5 ring-4 ring-foreground z-10" />
@@ -246,7 +200,7 @@ const About = () => {
                   <h3 className="font-body font-semibold text-lg text-background mt-1">{item.title}</h3>
                   <p className="font-body text-sm text-background/60 mt-1">{item.desc}</p>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
           <CTABlock variant="dark" />
@@ -256,18 +210,14 @@ const About = () => {
       {/* ═══ 5. PRODUCT PROMISE — Why TRETRA ═══ */}
       <section className="py-16 bg-background overflow-hidden">
         <div className="container max-w-4xl">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.6 }}
+          <div
             className="text-center mb-12"
           >
             <p className="font-body text-xs tracking-[0.3em] uppercase text-primary mb-3">Why Us</p>
             <h2 className="font-display text-3xl md:text-4xl text-foreground">
               What Makes TRETRA Different<span className="text-primary">?</span>
             </h2>
-          </motion.div>
+          </div>
 
           <div className="grid md:grid-cols-2 gap-6">
             {[
@@ -288,12 +238,8 @@ const About = () => {
                 points: ["10K+ happy customers across the Arab world", "Built on word-of-mouth, not ad budgets", "Real reviews from real people"],
               },
             ].map((block, i) => (
-              <motion.div
+              <div
                 key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-60px" }}
-                transition={{ duration: 0.4, delay: i * 0.08 }}
                 className="p-6 rounded-xl border border-border hover:border-primary/30 transition-all duration-300"
               >
                 <h3 className="font-body font-semibold text-lg text-foreground mb-3">{block.title}</h3>
@@ -305,7 +251,7 @@ const About = () => {
                     </li>
                   ))}
                 </ul>
-              </motion.div>
+              </div>
             ))}
           </div>
           <CTABlock />

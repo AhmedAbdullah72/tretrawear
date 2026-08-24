@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { Star } from "lucide-react";
 
 /**
@@ -55,11 +54,7 @@ export const CustomerReviews = () => {
   return (
     <section className="py-8 md:py-12 bg-background overflow-hidden" aria-labelledby="reviews-heading">
       <div className="container">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.5 }}
+        <div
           className="text-center mb-5"
         >
           <h2 id="reviews-heading" className="font-display text-2xl md:text-3xl text-foreground">
@@ -68,7 +63,7 @@ export const CustomerReviews = () => {
           <p className="font-body text-xs text-muted-foreground mt-2">
             What our customers are saying
           </p>
-        </motion.div>
+        </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-3xl mx-auto">
           {shown.map((review) => (

@@ -9,7 +9,6 @@ import { SEO } from "@/components/SEO";
 import { storefrontApiRequest, PRODUCTS_QUERY, type ShopifyProduct } from "@/lib/shopify";
 import { SlidersHorizontal, X } from "lucide-react";
 import { ProductGridSkeleton } from "@/components/ProductCardSkeleton";
-import { motion, AnimatePresence } from "framer-motion";
 
 type Category = string;
 type SortOption = "default" | "price-asc" | "price-desc" | "name-asc";
@@ -196,16 +195,13 @@ const Shop = () => {
           <Marquee items={["NEW ARRIVALS", "SUMMER '26 DROPS", "PREMIUM FASHION"]} speed="slow" />
         </div>
         <div className="container py-12 md:py-16">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+          <div
           >
             <p className="font-body text-xs tracking-[0.3em] uppercase text-background/50 mb-2">Browse</p>
             <h1 className="font-display text-5xl md:text-6xl text-background">
               ALL <span className="text-primary">PRODUCTS</span>
             </h1>
-          </motion.div>
+          </div>
         </div>
       </section>
 
@@ -262,15 +258,8 @@ const Shop = () => {
           </div>
 
           {/* Mobile Filters Panel */}
-          <AnimatePresence>
-            {mobileFiltersOpen && (
-              <motion.div
-                initial={{ height: 0, opacity: 0 }}
-                animate={{ height: "auto", opacity: 1 }}
-                exit={{ height: 0, opacity: 0 }}
-                transition={{ duration: 0.3 }}
-                className="md:hidden overflow-hidden mb-6"
-              >
+                      {mobileFiltersOpen && (
+              <div className="md:hidden overflow-hidden mb-6 animate-slide-down">
                 <div className="bg-card border border-border rounded-xl p-5 space-y-5">
                   <div className="flex items-center justify-between">
                     <span className="font-body font-semibold text-sm">Filters</span>
@@ -326,10 +315,9 @@ const Shop = () => {
                     </button>
                   )}
                 </div>
-              </motion.div>
+              </div>
             )}
-          </AnimatePresence>
-
+    
           {/* Results count */}
           {!loading && (
             <p className="font-body text-xs text-muted-foreground mb-6">
@@ -366,15 +354,8 @@ const Shop = () => {
             </div>
           ) : (
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-              {filtered.map((product, i) => (
-                <motion.div
-                  key={product.node.id}
-                  initial={{ opacity: 0, y: 40 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.06, duration: 0.5 }}
-                >
-                  <ProductCard product={product} />
-                </motion.div>
+              {filtered.map((product) => (
+                <ProductCard key={product.node.id} product={product} />
               ))}
             </div>
           )}

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Scale, ChevronRight } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
 
 const sizeChart = [
   { size: "S", minWeight: 50, maxWeight: 60 },
@@ -40,14 +39,8 @@ export const SizeRecommender = ({ onSizeSelect }: SizeRecommenderProps) => {
         <ChevronRight className={`h-3.5 w-3.5 transition-transform ${isOpen ? "rotate-90" : ""}`} />
       </button>
 
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            className="overflow-hidden"
-          >
+      {isOpen && (
+        <div className="overflow-hidden animate-slide-down">
             <div className="bg-card rounded-xl border border-border p-4 space-y-3">
               <div className="flex items-center gap-2">
                 <input
@@ -71,29 +64,22 @@ export const SizeRecommender = ({ onSizeSelect }: SizeRecommenderProps) => {
                 </button>
               </div>
 
-              <AnimatePresence>
-                {recommended && (
-                  <motion.div
-                    initial={{ opacity: 0, y: -5 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="bg-primary/10 rounded-lg p-3 text-center"
-                  >
+              {recommended && (
+                <div className="bg-primary/10 rounded-lg p-3 text-center">
                     <p className="font-body text-xs text-muted-foreground">We recommend</p>
                     <p className="font-display text-2xl text-primary">{recommended}</p>
                     <p className="font-body text-[11px] text-muted-foreground mt-1">
                       For a relaxed, oversized fit at {weight}kg
                     </p>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+                </div>
+              )}
 
               <p className="font-body text-[10px] text-muted-foreground text-center">
                 Based on our oversized fit. Size down for a more fitted look.
               </p>
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+        </div>
+      )}
     </div>
   );
 };
