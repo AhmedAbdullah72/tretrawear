@@ -135,7 +135,7 @@ export const ProductCard = forwardRef<HTMLDivElement, ProductCardProps>(({ produ
 
           {badge && (
             <span
-              className={`absolute top-3 left-3 font-heading text-[10px] tracking-wider uppercase px-2.5 py-1 rounded-full ${
+              className={`absolute top-3 left-3 font-body font-semibold text-[10px] tracking-wider uppercase px-2.5 py-1 rounded-full ${
                 badge === "SOLD OUT"
                   ? "bg-muted text-muted-foreground"
                   : badge === "SALE"
@@ -148,7 +148,7 @@ export const ProductCard = forwardRef<HTMLDivElement, ProductCardProps>(({ produ
           )}
         </div>
 
-        <h3 className="font-heading text-sm text-foreground group-hover:text-primary transition-colors duration-200 line-clamp-2 leading-tight mt-3">
+        <h3 className="font-body font-semibold text-sm text-foreground group-hover:text-primary transition-colors duration-200 line-clamp-2 leading-tight mt-3">
           {node.title}
         </h3>
       </Link>
@@ -196,7 +196,7 @@ export const ProductCard = forwardRef<HTMLDivElement, ProductCardProps>(({ produ
             type="button"
             onClick={onDirectAdd}
             disabled={isLoading}
-            className="w-full h-10 rounded-lg bg-primary text-primary-foreground font-heading text-xs tracking-wider uppercase hover:bg-primary/90 disabled:opacity-50 transition-colors inline-flex items-center justify-center gap-2"
+            className="w-full h-10 rounded-lg bg-primary text-primary-foreground font-body font-semibold text-xs tracking-wider uppercase hover:bg-primary/90 disabled:opacity-50 transition-colors inline-flex items-center justify-center gap-2"
           >
             {isLoading ? <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" /> : "Add to Cart"}
           </button>
@@ -207,7 +207,7 @@ export const ProductCard = forwardRef<HTMLDivElement, ProductCardProps>(({ produ
             type="button"
             onClick={onSizedAdd}
             disabled={isLoading || !selected}
-            className="w-full h-10 rounded-lg bg-primary text-primary-foreground font-heading text-xs tracking-wider uppercase hover:bg-primary/90 disabled:opacity-40 transition-colors inline-flex items-center justify-center gap-2"
+            className="w-full h-10 rounded-lg bg-primary text-primary-foreground font-body font-semibold text-xs tracking-wider uppercase hover:bg-primary/90 disabled:opacity-40 transition-colors inline-flex items-center justify-center gap-2"
           >
             {isLoading ? (
               <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
@@ -222,7 +222,7 @@ export const ProductCard = forwardRef<HTMLDivElement, ProductCardProps>(({ produ
         {behavior === "C" && (
           <Link
             to={`/product/${node.handle}`}
-            className="w-full h-10 rounded-lg border border-foreground text-foreground font-heading text-xs tracking-wider uppercase hover:bg-foreground hover:text-background transition-colors inline-flex items-center justify-center"
+            className="w-full h-10 rounded-lg border border-foreground text-foreground font-body font-semibold text-xs tracking-wider uppercase hover:bg-foreground hover:text-background transition-colors inline-flex items-center justify-center"
           >
             View Product
           </Link>
@@ -233,7 +233,7 @@ export const ProductCard = forwardRef<HTMLDivElement, ProductCardProps>(({ produ
             type="button"
             disabled
             aria-label={`${node.title} is sold out`}
-            className="w-full h-10 rounded-lg border border-border text-muted-foreground font-heading text-xs tracking-wider uppercase cursor-not-allowed"
+            className="w-full h-10 rounded-lg border border-border text-muted-foreground font-body font-semibold text-xs tracking-wider uppercase cursor-not-allowed"
           >
             Sold Out
           </button>

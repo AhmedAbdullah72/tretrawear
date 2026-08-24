@@ -94,7 +94,7 @@ export const CompleteTheLook = ({ currentHandle, currentTitle }: CompleteTheLook
           <p className="font-body text-xs tracking-[0.3em] uppercase text-primary mb-2">
             Wear It With
           </p>
-          <h2 className="font-heading text-2xl md:text-3xl text-foreground">
+          <h2 className="font-display text-2xl md:text-3xl text-foreground">
             COMPLETE THE <span className="text-primary">LOOK</span>
           </h2>
           <p className="font-body text-sm text-muted-foreground mt-2 max-w-md mx-auto">
@@ -134,11 +134,11 @@ export const CompleteTheLook = ({ currentHandle, currentTitle }: CompleteTheLook
                 </Link>
                 <div className="p-4">
                   <Link to={`/product/${product.node.handle}`}>
-                    <h3 className="font-heading text-sm text-foreground mb-1 group-hover:text-primary transition-colors">
+                    <h3 className="font-body font-semibold text-sm text-foreground mb-1 group-hover:text-primary transition-colors">
                       {product.node.title}
                     </h3>
                   </Link>
-                  <p className="font-heading text-sm text-primary mb-3">
+                  <p className="font-body font-semibold text-sm text-primary mb-3">
                     {price.currencyCode} {parseFloat(price.amount).toFixed(2)}
                   </p>
                   <Button
@@ -146,7 +146,7 @@ export const CompleteTheLook = ({ currentHandle, currentTitle }: CompleteTheLook
                     disabled={isLoading}
                     variant="outline"
                     size="sm"
-                    className="w-full font-heading text-xs tracking-wider uppercase gap-2 border-primary/30 text-primary hover:bg-primary hover:text-primary-foreground transition-all"
+                    className="w-full font-body font-semibold text-xs tracking-wider uppercase gap-2 border-primary/30 text-primary hover:bg-primary hover:text-primary-foreground transition-all"
                   >
                     <Plus className="h-3.5 w-3.5" />
                     Quick Add

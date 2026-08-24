@@ -37,7 +37,7 @@ export const PromoBanner = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.1 }}
-                className="font-heading text-3xl md:text-4xl lg:text-5xl text-primary-foreground leading-[0.9] mb-3"
+                className="font-display text-3xl md:text-4xl lg:text-5xl text-primary-foreground leading-[0.9] mb-3"
               >
                 20% OFF<br />FRESH DROPS
               </motion.h2>
@@ -61,7 +61,7 @@ export const PromoBanner = () => {
               >
                 <Link
                   to="/shop"
-                  className="group inline-flex items-center gap-2 bg-primary-foreground text-foreground font-heading text-lg tracking-wider uppercase px-10 py-4 rounded-full hover:bg-primary-foreground/90 transition-all duration-300 shadow-2xl shadow-foreground/20"
+                  className="group inline-flex items-center gap-2 bg-primary-foreground text-foreground font-body font-semibold text-lg tracking-wider uppercase px-10 py-4 rounded-full hover:bg-primary-foreground/90 transition-all duration-300 shadow-2xl shadow-foreground/20"
                 >
                   Shop Offer
                   <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />

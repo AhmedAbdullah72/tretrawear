@@ -37,7 +37,7 @@ export const SummerCollection = () => {
         >
           <div>
             <p className="font-body text-xs tracking-[0.3em] uppercase text-primary mb-3">New Arrivals</p>
-            <h2 className="font-heading text-2xl md:text-4xl text-primary-foreground">
+            <h2 className="font-display text-2xl md:text-4xl text-primary-foreground">
               SUMMER <span className="text-primary">2026</span>
             </h2>
             <p className="font-body text-sm text-primary-foreground/50 mt-3 max-w-md">
@@ -75,7 +75,7 @@ export const SummerCollection = () => {
 
         <Link
           to="/shop"
-          className="md:hidden flex items-center justify-center gap-2 mt-8 font-heading text-sm text-primary"
+          className="md:hidden flex items-center justify-center gap-2 mt-8 font-body font-semibold text-sm text-primary"
         >
           VIEW ALL SUMMER
           <ArrowRight className="h-4 w-4" />

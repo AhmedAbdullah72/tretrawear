@@ -25,7 +25,7 @@ export const HeroSection = () => {
 
       <div className="relative container z-10">
         <div className="max-w-2xl pt-12 md:pt-20">
-          <h1 className="font-heading text-[2.75rem] sm:text-5xl md:text-8xl lg:text-9xl text-primary-foreground leading-[0.85] mb-3 md:mb-5">
+          <h1 className="font-display text-[2.75rem] sm:text-5xl md:text-8xl lg:text-9xl text-primary-foreground leading-[0.85] mb-3 md:mb-5">
             <span className="sr-only">TRETRA Wear — Premium Egyptian Streetwear. </span>
             DRESS<br />
             HOW YOU<br />
@@ -38,7 +38,7 @@ export const HeroSection = () => {
 
           <Link
             to="/shop"
-            className="group inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground font-heading text-base md:text-lg tracking-wider uppercase px-7 md:px-9 py-3.5 md:py-4 rounded-lg hover:bg-primary/90 transition-colors shadow-lg shadow-primary/25"
+            className="group inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground font-body font-semibold text-base md:text-lg tracking-wider uppercase px-7 md:px-9 py-3.5 md:py-4 rounded-lg hover:bg-primary/90 transition-colors shadow-lg shadow-primary/25"
           >
             Shop Now
             <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />

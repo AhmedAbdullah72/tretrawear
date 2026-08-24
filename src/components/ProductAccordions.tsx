@@ -20,7 +20,7 @@ interface ProductAccordionsProps {
 
 const Row = ({ label, value }: { label: string; value: string }) => (
   <TableRow className="border-border/50">
-    <TableCell className="font-heading text-xs tracking-wider text-foreground w-32 py-3 align-top">
+    <TableCell className="font-body font-semibold text-xs tracking-wider text-foreground w-32 py-3 align-top">
       {label}
     </TableCell>
     <TableCell className="font-body text-sm text-muted-foreground py-3">{value}</TableCell>
@@ -47,7 +47,7 @@ export const ProductAccordions = ({ copy, defaultOpen, sizeHelper }: ProductAcco
     >
       {/* 1. PRODUCT DETAILS */}
       <AccordionItem value="details" className="border-b border-border">
-        <AccordionTrigger className="font-heading text-sm tracking-wider text-foreground hover:no-underline hover:text-primary py-4">
+        <AccordionTrigger className="font-body font-semibold text-sm tracking-wider text-foreground hover:no-underline hover:text-primary py-4">
           Product Details
         </AccordionTrigger>
         <AccordionContent className="pb-5 space-y-4">
@@ -57,7 +57,7 @@ export const ProductAccordions = ({ copy, defaultOpen, sizeHelper }: ProductAcco
 
           {copy.included && copy.included.length > 0 && (
             <div>
-              <p className="font-heading text-xs tracking-wider text-foreground uppercase mb-2">
+              <p className="font-body font-semibold text-xs tracking-wider text-foreground uppercase mb-2">
                 What's Included
               </p>
               <ul className="space-y-1.5">
@@ -86,7 +86,7 @@ export const ProductAccordions = ({ copy, defaultOpen, sizeHelper }: ProductAcco
 
       {/* 2. SIZE & FIT */}
       <AccordionItem value="size-fit" className="border-b border-border">
-        <AccordionTrigger className="font-heading text-sm tracking-wider text-foreground hover:no-underline hover:text-primary py-4">
+        <AccordionTrigger className="font-body font-semibold text-sm tracking-wider text-foreground hover:no-underline hover:text-primary py-4">
           Size &amp; Fit
         </AccordionTrigger>
         <AccordionContent className="pb-5 space-y-4">
@@ -97,10 +97,10 @@ export const ProductAccordions = ({ copy, defaultOpen, sizeHelper }: ProductAcco
           {copy.singleSize && (
             <div className="bg-card border border-border rounded-xl p-4">
               <div className="flex items-center justify-between mb-3">
-                <p className="font-heading text-sm tracking-wider text-foreground uppercase">
+                <p className="font-body font-semibold text-sm tracking-wider text-foreground uppercase">
                   {copy.singleSize.label} Fit
                 </p>
-                <span className="font-heading text-[10px] tracking-wider bg-primary/10 text-primary px-2 py-1 rounded uppercase">
+                <span className="font-body font-semibold text-[10px] tracking-wider bg-primary/10 text-primary px-2 py-1 rounded uppercase">
                   {copy.singleSize.fit}
                 </span>
               </div>
@@ -108,16 +108,16 @@ export const ProductAccordions = ({ copy, defaultOpen, sizeHelper }: ProductAcco
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <p className="font-body text-[11px] text-muted-foreground uppercase tracking-wide">Weight</p>
-                  <p className="font-heading text-sm text-foreground mt-0.5">{copy.singleSize.weightRange}</p>
+                  <p className="font-body font-semibold text-sm text-foreground mt-0.5">{copy.singleSize.weightRange}</p>
                 </div>
                 <div>
                   <p className="font-body text-[11px] text-muted-foreground uppercase tracking-wide">Height</p>
-                  <p className="font-heading text-sm text-foreground mt-0.5">{copy.singleSize.heightRange}</p>
+                  <p className="font-body font-semibold text-sm text-foreground mt-0.5">{copy.singleSize.heightRange}</p>
                 </div>
                 {copy.singleSize.suitableFor && (
                   <div className="col-span-2">
                     <p className="font-body text-[11px] text-muted-foreground uppercase tracking-wide">Suitable For</p>
-                    <p className="font-heading text-sm text-foreground mt-0.5">{copy.singleSize.suitableFor}</p>
+                    <p className="font-body font-semibold text-sm text-foreground mt-0.5">{copy.singleSize.suitableFor}</p>
                   </div>
                 )}
               </div>
@@ -126,21 +126,21 @@ export const ProductAccordions = ({ copy, defaultOpen, sizeHelper }: ProductAcco
 
           {copy.modelInfo && (
             <div className="bg-card border border-border rounded-xl p-4">
-              <p className="font-heading text-xs tracking-wider text-foreground uppercase mb-3">
+              <p className="font-body font-semibold text-xs tracking-wider text-foreground uppercase mb-3">
                 Model Information
               </p>
               <div className="grid grid-cols-3 gap-3">
                 <div>
                   <p className="font-body text-[11px] text-muted-foreground uppercase tracking-wide">Height</p>
-                  <p className="font-heading text-sm text-foreground mt-0.5">{copy.modelInfo.height}</p>
+                  <p className="font-body font-semibold text-sm text-foreground mt-0.5">{copy.modelInfo.height}</p>
                 </div>
                 <div>
                   <p className="font-body text-[11px] text-muted-foreground uppercase tracking-wide">Weight</p>
-                  <p className="font-heading text-sm text-foreground mt-0.5">{copy.modelInfo.weight}</p>
+                  <p className="font-body font-semibold text-sm text-foreground mt-0.5">{copy.modelInfo.weight}</p>
                 </div>
                 <div>
                   <p className="font-body text-[11px] text-muted-foreground uppercase tracking-wide">Wearing</p>
-                  <p className="font-heading text-sm text-foreground mt-0.5">{copy.modelInfo.wearing}</p>
+                  <p className="font-body font-semibold text-sm text-foreground mt-0.5">{copy.modelInfo.wearing}</p>
                 </div>
               </div>
             </div>
@@ -152,7 +152,7 @@ export const ProductAccordions = ({ copy, defaultOpen, sizeHelper }: ProductAcco
 
       {/* 3. MATERIAL & CARE */}
       <AccordionItem value="material" className="border-b border-border">
-        <AccordionTrigger className="font-heading text-sm tracking-wider text-foreground hover:no-underline hover:text-primary py-4">
+        <AccordionTrigger className="font-body font-semibold text-sm tracking-wider text-foreground hover:no-underline hover:text-primary py-4">
           Material &amp; Care
         </AccordionTrigger>
         <AccordionContent className="pb-5">
@@ -175,7 +175,7 @@ export const ProductAccordions = ({ copy, defaultOpen, sizeHelper }: ProductAcco
 
       {/* 4. SHIPPING & DELIVERY */}
       <AccordionItem value="shipping" className="border-b border-border">
-        <AccordionTrigger className="font-heading text-sm tracking-wider text-foreground hover:no-underline hover:text-primary py-4">
+        <AccordionTrigger className="font-body font-semibold text-sm tracking-wider text-foreground hover:no-underline hover:text-primary py-4">
           Shipping &amp; Delivery
         </AccordionTrigger>
         <AccordionContent className="pb-5 space-y-3">
@@ -188,7 +188,7 @@ export const ProductAccordions = ({ copy, defaultOpen, sizeHelper }: ProductAcco
 
       {/* 5. EXCHANGE / RETURNS */}
       <AccordionItem value="returns" className="border-b border-border">
-        <AccordionTrigger className="font-heading text-sm tracking-wider text-foreground hover:no-underline hover:text-primary py-4">
+        <AccordionTrigger className="font-body font-semibold text-sm tracking-wider text-foreground hover:no-underline hover:text-primary py-4">
           Exchange / Returns
         </AccordionTrigger>
         <AccordionContent className="pb-5 space-y-2">

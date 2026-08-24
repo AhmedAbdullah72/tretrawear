@@ -106,7 +106,7 @@ export const ProductBundles = ({
         {/* Section Header */}
         <div className="flex items-center gap-3 mb-8">
           <Package className="h-6 w-6 text-primary" />
-          <h2 className="font-heading text-2xl md:text-3xl text-foreground">
+          <h2 className="font-display text-2xl md:text-3xl text-foreground">
             Bundle &amp; Save
           </h2>
         </div>
@@ -125,18 +125,18 @@ export const ProductBundles = ({
                 whileHover={{ scale: 1.02 }}
                 className="relative overflow-hidden rounded-xl border-2 border-primary/20 bg-card p-5 transition-all hover:border-primary/50 hover:shadow-lg hover:shadow-primary/10"
               >
-                <div className="absolute top-0 right-0 bg-primary text-primary-foreground font-heading text-[10px] tracking-wider uppercase px-3 py-1 rounded-bl-lg">
+                <div className="absolute top-0 right-0 bg-primary text-primary-foreground font-body font-semibold text-[10px] tracking-wider uppercase px-3 py-1 rounded-bl-lg">
                   Best Value
                 </div>
 
                 <div className="flex items-start justify-between gap-4">
                   <div className="space-y-2">
-                    <h3 className="font-heading text-lg text-foreground">
+                    <h3 className="font-body font-semibold text-lg text-foreground">
                       {tier.label}{" "}
                       <span className="text-primary">{tier.saving}</span>
                     </h3>
                     <div className="flex items-baseline gap-2">
-                      <span className="font-heading text-2xl text-primary">
+                      <span className="font-display text-2xl text-primary">
                         {currencyCode}{" "}
                         {totalDiscounted.toFixed(2)}
                       </span>
@@ -163,7 +163,7 @@ export const ProductBundles = ({
                 {/* Discount Code */}
                 <div className="mt-4 flex items-center gap-2">
                   <div className="flex-1 bg-secondary/80 rounded-lg px-3 py-2 flex items-center justify-between">
-                    <span className="font-heading text-sm tracking-wider text-foreground">
+                    <span className="font-body font-semibold text-sm tracking-wider text-foreground">
                       {tier.code}
                     </span>
                     <button
@@ -189,7 +189,7 @@ export const ProductBundles = ({
         {/* Mix & Match Section */}
         {mixProducts.length > 0 && (
           <div>
-            <h3 className="font-heading text-lg text-foreground mb-4 flex items-center gap-2">
+            <h3 className="font-body font-semibold text-lg text-foreground mb-4 flex items-center gap-2">
               <ShoppingBag className="h-5 w-5 text-primary" />
               Mix & Match — Pair with
             </h3>
@@ -222,12 +222,12 @@ export const ProductBundles = ({
                     </Link>
                     <div className="p-3 space-y-2">
                       <Link to={`/product/${product.node.handle}`}>
-                        <p className="font-heading text-sm text-foreground truncate group-hover:text-primary transition-colors">
+                        <p className="font-body font-semibold text-sm text-foreground truncate group-hover:text-primary transition-colors">
                           {product.node.title}
                         </p>
                       </Link>
                       <div className="flex items-baseline gap-2">
-                        <span className="font-heading text-sm text-primary">
+                        <span className="font-body font-semibold text-sm text-primary">
                           {currencyCode} {price.toFixed(2)}
                         </span>
                       </div>
@@ -244,7 +244,7 @@ export const ProductBundles = ({
                         disabled={isLoading}
                         variant="outline"
                         size="sm"
-                        className="w-full font-heading text-xs tracking-wider uppercase"
+                        className="w-full font-body font-semibold text-xs tracking-wider uppercase"
                       >
                         Add to Bundle
                       </Button>
@@ -254,7 +254,7 @@ export const ProductBundles = ({
               })}
             </div>
             <p className="font-body text-xs text-muted-foreground text-center mt-4">
-              Add 3+ items (min. {currencyCode} 1,050) and use code <button onClick={() => handleCopyCode("BUNDLE3")} className="font-heading text-primary hover:underline cursor-pointer">BUNDLE3</button> for 15% off
+              Add 3+ items (min. {currencyCode} 1,050) and use code <button onClick={() => handleCopyCode("BUNDLE3")} className="font-body font-semibold text-primary hover:underline cursor-pointer">BUNDLE3</button> for 15% off
             </p>
           </div>
         )}

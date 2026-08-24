@@ -20,7 +20,7 @@ export const Newsletter = () => {
       <div className="container max-w-2xl">
         <div className="flex flex-col md:flex-row md:items-center gap-4 md:gap-8">
           <div className="md:flex-1">
-            <h2 id="newsletter-heading" className="font-heading text-xl md:text-2xl text-background">
+            <h2 id="newsletter-heading" className="font-display text-xl md:text-2xl text-background">
               NEW DROPS FIRST
             </h2>
             <p className="font-body text-xs text-background/55 mt-1">
@@ -46,7 +46,7 @@ export const Newsletter = () => {
               type="submit"
               disabled
               aria-disabled="true"
-              className="bg-primary/60 text-primary-foreground font-heading font-semibold text-sm tracking-wider uppercase px-5 py-3 rounded-r-lg flex items-center gap-2 cursor-not-allowed"
+              className="bg-primary/60 text-primary-foreground font-body font-semibold font-semibold text-sm tracking-wider uppercase px-5 py-3 rounded-r-lg flex items-center gap-2 cursor-not-allowed"
             >
               <Send className="h-4 w-4" aria-hidden="true" />
               Join

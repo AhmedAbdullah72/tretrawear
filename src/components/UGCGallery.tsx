@@ -30,7 +30,7 @@ export const UGCGallery = () => {
           <p className="font-body text-xs tracking-[0.3em] uppercase text-primary mb-3">
             Real People. Real Fits.
           </p>
-          <h2 className="font-heading text-3xl md:text-4xl text-foreground mb-3">
+          <h2 className="font-display text-3xl md:text-4xl text-foreground mb-3">
             Worn by You<span className="text-primary">.</span>
           </h2>
           <p className="font-body text-sm text-muted-foreground max-w-md mx-auto">
@@ -76,7 +76,7 @@ export const UGCGallery = () => {
           transition={{ duration: 0.5, delay: 0.3 }}
           className="text-center mt-8 font-body text-xs text-muted-foreground"
         >
-          Tag <span className="text-primary font-heading">@tretrawear</span> to be featured
+          Tag <span className="text-primary font-body font-semibold">@tretrawear</span> to be featured
         </motion.p>
       </div>
     </section>

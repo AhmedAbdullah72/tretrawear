@@ -19,7 +19,7 @@ export const SocialProof = () => {
           className="text-center mb-6 md:mb-8"
         >
           <p className="font-body text-xs tracking-[0.3em] uppercase text-background/50 mb-3">The Numbers</p>
-          <h2 className="font-heading text-2xl md:text-4xl text-background">
+          <h2 className="font-display text-2xl md:text-4xl text-background">
             TRUSTED BY <span className="text-primary-foreground">THOUSANDS</span>
           </h2>
         </motion.div>
@@ -36,7 +36,7 @@ export const SocialProof = () => {
               <div className="w-10 h-10 mx-auto mb-3 flex items-center justify-center bg-primary/20 rounded-xl">
                 <stat.icon className="h-4 w-4 text-primary" />
               </div>
-              <p className="font-heading text-2xl md:text-3xl text-background mb-1">{stat.value}</p>
+              <p className="font-display text-2xl md:text-3xl text-background mb-1">{stat.value}</p>
               <p className="font-body text-sm text-background/50">{stat.label}</p>
             </motion.div>
           ))}

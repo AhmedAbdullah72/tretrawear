@@ -35,7 +35,7 @@ export const FeaturedProducts = () => {
         <div className="flex items-end justify-between mb-6 md:mb-10">
           <div>
             <p className="font-body text-xs tracking-[0.3em] uppercase text-primary mb-2">Summer '26</p>
-            <h2 className="font-heading text-2xl md:text-4xl text-foreground">
+            <h2 className="font-display text-2xl md:text-4xl text-foreground">
               SHOP THE <span className="text-primary">COLLECTION</span>
             </h2>
           </div>
@@ -52,7 +52,7 @@ export const FeaturedProducts = () => {
           <ProductGridSkeleton count={3} />
         ) : available.length === 0 ? (
           <div className="text-center py-16 border border-border rounded-xl bg-card">
-            <p className="font-heading text-2xl text-muted-foreground/30 mb-2">RESTOCKING SOON</p>
+            <p className="font-display text-2xl text-muted-foreground/30 mb-2">RESTOCKING SOON</p>
             <Link to="/shop" className="font-body text-sm text-primary underline">
               Browse the full catalog
             </Link>
@@ -67,7 +67,7 @@ export const FeaturedProducts = () => {
 
         <Link
           to="/shop"
-          className="md:hidden flex items-center justify-center gap-2 mt-6 font-heading text-sm text-primary"
+          className="md:hidden flex items-center justify-center gap-2 mt-6 font-body font-semibold text-sm text-primary"
         >
           VIEW ALL PRODUCTS
           <ArrowRight className="h-4 w-4" />

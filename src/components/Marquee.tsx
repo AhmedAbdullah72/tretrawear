@@ -29,7 +29,7 @@ export const Marquee = ({
             {items.map((item, i) => (
               <span
                 key={`${setIdx}-${i}`}
-                className="inline-flex items-center gap-2 mx-8 font-heading text-sm tracking-wider"
+                className="inline-flex items-center gap-2 mx-8 font-body font-semibold text-sm tracking-wider"
               >
                 <Flame className="h-3.5 w-3.5 opacity-70" />
                 {item}

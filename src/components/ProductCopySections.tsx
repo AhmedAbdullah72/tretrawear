@@ -22,16 +22,16 @@ interface ProductCopySectionsProps {
 export const ProductDetailTabs = ({ copy }: ProductCopySectionsProps) => (
   <Tabs defaultValue="benefits" className="w-full">
     <TabsList className="w-full bg-card border border-border rounded-xl h-auto p-1 gap-1">
-      <TabsTrigger value="benefits" className="flex-1 font-heading text-[11px] tracking-wider data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-lg py-2">
+      <TabsTrigger value="benefits" className="flex-1 font-body font-semibold text-[11px] tracking-wider data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-lg py-2">
         Benefits
       </TabsTrigger>
-      <TabsTrigger value="details" className="flex-1 font-heading text-[11px] tracking-wider data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-lg py-2">
+      <TabsTrigger value="details" className="flex-1 font-body font-semibold text-[11px] tracking-wider data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-lg py-2">
         Details
       </TabsTrigger>
-      <TabsTrigger value="specs" className="flex-1 font-heading text-[11px] tracking-wider data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-lg py-2">
+      <TabsTrigger value="specs" className="flex-1 font-body font-semibold text-[11px] tracking-wider data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-lg py-2">
         Specs
       </TabsTrigger>
-      <TabsTrigger value="faqs" className="flex-1 font-heading text-[11px] tracking-wider data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-lg py-2">
+      <TabsTrigger value="faqs" className="flex-1 font-body font-semibold text-[11px] tracking-wider data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-lg py-2">
         FAQs
       </TabsTrigger>
     </TabsList>
@@ -69,7 +69,7 @@ export const ProductDetailTabs = ({ copy }: ProductCopySectionsProps) => (
                 ] as [string, string][]
             ).map(([key, value]) => (
               <TableRow key={key} className="border-border/50">
-                <TableCell className="font-heading text-xs tracking-wider text-foreground w-32 py-3 align-top">{key}</TableCell>
+                <TableCell className="font-body font-semibold text-xs tracking-wider text-foreground w-32 py-3 align-top">{key}</TableCell>
                 <TableCell className="font-body text-sm text-muted-foreground py-3">{value}</TableCell>
               </TableRow>
             ))}
@@ -86,7 +86,7 @@ export const ProductDetailTabs = ({ copy }: ProductCopySectionsProps) => (
             value={`faq-${i}`}
             className="border border-border bg-card rounded-lg px-4 data-[state=open]:border-primary/30 transition-all"
           >
-            <AccordionTrigger className="font-heading text-sm text-foreground hover:no-underline hover:text-primary transition-colors py-3">
+            <AccordionTrigger className="font-body font-semibold text-sm text-foreground hover:no-underline hover:text-primary transition-colors py-3">
               {faq.q}
             </AccordionTrigger>
             <AccordionContent className="font-body text-sm text-muted-foreground leading-relaxed">

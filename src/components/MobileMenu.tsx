@@ -18,7 +18,7 @@ const MobileMenu = ({ navLinks, location, onClose, SocialIcons }: MobileMenuProp
             key={link.path}
             to={link.path}
             onClick={onClose}
-            className={`block font-heading text-xl py-2.5 transition-colors ${
+            className={`block font-body font-semibold text-xl py-2.5 transition-colors ${
               location.pathname === link.path ? "text-primary" : "text-foreground/70"
             }`}
           >
