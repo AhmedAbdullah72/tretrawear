@@ -259,9 +259,7 @@ const Shop = () => {
 
           {/* Mobile Filters Panel */}
                       {mobileFiltersOpen && (
-              <div
-                className="md:hidden overflow-hidden mb-6"
-              >
+              <div className="md:hidden overflow-hidden mb-6 animate-slide-down">
                 <div className="bg-card border border-border rounded-xl p-5 space-y-5">
                   <div className="flex items-center justify-between">
                     <span className="font-body font-semibold text-sm">Filters</span>
