@@ -8,8 +8,6 @@ import { WhatsAppButton } from "@/components/WhatsAppButton";
 
 import { lazy, Suspense } from "react";
 
-const ExitIntentPopup = lazy(() => import("@/components/ExitIntentPopup").then(m => ({ default: m.ExitIntentPopup })));
-
 // Eager load Index for fastest home page
 import Index from "./pages/Index";
 
@@ -53,9 +51,8 @@ const AppContent = () => {
         </Routes>
       </Suspense>
       
-      <Suspense fallback={null}>
-        <ExitIntentPopup />
-      </Suspense>
+      {/* Exit-intent STAY5 promotion disabled (P1 Step 2 promo cleanup).
+          Component kept in codebase for a future A/B test. */}
       <WhatsAppButton />
     </BrowserRouter>
   );
