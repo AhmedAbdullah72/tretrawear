@@ -136,7 +136,7 @@ export const ProductBundles = ({
                       <span className="text-primary">{tier.saving}</span>
                     </h3>
                     <div className="flex items-baseline gap-2">
-                      <span className="font-display text-2xl text-primary">
+                      <span className="font-body nums font-bold text-2xl text-primary">
                         {currencyCode}{" "}
                         {totalDiscounted.toFixed(2)}
                       </span>
