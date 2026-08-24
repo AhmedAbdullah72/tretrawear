@@ -191,7 +191,7 @@ export const ProductReviews = ({ handle }: ProductReviewsProps) => {
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-8 mb-10">
         <div>
-          <h2 className="font-heading text-2xl md:text-3xl text-foreground mb-2">
+          <h2 className="font-display text-2xl md:text-3xl text-foreground mb-2">
             COMMUNITY <span className="text-primary">REVIEWS</span>
           </h2>
           <p className="font-body text-xs text-muted-foreground mb-2 max-w-md">
@@ -199,7 +199,7 @@ export const ProductReviews = ({ handle }: ProductReviewsProps) => {
           </p>
           <div className="flex items-center gap-3 mt-2">
             <div className="flex items-baseline gap-2">
-              <span className="font-heading text-4xl text-foreground">{avgRating}</span>
+              <span className="font-display text-4xl text-foreground">{avgRating}</span>
               <span className="font-body text-sm text-muted-foreground">/ 5</span>
             </div>
             <div>
@@ -235,12 +235,12 @@ export const ProductReviews = ({ handle }: ProductReviewsProps) => {
           <div key={review.name} className="py-6 first:pt-0">
             <div className="flex gap-4">
               <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 ring-2 ring-primary/20">
-                <span className="font-heading text-sm text-primary">{getInitials(review.name)}</span>
+                <span className="font-body font-semibold text-sm text-primary">{getInitials(review.name)}</span>
               </div>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center justify-between flex-wrap gap-2">
                   <div className="flex items-center gap-2">
-                    <span className="font-heading text-sm text-foreground">{review.name}</span>
+                    <span className="font-body font-semibold text-sm text-foreground">{review.name}</span>
                     <span className="inline-flex items-center gap-1 text-primary text-[10px] font-body tracking-wider uppercase font-semibold">
                       <CheckCircle2 className="h-3 w-3" /> Verified Buyer
                     </span>

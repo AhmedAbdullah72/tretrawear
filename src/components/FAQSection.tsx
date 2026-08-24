@@ -27,7 +27,7 @@ export const FAQSection = () => {
           className="text-center mb-12"
         >
           <p className="font-body text-xs tracking-[0.3em] uppercase text-primary mb-3">Got Questions?</p>
-          <h2 className="font-heading text-4xl md:text-5xl text-foreground">
+          <h2 className="font-display text-4xl md:text-5xl text-foreground">
             FREQUENTLY <span className="text-primary">ASKED</span>
           </h2>
         </motion.div>
@@ -44,7 +44,7 @@ export const FAQSection = () => {
                 value={`faq-${i}`}
                 className="border border-border bg-card rounded-xl px-6 data-[state=open]:border-primary/30 data-[state=open]:shadow-sm transition-all"
               >
-                <AccordionTrigger className="font-heading text-sm md:text-base text-foreground hover:no-underline hover:text-primary transition-colors">
+                <AccordionTrigger className="font-body font-semibold text-sm md:text-base text-foreground hover:no-underline hover:text-primary transition-colors">
                   {faq.q}
                 </AccordionTrigger>
                 <AccordionContent className="font-body text-sm text-muted-foreground leading-relaxed">

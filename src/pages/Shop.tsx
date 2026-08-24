@@ -202,7 +202,7 @@ const Shop = () => {
             transition={{ duration: 0.5 }}
           >
             <p className="font-body text-xs tracking-[0.3em] uppercase text-background/50 mb-2">Browse</p>
-            <h1 className="font-heading text-5xl md:text-6xl text-background">
+            <h1 className="font-display text-5xl md:text-6xl text-background">
               ALL <span className="text-primary">PRODUCTS</span>
             </h1>
           </motion.div>
@@ -273,7 +273,7 @@ const Shop = () => {
               >
                 <div className="bg-card border border-border rounded-xl p-5 space-y-5">
                   <div className="flex items-center justify-between">
-                    <span className="font-heading text-sm">Filters</span>
+                    <span className="font-body font-semibold text-sm">Filters</span>
                     <button onClick={() => setMobileFiltersOpen(false)} aria-label="Close filters">
                       <X size={18} className="text-muted-foreground" />
                     </button>
@@ -349,7 +349,7 @@ const Shop = () => {
             <ProductGridSkeleton count={8} />
           ) : filtered.length === 0 ? (
             <div className="text-center py-20 bg-card rounded-xl border border-border">
-              <p className="font-heading text-lg text-foreground mb-2">No products found</p>
+              <p className="font-body font-semibold text-lg text-foreground mb-2">No products found</p>
               <p className="font-body text-sm text-muted-foreground">
                 {category !== "all"
                   ? "Try a different category or clear filters."

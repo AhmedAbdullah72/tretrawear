@@ -36,7 +36,7 @@ export const RelatedProducts = ({ currentHandle }: RelatedProductsProps) => {
           className="mb-8"
         >
           <p className="font-body text-xs tracking-[0.3em] uppercase text-primary mb-2">Complete The Look</p>
-          <h2 className="font-heading text-3xl text-foreground">
+          <h2 className="font-display text-3xl text-foreground">
             YOU MAY ALSO <span className="text-primary">LIKE</span>
           </h2>
         </motion.div>

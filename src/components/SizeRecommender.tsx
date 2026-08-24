@@ -33,7 +33,7 @@ export const SizeRecommender = ({ onSizeSelect }: SizeRecommenderProps) => {
     <div className="space-y-2">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="inline-flex items-center gap-2 font-heading text-xs tracking-wider text-primary hover:text-primary/80 transition-colors bg-primary/10 px-3 py-1.5 rounded-lg"
+        className="inline-flex items-center gap-2 font-body font-semibold text-xs tracking-wider text-primary hover:text-primary/80 transition-colors bg-primary/10 px-3 py-1.5 rounded-lg"
       >
         <Scale className="h-3.5 w-3.5" />
         Find Your Size by Weight
@@ -65,7 +65,7 @@ export const SizeRecommender = ({ onSizeSelect }: SizeRecommenderProps) => {
                 <button
                   onClick={recommend}
                   disabled={!weight}
-                  className="bg-primary text-primary-foreground font-heading text-xs tracking-wider px-4 py-2 rounded-lg hover:bg-primary/90 transition-colors disabled:opacity-50"
+                  className="bg-primary text-primary-foreground font-body font-semibold text-xs tracking-wider px-4 py-2 rounded-lg hover:bg-primary/90 transition-colors disabled:opacity-50"
                 >
                   Find Size
                 </button>
@@ -79,7 +79,7 @@ export const SizeRecommender = ({ onSizeSelect }: SizeRecommenderProps) => {
                     className="bg-primary/10 rounded-lg p-3 text-center"
                   >
                     <p className="font-body text-xs text-muted-foreground">We recommend</p>
-                    <p className="font-heading text-2xl text-primary">{recommended}</p>
+                    <p className="font-display text-2xl text-primary">{recommended}</p>
                     <p className="font-body text-[11px] text-muted-foreground mt-1">
                       For a relaxed, oversized fit at {weight}kg
                     </p>

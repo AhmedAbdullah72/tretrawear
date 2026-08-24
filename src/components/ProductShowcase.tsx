@@ -10,7 +10,7 @@ export const ProductShowcase = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
           <div>
             <p className="font-body text-xs tracking-[0.3em] uppercase text-primary mb-3">Summer '26</p>
-            <h2 id="showcase-heading" className="font-heading text-3xl md:text-5xl text-foreground mb-4 leading-[0.9]">
+            <h2 id="showcase-heading" className="font-display text-3xl md:text-5xl text-foreground mb-4 leading-[0.9]">
               BUILT FOR<br />
               <span className="text-primary">SUMMER</span>
             </h2>
@@ -20,7 +20,7 @@ export const ProductShowcase = () => {
             </p>
             <Link
               to="/shop"
-              className="group inline-flex items-center gap-2 bg-primary text-primary-foreground font-heading text-sm md:text-base tracking-wider uppercase px-6 py-3.5 rounded-lg hover:bg-primary/90 transition-colors"
+              className="group inline-flex items-center gap-2 bg-primary text-primary-foreground font-body font-semibold text-sm md:text-base tracking-wider uppercase px-6 py-3.5 rounded-lg hover:bg-primary/90 transition-colors"
             >
               Explore Summer '26
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />

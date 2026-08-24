@@ -58,7 +58,7 @@ const SizeGuide = () => {
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 mb-6">
               <Ruler className="h-8 w-8 text-primary" />
             </div>
-            <h1 className="font-heading text-4xl md:text-5xl text-foreground mb-4">
+            <h1 className="font-display text-4xl md:text-5xl text-foreground mb-4">
               Size Guide
             </h1>
             <p className="font-body text-muted-foreground max-w-2xl mx-auto">
@@ -68,7 +68,7 @@ const SizeGuide = () => {
 
           {/* Universal Measurement Table */}
           <section className="mb-16">
-            <h2 className="font-heading text-2xl text-foreground mb-4">
+            <h2 className="font-display text-2xl text-foreground mb-4">
               Universal Measurements
             </h2>
             <p className="font-body text-sm text-muted-foreground mb-6">
@@ -79,11 +79,11 @@ const SizeGuide = () => {
               <Table>
                 <TableHeader>
                   <TableRow className="bg-foreground hover:bg-foreground">
-                    <TableHead className="font-heading text-xs tracking-wider text-background">Size</TableHead>
-                    <TableHead className="font-heading text-xs tracking-wider text-background text-center">Chest</TableHead>
-                    <TableHead className="font-heading text-xs tracking-wider text-background text-center">Length</TableHead>
-                    <TableHead className="font-heading text-xs tracking-wider text-background text-center">Shoulder</TableHead>
-                    <TableHead className="font-heading text-xs tracking-wider text-background text-center">Sleeve</TableHead>
+                    <TableHead className="font-body font-semibold text-xs tracking-wider text-background">Size</TableHead>
+                    <TableHead className="font-body font-semibold text-xs tracking-wider text-background text-center">Chest</TableHead>
+                    <TableHead className="font-body font-semibold text-xs tracking-wider text-background text-center">Length</TableHead>
+                    <TableHead className="font-body font-semibold text-xs tracking-wider text-background text-center">Shoulder</TableHead>
+                    <TableHead className="font-body font-semibold text-xs tracking-wider text-background text-center">Sleeve</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -92,7 +92,7 @@ const SizeGuide = () => {
                       key={row.size}
                       className={i % 2 === 0 ? "bg-background" : "bg-card"}
                     >
-                      <TableCell className="font-heading text-sm text-primary">{row.size}</TableCell>
+                      <TableCell className="font-body font-semibold text-sm text-primary">{row.size}</TableCell>
                       <TableCell className="font-body text-sm text-center text-foreground">{row.chest}</TableCell>
                       <TableCell className="font-body text-sm text-center text-foreground">{row.length}</TableCell>
                       <TableCell className="font-body text-sm text-center text-foreground">{row.shoulder}</TableCell>
@@ -106,7 +106,7 @@ const SizeGuide = () => {
 
           {/* Category Notes */}
           <section className="mb-16">
-            <h2 className="font-heading text-2xl text-foreground mb-6">
+            <h2 className="font-display text-2xl text-foreground mb-6">
               Collection-Specific Notes
             </h2>
             <div className="grid gap-4">
@@ -115,7 +115,7 @@ const SizeGuide = () => {
                   key={cat.name}
                   className="p-6 bg-card rounded-xl border border-border"
                 >
-                  <h3 className="font-heading text-lg text-foreground mb-2">{cat.name}</h3>
+                  <h3 className="font-body font-semibold text-lg text-foreground mb-2">{cat.name}</h3>
                   <p className="font-body text-sm text-muted-foreground">{cat.description}</p>
                 </div>
               ))}
@@ -124,7 +124,7 @@ const SizeGuide = () => {
 
           {/* Fit Recommendations */}
           <section className="mb-16">
-            <h2 className="font-heading text-2xl text-foreground mb-6">
+            <h2 className="font-display text-2xl text-foreground mb-6">
               Fit Recommendations
             </h2>
             <div className="grid gap-4 md:grid-cols-3">
@@ -136,7 +136,7 @@ const SizeGuide = () => {
                   <div className="flex items-start gap-3">
                     <div className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0" />
                     <div>
-                      <p className="font-heading text-sm text-foreground mb-1">{tip.label}</p>
+                      <p className="font-body font-semibold text-sm text-foreground mb-1">{tip.label}</p>
                       <p className="font-body text-xs text-muted-foreground">{tip.desc}</p>
                     </div>
                   </div>
@@ -147,7 +147,7 @@ const SizeGuide = () => {
 
           {/* How to Measure */}
           <section className="p-6 md:p-8 bg-primary/5 rounded-xl border border-primary/10">
-            <h2 className="font-heading text-xl text-foreground mb-4">
+            <h2 className="font-body font-semibold text-xl text-foreground mb-4">
               How to Measure
             </h2>
             <div className="grid gap-4 md:grid-cols-2">
@@ -183,7 +183,7 @@ const SizeGuide = () => {
               href="https://wa.me/201024888818"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 font-heading text-sm text-primary hover:text-primary/80 underline underline-offset-2 transition-colors"
+              className="inline-flex items-center gap-2 font-body font-semibold text-sm text-primary hover:text-primary/80 underline underline-offset-2 transition-colors"
             >
               Chat with us on WhatsApp
             </a>

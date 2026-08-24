@@ -185,7 +185,7 @@ const ProductDetail = () => {
       <div className="min-h-screen bg-background">
         <Navbar />
         <div className="container py-20 text-center">
-          <p className="text-foreground font-heading text-lg">Product not found</p>
+          <p className="text-foreground font-body font-semibold text-lg">Product not found</p>
           <Link to="/shop" className="text-primary underline mt-4 inline-block font-body">
             Back to shop
           </Link>
@@ -339,7 +339,7 @@ const ProductDetail = () => {
           {/* PURCHASE PANEL — no entrance animation, interactive on paint */}
           <div>
             {/* 1. TITLE */}
-            <h1 className="font-heading text-2xl md:text-4xl text-foreground leading-tight">
+            <h1 className="font-body font-bold text-[22px] md:text-[32px] text-foreground leading-tight tracking-[-0.015em]">
               {product.title}
             </h1>
 
@@ -376,16 +376,16 @@ const ProductDetail = () => {
 
             {/* 3. PRICE */}
             <div className="flex items-center gap-3 flex-wrap mt-4">
-              <span className="font-heading text-2xl md:text-3xl text-primary">
+              <span className="font-body nums font-bold text-2xl md:text-3xl text-primary tracking-[-0.01em]">
                 {displayVariant?.price.currencyCode}{" "}
                 {parseFloat(displayVariant?.price.amount || "0").toFixed(2)}
               </span>
               {onSale && (
                 <>
-                  <span className="font-heading text-lg text-muted-foreground line-through">
+                  <span className="font-body nums font-normal text-lg text-muted-foreground line-through">
                     {compareAt.currencyCode} {parseFloat(compareAt.amount).toFixed(2)}
                   </span>
-                  <span className="font-heading text-xs tracking-wider text-primary-foreground bg-primary px-2.5 py-1 rounded-full">
+                  <span className="font-body nums font-semibold text-xs tracking-[0.04em] text-primary-foreground bg-primary px-2.5 py-1 rounded-full">
                     Save {displayVariant.price.currencyCode} {savings.toFixed(0)}
                   </span>
                 </>
@@ -406,7 +406,7 @@ const ProductDetail = () => {
                       className="mt-5"
                     >
                       <div className="flex items-baseline justify-between mb-2">
-                        <label className="font-heading text-xs tracking-wider text-foreground">
+                        <label className="font-body font-semibold text-xs tracking-wider text-foreground">
                           {option.name}
                           {selectedOptions[option.name] && (
                             <span className="font-body text-muted-foreground normal-case tracking-normal ml-2">
@@ -474,7 +474,7 @@ const ProductDetail = () => {
               onClick={handleAddToCart}
               disabled={ctaDisabled}
               size="lg"
-              className="w-full mt-4 bg-primary text-primary-foreground font-heading text-base tracking-wider uppercase h-14 rounded-xl hover:bg-primary/90 disabled:opacity-60"
+              className="w-full mt-4 bg-primary text-primary-foreground font-body font-semibold text-base tracking-[0.06em] uppercase h-14 rounded-xl hover:bg-primary/90 disabled:opacity-60"
             >
               {isLoading ? <Loader2 className="h-5 w-5 animate-spin" /> : ctaLabel}
             </Button>
@@ -518,13 +518,13 @@ const ProductDetail = () => {
 
       {copy.faqs && copy.faqs.length > 0 && (
         <section className="max-w-3xl mx-auto px-4 py-12 md:py-16 border-t border-border">
-          <h2 className="font-heading text-xl md:text-2xl text-foreground mb-4">
+          <h2 className="font-display text-2xl md:text-3xl text-foreground mb-4">
             Questions about this piece
           </h2>
           <Accordion type="single" collapsible className="w-full">
             {copy.faqs.map((faq, i) => (
               <AccordionItem key={i} value={`faq-${i}`} className="border-b border-border">
-                <AccordionTrigger className="font-heading text-sm tracking-wide text-foreground text-left hover:no-underline hover:text-primary py-4">
+                <AccordionTrigger className="font-body font-semibold text-sm tracking-wide text-foreground text-left hover:no-underline hover:text-primary py-4">
                   {faq.q}
                 </AccordionTrigger>
                 <AccordionContent className="font-body text-sm text-muted-foreground pb-5 leading-relaxed">
@@ -556,9 +556,9 @@ const ProductDetail = () => {
         >
           <div className="container flex items-center gap-3 py-2.5">
             <div className="flex-1 min-w-0">
-              <p className="font-heading text-xs text-foreground truncate">{product.title}</p>
+              <p className="font-body font-semibold text-[13px] text-foreground truncate">{product.title}</p>
               <div className="flex items-center gap-2">
-                <span className="font-heading text-sm text-primary">
+                <span className="font-body nums font-bold text-sm text-primary">
                   {displayVariant?.price.currencyCode}{" "}
                   {parseFloat(displayVariant?.price.amount || "0").toFixed(2)}
                 </span>
@@ -578,7 +578,7 @@ const ProductDetail = () => {
             <Button
               onClick={handleAddToCart}
               disabled={ctaDisabled}
-              className="bg-primary text-primary-foreground font-heading text-xs tracking-wider uppercase px-6 h-12 rounded-xl hover:bg-primary/90 flex-shrink-0"
+              className="bg-primary text-primary-foreground font-body font-semibold text-[13px] tracking-[0.06em] uppercase px-6 h-12 rounded-xl hover:bg-primary/90 flex-shrink-0"
             >
               {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : ctaLabel}
             </Button>

@@ -92,7 +92,7 @@ export const ExitIntentPopup = () => {
           >
             <div className="bg-accent py-6 px-6 text-center">
               <Gift className="h-8 w-8 text-accent-foreground mx-auto mb-3" />
-              <h2 className="font-heading text-2xl text-accent-foreground leading-tight">
+              <h2 className="font-display text-2xl text-accent-foreground leading-tight">
                 Wait! Don't Leave Yet 🎁
               </h2>
               <p className="font-body text-xs tracking-[0.2em] uppercase text-accent-foreground/80 mt-1">
@@ -110,13 +110,13 @@ export const ExitIntentPopup = () => {
 
             <div className="p-6 text-center space-y-4">
               <p className="font-body text-sm text-muted-foreground leading-relaxed">
-                Get <span className="font-semibold text-foreground">5% OFF</span> your first order! Use code <span className="font-heading text-primary">STAY5</span> at checkout.
+                Get <span className="font-semibold text-foreground">5% OFF</span> your first order! Use code <span className="font-body font-semibold text-primary">STAY5</span> at checkout.
               </p>
 
               <Link
                 to="/shop"
                 onClick={handleClose}
-                className="inline-flex items-center justify-center w-full gap-2 bg-primary text-primary-foreground font-heading text-sm tracking-[0.15em] uppercase px-8 py-3.5 rounded-full hover:bg-primary/90 transition-all duration-300"
+                className="inline-flex items-center justify-center w-full gap-2 bg-primary text-primary-foreground font-body font-semibold text-sm tracking-[0.15em] uppercase px-8 py-3.5 rounded-full hover:bg-primary/90 transition-all duration-300"
               >
                 Claim My Discount
               </Link>

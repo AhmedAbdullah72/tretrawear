@@ -16,7 +16,7 @@ export const Footer = ({ hideCta = false }: FooterProps) => {
       {!hideCta && <div className="bg-primary">
         <div className="container py-10 md:py-12 flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
           <div>
-            <h3 className="font-heading text-xl md:text-2xl text-primary-foreground">
+            <h3 className="font-display text-xl md:text-2xl text-primary-foreground">
               READY TO LEVEL UP YOUR WARDROBE?
             </h3>
             <p className="font-body text-sm text-primary-foreground/80 mt-1">
@@ -25,7 +25,7 @@ export const Footer = ({ hideCta = false }: FooterProps) => {
           </div>
           <Link
             to="/shop"
-            className="inline-flex items-center gap-2 bg-primary-foreground text-primary font-heading text-sm tracking-wider uppercase px-8 py-3.5 rounded-xl hover:bg-primary-foreground/90 transition-colors duration-300 flex-shrink-0"
+            className="inline-flex items-center gap-2 bg-primary-foreground text-primary font-body font-semibold text-sm tracking-[0.06em] uppercase px-8 py-3.5 rounded-xl hover:bg-primary-foreground/90 transition-colors duration-300 flex-shrink-0"
           >
             Shop Now <ArrowRight className="h-4 w-4" />
           </Link>
@@ -81,7 +81,7 @@ export const Footer = ({ hideCta = false }: FooterProps) => {
           </div>
 
           <nav aria-label="Quick links">
-            <h4 className="font-heading text-sm text-foreground mb-5">Quick Links</h4>
+            <h4 className="font-body font-semibold text-sm text-foreground mb-5">Quick Links</h4>
             <div className="space-y-3">
               <Link to="/shop" className="block font-body text-sm text-muted-foreground hover:text-primary transition-colors duration-300">
                 Shop All
@@ -104,7 +104,7 @@ export const Footer = ({ hideCta = false }: FooterProps) => {
           </nav>
 
           <nav aria-label="Support links">
-            <h4 className="font-heading text-sm text-foreground mb-5">Support</h4>
+            <h4 className="font-body font-semibold text-sm text-foreground mb-5">Support</h4>
             <div className="space-y-3">
               <Link to="/shipping" className="block font-body text-sm text-muted-foreground hover:text-primary transition-colors duration-300">
                 Shipping Info

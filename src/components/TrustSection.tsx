@@ -26,7 +26,7 @@ export const TrustSection = () => {
                 <item.icon className="h-4 w-4 text-primary group-hover:text-primary-foreground transition-colors duration-500" />
               </div>
               <div>
-                <h3 className="font-heading text-xs text-foreground">{item.title}</h3>
+                <h3 className="font-body font-semibold text-xs text-foreground">{item.title}</h3>
                 <p className="font-body text-[11px] text-muted-foreground">{item.desc}</p>
               </div>
             </motion.div>

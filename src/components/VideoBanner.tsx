@@ -59,7 +59,7 @@ export const VideoBanner = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="font-heading text-4xl md:text-6xl lg:text-7xl text-primary-foreground leading-[0.9] mb-6"
+            className="font-display text-4xl md:text-6xl lg:text-7xl text-primary-foreground leading-[0.9] mb-6"
           >
             MADE FOR<br />
             THE <span className="text-primary">STREETS</span>
@@ -83,7 +83,7 @@ export const VideoBanner = () => {
           >
             <Link
               to="/shop"
-              className="group inline-flex items-center gap-2 bg-primary-foreground text-foreground font-heading text-sm tracking-wider uppercase px-7 py-3.5 rounded-full hover:bg-primary hover:text-primary-foreground transition-all duration-300"
+              className="group inline-flex items-center gap-2 bg-primary-foreground text-foreground font-body font-semibold text-sm tracking-[0.06em] uppercase px-7 py-3.5 rounded-full hover:bg-primary hover:text-primary-foreground transition-all duration-300"
             >
               Explore Collection
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />

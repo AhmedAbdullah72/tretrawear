@@ -72,8 +72,9 @@
     @apply bg-background text-foreground font-body antialiased;
   }
 
+  /* Headings default to the UI font; Anton is opt-in via .font-display */
   h1, h2, h3, h4, h5, h6 {
-    @apply font-heading uppercase;
+    @apply font-body font-bold tracking-tight;
   }
 }
 
@@ -84,13 +85,25 @@
   .safe-bottom {
     padding-bottom: env(safe-area-inset-bottom, 0px);
   }
+  /* Price / numeric scanning */
+  .nums {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum" 1;
+  }
 }
 
 @layer components {
   .section-padding {
     @apply py-10 md:py-16;
   }
+  /* Editorial display type: Anton, always uppercase, tuned tracking */
+  .font-display {
+    text-transform: uppercase;
+    letter-spacing: 0.005em;
+    font-weight: 400;
+  }
 }
+
 
 /* Performance-optimized CSS animations (replacing framer-motion in critical path) */
 @keyframes fade-in-delayed {

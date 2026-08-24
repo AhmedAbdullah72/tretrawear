@@ -62,7 +62,7 @@ export const CustomerReviews = () => {
           transition={{ duration: 0.5 }}
           className="text-center mb-5"
         >
-          <h2 id="reviews-heading" className="font-heading text-2xl md:text-3xl text-foreground">
+          <h2 id="reviews-heading" className="font-display text-2xl md:text-3xl text-foreground">
             REAL PEOPLE, <span className="text-primary">REAL TALK</span>
           </h2>
           <p className="font-body text-xs text-muted-foreground mt-2">
@@ -82,7 +82,7 @@ export const CustomerReviews = () => {
               </p>
               <div className="flex items-center gap-2 mt-3">
                 <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center">
-                  <span className="font-heading text-[10px] text-primary">{getInitials(review.name)}</span>
+                  <span className="font-body font-semibold text-[10px] text-primary">{getInitials(review.name)}</span>
                 </div>
                 <span className="font-body text-xs text-muted-foreground">{review.name}</span>
                 {review.product && (

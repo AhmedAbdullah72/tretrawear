@@ -27,7 +27,7 @@ export const LifestyleLookbook = () => {
           className="text-center mb-14"
         >
           <p className="font-body text-xs tracking-[0.3em] uppercase text-primary mb-3">The Lookbook</p>
-          <h2 id="lookbook-heading" className="font-heading text-4xl md:text-5xl text-foreground">
+          <h2 id="lookbook-heading" className="font-display text-4xl md:text-5xl text-foreground">
             STREET <span className="text-primary">STORIES</span>
           </h2>
           <p className="font-body text-sm text-muted-foreground mt-3 max-w-lg mx-auto">
@@ -56,7 +56,7 @@ export const LifestyleLookbook = () => {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
-                <p className="font-heading text-lg text-primary-foreground">Summer '26 Lookbook</p>
+                <p className="font-body font-semibold text-lg text-primary-foreground">Summer '26 Lookbook</p>
                 <p className="font-body text-xs text-primary-foreground/70">Wide-leg sweatpants + Oversized tee</p>
               </div>
             </div>
@@ -101,7 +101,7 @@ export const LifestyleLookbook = () => {
               <div className="absolute inset-0 bg-foreground/0 group-hover:bg-foreground/20 transition-all duration-500 flex items-center justify-center">
                 <Link
                   to="/shop"
-                  className="bg-primary text-primary-foreground font-heading text-xs tracking-wider uppercase px-5 py-2.5 rounded-full opacity-0 group-hover:opacity-100 scale-90 group-hover:scale-100 transition-all duration-500 flex items-center gap-2"
+                  className="bg-primary text-primary-foreground font-body font-semibold text-xs tracking-[0.06em] uppercase px-5 py-2.5 rounded-full opacity-0 group-hover:opacity-100 scale-90 group-hover:scale-100 transition-all duration-500 flex items-center gap-2"
                 >
                   Shop the Look
                   <ArrowRight className="h-3.5 w-3.5" />

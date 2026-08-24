@@ -30,7 +30,7 @@ export const BenefitsBar = () => {
                 <b.icon className="h-4 w-4 text-primary transition-colors duration-300 group-hover:text-primary-foreground" />
               </div>
               <div>
-                <p className="font-heading text-xs text-foreground">{b.label}</p>
+                <p className="font-body font-semibold text-xs text-foreground">{b.label}</p>
                 <p className="font-body text-[11px] text-muted-foreground">{b.desc}</p>
               </div>
             </div>

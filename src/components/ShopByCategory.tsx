@@ -38,7 +38,7 @@ export const ShopByCategory = () => {
           className="text-center mb-6 md:mb-10"
         >
           <p className="font-body text-xs tracking-[0.3em] uppercase text-primary mb-2">Find Your Fit</p>
-          <h2 id="category-heading" className="font-heading text-2xl md:text-4xl text-foreground">
+          <h2 id="category-heading" className="font-display text-2xl md:text-4xl text-foreground">
             EXPLORE BY <span className="text-primary">STYLE</span>
           </h2>
         </motion.div>
@@ -73,10 +73,10 @@ export const ShopByCategory = () => {
                   />
                 </div>
                 <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-foreground/95 via-foreground/60 to-transparent p-6 pt-24">
-                  <h3 className="font-heading text-xl text-primary-foreground mb-1">{col.node.title}</h3>
+                  <h3 className="font-body font-semibold text-xl text-primary-foreground mb-1">{col.node.title}</h3>
                   <div className="flex items-center justify-between">
                     <p className="font-body text-xs text-primary-foreground/60">Shop the collection</p>
-                    <span className="bg-primary text-primary-foreground font-heading text-[10px] tracking-wider uppercase px-3 py-1.5 rounded-full flex items-center gap-1 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-400" aria-hidden="true">
+                    <span className="bg-primary text-primary-foreground font-body font-semibold text-[10px] tracking-wider uppercase px-3 py-1.5 rounded-full flex items-center gap-1 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-400" aria-hidden="true">
                       Shop
                       <ArrowRight className="h-3 w-3" />
                     </span>

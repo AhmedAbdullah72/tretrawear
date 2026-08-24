@@ -52,7 +52,7 @@ export const DeliveryEstimate = ({ compact = false }: DeliveryEstimateProps) => 
               <div className="w-10 h-10 rounded-full bg-card border border-border flex items-center justify-center mb-1.5">
                 <step.icon className="h-4 w-4 text-foreground" />
               </div>
-              <p className="font-heading text-xs text-foreground">{step.label}</p>
+              <p className="font-body font-semibold text-xs text-foreground">{step.label}</p>
               <p className="font-body text-[11px] text-muted-foreground">{step.date}</p>
             </div>
           ))}
@@ -70,7 +70,7 @@ export const DeliveryEstimate = ({ compact = false }: DeliveryEstimateProps) => 
                 <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center mb-1">
                   <item.icon className="h-3.5 w-3.5 text-primary" />
                 </div>
-                <p className="font-heading text-[10px] tracking-wider text-foreground">{item.label}</p>
+                <p className="font-body font-semibold text-[10px] tracking-wider text-foreground">{item.label}</p>
                 <p className="font-body text-[9px] text-muted-foreground">{item.sub}</p>
               </div>
             ))}

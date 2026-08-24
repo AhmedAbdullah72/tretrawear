@@ -42,14 +42,14 @@ const CTABlock = ({ variant = "default" }: { variant?: "default" | "dark" }) => 
   >
     <Link
       to="/shop"
-      className="group inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground font-heading text-sm tracking-wider uppercase px-7 py-3.5 rounded-lg hover:bg-primary/90 transition-all duration-300 shadow-lg shadow-primary/20"
+      className="group inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground font-body font-semibold text-sm tracking-[0.06em] uppercase px-7 py-3.5 rounded-lg hover:bg-primary/90 transition-all duration-300 shadow-lg shadow-primary/20"
     >
       Shop Now
       <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
     </Link>
     <Link
       to="/shop"
-      className={`inline-flex items-center justify-center gap-2 border font-heading text-sm tracking-wider uppercase px-7 py-3.5 rounded-lg transition-all duration-300 ${
+      className={`inline-flex items-center justify-center gap-2 border font-body font-semibold text-sm tracking-[0.06em] uppercase px-7 py-3.5 rounded-lg transition-all duration-300 ${
         variant === "dark"
           ? "border-background/30 text-background hover:bg-background/10"
           : "border-foreground/20 text-foreground hover:bg-foreground/5"
@@ -120,7 +120,7 @@ const About = () => {
           className="container max-w-3xl text-center py-12"
         >
           <p className="font-body text-xs tracking-[0.3em] uppercase text-background/50 mb-4">Egyptian Streetwear, Redefined</p>
-          <h1 className="font-heading text-4xl md:text-6xl lg:text-7xl text-background mb-6 leading-tight">
+          <h1 className="font-display text-4xl md:text-6xl lg:text-7xl text-background mb-6 leading-tight">
             <span className="sr-only">About TRETRA Wear — </span>
             Premium Quality<span className="text-primary">.</span><br />
             Honest Prices<span className="text-primary">.</span><br />
@@ -149,7 +149,7 @@ const About = () => {
                 <div className="w-10 h-10 mx-auto mb-3 flex items-center justify-center bg-primary/10 rounded-xl">
                   <s.icon className="h-4 w-4 text-primary" />
                 </div>
-                <p className="font-heading text-3xl md:text-4xl text-foreground">
+                <p className="font-display text-3xl md:text-4xl text-foreground">
                   {typeof s.value === "number" && s.value >= 10 ? (
                     <CountUp target={s.value} suffix={s.suffix} />
                   ) : (
@@ -184,7 +184,7 @@ const About = () => {
               transition={{ duration: 0.6 }}
             >
               <p className="font-body text-xs tracking-[0.3em] uppercase text-primary mb-3">Our Story</p>
-              <h2 className="font-heading text-3xl text-foreground mb-4">
+              <h2 className="font-display text-3xl text-foreground mb-4">
                 Born From Frustration<span className="text-primary">.</span>
               </h2>
               <p className="font-body text-sm text-muted-foreground leading-relaxed mb-4">
@@ -224,7 +224,7 @@ const About = () => {
             className="text-center mb-14"
           >
             <p className="font-body text-xs tracking-[0.3em] uppercase text-background/50 mb-3">Our Journey</p>
-            <h2 className="font-heading text-3xl md:text-5xl text-background">
+            <h2 className="font-display text-3xl md:text-5xl text-background">
               From Idea to 10K+ Customers<span className="text-primary">.</span>
             </h2>
           </motion.div>
@@ -242,8 +242,8 @@ const About = () => {
               >
                 <div className="absolute left-4 md:left-1/2 w-3 h-3 rounded-full bg-primary -translate-x-1/2 mt-1.5 ring-4 ring-foreground z-10" />
                 <div className={`ml-12 md:ml-0 md:w-1/2 ${i % 2 === 0 ? "md:pr-12 md:text-right" : "md:pl-12"}`}>
-                  <span className="font-heading text-sm text-primary">{item.year}</span>
-                  <h3 className="font-heading text-lg text-background mt-1">{item.title}</h3>
+                  <span className="font-body font-semibold text-sm text-primary">{item.year}</span>
+                  <h3 className="font-body font-semibold text-lg text-background mt-1">{item.title}</h3>
                   <p className="font-body text-sm text-background/60 mt-1">{item.desc}</p>
                 </div>
               </motion.div>
@@ -264,7 +264,7 @@ const About = () => {
             className="text-center mb-12"
           >
             <p className="font-body text-xs tracking-[0.3em] uppercase text-primary mb-3">Why Us</p>
-            <h2 className="font-heading text-3xl md:text-4xl text-foreground">
+            <h2 className="font-display text-3xl md:text-4xl text-foreground">
               What Makes TRETRA Different<span className="text-primary">?</span>
             </h2>
           </motion.div>
@@ -296,7 +296,7 @@ const About = () => {
                 transition={{ duration: 0.4, delay: i * 0.08 }}
                 className="p-6 rounded-xl border border-border hover:border-primary/30 transition-all duration-300"
               >
-                <h3 className="font-heading text-lg text-foreground mb-3">{block.title}</h3>
+                <h3 className="font-body font-semibold text-lg text-foreground mb-3">{block.title}</h3>
                 <ul className="space-y-2">
                   {block.points.map((point, j) => (
                     <li key={j} className="flex items-start gap-2">
