@@ -63,7 +63,7 @@ export const ProductImageGallery = ({ images, imageAlts = [], productTitle, scro
         <button
           type="button"
           onClick={() => setZoomed(true)}
-          className="block w-full aspect-[3/4] bg-secondary rounded-2xl overflow-hidden shadow-sm group relative cursor-zoom-in"
+          className="block w-full aspect-[3/4] max-h-[58vh] md:max-h-none mx-auto bg-secondary rounded-2xl overflow-hidden shadow-sm group relative cursor-zoom-in"
           aria-label="Zoom image"
         >
           <img
@@ -121,7 +121,7 @@ export const ProductImageGallery = ({ images, imageAlts = [], productTitle, scro
                 <button
                   type="button"
                   onClick={() => setZoomed(true)}
-                  className="aspect-[3/4] bg-secondary w-full block cursor-zoom-in"
+                  className="aspect-[3/4] max-h-[58vh] md:max-h-none bg-secondary w-full block cursor-zoom-in"
                   aria-label="Zoom image"
                 >
                   <img

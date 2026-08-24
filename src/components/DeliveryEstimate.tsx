@@ -22,8 +22,35 @@ function getDeliveryDates() {
   };
 }
 
-export const DeliveryEstimate = () => {
+interface DeliveryEstimateProps {
+  /**
+   * Compact mode renders only the two reassurance lines that belong directly
+   * under Add to Cart. The full timeline lives inside the Shipping accordion.
+   */
+  compact?: boolean;
+}
+
+export const DeliveryEstimate = ({ compact = false }: DeliveryEstimateProps) => {
   const dates = getDeliveryDates();
+
+  if (compact) {
+    return (
+      <div className="space-y-1.5">
+        <div className="flex items-start gap-2 font-body text-xs">
+          <Truck className="h-3.5 w-3.5 text-primary mt-0.5 flex-shrink-0" />
+          <p className="text-muted-foreground">
+            Delivered{" "}
+            <span className="text-foreground font-semibold">{dates.deliverStartFull}</span>
+            {" – "}
+            <span className="text-foreground font-semibold">{dates.deliverEndFull}</span>
+          </p>
+        </div>
+        <p className="font-body text-xs text-muted-foreground pl-[22px]">
+          Free shipping over 1,500 EGP · Cash on delivery · 14-day exchange
+        </p>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-3">
@@ -40,6 +67,7 @@ export const DeliveryEstimate = () => {
 
       {/* Timeline + Trust Signals combined */}
       <div className="bg-secondary/60 rounded-xl p-4 space-y-4">
+
         <div className="flex items-center justify-between relative">
           {/* Connector line */}
           <div className="absolute top-5 left-[15%] right-[15%] h-[2px] bg-border" />
