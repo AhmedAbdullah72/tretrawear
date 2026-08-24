@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { storefrontApiRequest, PRODUCTS_QUERY, type ShopifyProduct } from "@/lib/shopify";
 import { ProductCard } from "./ProductCard";
-import { motion } from "framer-motion";
 
 interface RelatedProductsProps {
   currentHandle: string;
@@ -28,29 +27,21 @@ export const RelatedProducts = ({ currentHandle }: RelatedProductsProps) => {
   return (
     <section className="py-12 border-t border-border">
       <div className="container">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.5 }}
+        <div
           className="mb-8"
         >
           <p className="font-body text-xs tracking-[0.3em] uppercase text-primary mb-2">Complete The Look</p>
           <h2 className="font-display text-3xl text-foreground">
             YOU MAY ALSO <span className="text-primary">LIKE</span>
           </h2>
-        </motion.div>
+        </div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
           {products.map((product, i) => (
-            <motion.div
+            <div
               key={product.node.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.08, duration: 0.4 }}
             >
               <ProductCard product={product} />
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
-import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { storefrontApiRequest, COLLECTIONS_QUERY, type ShopifyCollection } from "@/lib/shopify";
 
@@ -30,18 +29,14 @@ export const ShopByCategory = () => {
   return (
     <section className="section-padding bg-card overflow-hidden" aria-labelledby="category-heading">
       <div className="container">
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.6 }}
+        <div
           className="text-center mb-6 md:mb-10"
         >
           <p className="font-body text-xs tracking-[0.3em] uppercase text-primary mb-2">Find Your Fit</p>
           <h2 id="category-heading" className="font-display text-2xl md:text-4xl text-foreground">
             EXPLORE BY <span className="text-primary">STYLE</span>
           </h2>
-        </motion.div>
+        </div>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
           {loading
@@ -49,12 +44,8 @@ export const ShopByCategory = () => {
                 <div key={i} className="aspect-[3/4] rounded-2xl bg-secondary/40 animate-pulse" />
               ))
             : collections.map((col, i) => (
-            <motion.div
+            <div
               key={col.node.id}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ delay: i * 0.1, duration: 0.5 }}
             >
               <Link
                 to={`/shop?category=${col.node.handle}`}
@@ -83,7 +74,7 @@ export const ShopByCategory = () => {
                   </div>
                 </div>
               </Link>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

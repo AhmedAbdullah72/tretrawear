@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { storefrontApiRequest, PRODUCTS_QUERY, type ShopifyProduct, shopifyImg, shopifySrcSet } from "@/lib/shopify";
 import { useCartStore } from "@/stores/cartStore";
 import { toast } from "sonner";
-import { motion } from "framer-motion";
 import { Plus, ShoppingBag } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -84,11 +83,7 @@ export const CompleteTheLook = ({ currentHandle, currentTitle }: CompleteTheLook
   return (
     <section className="py-10 md:py-14 border-t border-border">
       <div className="container">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.5 }}
+        <div
           className="text-center mb-8"
         >
           <p className="font-body text-xs tracking-[0.3em] uppercase text-primary mb-2">
@@ -100,7 +95,7 @@ export const CompleteTheLook = ({ currentHandle, currentTitle }: CompleteTheLook
           <p className="font-body text-sm text-muted-foreground mt-2 max-w-md mx-auto">
             These go perfectly together — trust us, your future self will thank you.
           </p>
-        </motion.div>
+        </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl mx-auto">
           {suggestions.map((product, i) => {
@@ -108,12 +103,8 @@ export const CompleteTheLook = ({ currentHandle, currentTitle }: CompleteTheLook
             const price = product.node.priceRange.minVariantPrice;
 
             return (
-              <motion.div
+              <div
                 key={product.node.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1, duration: 0.4 }}
                 className="group bg-card rounded-xl border border-border overflow-hidden hover:border-primary/30 transition-all duration-300"
               >
                 <Link
@@ -152,7 +143,7 @@ export const CompleteTheLook = ({ currentHandle, currentTitle }: CompleteTheLook
                     Quick Add
                   </Button>
                 </div>
-              </motion.div>
+              </div>
             );
           })}
         </div>
