@@ -123,6 +123,11 @@
   overflow: hidden;
 }
 
+/* Keep the WhatsApp bubble clear of the sticky add-to-cart bar */
+body:has(#sticky-atc) .wa-fab {
+  bottom: 6.5rem;
+}
+
 html {
   scroll-behavior: smooth;
 }
