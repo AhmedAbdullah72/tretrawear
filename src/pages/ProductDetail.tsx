@@ -1,36 +1,50 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
-import { Marquee } from "@/components/Marquee";
 import { storefrontApiRequest, PRODUCT_BY_HANDLE_QUERY } from "@/lib/shopify";
 import { useCartStore, type ShopifyProduct } from "@/stores/cartStore";
-import { Loader2, ChevronRight, ShieldCheck, Minus, Plus, Ruler, Star, Check, User } from "lucide-react";
+import { Loader2, ChevronRight, Star } from "lucide-react";
 import { ProductDetailSkeleton } from "@/components/ProductDetailSkeleton";
 import { SizeGuide } from "@/components/SizeGuide";
 import { SizeRecommender } from "@/components/SizeRecommender";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
-import { motion } from "framer-motion";
 import { getProductCopy } from "@/lib/productCopy";
-import { ProductDetailTabs } from "@/components/ProductCopySections";
+import { ProductAccordions } from "@/components/ProductAccordions";
 import { ProductImageGallery } from "@/components/ProductImageGallery";
-import { ProductReviews, getAverageRating, getTotalReviews } from "@/components/ProductReviews";
+import {
+  ProductReviews,
+  getAverageRating,
+  getTotalReviews,
+  hasGenuineReviews,
+} from "@/components/ProductReviews";
 import { RelatedProducts } from "@/components/RelatedProducts";
 import { CompleteTheLook } from "@/components/CompleteTheLook";
 import { DeliveryEstimate } from "@/components/DeliveryEstimate";
-import { ProductBundles } from "@/components/ProductBundles";
+import { FAQSection } from "@/components/FAQSection";
 import { SEO } from "@/components/SEO";
+
+/** Short, human fit descriptor pulled from the existing product copy. */
+const getFitLabel = (text: string): string => {
+  const match = text.match(/(oversized|boxy fit|boxy|relaxed|wide[- ]leg|regular)/i);
+  if (!match) return "True to size";
+  const word = match[0].toLowerCase().replace("wide leg", "wide-leg");
+  const label = word.charAt(0).toUpperCase() + word.slice(1);
+  return /fit$/i.test(label) ? label : `${label} fit`;
+};
+
 const ProductDetail = () => {
   const { handle } = useParams<{ handle: string }>();
   const [product, setProduct] = useState<ShopifyProduct["node"] | null>(null);
   const [loading, setLoading] = useState(true);
-  
+
   const [selectedOptions, setSelectedOptions] = useState<Record<string, string>>({});
-  const [quantity, setQuantity] = useState(1);
+  const [missingOption, setMissingOption] = useState<string | null>(null);
   const [showStickyBar, setShowStickyBar] = useState(false);
-  const addItem = useCartStore(state => state.addItem);
-  const isLoading = useCartStore(state => state.isLoading);
+  const optionRefs = useRef<Record<string, HTMLDivElement | null>>({});
+  const addItem = useCartStore((state) => state.addItem);
+  const isLoading = useCartStore((state) => state.isLoading);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -44,59 +58,102 @@ const ProductDetail = () => {
       }
     };
     if (handle) fetchProduct();
-    
+
     setSelectedOptions({});
-    setQuantity(1);
+    setMissingOption(null);
   }, [handle]);
 
-  // Sticky bar
+  // Only auto-select an option that has exactly one legitimate value. Anything
+  // with a real choice stays unselected so the customer makes it deliberately.
   useEffect(() => {
+    if (!product) return;
+    const preset: Record<string, string> = {};
+    product.options.forEach((option) => {
+      if (option.values.length === 1) preset[option.name] = option.values[0];
+    });
+    setSelectedOptions(preset);
+  }, [product]);
+
+  const variants = useMemo(
+    () => (product ? product.variants.edges.map((e) => e.node) : []),
+    [product]
+  );
+
+  const productSoldOut = variants.length > 0 && variants.every((v) => !v.availableForSale);
+
+  const allOptionsSelected = !!product && product.options.every((o) => selectedOptions[o.name]);
+
+  // A variant only resolves once every option is chosen — never fall back to
+  // "first variant", which is how wrong-size orders happen.
+  const selectedVariant = useMemo(() => {
+    if (!product || !allOptionsSelected) return undefined;
+    return variants.find((v) =>
+      Object.entries(selectedOptions).every(([name, value]) =>
+        v.selectedOptions.some((o) => o.name === name && o.value === value)
+      )
+    );
+  }, [product, variants, selectedOptions, allOptionsSelected]);
+
+  // Price shown before a variant resolves: the lowest variant price, so the
+  // price block never renders empty or shifts layout.
+  const displayVariant = selectedVariant ?? variants[0];
+
+  /** Is this option value reachable given the other current selections? */
+  const isValueAvailable = (optionName: string, value: string) =>
+    variants.some(
+      (v) =>
+        v.availableForSale &&
+        v.selectedOptions.some((o) => o.name === optionName && o.value === value) &&
+        Object.entries(selectedOptions).every(
+          ([name, selected]) =>
+            name === optionName ||
+            v.selectedOptions.some((o) => o.name === name && o.value === selected)
+        )
+    );
+
+  const firstMissingOption = () =>
+    product?.options.find((o) => !selectedOptions[o.name])?.name ?? null;
+
+  const handleAddToCart = async () => {
+    if (!product || productSoldOut) return;
+
+    // Required variant not chosen: point at the selector instead of failing quietly.
+    const missing = firstMissingOption();
+    if (missing) {
+      setMissingOption(missing);
+      const el = optionRefs.current[missing];
+      el?.scrollIntoView({ behavior: "smooth", block: "center" });
+      (el?.querySelector("button:not([disabled])") as HTMLButtonElement | null)?.focus();
+      return;
+    }
+    if (!selectedVariant?.availableForSale) return;
+
+    setMissingOption(null);
+    await addItem({
+      product: { node: product },
+      variantId: selectedVariant.id,
+      variantTitle: selectedVariant.title,
+      price: selectedVariant.price,
+      quantity: 1,
+      selectedOptions: selectedVariant.selectedOptions || [],
+    });
+    toast.success("Added to cart", { description: product.title, position: "top-center" });
+    // Quantity lives in the drawer, so open it right after a successful add.
+    window.dispatchEvent(new CustomEvent("open-cart"));
+  };
+
+  // Sticky CTA shows only while the main CTA is off screen — never both at once.
+  useEffect(() => {
+    if (!product || productSoldOut) return;
+    const btn = document.getElementById("main-add-to-cart");
+    if (!btn) return;
     const observer = new IntersectionObserver(
       ([entry]) => setShowStickyBar(!entry.isIntersecting),
       { threshold: 0 }
     );
-    const btn = document.getElementById("main-add-to-cart");
-    if (btn) observer.observe(btn);
+    observer.observe(btn);
     return () => observer.disconnect();
-  }, [product]);
-
-  // Initialize selectedOptions from first variant
-  useEffect(() => {
-    if (product && Object.keys(selectedOptions).length === 0) {
-      const firstVariant = product.variants.edges[0]?.node;
-      if (firstVariant) {
-        const opts: Record<string, string> = {};
-        firstVariant.selectedOptions.forEach(o => { opts[o.name] = o.value; });
-        setSelectedOptions(opts);
-      }
-    }
-  }, [product]);
-
-  // Find the variant matching all selected options
-  const selectedVariant = product
-    ? (product.variants.edges.find(v =>
-        Object.entries(selectedOptions).every(([name, value]) =>
-          v.node.selectedOptions.some(o => o.name === name && o.value === value)
-        )
-      )?.node || product.variants.edges[0]?.node)
-    : undefined;
-
-  const handleAddToCart = async () => {
-    if (!product || !selectedVariant) return;
-    const variant = selectedVariant;
-    if (!variant) return;
-    await addItem({
-      product: { node: product },
-      variantId: variant.id,
-      variantTitle: variant.title,
-      price: variant.price,
-      quantity,
-      selectedOptions: variant.selectedOptions || [],
-    });
-    toast.success("Added to cart", { description: product.title, position: "top-center" });
-    // Open the cart immediately: one step from add-to-cart to checkout.
-    window.dispatchEvent(new CustomEvent("open-cart"));
-  };
+  }, [product, productSoldOut]);
 
   if (loading) {
     return (
@@ -113,7 +170,9 @@ const ProductDetail = () => {
         <Navbar />
         <div className="container py-20 text-center">
           <p className="text-foreground font-heading text-lg">Product not found</p>
-          <Link to="/shop" className="text-primary underline mt-4 inline-block font-body">Back to shop</Link>
+          <Link to="/shop" className="text-primary underline mt-4 inline-block font-body">
+            Back to shop
+          </Link>
         </div>
       </div>
     );
@@ -121,26 +180,47 @@ const ProductDetail = () => {
 
   const images = product.images.edges;
   const copy = getProductCopy(product.title, product.handle);
+  const showReviews = hasGenuineReviews(handle || "");
   const avgRating = getAverageRating(handle || "");
   const totalReviews = getTotalReviews(handle || "");
 
-  // Find gallery image matching selected color by filename or variant image
-  const selectedColor = selectedVariant?.selectedOptions?.find(o => o.name.toLowerCase() === "color")?.value;
+  const compareAt = displayVariant?.compareAtPrice;
+  const savings = compareAt
+    ? parseFloat(compareAt.amount) - parseFloat(displayVariant.price.amount)
+    : 0;
+  const onSale = !!compareAt && savings > 0;
+
+  const fitLabel = copy.singleSize
+    ? `${copy.singleSize.label} · ${copy.singleSize.fit}`
+    : getFitLabel(`${copy.specs.size} ${copy.subtitle}`);
+
+  const hasSizeOption = product.options.some((o) => o.name.toLowerCase() === "size");
+
+  // Gallery follows the chosen colour when we can match it to an image.
+  const selectedColor = selectedOptions["Color"] ?? selectedOptions["Colour"];
   const variantImageIndex = (() => {
-    // Primary: match color name in image filename/URL
     if (selectedColor) {
       const colorLower = selectedColor.toLowerCase();
-      const idx = images.findIndex(img => img.node.url.toLowerCase().includes(colorLower));
+      const idx = images.findIndex((img) => img.node.url.toLowerCase().includes(colorLower));
       if (idx >= 0) return idx;
     }
-    // Fallback: variant's assigned image
     const variantImageUrl = selectedVariant?.image?.url;
     if (variantImageUrl) {
-      const idx = images.findIndex(img => img.node.url === variantImageUrl);
+      const idx = images.findIndex((img) => img.node.url === variantImageUrl);
       if (idx >= 0) return idx;
     }
     return -1;
   })();
+
+  const ctaLabel = productSoldOut
+    ? "Sold Out"
+    : !allOptionsSelected
+      ? `Select ${(firstMissingOption() || "options").toLowerCase()}`
+      : !selectedVariant?.availableForSale
+        ? "Unavailable"
+        : "Add to Cart";
+
+  const ctaDisabled = isLoading || productSoldOut || (allOptionsSelected && !selectedVariant?.availableForSale);
 
   return (
     <div className="min-h-screen bg-background">
@@ -157,19 +237,22 @@ const ProductDetail = () => {
             description: product.description || copy.seo.metaDescription,
             image: product.images.edges.map((e) => e.node.url),
             brand: { "@type": "Brand", name: "TRETRA" },
-            aggregateRating: totalReviews > 0 ? {
-              "@type": "AggregateRating",
-              ratingValue: avgRating,
-              reviewCount: totalReviews,
-            } : undefined,
+            aggregateRating:
+              totalReviews > 0
+                ? {
+                    "@type": "AggregateRating",
+                    ratingValue: avgRating,
+                    reviewCount: totalReviews,
+                  }
+                : undefined,
             offers: {
               "@type": "Offer",
               url: `https://www.tretrawear.com/product/${product.handle}`,
-              priceCurrency: selectedVariant?.price.currencyCode || "EGP",
-              price: selectedVariant?.price.amount || "0",
-              availability: selectedVariant?.availableForSale
-                ? "https://schema.org/InStock"
-                : "https://schema.org/OutOfStock",
+              priceCurrency: displayVariant?.price.currencyCode || "EGP",
+              price: displayVariant?.price.amount || "0",
+              availability: productSoldOut
+                ? "https://schema.org/OutOfStock"
+                : "https://schema.org/InStock",
             },
           },
           {
@@ -178,31 +261,37 @@ const ProductDetail = () => {
             itemListElement: [
               { "@type": "ListItem", position: 1, name: "Home", item: "https://www.tretrawear.com" },
               { "@type": "ListItem", position: 2, name: "Shop", item: "https://www.tretrawear.com/shop" },
-              { "@type": "ListItem", position: 3, name: product.title, item: `https://www.tretrawear.com/product/${product.handle}` },
+              {
+                "@type": "ListItem",
+                position: 3,
+                name: product.title,
+                item: `https://www.tretrawear.com/product/${product.handle}`,
+              },
             ],
           },
-          ...(copy.faqs && copy.faqs.length > 0 ? [{
-            "@context": "https://schema.org",
-            "@type": "FAQPage",
-            mainEntity: copy.faqs.map((f) => ({
-              "@type": "Question",
-              name: f.q,
-              acceptedAnswer: { "@type": "Answer", text: f.a },
-            })),
-          }] : []),
+          ...(copy.faqs && copy.faqs.length > 0
+            ? [
+                {
+                  "@context": "https://schema.org",
+                  "@type": "FAQPage",
+                  mainEntity: copy.faqs.map((f) => ({
+                    "@type": "Question",
+                    name: f.q,
+                    acceptedAnswer: { "@type": "Answer", text: f.a },
+                  })),
+                },
+              ]
+            : []),
         ]}
       />
       <Navbar />
 
-      <div className="bg-primary text-primary-foreground" style={{ paddingTop: 'calc(64px + var(--banner-offset))' }}>
-        <div className="py-2">
-          <Marquee items={["FREE SHIPPING OVER 1,500 EGP", "14-DAY RETURNS", "PREMIUM QUALITY"]} speed="slow" />
-        </div>
-      </div>
-
-      <div className="container py-8 md:py-12">
-        <nav aria-label="Breadcrumb" className="mb-6">
-          <ol className="flex items-center gap-1.5 font-body text-sm text-muted-foreground">
+      <div
+        className="container pb-10 md:pb-14"
+        style={{ paddingTop: "calc(72px + var(--banner-offset))" }}
+      >
+        <nav aria-label="Breadcrumb" className="mb-4 md:mb-6">
+          <ol className="flex items-center gap-1.5 font-body text-xs md:text-sm text-muted-foreground">
             <li>
               <Link to="/" className="hover:text-primary transition-colors">Home</Link>
             </li>
@@ -211,71 +300,46 @@ const ProductDetail = () => {
               <Link to="/shop" className="hover:text-primary transition-colors">Shop</Link>
             </li>
             <li><ChevronRight className="h-3.5 w-3.5" /></li>
-            <li className="text-foreground font-heading text-xs tracking-wider truncate max-w-[200px]" aria-current="page">
+            <li
+              className="text-foreground font-heading text-xs tracking-wider truncate max-w-[150px] md:max-w-[240px]"
+              aria-current="page"
+            >
               {product.title}
             </li>
           </ol>
         </nav>
 
-        <div className="grid md:grid-cols-2 gap-6 md:gap-12">
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-          >
+        <div className="grid md:grid-cols-2 gap-6 md:gap-12 md:items-start">
+          {/* GALLERY */}
+          <div className="md:sticky md:top-24">
             <ProductImageGallery
               images={images}
               imageAlts={copy.imageAlts}
               productTitle={product.title}
               scrollToIndex={variantImageIndex >= 0 ? variantImageIndex : undefined}
             />
+          </div>
 
-            {/* Model Information — shown when copy.modelInfo is defined */}
-            {copy.modelInfo && (
-              <div className="mt-4 bg-card border border-border rounded-xl p-4">
-                <div className="flex items-center gap-2 mb-3">
-                  <User className="h-4 w-4 text-primary" />
-                  <p className="font-heading text-xs tracking-wider text-foreground uppercase">Model Information</p>
-                </div>
-                <div className="grid grid-cols-3 gap-3">
-                  <div>
-                    <p className="font-body text-[11px] text-muted-foreground uppercase tracking-wide">Height</p>
-                    <p className="font-heading text-sm text-foreground mt-0.5">{copy.modelInfo.height}</p>
-                  </div>
-                  <div>
-                    <p className="font-body text-[11px] text-muted-foreground uppercase tracking-wide">Weight</p>
-                    <p className="font-heading text-sm text-foreground mt-0.5">{copy.modelInfo.weight}</p>
-                  </div>
-                  <div>
-                    <p className="font-body text-[11px] text-muted-foreground uppercase tracking-wide">Wearing</p>
-                    <p className="font-heading text-sm text-foreground mt-0.5">{copy.modelInfo.wearing}</p>
-                  </div>
-                </div>
-              </div>
-            )}
-          </motion.div>
-
-          {/* === RESTRUCTURED INFO PANEL === */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="space-y-4"
-          >
+          {/* PURCHASE PANEL — no entrance animation, interactive on paint */}
+          <div>
             {/* 1. TITLE */}
-            <div>
-              <div className="flex items-center gap-3 flex-wrap">
-                <h1 className="font-heading text-3xl md:text-4xl text-foreground">{product.title}</h1>
-                {selectedVariant?.compareAtPrice && (
-                  <span className="font-heading text-[10px] tracking-wider uppercase bg-primary text-primary-foreground px-2.5 py-1 rounded-full">
-                    Sale
-                  </span>
-                )}
-              </div>
+            <div className="flex items-start gap-3 flex-wrap">
+              <h1 className="font-heading text-2xl md:text-4xl text-foreground leading-tight">
+                {product.title}
+              </h1>
+              {onSale && (
+                <span className="font-heading text-[10px] tracking-wider uppercase bg-primary text-primary-foreground px-2.5 py-1 rounded-full mt-1">
+                  Sale
+                </span>
+              )}
+            </div>
 
-              {/* Reviews summary — directly under title */}
+            {/* 2. REVIEW SUMMARY — genuine reviews only */}
+            {showReviews && (
               <button
-                onClick={() => document.getElementById("reviews-section")?.scrollIntoView({ behavior: "smooth" })}
+                onClick={() =>
+                  document.getElementById("reviews-section")?.scrollIntoView({ behavior: "smooth" })
+                }
                 className="flex items-center gap-2 group mt-2"
                 aria-label={`See ${totalReviews} reviews`}
               >
@@ -283,267 +347,215 @@ const ProductDetail = () => {
                   {Array.from({ length: 5 }).map((_, i) => (
                     <Star
                       key={i}
-                      className={`h-4 w-4 ${i < Math.round(avgRating) ? "text-yellow-400 fill-yellow-400" : "text-muted-foreground/20"}`}
+                      className={`h-4 w-4 ${
+                        i < Math.round(avgRating)
+                          ? "text-yellow-400 fill-yellow-400"
+                          : "text-muted-foreground/20"
+                      }`}
                     />
                   ))}
                 </div>
                 <span className="font-body text-sm text-muted-foreground group-hover:text-primary transition-colors">
-                  {avgRating} ({totalReviews} reviews)
+                  {avgRating} ({totalReviews} {totalReviews === 1 ? "review" : "reviews"})
                 </span>
               </button>
-
-              {/* Subtitle hook — fabric, fit, use */}
-              <p className="font-body text-sm text-muted-foreground mt-2 tracking-wide uppercase">
-                {copy.subtitle}
-              </p>
-            </div>
-
-            {/* 2. PRICE */}
-            <div className="flex items-center gap-3 flex-wrap">
-              {selectedVariant?.compareAtPrice && (
-                <span className="font-heading text-xl text-muted-foreground line-through">
-                  {selectedVariant.compareAtPrice.currencyCode} {parseFloat(selectedVariant.compareAtPrice.amount).toFixed(2)}
-                </span>
-              )}
-              <span className="font-heading text-2xl text-primary">
-                {selectedVariant?.price.currencyCode} {parseFloat(selectedVariant?.price.amount || "0").toFixed(2)}
-              </span>
-              {selectedVariant?.compareAtPrice && (
-                <span className="font-heading text-xs tracking-wider text-primary-foreground bg-primary px-2.5 py-1 rounded-full">
-                  Save {selectedVariant.price.currencyCode} {(parseFloat(selectedVariant.compareAtPrice.amount) - parseFloat(selectedVariant.price.amount)).toFixed(0)}
-                </span>
-              )}
-            </div>
-
-            {/* What's Included — shown for set products */}
-            {copy.included && copy.included.length > 0 && (
-              <div className="bg-card border border-border rounded-xl p-4">
-                <p className="font-heading text-xs tracking-wider text-foreground uppercase mb-2">What's Included</p>
-                <ul className="space-y-1.5">
-                  {copy.included.map((item) => (
-                    <li key={item} className="flex items-center gap-2 font-body text-sm text-foreground">
-                      <Check className="h-4 w-4 text-primary flex-shrink-0" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
             )}
 
-            {/* 4. HOOK */}
-            <p className="font-heading text-base text-foreground italic border-l-2 border-primary pl-4">
-              {copy.hook}
+            <p className="font-body text-xs md:text-sm text-muted-foreground mt-2 tracking-wide uppercase">
+              {copy.subtitle}
             </p>
 
-            {/* One Size Fit info card — replaces size selector helpers for single-size products */}
-            {copy.singleSize && (
-              <div className="bg-card border border-border rounded-xl p-4">
-                <div className="flex items-center justify-between mb-3">
-                  <p className="font-heading text-sm tracking-wider text-foreground uppercase">{copy.singleSize.label} Fit</p>
-                  <span className="font-heading text-[10px] tracking-wider bg-primary/10 text-primary px-2 py-1 rounded uppercase">
-                    {copy.singleSize.fit}
-                  </span>
-                </div>
-                <p className="font-body text-xs text-muted-foreground mb-3">Designed to comfortably fit:</p>
-                <div className="grid grid-cols-2 gap-3">
-                  <div>
-                    <p className="font-body text-[11px] text-muted-foreground uppercase tracking-wide">Weight</p>
-                    <p className="font-heading text-sm text-foreground mt-0.5">{copy.singleSize.weightRange}</p>
-                  </div>
-                  <div>
-                    <p className="font-body text-[11px] text-muted-foreground uppercase tracking-wide">Height</p>
-                    <p className="font-heading text-sm text-foreground mt-0.5">{copy.singleSize.heightRange}</p>
-                  </div>
-                  {copy.singleSize.suitableFor && (
-                    <div className="col-span-2">
-                      <p className="font-body text-[11px] text-muted-foreground uppercase tracking-wide">Suitable For</p>
-                      <p className="font-heading text-sm text-foreground mt-0.5">{copy.singleSize.suitableFor}</p>
-                    </div>
-                  )}
-                </div>
-              </div>
-            )}
-
-            {/* 5. VARIANTS + SIZE GUIDE */}
-            {product.options.map((option) => (
-              <div key={option.name}>
-                <div className="flex items-center justify-between mb-2">
-                  <label className="font-heading text-xs tracking-wider text-foreground">{option.name}</label>
-                  {option.name.toLowerCase() === "size" && !copy.singleSize && (
-                    <button
-                      onClick={() => {
-                        const dialog = document.getElementById("size-guide-trigger");
-                        if (dialog) dialog.click();
-                      }}
-                      className="inline-flex items-center gap-1.5 font-heading text-xs text-primary hover:text-primary/80 transition-colors bg-primary/10 px-3 py-1.5 rounded-lg"
-                    >
-                      <Ruler className="h-3.5 w-3.5" />
-                      Find Your Size
-                    </button>
-                  )}
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  {option.values.map((value) => {
-                    const isSelected = selectedOptions[option.name] === value;
-                    // Check if this option value has any available variant given other selections
-                    const hasVariant = product.variants.edges.some(v =>
-                      v.node.selectedOptions.some(o => o.name === option.name && o.value === value)
-                    );
-                    return (
-                      <button
-                        key={value}
-                        onClick={() => {
-                          if (!hasVariant) return;
-                          setSelectedOptions(prev => ({ ...prev, [option.name]: value }));
-                        }}
-                        disabled={!hasVariant}
-                        className={`px-4 py-2 text-sm font-body rounded-lg border-2 transition-all duration-200 ${
-                          isSelected
-                            ? "border-primary bg-primary text-primary-foreground"
-                            : hasVariant
-                              ? "border-border text-foreground hover:border-primary/40 bg-card"
-                              : "border-border text-muted-foreground/40 bg-muted cursor-not-allowed line-through"
-                        }`}
-                      >
-                        {value}
-                      </button>
-                    );
-                  })}
-                </div>
-                {option.name.toLowerCase() === "size" && !copy.singleSize && (
-                  <>
-                    <div className="hidden"><SizeGuide /></div>
-                    <div className="mt-3">
-                      <SizeRecommender onSizeSelect={(size) => {
-                        setSelectedOptions(prev => ({ ...prev, Size: size }));
-                      }} />
-                    </div>
-                  </>
-                )}
-              </div>
-            ))}
-
-            {/* 6. QUANTITY */}
-            <div>
-              <label className="font-heading text-xs tracking-wider text-foreground block mb-2">Quantity</label>
-              <div className="inline-flex items-center border border-border rounded-lg">
-                <button onClick={() => setQuantity(Math.max(1, quantity - 1))} aria-label="Decrease quantity" className="p-2.5 text-muted-foreground hover:text-foreground transition-colors">
-                  <Minus className="h-4 w-4" />
-                </button>
-                <span className="w-10 text-center font-body text-sm text-foreground">{quantity}</span>
-                <button onClick={() => setQuantity(quantity + 1)} aria-label="Increase quantity" className="p-2.5 text-muted-foreground hover:text-foreground transition-colors">
-                  <Plus className="h-4 w-4" />
-                </button>
-              </div>
-            </div>
-
-            {/* Bundle promo — above ATC */}
-            <div className="flex items-center justify-between gap-3 bg-primary/5 border border-primary/20 rounded-lg px-3 py-2.5">
-              <div className="flex items-center gap-2 min-w-0">
-                <span className="font-heading text-xs tracking-wider text-primary uppercase shrink-0">Bundle &amp; Save</span>
-                <span className="font-body text-xs text-foreground truncate">Buy 3 items, save 15%</span>
-              </div>
-              <span className="font-heading text-[11px] tracking-wider bg-primary text-primary-foreground px-2 py-1 rounded shrink-0">
-                BUNDLE3
+            {/* 3. PRICE */}
+            <div className="flex items-center gap-3 flex-wrap mt-4">
+              <span className="font-heading text-2xl md:text-3xl text-primary">
+                {displayVariant?.price.currencyCode}{" "}
+                {parseFloat(displayVariant?.price.amount || "0").toFixed(2)}
               </span>
+              {onSale && (
+                <>
+                  <span className="font-heading text-lg text-muted-foreground line-through">
+                    {compareAt.currencyCode} {parseFloat(compareAt.amount).toFixed(2)}
+                  </span>
+                  <span className="font-heading text-xs tracking-wider text-primary-foreground bg-primary px-2.5 py-1 rounded-full">
+                    Save {displayVariant.price.currencyCode} {savings.toFixed(0)}
+                  </span>
+                </>
+              )}
             </div>
 
-            {/* 7. ADD TO CART — bigger, bolder */}
+            {/* 4 + 5. VARIANT SELECTION */}
+            {!productSoldOut &&
+              product.options
+                .filter((option) => option.values.length > 1 || option.values[0] !== "Default Title")
+                .map((option) => {
+                  const isColor = /colou?r/i.test(option.name);
+                  const single = option.values.length === 1;
+                  return (
+                    <div
+                      key={option.name}
+                      ref={(el) => { optionRefs.current[option.name] = el; }}
+                      className="mt-5"
+                    >
+                      <div className="flex items-baseline justify-between mb-2">
+                        <label className="font-heading text-xs tracking-wider text-foreground">
+                          {option.name}
+                          {selectedOptions[option.name] && (
+                            <span className="font-body text-muted-foreground normal-case tracking-normal ml-2">
+                              {selectedOptions[option.name]}
+                            </span>
+                          )}
+                        </label>
+                      </div>
+
+                      <div className="flex flex-wrap gap-2">
+                        {option.values.map((value) => {
+                          const isSelected = selectedOptions[option.name] === value;
+                          const available = isValueAvailable(option.name, value);
+                          return (
+                            <button
+                              key={value}
+                              type="button"
+                              onClick={() => {
+                                if (!available) return;
+                                setSelectedOptions((prev) => ({ ...prev, [option.name]: value }));
+                                setMissingOption(null);
+                              }}
+                              disabled={!available || single}
+                              aria-pressed={isSelected}
+                              className={`min-h-[44px] min-w-[44px] px-4 font-body text-sm rounded-lg border-2 transition-colors duration-150 ${
+                                isSelected
+                                  ? "border-primary bg-primary text-primary-foreground"
+                                  : available
+                                    ? "border-border bg-card text-foreground hover:border-primary/50"
+                                    : "border-border/60 bg-muted text-muted-foreground/40 cursor-not-allowed line-through"
+                              }`}
+                            >
+                              {isColor ? value : value}
+                            </button>
+                          );
+                        })}
+                      </div>
+
+                      {missingOption === option.name && (
+                        <p
+                          role="alert"
+                          className="font-body text-xs text-primary mt-2"
+                        >
+                          Please choose a {option.name.toLowerCase()} to continue.
+                        </p>
+                      )}
+                    </div>
+                  );
+                })}
+
+            {/* 6. CONCISE FIT GUIDANCE */}
+            <div className="flex items-center gap-2 mt-4 font-body text-xs text-muted-foreground">
+              <span className="text-foreground font-semibold">{fitLabel}</span>
+              {hasSizeOption && !copy.singleSize && (
+                <>
+                  <span aria-hidden="true">·</span>
+                  <SizeGuide />
+                </>
+              )}
+            </div>
+
+            {/* 7. PRIMARY ADD TO CART */}
             <Button
               id="main-add-to-cart"
               onClick={handleAddToCart}
-              disabled={isLoading || !selectedVariant?.availableForSale}
-              className="w-full bg-primary text-primary-foreground font-heading text-base tracking-wider uppercase py-7 rounded-xl hover:bg-primary/90 shadow-xl shadow-primary/25 transition-all duration-300"
+              disabled={ctaDisabled}
               size="lg"
+              className="w-full mt-4 bg-primary text-primary-foreground font-heading text-base tracking-wider uppercase h-14 rounded-xl hover:bg-primary/90 disabled:opacity-60"
             >
-              {isLoading ? (
-                <Loader2 className="h-5 w-5 animate-spin" />
-              ) : !selectedVariant?.availableForSale ? (
-                "Sold Out"
-              ) : (
-                "Add to Cart"
-              )}
+              {isLoading ? <Loader2 className="h-5 w-5 animate-spin" /> : ctaLabel}
             </Button>
 
-            {/* 7.5 DELIVERY ESTIMATE + TRUST SIGNALS (combined) */}
-            <DeliveryEstimate />
+            {productSoldOut && (
+              <p className="font-body text-xs text-muted-foreground text-center mt-2">
+                This piece is currently out of stock.{" "}
+                <Link to="/shop" className="text-primary underline underline-offset-2">
+                  Browse the collection
+                </Link>
+              </p>
+            )}
 
-            {/* 9. ALL DETAILS — compact tabs */}
-            <ProductDetailTabs copy={copy} />
+            {/* 8. CONCISE PURCHASE REASSURANCE */}
+            {!productSoldOut && (
+              <div className="mt-3">
+                <DeliveryEstimate compact />
+              </div>
+            )}
 
-            {/* Security signal */}
-            <div className="flex items-center justify-center gap-2 p-3 bg-card rounded-lg border border-border">
-              <ShieldCheck className="h-4 w-4 text-primary" />
-              <p className="font-body text-xs text-muted-foreground">Secure checkout · Encrypted payments · Your data is safe</p>
+            {/* 9. SECONDARY CONTENT */}
+            <div className="mt-8">
+              <ProductAccordions
+                copy={copy}
+                sizeHelper={
+                  hasSizeOption && !copy.singleSize ? (
+                    <SizeRecommender
+                      onSizeSelect={(size) => {
+                        setSelectedOptions((prev) => ({ ...prev, Size: size }));
+                        setMissingOption(null);
+                      }}
+                    />
+                  ) : undefined
+                }
+              />
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
 
-      <section id="reviews-section" className="max-w-7xl mx-auto px-4 py-12 md:py-16 border-t border-border">
-        <ProductReviews handle={handle || ""} />
-      </section>
+      {copy.faqs && copy.faqs.length > 0 && <FAQSection faqs={copy.faqs} />}
 
-      <ProductBundles
-        currentHandle={handle || ""}
-        currentTitle={product.title}
-        currentPrice={parseFloat(selectedVariant?.price.amount || "0")}
-        currencyCode={selectedVariant?.price.currencyCode || "EGP"}
-      />
+      {showReviews && (
+        <section
+          id="reviews-section"
+          className="max-w-7xl mx-auto px-4 py-12 md:py-16 border-t border-border"
+        >
+          <ProductReviews handle={handle || ""} />
+        </section>
+      )}
 
       <CompleteTheLook currentHandle={handle || ""} currentTitle={product.title} />
       <RelatedProducts currentHandle={handle || ""} />
 
-      {/* Sticky Add to Cart */}
-      {showStickyBar && selectedVariant && (
-        <motion.div
-          initial={{ y: 80, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ y: 80, opacity: 0 }}
-          transition={{ type: "spring", stiffness: 300, damping: 30 }}
+      {/* STICKY MOBILE ADD TO CART — only while the main CTA is off screen */}
+      {showStickyBar && !productSoldOut && (
+        <div
           id="sticky-atc"
-          className="fixed bottom-0 left-0 right-0 z-40 bg-card/95 backdrop-blur-xl border-t border-border safe-bottom"
+          className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-card/95 backdrop-blur-xl border-t border-border safe-bottom"
         >
-          <div className="container flex items-center gap-4 py-3">
-            {images[0]?.node && (
-              <div className="hidden md:block w-12 h-12 rounded-lg overflow-hidden border border-border flex-shrink-0">
-                <img src={images[0].node.url} alt="" className="w-full h-full object-cover" loading="lazy" decoding="async" />
-              </div>
-            )}
+          <div className="container flex items-center gap-3 py-2.5">
             <div className="flex-1 min-w-0">
-              <p className="font-heading text-sm text-foreground truncate">{product.title}</p>
-              <div className="flex items-center gap-2 flex-wrap">
-                {selectedVariant.compareAtPrice && (
-                  <span className="font-heading text-xs text-muted-foreground line-through">
-                    {selectedVariant.compareAtPrice.currencyCode} {parseFloat(selectedVariant.compareAtPrice.amount).toFixed(2)}
-                  </span>
-                )}
+              <p className="font-heading text-xs text-foreground truncate">{product.title}</p>
+              <div className="flex items-center gap-2">
                 <span className="font-heading text-sm text-primary">
-                  {selectedVariant.price.currencyCode} {parseFloat(selectedVariant.price.amount).toFixed(2)}
+                  {displayVariant?.price.currencyCode}{" "}
+                  {parseFloat(displayVariant?.price.amount || "0").toFixed(2)}
                 </span>
-                {selectedVariant.compareAtPrice && (
-                  <span className="font-heading text-[10px] tracking-wider text-primary-foreground bg-primary px-2 py-0.5 rounded-full">
-                    Save {selectedVariant.price.currencyCode} {(parseFloat(selectedVariant.compareAtPrice.amount) - parseFloat(selectedVariant.price.amount)).toFixed(0)}
+                {allOptionsSelected ? (
+                  selectedVariant && (
+                    <span className="font-body text-[11px] text-muted-foreground truncate">
+                      {selectedVariant.selectedOptions.map((o) => o.value).join(" · ")}
+                    </span>
+                  )
+                ) : (
+                  <span className="font-body text-[11px] text-muted-foreground">
+                    {(firstMissingOption() || "").toLowerCase()} not selected
                   </span>
                 )}
               </div>
-            </div>
-            <div className="hidden md:flex items-center gap-2 flex-shrink-0">
-              {selectedVariant.selectedOptions?.map(opt => (
-                <span key={opt.name} className="font-body text-xs bg-secondary text-secondary-foreground px-3 py-1 rounded-full">
-                  {opt.value}
-                </span>
-              ))}
             </div>
             <Button
               onClick={handleAddToCart}
-              disabled={isLoading || !selectedVariant.availableForSale}
-              className="bg-primary text-primary-foreground font-heading text-xs tracking-wider uppercase px-6 md:px-8 py-5 rounded-xl hover:bg-primary/90 flex-shrink-0 shadow-lg shadow-primary/20"
+              disabled={ctaDisabled}
+              className="bg-primary text-primary-foreground font-heading text-xs tracking-wider uppercase px-6 h-12 rounded-xl hover:bg-primary/90 flex-shrink-0"
             >
-              {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : !selectedVariant.availableForSale ? "Sold Out" : "Add to Cart"}
+              {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : ctaLabel}
             </Button>
           </div>
-        </motion.div>
+        </div>
       )}
 
       <Footer hideCta />
