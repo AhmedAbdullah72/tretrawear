@@ -27,9 +27,28 @@ const SocialIcons = ({ className = "" }: { className?: string }) => (
   </div>
 );
 
+/** Reads the effective background colour behind a point and returns its luminance. */
+const backgroundLuminanceAt = (x: number, y: number): number | null => {
+  const el = document.elementFromPoint(x, y);
+  let node: Element | null = el;
+  while (node) {
+    const bg = getComputedStyle(node).backgroundColor;
+    const m = bg.match(/rgba?\(([^)]+)\)/);
+    if (m) {
+      const [r, g, b, a = "1"] = m[1].split(",").map((v) => parseFloat(v));
+      if (a > 0.5) return (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255;
+    }
+    node = node.parentElement;
+  }
+  return null;
+};
+
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  // Transparent nav is only safe over a genuinely dark hero. Anywhere else the
+  // bar goes solid so the logo and icons keep accessible contrast.
+  const [overDark, setOverDark] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -38,18 +57,40 @@ export const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    const measure = () => {
+      const nav = document.querySelector("nav[aria-label='Main navigation']");
+      const bottom = nav ? nav.getBoundingClientRect().bottom : 64;
+      const lum = backgroundLuminanceAt(window.innerWidth / 2, bottom + 12);
+      setOverDark(lum !== null && lum < 0.5);
+    };
+    measure();
+    const t = window.setTimeout(measure, 400);
+    const t2 = window.setTimeout(measure, 1200);
+    window.addEventListener("resize", measure);
+    return () => {
+      window.clearTimeout(t);
+      window.clearTimeout(t2);
+      window.removeEventListener("resize", measure);
+    };
+  }, [location.pathname]);
+
   useEffect(() => { setIsOpen(false); }, [location.pathname]);
+
+  // Light foreground only while the bar is genuinely floating over a dark hero.
+  const transparent = overDark && !scrolled;
 
   return (
     <nav
       aria-label="Main navigation"
       className={`fixed left-0 right-0 z-50 transition-all duration-400 ${
-        scrolled
-          ? "bg-card/98 backdrop-blur-xl shadow-sm border-b border-border py-0"
-          : "bg-transparent py-1"
+        transparent
+          ? "bg-transparent py-1"
+          : "bg-card/98 backdrop-blur-xl shadow-sm border-b border-border py-0"
       }`}
       style={{ top: 0 }}
     >
+
       <div className="container flex items-center justify-between h-14 md:h-16">
         <Link to="/" className="flex-shrink-0">
           <img
