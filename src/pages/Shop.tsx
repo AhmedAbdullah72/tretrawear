@@ -356,12 +356,8 @@ const Shop = () => {
             </div>
           ) : (
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-              {filtered.map((product, i) => (
-                <div
-                  key={product.node.id}
-                >
-                  <ProductCard product={product} />
-                </div>
+              {filtered.map((product) => (
+                <ProductCard key={product.node.id} product={product} />
               ))}
             </div>
           )}
