@@ -94,6 +94,8 @@ const ProductDetail = () => {
       selectedOptions: variant.selectedOptions || [],
     });
     toast.success("Added to cart", { description: product.title, position: "top-center" });
+    // Open the cart immediately: one step from add-to-cart to checkout.
+    window.dispatchEvent(new CustomEvent("open-cart"));
   };
 
   if (loading) {
