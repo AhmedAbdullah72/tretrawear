@@ -101,7 +101,7 @@ export const Navbar = () => {
             width="160"
             height="40"
             className={`h-8 md:h-10 w-auto transition-all duration-300 ${
-              scrolled ? "" : "brightness-0 invert"
+              transparent ? "brightness-0 invert" : ""
             }`}
           />
         </Link>
@@ -114,9 +114,9 @@ export const Navbar = () => {
               className={`font-body text-xs tracking-[0.15em] uppercase transition-colors duration-300 relative py-1 ${
                 location.pathname === link.path
                   ? "text-primary"
-                  : scrolled
-                  ? "text-foreground/70 hover:text-foreground"
-                  : "text-primary-foreground/70 hover:text-primary-foreground"
+                  : transparent
+                  ? "text-primary-foreground/80 hover:text-primary-foreground"
+                  : "text-foreground/70 hover:text-foreground"
               }`}
             >
               {link.label}
@@ -125,17 +125,17 @@ export const Navbar = () => {
               )}
             </Link>
           ))}
-          <div className={`border-l border-current/20 pl-4 ${scrolled ? "text-foreground/50" : "text-primary-foreground/50"}`}>
+          <div className={`border-l border-current/20 pl-4 ${transparent ? "text-primary-foreground/70" : "text-foreground/60"}`}>
             <SocialIcons />
           </div>
         </div>
 
         <div className="flex items-center gap-2">
-          <div className={`transition-colors duration-300 ${scrolled ? "text-foreground" : "text-primary-foreground"}`}>
+          <div className={`transition-colors duration-300 ${transparent ? "text-primary-foreground" : "text-foreground"}`}>
             <CartDrawer />
           </div>
           <button
-            className={`md:hidden p-2 transition-colors ${scrolled ? "text-foreground" : "text-primary-foreground"}`}
+            className={`md:hidden p-2 transition-colors ${transparent ? "text-primary-foreground" : "text-foreground"}`}
             onClick={() => setIsOpen(!isOpen)}
             aria-label="Toggle menu"
           >
