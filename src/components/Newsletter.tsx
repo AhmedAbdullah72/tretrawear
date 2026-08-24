@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { toast } from "sonner";
-import { motion } from "framer-motion";
-import { Send, Gift } from "lucide-react";
+import { Send } from "lucide-react";
 import { z } from "zod";
 
 const emailSchema = z
@@ -21,55 +20,44 @@ export const Newsletter = () => {
       toast.error(result.error.issues[0]?.message ?? "Invalid email.", { position: "top-center" });
       return;
     }
-    toast.success("Welcome to the crew! Check your inbox for 10% off.", { position: "top-center" });
+    toast.success("You're on the list — we'll email you when new drops land.", { position: "top-center" });
     setEmail("");
   };
 
   return (
-    <section className="py-10 md:py-14 bg-foreground text-background overflow-hidden" aria-labelledby="newsletter-heading">
-      <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-80px" }}
-        transition={{ duration: 0.6 }}
-        className="container max-w-xl text-center"
-      >
-        <div className="inline-flex items-center gap-2 bg-primary/20 border border-primary/30 rounded-full px-4 py-1.5 mb-4">
-          <Gift className="h-3.5 w-3.5 text-primary" aria-hidden="true" />
-          <span className="font-body text-xs tracking-[0.2em] uppercase text-primary font-semibold">
-            Get 10% Off
-          </span>
+    <section className="py-8 md:py-10 bg-foreground text-background" aria-labelledby="newsletter-heading">
+      <div className="container max-w-2xl">
+        <div className="flex flex-col md:flex-row md:items-center gap-4 md:gap-8">
+          <div className="md:flex-1">
+            <h2 id="newsletter-heading" className="font-heading text-xl md:text-2xl text-background">
+              NEW DROPS FIRST
+            </h2>
+            <p className="font-body text-xs text-background/55 mt-1">
+              One short email when a new collection lands. No spam.
+            </p>
+          </div>
+          <form onSubmit={handleSubmit} className="flex md:w-[22rem]" aria-label="Newsletter subscription">
+            <label htmlFor="newsletter-email" className="sr-only">Email address</label>
+            <input
+              id="newsletter-email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Your email"
+              required
+              autoComplete="email"
+              className="flex-1 min-w-0 bg-background/10 border border-background/20 rounded-l-lg px-4 py-3 font-body text-sm text-background placeholder:text-background/40 focus:outline-none focus:border-primary transition-colors"
+            />
+            <button
+              type="submit"
+              className="bg-primary text-primary-foreground font-heading font-semibold text-sm tracking-wider uppercase px-5 py-3 rounded-r-lg hover:bg-primary/90 transition-colors flex items-center gap-2"
+            >
+              <Send className="h-4 w-4" aria-hidden="true" />
+              Join
+            </button>
+          </form>
         </div>
-        <h2 id="newsletter-heading" className="font-heading text-2xl md:text-3xl text-background mb-2">
-          Be the First to Know
-        </h2>
-        <p className="font-body text-sm text-background/60 mb-6">
-          New drops, exclusive deals, and 10% off your first order — straight to your inbox.
-        </p>
-        <form onSubmit={handleSubmit} className="flex gap-0" aria-label="Newsletter subscription">
-          <label htmlFor="newsletter-email" className="sr-only">Email address</label>
-          <input
-            id="newsletter-email"
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Your email"
-            required
-            autoComplete="email"
-            className="flex-1 bg-background/10 border border-background/20 rounded-l-lg px-4 py-3 font-body text-sm text-background placeholder:text-background/40 focus:outline-none focus:border-primary transition-colors"
-          />
-          <button
-            type="submit"
-            className="bg-primary text-primary-foreground font-heading font-semibold text-sm tracking-wider uppercase px-6 py-3 rounded-r-lg hover:bg-primary/90 transition-colors flex items-center gap-2"
-          >
-            <Send className="h-4 w-4" aria-hidden="true" />
-            Subscribe
-          </button>
-        </form>
-        <p className="font-body text-[11px] text-background/30 mt-3">
-          No spam. Unsubscribe anytime. By subscribing you agree to our privacy policy.
-        </p>
-      </motion.div>
+      </div>
     </section>
   );
 };

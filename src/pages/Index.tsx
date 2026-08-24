@@ -1,10 +1,8 @@
 import { Navbar } from "@/components/Navbar";
 import { HeroSection } from "@/components/HeroSection";
-import { BenefitsBar } from "@/components/BenefitsBar";
 import { Footer } from "@/components/Footer";
 import { SEO } from "@/components/SEO";
 import { ShopByCategory } from "@/components/ShopByCategory";
-import { PromoBanner } from "@/components/PromoBanner";
 import { FeaturedProducts } from "@/components/FeaturedProducts";
 import { ProductShowcase } from "@/components/ProductShowcase";
 import { CustomerReviews } from "@/components/CustomerReviews";
@@ -51,8 +49,6 @@ const Index = () => {
           <HeroSection />
           <FeaturedProducts />
           <ShopByCategory />
-          <BenefitsBar />
-          <PromoBanner />
           <ProductShowcase />
           <CustomerReviews />
           <Newsletter />

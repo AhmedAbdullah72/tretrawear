@@ -1,10 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { storefrontApiRequest, PRODUCTS_QUERY, type ShopifyProduct } from "@/lib/shopify";
 import { ProductCard } from "./ProductCard";
 import { ArrowRight } from "lucide-react";
-import { motion } from "framer-motion";
 import { ProductGridSkeleton } from "./ProductCardSkeleton";
+
+const isPurchasable = (p: ShopifyProduct) =>
+  (p.node.variants?.edges || []).some((v) => v.node.availableForSale);
 
 export const FeaturedProducts = () => {
   const [products, setProducts] = useState<ShopifyProduct[]>([]);
@@ -13,7 +15,7 @@ export const FeaturedProducts = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const data = await storefrontApiRequest(PRODUCTS_QUERY, { first: 6 });
+        const data = await storefrontApiRequest(PRODUCTS_QUERY, { first: 12 });
         setProducts(data?.data?.products?.edges || []);
       } catch (error) {
         console.error("Failed to fetch products:", error);
@@ -24,20 +26,17 @@ export const FeaturedProducts = () => {
     fetchProducts();
   }, []);
 
+  // Prime homepage space is reserved for products that can actually be bought.
+  const available = useMemo(() => products.filter(isPurchasable).slice(0, 6), [products]);
+
   return (
     <section id="featured" className="section-padding bg-background scroll-mt-24">
       <div className="container">
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.6 }}
-          className="flex items-end justify-between mb-6 md:mb-10"
-        >
+        <div className="flex items-end justify-between mb-6 md:mb-10">
           <div>
-            <p className="font-body text-xs tracking-[0.3em] uppercase text-primary mb-3">People's Favorites</p>
+            <p className="font-body text-xs tracking-[0.3em] uppercase text-primary mb-2">Summer '26</p>
             <h2 className="font-heading text-2xl md:text-4xl text-foreground">
-              MOST <span className="text-primary">LOVED</span>
+              SHOP THE <span className="text-primary">COLLECTION</span>
             </h2>
           </div>
           <Link
@@ -47,36 +46,28 @@ export const FeaturedProducts = () => {
             View All
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
           </Link>
-        </motion.div>
+        </div>
 
         {loading ? (
-          <ProductGridSkeleton count={4} />
-        ) : products.length === 0 ? (
-          <div className="text-center py-20 border border-border rounded-xl bg-card">
-            <p className="font-heading text-2xl text-muted-foreground/30 mb-2">NO PRODUCTS YET</p>
-            <p className="text-muted-foreground font-body text-sm">
-              Add products to your Shopify store to display them here.
-            </p>
+          <ProductGridSkeleton count={3} />
+        ) : available.length === 0 ? (
+          <div className="text-center py-16 border border-border rounded-xl bg-card">
+            <p className="font-heading text-2xl text-muted-foreground/30 mb-2">RESTOCKING SOON</p>
+            <Link to="/shop" className="font-body text-sm text-primary underline">
+              Browse the full catalog
+            </Link>
           </div>
         ) : (
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-            {products.map((product, i) => (
-              <motion.div
-                key={product.node.id}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ delay: i * 0.08, duration: 0.5, ease: "easeOut" }}
-              >
-                <ProductCard product={product} />
-              </motion.div>
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+            {available.map((product) => (
+              <ProductCard key={product.node.id} product={product} />
             ))}
           </div>
         )}
 
         <Link
           to="/shop"
-          className="md:hidden flex items-center justify-center gap-2 mt-8 font-heading text-sm text-primary"
+          className="md:hidden flex items-center justify-center gap-2 mt-6 font-heading text-sm text-primary"
         >
           VIEW ALL PRODUCTS
           <ArrowRight className="h-4 w-4" />
