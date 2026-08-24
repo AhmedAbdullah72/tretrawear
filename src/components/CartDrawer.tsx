@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { ShoppingCart, Minus, Plus, Trash2, Loader2, ShieldCheck, Truck, RotateCcw, Tag } from "lucide-react";
+import { ShoppingCart, Minus, Plus, Trash2, Loader2, ShieldCheck, Truck, RotateCcw } from "lucide-react";
 import { useCartStore } from "@/stores/cartStore";
 import { shopifyImg } from "@/lib/shopify";
 import { Link } from "react-router-dom";
@@ -193,22 +193,6 @@ export const CartDrawer = () => {
 
               {/* Footer */}
               <div className="flex-shrink-0 px-5 pb-5 pt-3 border-t border-border bg-card space-y-3">
-                {/* Bundle discount hint */}
-                {totalItems < 3 ? (
-                  <div className="flex items-center gap-2 bg-primary/5 border border-primary/15 rounded-lg px-3 py-2">
-                    <Tag className="h-3.5 w-3.5 text-primary flex-shrink-0" />
-                    <p className="font-body text-xs text-muted-foreground">
-                      Add <span className="font-semibold text-foreground">{3 - totalItems} more {3 - totalItems === 1 ? 'item' : 'items'}</span> and save 15% with code <span className="font-semibold text-primary">BUNDLE3</span>
-                    </p>
-                  </div>
-                ) : (
-                  <div className="flex items-center gap-2 bg-primary/10 border border-primary/30 rounded-lg px-3 py-2">
-                    <Tag className="h-3.5 w-3.5 text-primary flex-shrink-0" />
-                    <p className="font-body text-xs text-foreground">
-                      🎉 You unlocked <span className="font-semibold text-primary">15% off</span> — use code <span className="font-semibold text-primary">BUNDLE3</span> at checkout
-                    </p>
-                  </div>
-                )}
 
                 {/* Order summary */}
                 <div className="space-y-1.5">

@@ -53,9 +53,8 @@ const AppContent = () => {
         </Routes>
       </Suspense>
       
-      <Suspense fallback={null}>
-        <ExitIntentPopup />
-      </Suspense>
+      {/* Exit-intent STAY5 promotion disabled (P1 Step 2 promo cleanup).
+          Component kept in codebase for a future A/B test. */}
       <WhatsAppButton />
     </BrowserRouter>
   );
