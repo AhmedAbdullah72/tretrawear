@@ -31,7 +31,7 @@ const Row = ({ label, value }: { label: string; value: string }) => (
  * Secondary product information, grouped into five collapsed sections that sit
  * below the primary Add to Cart. Nothing here is duplicated above the fold.
  */
-export const ProductAccordions = ({ copy, defaultOpen }: ProductAccordionsProps) => {
+export const ProductAccordions = ({ copy, defaultOpen, sizeHelper }: ProductAccordionsProps) => {
   // Material / care rows come from detailedSpecs when the product provides
   // them, otherwise from the category defaults.
   const materialRows = (copy.detailedSpecs ?? []).filter(({ label }) =>
@@ -146,7 +146,7 @@ export const ProductAccordions = ({ copy, defaultOpen }: ProductAccordionsProps)
             </div>
           )}
 
-          {!copy.singleSize && <SizeGuide />}
+          {sizeHelper}
         </AccordionContent>
       </AccordionItem>
 
