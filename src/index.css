@@ -12,7 +12,8 @@
 
 @layer base {
   :root {
-    --banner-offset: 0px;
+    /* Height of the global announcement bar; drives navbar + page offsets. */
+    --banner-offset: 32px;
     --background: 0 0% 98%;
     --foreground: 0 0% 8%;
 
