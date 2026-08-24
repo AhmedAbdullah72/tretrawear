@@ -177,7 +177,7 @@ export const ProductCard = forwardRef<HTMLDivElement, ProductCardProps>(({ produ
                 onClick={() => setSelectedId(v.id)}
                 aria-pressed={isSel}
                 aria-label={`${sizeOptionName} ${value}${soldOut ? " (sold out)" : ""}`}
-                className={`h-9 px-1 rounded-md border font-body text-xs uppercase tracking-wide transition-colors ${
+                className={`min-h-[44px] md:min-h-0 md:h-9 px-1 rounded-md border font-body text-xs uppercase tracking-wide transition-colors ${
                   isSel
                     ? "bg-foreground text-background border-foreground"
                     : "bg-transparent text-foreground border-border hover:border-foreground"
