@@ -171,7 +171,12 @@ const ProductDetail = () => {
     const key = `${location.key}:${product.id}`;
     if (viewItemFiredRef.current === key) return;
     viewItemFiredRef.current = key;
-    trackViewItem(itemFromProduct(product, { variant: selectedVariant }));
+    // Meta catalog items are variant-level: fall back to the first purchasable
+    // variant (else the first one) when nothing is selected yet.
+    const variants = product.node.variants.edges.map((e) => e.node);
+    const metaVariant =
+      selectedVariant || variants.find((v) => v.availableForSale) || variants[0];
+    trackViewItem(itemFromProduct(product, { variant: selectedVariant }), metaVariant?.id);
     // selectedVariant intentionally excluded: re-selecting a size must not
     // re-fire view_item.
     // eslint-disable-next-line react-hooks/exhaustive-deps

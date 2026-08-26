@@ -174,9 +174,15 @@ const metaLine = (i: Ga4Item): MetaLine => ({
   quantity: i.quantity,
 });
 
-export const trackViewItem = (item: Ga4Item) => {
+/**
+ * `metaVariantId` (numeric or GID) is Meta-only: the Meta catalog is
+ * variant-level, so on a PDP where the shopper has not picked a size yet we
+ * still send a variant-scoped content_id. The GA4 payload is untouched.
+ */
+export const trackViewItem = (item: Ga4Item, metaVariantId?: string) => {
   pushEcommerceEvent('view_item', { value: item.price * item.quantity, items: [item] });
-  trackMetaViewContent(metaLine(item));
+  const line = metaLine(item);
+  trackMetaViewContent({ ...line, variantId: line.variantId || numericId(metaVariantId) || undefined });
 };
 
 export const trackSelectItem = (item: Ga4Item, listName: string) =>
