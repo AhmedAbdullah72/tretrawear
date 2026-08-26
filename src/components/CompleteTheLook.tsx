@@ -28,6 +28,13 @@ interface CompleteTheLookProps {
   currentTitle: string;
 }
 
+/** A product can be quick-added only when exactly one purchasable, unambiguous variant exists. */
+function canQuickAdd(product: ShopifyProduct) {
+  const available = product.node.variants.edges.filter((e) => e.node.availableForSale);
+  const optionDims = (product.node.options || []).filter((o) => (o.values?.length || 0) > 1);
+  return available.length > 0 && optionDims.length === 0;
+}
+
 export const CompleteTheLook = ({ currentHandle, currentTitle }: CompleteTheLookProps) => {
   const [suggestions, setSuggestions] = useState<ShopifyProduct[]>([]);
   const addItem = useCartStore((s) => s.addItem);
@@ -37,7 +44,11 @@ export const CompleteTheLook = ({ currentHandle, currentTitle }: CompleteTheLook
     const fetchPairings = async () => {
       try {
         const data = await storefrontApiRequest(PRODUCTS_QUERY, { first: 12 });
-        const all: ShopifyProduct[] = data?.data?.products?.edges || [];
+        const raw: ShopifyProduct[] = data?.data?.products?.edges || [];
+        // Cross-sell must never surface a product that cannot be bought.
+        const all = raw.filter((p) =>
+          (p.node.variants?.edges || []).some((v) => v.node.availableForSale)
+        );
         const pairKey = findPairKey(currentHandle, currentTitle);
 
         if (!pairKey) {
@@ -64,7 +75,12 @@ export const CompleteTheLook = ({ currentHandle, currentTitle }: CompleteTheLook
   if (suggestions.length === 0) return null;
 
   const handleQuickAdd = async (product: ShopifyProduct) => {
-    const variant = product.node.variants.edges[0]?.node;
+    const variants = product.node.variants.edges.map((e) => e.node);
+    const available = variants.filter((v) => v.availableForSale);
+    // Multi-option products need an explicit choice — never guess a variant.
+    const optionDims = (product.node.options || []).filter((o) => (o.values?.length || 0) > 1);
+    if (available.length === 0 || optionDims.length > 0) return;
+    const variant = available[0];
     if (!variant) return;
     await addItem({
       product,
@@ -132,6 +148,7 @@ export const CompleteTheLook = ({ currentHandle, currentTitle }: CompleteTheLook
                   <p className="font-body font-semibold text-sm text-primary mb-3">
                     {price.currencyCode} {parseFloat(price.amount).toFixed(2)}
                   </p>
+                  {canQuickAdd(product) ? (
                   <Button
                     onClick={() => handleQuickAdd(product)}
                     disabled={isLoading}
@@ -142,6 +159,14 @@ export const CompleteTheLook = ({ currentHandle, currentTitle }: CompleteTheLook
                     <Plus className="h-3.5 w-3.5" />
                     Quick Add
                   </Button>
+                  ) : (
+                    <Link
+                      to={`/product/${product.node.handle}`}
+                      className="w-full inline-flex items-center justify-center h-9 rounded-md border border-primary/30 text-primary font-body font-semibold text-xs tracking-[0.06em] uppercase hover:bg-primary hover:text-primary-foreground transition-all"
+                    >
+                      View Product
+                    </Link>
+                  )}
                 </div>
               </div>
             );

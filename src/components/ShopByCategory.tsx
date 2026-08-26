@@ -14,8 +14,21 @@ export const ShopByCategory = () => {
       try {
         const data = await storefrontApiRequest(COLLECTIONS_QUERY, { first: 8 });
         const edges: ShopifyCollection[] = data?.data?.collections?.edges || [];
-        // Only show collections that have an image
-        setCollections(edges.filter((c) => c.node.image?.url).slice(0, 4));
+        // Only surface collections that have an image AND at least one
+        // purchasable product — a tile leading to an all-sold-out grid is a
+        // discovery dead end.
+        setCollections(
+          edges
+            .filter((c) => c.node.image?.url)
+            .filter((c) => {
+              const ps = c.node.products?.edges;
+              // If the field is missing, don't hide the tile.
+              if (!ps) return true;
+              return ps.some((p) => p.node.availableForSale);
+            })
+            .slice(0, 4)
+        );
+
       } catch (err) {
         console.error("Failed to fetch collections:", err);
       } finally {
