@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useLocation } from "react-router-dom";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { storefrontApiRequest, PRODUCT_BY_HANDLE_QUERY } from "@/lib/shopify";
@@ -9,7 +9,7 @@ import { ProductDetailSkeleton } from "@/components/ProductDetailSkeleton";
 import { SizeGuide } from "@/components/SizeGuide";
 import { SizeRecommender } from "@/components/SizeRecommender";
 import { toast } from "sonner";
-import { itemFromProduct, onceInSession, trackViewItem } from "@/lib/analytics";
+import { itemFromProduct, trackViewItem } from "@/lib/analytics";
 import { Button } from "@/components/ui/button";
 import { getProductCopy } from "@/lib/productCopy";
 import { ProductAccordions } from "@/components/ProductAccordions";
@@ -42,6 +42,7 @@ const getFitLabel = (text: string): string => {
 
 const ProductDetail = () => {
   const { handle } = useParams<{ handle: string }>();
+  const location = useLocation();
   const [product, setProduct] = useState<ShopifyProduct["node"] | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -159,17 +160,22 @@ const ProductDetail = () => {
     window.dispatchEvent(new CustomEvent("open-cart"));
   };
 
-  // view_item — fires once per handle per page session, only after real
-  // Shopify data resolved. Variant is included only if legitimately selected.
+  // view_item — one event per genuine PDP view instance.
+  // Guard key = history entry key + product id, held in a ref so it survives
+  // StrictMode double effects, effect reruns, variant selection and unrelated
+  // rerenders. A new navigation to the same product yields a new history key
+  // (or a fresh mount), so a real repeat visit is measured again.
+  const viewItemFiredRef = useRef<string | null>(null);
   useEffect(() => {
     if (!product) return;
-    onceInSession(`view_item:${product.id}`, () => {
-      trackViewItem(itemFromProduct(product, { variant: selectedVariant }));
-    });
+    const key = `${location.key}:${product.id}`;
+    if (viewItemFiredRef.current === key) return;
+    viewItemFiredRef.current = key;
+    trackViewItem(itemFromProduct(product, { variant: selectedVariant }));
     // selectedVariant intentionally excluded: re-selecting a size must not
     // re-fire view_item.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [product]);
+  }, [product, location.key]);
 
   // Sticky CTA shows only while the main CTA is off screen — never both at once.
   useEffect(() => {

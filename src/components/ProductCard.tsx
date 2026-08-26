@@ -71,14 +71,18 @@ export const ProductCard = forwardRef<HTMLDivElement, ProductCardProps>(({ produ
     `${a.currencyCode} ${parseFloat(a.amount).toFixed(2)}`;
 
   const add = async (variant: (typeof variants)[number]) => {
-    await addItem({
-      product,
-      variantId: variant.id,
-      variantTitle: variant.title,
-      price: variant.price,
-      quantity: 1,
-      selectedOptions: variant.selectedOptions || [],
-    });
+    await addItem(
+      {
+        product,
+        variantId: variant.id,
+        variantTitle: variant.title,
+        price: variant.price,
+        quantity: 1,
+        selectedOptions: variant.selectedOptions || [],
+      },
+      // Analytics-only merchandising context; commerce payload is unchanged.
+      listName ? { listName, index } : undefined
+    );
     toast.success("Added to cart", {
       description: behavior === "A" ? node.title : `${node.title} — ${variant.title}`,
       position: "top-center",

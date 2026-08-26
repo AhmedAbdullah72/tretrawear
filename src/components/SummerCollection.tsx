@@ -67,7 +67,7 @@ export const SummerCollection = () => {
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ delay: i * 0.08, duration: 0.5, ease: "easeOut" }}
               >
-                <ProductCard product={product} />
+                <ProductCard product={product} listName="home_summer_collection" index={i} />
               </motion.div>
             ))}
           </div>

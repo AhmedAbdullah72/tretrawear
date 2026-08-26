@@ -102,10 +102,11 @@ export function itemFromProduct(
   const item: Ga4Item = {
     item_id: numericId(node.id),
     item_name: node.title,
-    item_category: node.productType || undefined,
     price: num(price),
     quantity,
   };
+  // Only send item_category when Shopify actually has a productType.
+  if (node.productType) item.item_category = node.productType;
   if (variant) {
     item.item_variant_id = numericId(variant.id);
     item.item_variant =
@@ -121,24 +122,31 @@ export function itemFromProduct(
   return item;
 }
 
-export function itemFromCartItem(item: CartItem, quantityOverride?: number): Ga4Item {
+export function itemFromCartItem(
+  item: CartItem,
+  quantityOverride?: number,
+  list?: { listName?: string; index?: number }
+): Ga4Item {
   const node = item.product.node;
   const ga: Ga4Item = {
     item_id: numericId(node.id),
     item_name: node.title,
     item_variant_id: numericId(item.variantId),
     item_variant: item.selectedOptions?.map((o) => o.value).join(' / ') || item.variantTitle,
-    item_category: node.productType || undefined,
     price: num(item.price.amount),
     quantity: quantityOverride ?? item.quantity,
   };
+  if (node.productType) ga.item_category = node.productType;
   item.selectedOptions?.forEach((o) => {
     const key = o.name.toLowerCase();
     if (key === 'size') ga.item_size = o.value;
     if (key === 'color' || key === 'colour') ga.item_color = o.value;
   });
+  if (list?.listName) ga.item_list_name = list.listName;
+  if (typeof list?.index === 'number') ga.index = list.index;
   return ga;
 }
+
 
 const cartValue = (items: Ga4Item[]) =>
   Math.round(items.reduce((s, i) => s + i.price * i.quantity, 0) * 100) / 100;
@@ -174,8 +182,9 @@ export const trackBeginCheckout = (items: Ga4Item[], coupon?: string) =>
 /* ------------------------------------------------------------------ */
 
 /**
- * Page-session guard. Protects against StrictMode double effects, rerenders
- * and hydration replays. Keys live for the lifetime of the document.
+ * Page-session guard for events that must never repeat inside one document
+ * (currently unused by view_item — see ProductDetail's per-view-instance ref
+ * guard, which allows a repeat view_item on a genuine re-navigation).
  */
 const fired = new Set<string>();
 
@@ -188,3 +197,23 @@ export function onceInSession(key: string, fn: () => void): void {
 export function resetOnceKey(key: string): void {
   fired.delete(key);
 }
+
+/* ------------------------------------------------------------------ */
+/* purchase — NOT implemented here (single-authority rule)             */
+/* ------------------------------------------------------------------ */
+
+/**
+ * `purchase` is intentionally absent from this application. Exactly ONE
+ * Shopify-side implementation may exist for the GA4 property (recommended:
+ * Shopify "Google & YouTube" channel → GA4). Never run that alongside a custom
+ * Shopify purchase pixel or a GTM purchase tag — it double-counts revenue.
+ *
+ * IDENTIFIER CONSISTENCY IS UNVERIFIED. The frontend convention above
+ * (item_id = numeric product id, item_variant_id = numeric variant id) has NOT
+ * been confirmed to match what Shopify's purchase integration emits — Shopify
+ * commonly sends the numeric VARIANT id as items[].item_id. Before claiming
+ * cross-funnel consistency, place a real safe/test order and compare
+ * items[].item_id in GA4 DebugView between frontend view_item / add_to_cart /
+ * begin_checkout and the Shopify-side purchase. Only then adjust one side.
+ */
+
