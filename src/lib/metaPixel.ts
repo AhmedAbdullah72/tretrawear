@@ -93,6 +93,13 @@ function track(event: string, params?: Record<string, unknown>): void {
 
 export const trackMetaPageView = () => track('PageView');
 
+/**
+ * Standard `Contact` event — fired only on an intentional customer-initiated
+ * contact action (e.g. clicking the WhatsApp button). No PII is ever sent.
+ */
+export const trackMetaContact = (contactMethod: string) =>
+  track('Contact', { contact_method: contactMethod });
+
 /* ------------------------------------------------------------------ */
 /* Catalog identifier convention                                       */
 /* ------------------------------------------------------------------ */
