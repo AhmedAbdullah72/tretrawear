@@ -14,13 +14,20 @@ import { itemFromCartItem, trackAddToCart, trackRemoveFromCart } from '@/lib/ana
 
 export type { CartItem, ShopifyProduct };
 
+export interface AddListContext {
+  listName?: string;
+  index?: number;
+}
+
 interface CartStore {
   items: CartItem[];
   cartId: string | null;
   checkoutUrl: string | null;
   isLoading: boolean;
   isSyncing: boolean;
-  addItem: (item: Omit<CartItem, 'lineId'>) => Promise<void>;
+  /** `list` is analytics-only context (merchandising source); it never
+   *  reaches the Shopify cart mutation. */
+  addItem: (item: Omit<CartItem, 'lineId'>, list?: AddListContext) => Promise<void>;
   updateQuantity: (variantId: string, quantity: number) => Promise<void>;
   removeItem: (variantId: string) => Promise<void>;
   clearCart: () => void;
@@ -37,7 +44,7 @@ export const useCartStore = create<CartStore>()(
       isLoading: false,
       isSyncing: false,
 
-      addItem: async (item) => {
+      addItem: async (item, list) => {
         const { items, cartId, clearCart } = get();
         const existingItem = items.find(i => i.variantId === item.variantId);
         set({ isLoading: true });
@@ -47,7 +54,7 @@ export const useCartStore = create<CartStore>()(
             if (result) {
               set({ cartId: result.cartId, checkoutUrl: result.checkoutUrl, items: [{ ...item, lineId: result.lineId }] });
               // Fired only after the Shopify mutation succeeded.
-              trackAddToCart(itemFromCartItem({ ...item, lineId: result.lineId }, item.quantity));
+              trackAddToCart(itemFromCartItem({ ...item, lineId: result.lineId }, item.quantity, list));
             }
           } else if (existingItem) {
             const newQuantity = existingItem.quantity + item.quantity;
@@ -55,13 +62,13 @@ export const useCartStore = create<CartStore>()(
             const result = await updateShopifyCartLine(cartId, existingItem.lineId, newQuantity);
             if (result.success) {
               set({ items: get().items.map(i => i.variantId === item.variantId ? { ...i, quantity: newQuantity } : i) });
-              trackAddToCart(itemFromCartItem({ ...existingItem, quantity: newQuantity }, item.quantity));
+              trackAddToCart(itemFromCartItem({ ...existingItem, quantity: newQuantity }, item.quantity, list));
             } else if (result.cartNotFound) clearCart();
           } else {
             const result = await addLineToShopifyCart(cartId, { ...item, lineId: null });
             if (result.success) {
               set({ items: [...get().items, { ...item, lineId: result.lineId ?? null }] });
-              trackAddToCart(itemFromCartItem({ ...item, lineId: result.lineId ?? null }, item.quantity));
+              trackAddToCart(itemFromCartItem({ ...item, lineId: result.lineId ?? null }, item.quantity, list));
             } else if (result.cartNotFound) clearCart();
           }
         } catch (error) {
