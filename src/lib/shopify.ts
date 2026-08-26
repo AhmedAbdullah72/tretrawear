@@ -238,6 +238,14 @@ export const COLLECTIONS_QUERY = `
             url
             altText
           }
+          products(first: 30) {
+            edges {
+              node {
+                id
+                availableForSale
+              }
+            }
+          }
         }
       }
     }
@@ -251,8 +259,10 @@ export interface ShopifyCollection {
     handle: string;
     description: string;
     image: { url: string; altText: string | null } | null;
+    products?: { edges: Array<{ node: { id: string; availableForSale: boolean } }> };
   };
 }
+
 
 // Cart mutations
 export const CART_QUERY = `

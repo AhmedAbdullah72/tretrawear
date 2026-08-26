@@ -182,8 +182,15 @@ export const ProductCard = forwardRef<HTMLDivElement, ProductCardProps>(({ produ
       {behavior === "B" && (
         <div className="mt-2 grid grid-cols-4 gap-1" role="group" aria-label={`Select ${sizeOptionName}`}>
           {variants.map((v) => {
-            const value = v.selectedOptions?.[0]?.value || v.title;
+            // Read the value of the *varying* option by name. Reading index 0
+            // blindly showed "One size" three times on multi-colour one-size
+            // products (Polo set), making the chips unusable.
+            const value =
+              v.selectedOptions?.find((o) => o.name === sizeOptionName)?.value ||
+              v.selectedOptions?.[0]?.value ||
+              v.title;
             const soldOut = !v.availableForSale;
+
             const isSel = v.id === selectedId;
             return (
               <button
