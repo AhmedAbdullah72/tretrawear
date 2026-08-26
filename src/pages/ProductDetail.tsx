@@ -173,7 +173,7 @@ const ProductDetail = () => {
     viewItemFiredRef.current = key;
     // Meta catalog items are variant-level: fall back to the first purchasable
     // variant (else the first one) when nothing is selected yet.
-    const variants = product.node.variants.edges.map((e) => e.node);
+    const variants = product.variants.edges.map((e) => e.node);
     const metaVariant =
       selectedVariant || variants.find((v) => v.availableForSale) || variants[0];
     trackViewItem(itemFromProduct(product, { variant: selectedVariant }), metaVariant?.id);
