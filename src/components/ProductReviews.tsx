@@ -1,127 +1,31 @@
 import { Star, CheckCircle2 } from "lucide-react";
 
-const allReviews = [
-  {
-    name: "يوسف ح.",
-    date: "1 week ago",
-    rating: 5,
-    size: "L",
-    text: "el quality di msh ma32ola bl se3r da wallahi. el wide-leg sweatpants t2eela bs msh 5ashna — relaxed fit mn 8eer ma tban wasa3. exactly eli kont 3ayzo 🔥",
-    helpful: 31,
-  },
-  {
-    name: "مريم ت.",
-    date: "2 weeks ago",
-    rating: 5,
-    size: "M",
-    text: "جبتها لخطيبي و حرفياً مش قالعها 😂 الخياطة متينة و اللون ما بهتش بعد ٣ غسلات. شكلها أغلى بكتير من سعرها — بطلب تاني أكيد",
-    helpful: 24,
-  },
-  {
-    name: "كريم إ.",
-    date: "3 weeks ago",
-    rating: 5,
-    size: "XL",
-    text: "garabet brands kteeer f masr bs TRETRA top tier bsgd. el oversized cut bta3 el sweatpants tamam — msh boxy w el drape zay ma ykoon. weslet alex f yomeen 💯",
-    helpful: 19,
-  },
-  {
-    name: "زياد أ.",
-    date: "1 month ago",
-    rating: 4,
-    size: "2XL",
-    text: "القماش تقيلة و حاسسها premium جداً. بس ٤ نجوم عشان كنت محتاج الsize chart يكون أوضح — كنت بين سايزين و اضطريت أبدل. بس خدمة العملاء كانت ممتازة",
-    helpful: 14,
-  },
-  {
-    name: "ندى م.",
-    date: "1 month ago",
-    rating: 5,
-    size: "M",
-    text: "labset el wide-leg sweatpants ma3 cropped jacket w kol el nas sa2aletni mneeen 🔥 el quality unreal bl se3r da — 7asa enha 7aga te3mel 3x aghla mn brands baranya. el packaging kan clean w premium",
-    helpful: 22,
-  },
-];
+/**
+ * PDP reviews.
+ *
+ * DATA INTEGRITY NOTICE
+ * ---------------------
+ * The entries that previously lived here were copywriting placeholders created
+ * during the build. No order records, screenshots or platform export back them,
+ * so they are NOT rendered as customer reviews and no aggregate rating is
+ * derived from them (which also removes the AggregateRating from the product
+ * structured data).
+ *
+ * To activate reviews later, add REAL, attributable, product-specific entries
+ * under the exact Shopify handle below. Never borrow another product's reviews
+ * and never synthesise ratings, counts or "verified" badges.
+ */
+interface ProductReview {
+  name: string;
+  date: string;
+  rating: number;
+  size: string;
+  text: string;
+  helpful: number;
+}
 
 /** Per-product review overrides — keyed by Shopify product handle. */
-const productReviewsOverrides: Record<string, typeof allReviews> = {
-  "mens-summer-set": [
-    {
-      name: "يوسف ح.",
-      date: "3 days ago",
-      rating: 5,
-      size: "One Size",
-      text: "el set da 3amal far2 fe el 7ar sara7a. el 2omash khafeef w breathable w el boxy fit tal3 zay ma feh el soar bel zabt — wase3 mn el body w el ketf naz'el shwaya. ana 178 سم / 84 كيلو w el one size 3aleyya tamam. akhadt el black w hatlab el gray kaman 🔥",
-      helpful: 21,
-    },
-    {
-      name: "عمر ص.",
-      date: "5 days ago",
-      rating: 5,
-      size: "One Size",
-      text: "أخيراً ست صيفي بقصة بوكسي حقيقية مش واسعة عشوائي. أنا 182 سم و 90 كيلو والمقاس مريح جداً، التوب واقف حلو من الكتف والشورت مقاسه ظبط. القماش خفيف ومش شفاف والخياطة متينة. لبسته في العجازة كلها.",
-      helpful: 17,
-    },
-    {
-      name: "كريم ط.",
-      date: "8 days ago",
-      rating: 5,
-      size: "One Size",
-      text: "boxy fit bgd w da elly kont bdawar 3aleh. el gray lonoh clean w el matching bta3 el set shaklo ghali aktar mn se3ro bkteer. wesel el 2ahera fe yomeen w el packaging kan premium 💯",
-      helpful: 14,
-    },
-    {
-      name: "محمود ع.",
-      date: "10 days ago",
-      rating: 4,
-      size: "One Size",
-      text: "القماش والقصة ممتازين والبوكسي فيت شكله مظبوط. أنا 173 سم و 78 كيلو فالتوب طالع أوسع شوية عليّا من المتوقع — بس ده طبيعي مع one size لو انت أقصر. عموماً مريح جداً في الحر وهطلب اللون التاني.",
-      helpful: 9,
-    },
-  ],
-  "black-polo-summer-cotton-set": [
-    {
-      name: "هنا م.",
-      date: "2 days ago",
-      rating: 5,
-      size: "One Size",
-      text: "el set da 7arfyan mn a7la 7agat eshtareytha, el fabric khafeef w bara7a gedan fi el 7ar. ana bnt 165 سم / 82 كيلو w el one size tal3 3aleyya relaxed w flattering gdn mesh dae23 5ales 🔥 el color black ma bahet4 ba3d el 8asel — set banati mريح fe3lan.",
-      helpful: 27,
-    },
-    {
-      name: "ملك ع.",
-      date: "5 days ago",
-      rating: 5,
-      size: "One Size",
-      text: "بجد أحلى سمر ست حريمي جبته السنة دي. القماش قطن خفيف ومريح جداً ومش شفاف خالص. أنا بنت 170 سم و 90 كيلو والون سايز عليّا مريح جداً وعامل شكل relaxed حلو مش ضيق ومش واسع. بلبس البنطلون لوحده مع كروب توب كتير — مناسب للبنات جداً.",
-      helpful: 22,
-    },
-    {
-      name: "فرح ش.",
-      date: "7 days ago",
-      rating: 5,
-      size: "One Size",
-      text: "el zip hoodie w el wide-leg pants matching 3'aleyya gdn. ana bnt 160 سم / 78 كيلو w el one size fe3lan women-friendly — comfortable w msh dae23 mn ay 7eta 3'ala el sedr wala el west. lbsto el set kollo mara w kol wa7da fi el gam3a sa2altni mnen. set 7areme worth every pound 💯",
-      helpful: 18,
-    },
-    {
-      name: "سلمى ر.",
-      date: "9 days ago",
-      rating: 4,
-      size: "One Size",
-      text: "القماش رهيب والستايل يجنن وحسيته معمول للبنات فعلاً. أنا 158 سم و 85 كيلو، الهودي مقاسه تمام ومريح جداً على الكتف والوسط والصدر، بس البنطلون طويل شوية عليّ من تحت واحتاج أعدله — ده متوقع مع one size لما تكوني قصيرة. هطلب ألوان تانية لو نزلت.",
-      helpful: 11,
-    },
-    {
-      name: "دينا ك.",
-      date: "10 days ago",
-      rating: 5,
-      size: "One Size",
-      text: "ana bnt 172 سم / 98 كيلو w kont 5ayfa el one size ma yenfa34 ma3aya, bs el 2omash breathable fe3lan w el fit tal3 relaxed w flattering mesh dae23 3'ala el sedr wala el west. perfect lel se7 el 7ar w 7aases enh mo3ammal 3ashan el banat. el packaging kan premium w el shipping wesel fe yomeen fe el 2ahera. TRETRA becomes my favorite brand 💕",
-      helpful: 15,
-    },
-  ],
-};
+const productReviewsOverrides: Record<string, ProductReview[]> = {};
 
 /**
  * Reviews are only ever real, product-specific entries supplied for that exact
