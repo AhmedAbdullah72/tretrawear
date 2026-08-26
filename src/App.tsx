@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useCartSync } from "@/hooks/useCartSync";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { AnnouncementBar } from "@/components/AnnouncementBar";
+import { useMetaPageViews } from "@/hooks/useMetaPageViews";
 
 import { lazy, Suspense } from "react";
 
@@ -32,10 +33,17 @@ const PageLoader = () => (
   </div>
 );
 
+/** Must live inside <BrowserRouter> to read location. Renders nothing. */
+const MetaRouteTracker = () => {
+  useMetaPageViews();
+  return null;
+};
+
 const AppContent = () => {
   useCartSync();
   return (
     <BrowserRouter>
+      <MetaRouteTracker />
       <AnnouncementBar />
       <Suspense fallback={<PageLoader />}>
         <Routes>
