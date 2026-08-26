@@ -15,6 +15,12 @@
  */
 
 import type { CartItem, ShopifyProduct } from '@/lib/shopify';
+import {
+  trackMetaViewContent,
+  trackMetaAddToCart,
+  trackMetaInitiateCheckout,
+  type MetaLine,
+} from '@/lib/metaPixel';
 
 type DL = Record<string, unknown>;
 
@@ -155,14 +161,31 @@ const cartValue = (items: Ga4Item[]) =>
 /* Event helpers                                                       */
 /* ------------------------------------------------------------------ */
 
-export const trackViewItem = (item: Ga4Item) =>
+/**
+ * Meta bridge. GA4 and Meta payload shapes stay fully separate — we only
+ * reuse the same *commerce-success call sites* so no component has to know
+ * about two analytics vendors. Meta helpers are fire-and-forget.
+ */
+const metaLine = (i: Ga4Item): MetaLine => ({
+  productId: i.item_id,
+  variantId: i.item_variant_id,
+  name: i.item_name,
+  price: i.price,
+  quantity: i.quantity,
+});
+
+export const trackViewItem = (item: Ga4Item) => {
   pushEcommerceEvent('view_item', { value: item.price * item.quantity, items: [item] });
+  trackMetaViewContent(metaLine(item));
+};
 
 export const trackSelectItem = (item: Ga4Item, listName: string) =>
   pushEcommerceEvent('select_item', { item_list_name: listName, items: [{ ...item, item_list_name: listName }] });
 
-export const trackAddToCart = (item: Ga4Item) =>
+export const trackAddToCart = (item: Ga4Item) => {
   pushEcommerceEvent('add_to_cart', { value: item.price * item.quantity, items: [item] });
+  trackMetaAddToCart(metaLine(item));
+};
 
 export const trackRemoveFromCart = (item: Ga4Item) =>
   pushEcommerceEvent('remove_from_cart', { value: item.price * item.quantity, items: [item] });
@@ -170,12 +193,14 @@ export const trackRemoveFromCart = (item: Ga4Item) =>
 export const trackViewCart = (items: Ga4Item[]) =>
   pushEcommerceEvent('view_cart', { value: cartValue(items), items });
 
-export const trackBeginCheckout = (items: Ga4Item[], coupon?: string) =>
+export const trackBeginCheckout = (items: Ga4Item[], coupon?: string) => {
   pushEcommerceEvent('begin_checkout', {
     value: cartValue(items),
     ...(coupon ? { coupon } : {}),
     items,
   });
+  trackMetaInitiateCheckout(items.map(metaLine));
+};
 
 /* ------------------------------------------------------------------ */
 /* Deduplication                                                       */
