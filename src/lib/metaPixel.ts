@@ -49,22 +49,27 @@ export function initMetaPixel(): void {
     if (typeof window === 'undefined' || initialised || !PIXEL_ID) return;
     initialised = true;
 
-    if (!window.fbq) {
-      const n: Fbq = function (...args: unknown[]) {
-        n.callMethod ? n.callMethod.apply(n, args) : n.queue!.push(args);
-      } as Fbq;
-      n.push = n;
-      n.loaded = true;
-      n.version = '2.0';
-      n.queue = [];
-      window.fbq = n;
-      if (!window._fbq) window._fbq = n;
-
-      const s = document.createElement('script');
-      s.async = true;
-      s.src = 'https://connect.facebook.net/en_US/fbevents.js';
-      document.head.appendChild(s);
+    // The base pixel snippet in index.html already loads fbevents.js and
+    // fires init + the initial PageView. Never double-init/double-track.
+    if (window.fbq) {
+      if (DEV) console.debug('[meta-pixel] already initialised by base snippet');
+      return;
     }
+
+    const n: Fbq = function (...args: unknown[]) {
+      n.callMethod ? n.callMethod.apply(n, args) : n.queue!.push(args);
+    } as Fbq;
+    n.push = n;
+    n.loaded = true;
+    n.version = '2.0';
+    n.queue = [];
+    window.fbq = n;
+    if (!window._fbq) window._fbq = n;
+
+    const s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://connect.facebook.net/en_US/fbevents.js';
+    document.head.appendChild(s);
 
     window.fbq!('init', PIXEL_ID);
     // Initial document PageView. Subsequent SPA navigations are tracked by
